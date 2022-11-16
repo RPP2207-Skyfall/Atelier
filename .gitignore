@@ -1,0 +1,11 @@
+## Mac OSX ##
+*.DS_Store
+
+## NPM ##
+node_modules/
+
+## Compiled files ##
+
+
+## API keys ##
+*.env

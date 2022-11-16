@@ -1,0 +1,19 @@
+{
+  "name": "atelier",
+  "version": "1.0.0",
+  "description": "FEC Project",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RPP2207-Skyfall/Atelier.git"
+  },
+  "author": "Lenord Chen, Josh Krebs, Howard Yoon, Jason Kwong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RPP2207-Skyfall/Atelier/issues"
+  },
+  "homepage": "https://github.com/RPP2207-Skyfall/Atelier#readme"
+}
