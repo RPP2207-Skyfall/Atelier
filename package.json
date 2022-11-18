@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/RPP2207-Skyfall/Atelier/issues"
   },
-  "homepage": "https://github.com/RPP2207-Skyfall/Atelier#readme"
+  "homepage": "https://github.com/RPP2207-Skyfall/Atelier#readme",
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
 }
