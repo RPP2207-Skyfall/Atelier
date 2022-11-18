@@ -13,11 +13,15 @@ module.exports = {
     path: distDir
   },
   module: {
-    rules : [
+    rules: [
       {
         test: /\.(jsx||js)?/,
         include: srcDir,
-        loader: 'babel-loader'
+        loader: 'babel-loader',
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
       }
     ]
   }
