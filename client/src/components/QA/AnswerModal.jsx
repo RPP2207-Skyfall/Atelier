@@ -16,7 +16,7 @@ const style = {
   p: 4,
 };
 
-class QuestionModal extends React.Component {
+class AnswerModal extends React.Component {
   constructor(props) {
     super(props);
     this.state={
@@ -28,7 +28,7 @@ class QuestionModal extends React.Component {
 
   render() {
     return(
-      <div className='question-modal-container'>
+      <div className='answer-modal-container'>
         <Modal
           open={this.props.isModalOpen}
           onClose={() => {this.props.handleModalClose()}}
@@ -36,13 +36,12 @@ class QuestionModal extends React.Component {
           aria-describedby='modal-modal-description'
         >
           <Box sx={style}>
-            <h2 id='question-modal-title'>ASK YOUR QUESTION</h2>
-            <h3 id='question-modal-subtitle'>About [Your Product]</h3>
+            <h2 id='answer-modal-title'>SUBMIT YOUR ANSWER</h2>
+            <h3 id='answer-modal-subtitle'>[Product Name]:[Question Body]</h3>
             <TextField
-              label='Question'
+              label='Answer'
               multiline
               maxRows={6}
-              placeholder="What do you like to know...?"
               required>
             </TextField>
             <TextField
@@ -63,4 +62,4 @@ class QuestionModal extends React.Component {
   }
 };
 
-export default QuestionModal;
+export default AnswerModal;
