@@ -6,11 +6,15 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import AddIcon from '@mui/icons-material/Add';
 
+//Receive product_id and get request
+//Pass down to QA List
+
+
 class QandA extends React.Component {
   constructor(props) {
     super(props);
     this.state={
-      QA : [],
+      QA : {},
       isQModalOpen: false,
       isAModalOpen: false
     };
