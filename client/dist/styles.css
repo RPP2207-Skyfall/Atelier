@@ -59,6 +59,30 @@ main {
 /****** Style for Ratings and review module ****/
 .ratingReview {
   color: rgb(157, 155, 155);
+  font-size: smaller;
 }
+
+.helpfulCount span {
+  text-decoration: underline;
+}
+
+.flex-column {
+  padding: 15px 5px 15px 15px;
+}
+
+.reviewSummary {
+  font-weight: bold;
+  text-overflow: ellipsis;
+  padding: 5px 0 5px 0;
+}
+
+.reviewBody {
+  padding: 5px 0 10px 0;
+
+}
+
+/* .helpfulCount {
+
+} */
 
 /**********************************************/

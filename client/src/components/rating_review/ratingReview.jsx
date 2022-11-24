@@ -7,7 +7,7 @@ class RatingReview extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      product_id: props.product_id || 71697,
+      product_id: props.product_id || 71698,
       reviewData: []
 
     }
@@ -30,7 +30,8 @@ class RatingReview extends React.Component {
         "Authorization": process.env.REACT_APP_API_KEY
       },
       params: {
-        product_id: product_id
+        product_id: product_id,
+        count: 10
       }
     }
     Axios.get(url, requestOption)
