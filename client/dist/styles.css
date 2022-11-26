@@ -62,6 +62,16 @@ main {
   font-size: smaller;
 }
 
+.reviewBreakdown {
+  padding: 2px 2px 2px 2px
+}
+
+.reviewItemContaier {
+
+  overflow-y: scroll;
+  height: 600px;
+}
+
 .helpfulCount span {
   text-decoration: underline;
 }
@@ -76,9 +86,12 @@ main {
   padding: 5px 0 5px 0;
 }
 
+.reviewBlock {
+  padding: 5px 20px 0 5px;
+}
+
 .reviewBody {
   padding: 5px 0 10px 0;
-
 }
 
 .photoContainer {
@@ -102,6 +115,14 @@ main {
 img {
   width: 100px;
   height: 100px;
+}
+
+.loadReviewBtn {
+  background-color: #ffff;
+}
+
+.addReviewBtn {
+  background-color: #ffff;
 }
 
 /**********************************************/
