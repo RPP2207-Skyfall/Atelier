@@ -46,7 +46,7 @@ const reviewItem = (props) => {
           {props.reviewData.photos.length !== 0 ? <ReviewPhotoList photoList={props.reviewData.photos} /> : null}
         </div>
         {props.reviewData.recommend ? <div className="recommendCheck"><span> &#10003; </span>I recommend this product</div> : null}
-        {props.reviewData.response !== null ? <div className="responseBlock">{props.reviewData.response}</div> : null}
+        {props.reviewData.response !== null ? <>{props.reviewData.response.length !== 0 ? <div className="responseBlock">{props.reviewData.response}</div> : null}</> : null}
       </div>
 
       <div className="row flex-column">
