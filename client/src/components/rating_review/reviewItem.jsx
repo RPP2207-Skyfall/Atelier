@@ -1,11 +1,16 @@
 import React, { useState } from 'react'
+import ReviewPhotoList from './reviewPhoto/reviewPhotoList.jsx'
 
 const reviewItem = (props) => {
 
   var helpfulnessCount = props.reviewData.helpfulness
-  var ISOTime = props.reviewData.date
-  var dateTime = new Date(ISOTime).toDateString()
-  console.log(dateTime)
+  var dateOption = {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  }
+  var dateTime = new Date(props.reviewData.date).toLocaleDateString("en-US", dateOption)
+
 
   const [createDateTime, setCreateDateTime] = useState(dateTime)
   const [helpfulCount, setHelpfulCount] = useState(helpfulnessCount)
@@ -26,17 +31,20 @@ const reviewItem = (props) => {
   return (
     <div className="reviewBlock">
       <div className="row">
-        <div className="col-6">
+        <div className="col-4">
           stars
         </div>
-        <div className="col-6">
+        <div className="col-8">
           {`${props.reviewData.reviewer_name}, ${createDateTime}`}
         </div>
       </div>
 
       <div className="row flex-column">
         <div className="reviewSummary">{`${props.reviewData.summary}`}</div>
-        <div className="reviewBody">{`${props.reviewData.body}`}</div>
+        <div className="reviewBody">
+          <div className="reviewText">{`${props.reviewData.body}`}</div>
+          {props.reviewData.photos.length !== 0 ? <ReviewPhotoList photoList={props.reviewData.photos} /> : null}
+        </div>
         {props.reviewData.recommend ? <div className="recommendCheck"><span> &#10003; </span>I recommend this product</div> : null}
         {props.reviewData.response !== null ? <div className="responseBlock">{props.reviewData.response}</div> : null}
       </div>

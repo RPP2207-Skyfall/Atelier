@@ -81,8 +81,27 @@ main {
 
 }
 
-/* .helpfulCount {
+.photoContainer {
 
-} */
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.photoContainer div {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.photoContainer div:hover {
+  background-color: #777;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+}
 
 /**********************************************/
