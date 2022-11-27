@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ReviewPhotoList from './reviewPhoto/reviewPhotoList.jsx'
 
 const reviewItem = (props) => {
-
+  var summaryDisplayLimit = 60
+  var bodyDisplayLimit = 250
   var helpfulnessCount = props.reviewData.helpfulness
   var dateOption = {
     day: "numeric",
@@ -12,8 +13,25 @@ const reviewItem = (props) => {
   var dateTime = new Date(props.reviewData.date).toLocaleDateString("en-US", dateOption)
 
 
+
   const [createDateTime, setCreateDateTime] = useState(dateTime)
   const [helpfulCount, setHelpfulCount] = useState(helpfulnessCount)
+  const [partSummary, setPartSummary] = useState(null)
+  const [showAll, setShowAll] = useState(false)
+
+  useEffect(() => {
+    if (props.reviewData.summary.length > summaryDisplayLimit) {
+      setPartSummary(props.reviewData.summary.substring(0, summaryDisplayLimit) + "...")
+    }
+  }, [])
+
+  const showMore = () => {
+    setShowAll(true)
+  }
+  const showLess = () => {
+    setShowAll(false)
+  }
+
 
   const helpfulVote = () => {
     if (helpfulCount > helpfulnessCount) {
@@ -40,11 +58,17 @@ const reviewItem = (props) => {
       </div>
 
       <div className="row flex-column">
-        <div className="reviewSummary">{`${props.reviewData.summary}`}</div>
+        {props.reviewData.summary.length <= summaryDisplayLimit ?
+          <div className="reviewSummary">{`${props.reviewData.summary}`}</div> : <div>{partSummary}</div>
+        }
+
         <div className="reviewBody">
           <div className="reviewText">{`${props.reviewData.body}`}</div>
           {props.reviewData.photos.length !== 0 ? <ReviewPhotoList photoList={props.reviewData.photos} /> : null}
         </div>
+}
+
+
         {props.reviewData.recommend ? <div className="recommendCheck"><span> &#10003; </span>I recommend this product</div> : null}
         {props.reviewData.response !== null ? <>{props.reviewData.response.length !== 0 ? <div className="responseBlock">{props.reviewData.response}</div> : null}</> : null}
       </div>

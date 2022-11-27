@@ -5,7 +5,7 @@ class reviewList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      reviewData: this.props.reviewData,
+      reviewData: [],
       displayReview: [],
       loadBtn: false
 
@@ -27,18 +27,6 @@ class reviewList extends React.Component {
     }
   }
 
-  // initializeData() {
-  //   this.setState({
-  //     reviewData: this.props.reviewData,
-  //     displayReview: [this.props.reviewData[0], this.props.reviewData[1]]
-  //   })
-  // }
-
-  // initializeLoadButton() {
-  //   this.setState({
-  //     loadBtn: true
-  //   })
-  // }
 
   handleMoreReviewClick() {
     var currentReviewIdx = this.state.displayReview.length //2
