@@ -34,13 +34,9 @@ const reviewItem = (props) => {
     }
   }, [])
 
-  const showMore = () => {
-    setShowAll(true)
+  const showMoreOrLess = () => {
+    setShowAll(!showAll)
   }
-  const showLess = () => {
-    setShowAll(false)
-  }
-
 
   const helpfulVote = () => {
     if (helpfulCount > helpfulnessCount) {
@@ -75,8 +71,8 @@ const reviewItem = (props) => {
           <div className="reviewBody">
             <div className="reviewText">{`${props.reviewData.body}`}</div>
             {props.reviewData.photos.length !== 0 ? <ReviewPhotoList photoList={props.reviewData.photos} /> : null}
-            {<div className="showLessSpan"><span onClick={() => { showLess() }}>Show less</span></div>}
-          </div> : <div>{partBody} <div className="showMoreSpan">{<span onClick={() => { showMore() }}>Show more</span>}</div></div>
+            {<div className="showLessSpan"><span onClick={() => { showMoreOrLess() }}>Show less</span></div>}
+          </div> : <div>{partBody} <div className="showMoreSpan">{<span onClick={() => { showMoreOrLess() }}>Show more</span>}</div></div>
         }
 
 
