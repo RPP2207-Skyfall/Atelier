@@ -17,11 +17,20 @@ const reviewItem = (props) => {
   const [createDateTime, setCreateDateTime] = useState(dateTime)
   const [helpfulCount, setHelpfulCount] = useState(helpfulnessCount)
   const [partSummary, setPartSummary] = useState(null)
+  const [partBody, setPartBody] = useState(null)
   const [showAll, setShowAll] = useState(false)
 
   useEffect(() => {
     if (props.reviewData.summary.length > summaryDisplayLimit) {
       setPartSummary(props.reviewData.summary.substring(0, summaryDisplayLimit) + "...")
+    }
+
+    if (props.reviewData.body.length > bodyDisplayLimit) {
+      setPartBody(props.reviewData.body.substring(0, bodyDisplayLimit) + "...")
+    }
+
+    if (props.reviewData.body.length < bodyDisplayLimit) {
+      setShowAll(true)
     }
   }, [])
 
@@ -62,11 +71,13 @@ const reviewItem = (props) => {
           <div className="reviewSummary">{`${props.reviewData.summary}`}</div> : <div>{partSummary}</div>
         }
 
-        <div className="reviewBody">
-          <div className="reviewText">{`${props.reviewData.body}`}</div>
-          {props.reviewData.photos.length !== 0 ? <ReviewPhotoList photoList={props.reviewData.photos} /> : null}
-        </div>
-}
+        {showAll ?
+          <div className="reviewBody">
+            <div className="reviewText">{`${props.reviewData.body}`}</div>
+            {props.reviewData.photos.length !== 0 ? <ReviewPhotoList photoList={props.reviewData.photos} /> : null}
+            {<div className="showLessSpan"><span onClick={() => { showLess() }}>Show less</span></div>}
+          </div> : <div>{partBody} <div className="showMoreSpan">{<span onClick={() => { showMore() }}>Show more</span>}</div></div>
+        }
 
 
         {props.reviewData.recommend ? <div className="recommendCheck"><span> &#10003; </span>I recommend this product</div> : null}

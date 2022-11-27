@@ -125,4 +125,16 @@ img {
   background-color: #ffff;
 }
 
+.showMoreSpan {
+  font-size: smaller;
+  font-weight: bold;
+  padding: 5px 5px 5px 5px;
+}
+
+.showLessSpan {
+  font-size: smaller;
+  font-weight: bold;
+  padding: 5px 5px 5px 5px;
+}
+
 /**********************************************/
