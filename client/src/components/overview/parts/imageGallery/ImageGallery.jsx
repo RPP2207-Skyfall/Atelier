@@ -2,8 +2,8 @@ import React, {useState, useEffect } from 'react';
 import DefaultView from './views/DefaultView.jsx';
 import ExpandedView from './views/ExpandedView.jsx';
 import Thumbnail from './Thumbnails.jsx';
+import axios from 'axios';
 
-// import dotenv from 'dotenv';
 
 
 class ImageGallery extends React.Component {
@@ -19,26 +19,25 @@ class ImageGallery extends React.Component {
 
   getImages() {
 
-    let url = process.env.REACT_APP_API_KEY;
-    console.log(url)
+    const url = process.env.REACT_APP_API_KEY + 'products';
 
-
-      //  fetch (process.env.API_KEY,
-      //   {
-      //     method: "GET",
-      //     headers:
-      //       {
-      //         Authorization: process.env.TOKEN
-      //       }
-      //   }
-      // )
-      // .then(res => res.json())
-      // .then((data) => {
-      //   console.log(data);
-      // })
-      // .catch((err) => {
-      //   console.error(err);
-      // })
+       fetch (url,
+        {
+          method: "GET",
+          headers:
+            {
+              "Content-Type": "application/json",
+              "Authorization": process.env.REACT_APP_TOKEN
+            }
+        }
+      )
+      .then(res => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
   }
 
   componentDidMount() {
