@@ -1,30 +1,76 @@
 import React, {useState, useEffect } from 'react';
 import DefaultView from './views/DefaultView.jsx';
 import ExpandedView from './views/ExpandedView.jsx';
+import Thumbnail from './Thumbnails.jsx';
 
-function ImageGallery() {
+// import dotenv from 'dotenv';
 
-  const [expand, expanded] = useState(0);
 
-  if (expand === 0) {
-    return (
-      <div id="image-gallery">
-        <h3>ImageGallery</h3>
-        <DefaultView expand={0}/>
-        <button onClick={() => expanded(expand + 1)}>expand</button>
-      </div>
-    )
-  } else {
-    return (
-      <div id="image-gallery">
-        <h3>ImageGallery</h3>
-        <ExpandedView />
-        <button onClick={() => expanded(expand - 1)}>default</button>
-      </div>
-    )
+class ImageGallery extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      expanded: false,
+      images: []
+    }
+    this.getImages = this.getImages.bind(this);
+  }
+
+  getImages() {
+
+    let url = process.env.REACT_APP_API_KEY;
+    console.log(url)
+
+
+      //  fetch (process.env.API_KEY,
+      //   {
+      //     method: "GET",
+      //     headers:
+      //       {
+      //         Authorization: process.env.TOKEN
+      //       }
+      //   }
+      // )
+      // .then(res => res.json())
+      // .then((data) => {
+      //   console.log(data);
+      // })
+      // .catch((err) => {
+      //   console.error(err);
+      // })
+  }
+
+  componentDidMount() {
+    this.getImages();
+  }
+
+  render() {
+    if (this.state.expanded === false) {
+      return (
+        <div id="image-gallery">
+          <h3>ImageGallery</h3>
+          <DefaultView />
+          <Thumbnail />
+          <button onClick={() => this.setState({expanded: true})}>expand</button>
+        </div>
+      )
+    } else {
+      return (
+        <div id="image-gallery">
+          <h3>ImageGallery</h3>
+          <ExpandedView />
+          <Thumbnail />
+          <button onClick={() => this.setState({expanded: false})}>default</button>
+        </div>
+      )
+    }
   }
 
 
+
+
 }
+
 
 export default ImageGallery;
