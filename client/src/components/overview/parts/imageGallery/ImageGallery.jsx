@@ -12,14 +12,23 @@ class ImageGallery extends React.Component {
 
     this.state = {
       expanded: false,
-      images: []
+      styles: [],
+      current: []
     }
     this.getImages = this.getImages.bind(this);
+    this.updateMainPic = this.updateMainPic.bind(this);
+  }
+
+  updateMainPic(picInfo) {
+    console.log('pic info in image Gallery', picInfo)
+    this.setState({
+      current: picInfo
+    })
   }
 
   getImages() {
 
-    const url = process.env.REACT_APP_API_KEY + 'products';
+    const url = process.env.REACT_APP_API_KEY + `products/71697/styles`;
 
        fetch (url,
         {
@@ -34,6 +43,10 @@ class ImageGallery extends React.Component {
       .then(res => res.json())
       .then((data) => {
         console.log(data);
+        this.setState({
+          styles: data,
+          current: data.results[0].photos[0]
+        })
       })
       .catch((err) => {
         console.error(err);
@@ -45,12 +58,12 @@ class ImageGallery extends React.Component {
   }
 
   render() {
-    if (this.state.expanded === false) {
+    if (this.state.expanded === false && this.state.styles.length !== 0) {
       return (
         <div id="image-gallery">
           <h3>ImageGallery</h3>
-          <DefaultView />
-          <Thumbnail />
+          <DefaultView styles={this.state.styles} mainPic={this.state.current}/>
+          <Thumbnail updateMainPic={this.updateMainPic} images={this.state.styles.results[0].photos} />
           <button onClick={() => this.setState({expanded: true})}>expand</button>
         </div>
       )
