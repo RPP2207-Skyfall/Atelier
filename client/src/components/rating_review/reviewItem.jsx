@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import ReviewPhotoList from './reviewPhoto/reviewPhotoList.jsx'
+import Stars from './starRating/starRating.jsx'
 
 const reviewItem = (props) => {
   var summaryDisplayLimit = 60
@@ -44,6 +45,7 @@ const reviewItem = (props) => {
     } else if (helpfulCount === helpfulnessCount) {
       setHelpfulCount(helpfulCount + 1)
     }
+    // STILL NEED TO UPDATE API
   }
 
   const reportReview = () => {
@@ -55,7 +57,7 @@ const reviewItem = (props) => {
     <div className="reviewBlock">
       <div className="row">
         <div className="col-4">
-          stars
+          <Stars rating={props.reviewData.rating} />
         </div>
         <div className="col-8">
           {`${props.reviewData.reviewer_name}, ${createDateTime}`}

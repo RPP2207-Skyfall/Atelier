@@ -30,7 +30,7 @@ class reviewList extends React.Component {
 
   handleMoreReviewClick() {
     var currentReviewIdx = this.state.displayReview.length //2
-    console.log(currentReviewIdx)
+    //console.log(currentReviewIdx)
     var newDisplayReview = this.state.displayReview
     if (this.state.reviewData.length > newDisplayReview.length) {
       for (let i = 0; i < 2; i++) {
