@@ -5,9 +5,6 @@ import { faStar as emptyStar } from '@fortawesome/free-regular-svg-icons'
 import { faStarHalfStroke, faSun } from '@fortawesome/free-regular-svg-icons'
 
 
-
-
-
 class StarRating extends React.Component {
 
   constructor(props) {
