@@ -4,23 +4,12 @@ class Thumbnail extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      currentImage: [],
-      images: []
-    }
-
   }
 
 
-  handleClick(target) {
-    let thumbnail = target.thumbnail_url;
-    let main = target.url;
+  handleClick(target, index) {
 
-    this.setState({
-      currentImage: main
-    })
-
-    this.props.updateMainPic(target);
+    this.props.updateMainPic(target, index);
 
   }
 
@@ -37,19 +26,24 @@ class Thumbnail extends React.Component {
       return (
 
         <div>
-          {/* <p>{console.log('defined thumbnail', this.props)}</p> */}
 
           {
 
-            this.props.images.map((style) => {
+            this.props.images.map((style, index) => {
+              if (index > 3) {
+                return
+              }
               return (
                 <div>
-                  <img src={style.thumbnail_url} onClick={() => this.handleClick(style)}/>
+                  <img src={style.thumbnail_url} onClick={() => this.handleClick(style, index)}/>
                 </div>
-
               )
             })
+
           }
+
+          <button>forward</button>
+          <button>backward</button>
         </div>
 
       )

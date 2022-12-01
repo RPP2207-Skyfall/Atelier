@@ -5,7 +5,6 @@ import Thumbnail from './Thumbnails.jsx';
 import axios from 'axios';
 
 
-
 class ImageGallery extends React.Component {
   constructor(props) {
     super(props)
@@ -23,16 +22,12 @@ class ImageGallery extends React.Component {
   }
 
   mainSlide(dir) {
-    console.log(dir);
-
-    console.log(this.state);
 
     if (this.state.mainIndex === 0 && dir === -1) {
       return
     }
 
     if (this.state.mainIndex === this.state.amount - 1 && dir > 0) {
-      console.log('length', this.state)
       return
     }
 
@@ -51,10 +46,10 @@ class ImageGallery extends React.Component {
 
   }
 
-  updateMainPic(picInfo) {
-    console.log('pic info in image Gallery', picInfo)
+  updateMainPic(picInfo, index) {
     this.setState({
-      current: picInfo
+      current: picInfo,
+      mainIndex: index
     })
   }
 
