@@ -14,7 +14,8 @@ class ImageGallery extends React.Component {
       styles: [],
       current: [],
       mainIndex: 0,
-      amount: 0
+      amount: 0,
+      currentThumbnails: []
     }
     this.getImages = this.getImages.bind(this);
     this.updateMainPic = this.updateMainPic.bind(this);
@@ -69,11 +70,30 @@ class ImageGallery extends React.Component {
       )
       .then(res => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data.results[0].photos);
+
+        let thumbnails = data.results[0].photos;
+
+        let holder = [];
+        let box = [];
+
+        for (var i = 0; i < thumbnails.length; i++) {
+
+          thumbnails[i].index = i;
+          box.push(thumbnails[i]);
+
+          if (box.length === 3) {
+            holder.push(box);
+            box = [];
+          }
+        }
+
+
         this.setState({
           styles: data,
           current: data.results[0].photos[this.state.mainIndex],
-          amount: data.results[0].photos.length
+          amount: data.results[0].photos.length,
+          currentThumbnails: holder
         })
       })
       .catch((err) => {
@@ -96,7 +116,7 @@ class ImageGallery extends React.Component {
             <button id="main-forward" onClick={() => this.mainSlide(1)}>forward</button>
           </div>
           <button onClick={() => this.setState({expanded: true})}>expand</button>
-          <Thumbnail updateMainPic={this.updateMainPic} images={this.state.styles.results[0].photos} />
+          <Thumbnail updateMainPic={this.updateMainPic} images={this.state.currentThumbnails} />
         </div>
       )
     } else {

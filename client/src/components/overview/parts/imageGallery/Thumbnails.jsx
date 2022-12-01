@@ -4,13 +4,31 @@ class Thumbnail extends React.Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      imageSection: 0
+    }
+
+    this.handleClick = this.handleClick.bind(this);
+    this.slider = this.slider.bind(this);
+
   }
 
 
   handleClick(target, index) {
-
     this.props.updateMainPic(target, index);
+  }
 
+  slider(dir) {
+    if (this.state.imageSection === 0 && dir === -1) {
+      return;
+    }
+    if (this.state.imageSection === 1 && dir === 1) {
+      return;
+    }
+
+    this.setState({
+      imageSection: this.state.imageSection + dir
+    })
   }
 
   render() {
@@ -28,22 +46,17 @@ class Thumbnail extends React.Component {
         <div>
 
           {
-
-            this.props.images.map((style, index) => {
-              if (index > 3) {
-                return
-              }
+            this.props.images[this.state.imageSection].map((image) => {
               return (
                 <div>
-                  <img src={style.thumbnail_url} onClick={() => this.handleClick(style, index)}/>
+                  <img src={image.thumbnail_url} onClick={() => this.handleClick(image, image.index)}/>
                 </div>
               )
             })
-
           }
 
-          <button>forward</button>
-          <button>backward</button>
+          <button onClick={() => this.slider(-1)}>backward</button>
+          <button onClick={() => this.slider(1)}>forward</button>
         </div>
 
       )
