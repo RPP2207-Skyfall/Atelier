@@ -4,14 +4,21 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Stack from '@mui/material/Stack';
 import AnswerModal from './AnswerModal.jsx';
 
+//Receives question from QAList
+//Map answers list to answer item
+
 class QAItem extends React.Component {
   constructor(props) {
     super(props);
     this.state={
-      Q:'',
-      A:'',
-      username:'',
-      date:'',
+      Q:{
+        question_body: '',
+        question_date: '',
+        asker_name: '',
+        question_helpfulness: 0,
+        reported: false
+      },
+      A:{},
       QhelpfulCount:0
     };
     this.isHelpful = this.isHelpful.bind(this);
@@ -38,20 +45,6 @@ class QAItem extends React.Component {
                 <p id = 'qaitem-question-helpful-count' onClick={this.isHelpful}>Yes({this.state.QhelpfulCount})</p>
                 <p>|</p>
                 <p id = 'qaitem-add-answer' onClick={() => {this.props.handleModalOpen()}}>Add Answer</p>
-              </Stack>
-            </Grid>
-            <Grid xs={8}>
-              <h4>A:</h4>
-              <p>This is where answer goes...</p>
-            </Grid>
-            <Grid xs={8}>
-              <Stack spacing={1} direction='row'>
-                <p>by UserName</p>
-                <p>Date</p>
-                <p>Helpful?</p>
-                <p id = 'qaitem-answer-helpful-count'>Yes(9)</p>
-                <p>|</p>
-                <p id = 'qaitem-report'>Report</p>
               </Stack>
             </Grid>
           </Grid>
