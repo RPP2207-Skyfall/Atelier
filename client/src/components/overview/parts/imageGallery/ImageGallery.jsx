@@ -119,15 +119,21 @@ class ImageGallery extends React.Component {
           <Thumbnail updateMainPic={this.updateMainPic} images={this.state.currentThumbnails} />
         </div>
       )
-    } else {
+    } else if (this.state.expanded){
       return (
         <div id="image-gallery">
           <h3>ImageGallery</h3>
-          <ExpandedView />
-          <Thumbnail />
+          <ExpandedView styles={this.state.styles} mainPic={this.state.current}/>
+            <div id="expanded-slider">
+              <button id="expanded-backward" onClick={() => this.mainSlide(-1)}>back</button>
+              <button id="expanded-forward" onClick={() => this.mainSlide(1)}>forward</button>
+            </div>
           <button onClick={() => this.setState({expanded: false})}>default</button>
+          <Thumbnail updateMainPic={this.updateMainPic} images={this.state.currentThumbnails} />
         </div>
       )
+    } else {
+      return null;
     }
   }
 

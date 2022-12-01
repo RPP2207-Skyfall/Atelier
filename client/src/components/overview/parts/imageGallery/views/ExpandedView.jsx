@@ -1,23 +1,26 @@
 import React, { useState } from 'react';
 
-function ExpandedView () {
+function ExpandedView (props) {
 
-  return (
-    <div id="default-view">
+  if (props.mainPic.length === 0) {
+    return (
+      <div>
+        loading
+      </div>
+    )
+  } else {
+    let currentStyle = props.mainPic.url;
 
-      <h1>Expanded View</h1>
+    return (
+      <div id="expanded-view">
+        <h1>Expanded View</h1>
 
-        <div id="sample-images">
-          <div id="sample">image sample</div>
-          <div id="sample">image sample</div>
-          <div id="sample">image sample</div>
-          <div id="sample">image sample</div>
-        </div>
+        <img src={currentStyle} alt="style" id="expanded-image" />
 
-      <div id="slider">Slider</div>
+      </div>
+    )
+  }
 
-    </div>
-  )
 }
 
 export default ExpandedView;

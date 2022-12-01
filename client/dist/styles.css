@@ -54,3 +54,7 @@ main {
 #root {
   padding: 20px 20px 20px 20px;
 }
+
+#expanded-image {
+  width: 90vw;
+}
