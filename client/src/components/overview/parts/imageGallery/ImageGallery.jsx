@@ -13,10 +13,42 @@ class ImageGallery extends React.Component {
     this.state = {
       expanded: false,
       styles: [],
-      current: []
+      current: [],
+      mainIndex: 0,
+      amount: 0
     }
     this.getImages = this.getImages.bind(this);
     this.updateMainPic = this.updateMainPic.bind(this);
+    this.mainSlide = this.mainSlide.bind(this);
+  }
+
+  mainSlide(dir) {
+    console.log(dir);
+
+    console.log(this.state);
+
+    if (this.state.mainIndex === 0 && dir === -1) {
+      return
+    }
+
+    if (this.state.mainIndex === this.state.amount - 1 && dir > 0) {
+      console.log('length', this.state)
+      return
+    }
+
+    if (this.state.mainIndex === 0) {
+      this.setState({
+        current: this.state.styles.results[0].photos[dir],
+        mainIndex: dir
+      })
+
+    } else {
+      this.setState({
+        current: this.state.styles.results[0].photos[this.state.mainIndex + dir],
+        mainIndex: this.state.mainIndex + dir
+      })
+    }
+
   }
 
   updateMainPic(picInfo) {
@@ -45,7 +77,8 @@ class ImageGallery extends React.Component {
         console.log(data);
         this.setState({
           styles: data,
-          current: data.results[0].photos[0]
+          current: data.results[0].photos[this.state.mainIndex],
+          amount: data.results[0].photos.length
         })
       })
       .catch((err) => {
@@ -63,8 +96,12 @@ class ImageGallery extends React.Component {
         <div id="image-gallery">
           <h3>ImageGallery</h3>
           <DefaultView styles={this.state.styles} mainPic={this.state.current}/>
-          <Thumbnail updateMainPic={this.updateMainPic} images={this.state.styles.results[0].photos} />
+          <div id="main-slider">
+            <button id="main-backward" onClick={() => this.mainSlide(-1)}>back</button>
+            <button id="main-forward" onClick={() => this.mainSlide(1)}>forward</button>
+          </div>
           <button onClick={() => this.setState({expanded: true})}>expand</button>
+          <Thumbnail updateMainPic={this.updateMainPic} images={this.state.styles.results[0].photos} />
         </div>
       )
     } else {
