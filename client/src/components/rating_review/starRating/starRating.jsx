@@ -1,8 +1,10 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import starElement from './starElement.jsx'
 import { faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons'
 import { faStar as emptyStar } from '@fortawesome/free-regular-svg-icons'
 import { faStarHalfStroke, faSun } from '@fortawesome/free-regular-svg-icons'
+// import { createUseStyles } from 'react-jss'
 
 
 class StarRating extends React.Component {
@@ -42,33 +44,33 @@ class StarRating extends React.Component {
       console.log('incomplete star:', incompleteStar)
       for (let i = 0; i < this.state.totalRating; i++) {
         if (i < fullStars) {
-          this.state.starArray.push('full')
+          this.state.starArray.push('100%')
         }
         if (i === fullStars) {
           if (incompleteStar === 25) {
-            this.state.starArray.push('quarter')
+            this.state.starArray.push('25%')
 
           } else if (incompleteStar === 50) {
-            this.state.starArray.push('half')
+            this.state.starArray.push('50%')
 
           } else if (incompleteStar === 75) {
-            this.state.starArray.push('threeQuarters')
+            this.state.starArray.push('75%')
 
           }
 
         }
         if (i === fullStars + 1 || i < this.state.totalRating.length) {
-          this.state.starArray.push('empty')
+          this.state.starArray.push('0%')
         }
       }
       console.log(this.state.starArray)
     } else {
       for (let i = 0; i < this.state.totalRating; i++) {
         if (i < fullStars) {
-          this.state.starArray.push('full')
+          this.state.starArray.push('100%')
         }
         if (i >= fullStars || i < this.state.totalRating.length) {
-          this.state.starArray.push('empty')
+          this.state.starArray.push('0%')
         }
 
       }
@@ -91,26 +93,27 @@ class StarRating extends React.Component {
     }
   }
 
+
   render() {
 
     return (
       <div>
         {
-
-          this.state.starArray.map((item, idx) => {
-            if (item === "full") {
-              return <FontAwesomeIcon icon={faStar} key={idx} />
-            } else if (item === "empty") {
+          this.state.starArray.map((width, idx) => {
+            if (width === '100%') {
+              return <FontAwesomeIcon className="star" icon={faStar} key={idx} />
+            } else if (width === '0%') {
               return <FontAwesomeIcon className="star" icon={emptyStar} key={idx} />
-            } else if (item === "half") {
-              return <FontAwesomeIcon icon={faStarHalfAlt} key={idx} />
-            } else if (item === "quarter") {
-              return <FontAwesomeIcon icon={faStarHalfStroke} key={idx} />
-            } else if (item === "threeQuarters") {
-              return <FontAwesomeIcon icon={faSun} key={idx} />
+            } else if (width === '50%') {
+              return <FontAwesomeIcon className="star" icon={faStarHalfAlt} key={idx} />
+            } else if (width === '25%') {
+              return <FontAwesomeIcon className="star" icon={faStarHalfStroke} key={idx} />
+            } else if (width === '75%') {
+              return <FontAwesomeIcon className="star" icon={faSun} key={idx} />
             }
-
           })
+
+
 
         }
       </div>
@@ -124,6 +127,24 @@ class StarRating extends React.Component {
 export default StarRating
 
 
-//<div><FontAwesomeIcon icon={faStar} /></div>
-//faStar, faStarAndCrescent, faStarHalf, faStarHalfAlt, faStarHalfStroke,
 
+// var starAttribute = {
+//  fontFamily: FontAwesome;
+//   content: "\f005";
+//   position: absolute;
+//   left: 0;
+//   top: 0;
+//   width: 100 %;
+//   overflow: hidden;
+//   color: #f80;
+// }
+
+
+// this.state.starArray.map((width, idx) => {
+//   const widthValue = '75%'
+//   const widthStyle = { '--width': widthValue }
+//   // if (width === '100%') {
+//   return <FontAwesomeIcon className="oneStar" style={widthStyle} icon={faStar} key={idx} />
+//   //}
+
+// })

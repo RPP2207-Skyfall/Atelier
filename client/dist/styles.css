@@ -166,28 +166,24 @@ main {
   min-height: 300px;
 }
 
-/* .modal-photo{
-
-} */
 
 .modal-closeBtn {
   margin: 10px 10px 10px 10px;
 }
 
-.star {
+.oneStar {
   display: inline-block;
   position: relative;
-  /* font-size: 100px; */
   color: #ddd;
 }
 
-.star:after {
-  font-family: FontAwesome;
+.oneStar::after {
+  font-family: "Font Awesome 5 Free";
   content: "\f005";
   position: absolute;
   left: 0;
   top: 0;
-  width: 80%;
+  width: var(--width);
   overflow: hidden;
   color: #f80;
 }
