@@ -55,6 +55,145 @@ main {
   padding: 20px 20px 20px 20px;
 }
 
+
+
+/****** Style for Ratings and review widget ****/
+.ratingReview {
+  color: rgb(157, 155, 155);
+  font-size: smaller;
+}
+
+.reviewBreakdown {
+  padding: 2px 2px 2px 2px
+}
+
+.reviewItemContaier {
+  margin: 20px 0 20px 0;
+  overflow-y: scroll;
+  height: 600px;
+}
+
+.helpfulCount span {
+  text-decoration: underline;
+}
+
+.flex-column {
+  padding: 2px 5px 15px 15px;
+}
+
+.reviewSummary {
+  font-weight: bold;
+  text-overflow: ellipsis;
+  padding: 5px 0 5px 0;
+}
+
+.reviewBlock {
+  padding: 5px 20px 0 5px;
+}
+
+.reviewBody {
+  padding: 5px 0 10px 0;
+}
+
+.photoContainer {
+
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.photoContainer div {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.thumbnail-Box:hover {
+  background-color: #777;
+}
+
+.thumbnail-photo {
+  width: 100px;
+  height: 100px;
+}
+
+/* .loadReviewBtn {
+  background-color: #ffff;
+} */
+
+.addReviewBtn,
+.loadReviewBtn {
+  background-color: #ffff;
+}
+
+.showMoreSpan {
+  font-size: smaller;
+  font-weight: bold;
+  padding: 5px 5px 5px 5px;
+}
+
+.showLessSpan {
+  font-size: smaller;
+  font-weight: bold;
+  padding: 5px 5px 5px 5px;
+}
+
+
+.modal,
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+.overlay {
+  background: rgba(49, 49, 49, 0.8)
+}
+
+.modal-content {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f1f1f1;
+  padding: 14px, 28px;
+  border-radius: 3px;
+  max-width: 600px;
+  min-height: 300px;
+}
+
+
+.modal-closeBtn {
+  margin: 10px 10px 10px 10px;
+}
+
+.oneStar {
+  display: inline-block;
+  position: relative;
+  color: #ddd;
+}
+
+.oneStar::after {
+  font-family: "Font Awesome 5 Free";
+  content: "\f005";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--width);
+  overflow: hidden;
+  color: #f80;
+}
+
+
+/**********************************************/
+
+/****** Style for Overview widget****/
 #expanded-image {
   width: 90vw;
 }
+/**********************************************/
