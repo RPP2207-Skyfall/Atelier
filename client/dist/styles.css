@@ -56,7 +56,8 @@ main {
 }
 
 
-/****** Style for Ratings and review module ****/
+
+/****** Style for Ratings and review widget ****/
 .ratingReview {
   color: rgb(157, 155, 155);
   font-size: smaller;
@@ -189,4 +190,10 @@ main {
 }
 
 
+/**********************************************/
+
+/****** Style for Overview widget****/
+#expanded-image {
+  width: 90vw;
+}
 /**********************************************/
