@@ -12,9 +12,15 @@ function RelatedItem() {
 
 
   return (
-    <div>
+    <div className="main-container carousel-style">
+      <section className="carousel-upper">
+      <h5>RELATED PRODUCTS</h5>
       <RelatedList />
+      </section>
+      <h5>RELATED PRODUCTS</h5>
+      <section className="carousel-upper">
       <OutfitList />
+      </section>
     </div>
   )
 }
