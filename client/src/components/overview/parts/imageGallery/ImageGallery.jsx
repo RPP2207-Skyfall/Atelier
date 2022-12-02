@@ -70,7 +70,7 @@ class ImageGallery extends React.Component {
       )
       .then(res => res.json())
       .then((data) => {
-        // console.log(data.results[0].photos);
+        console.log(data);
 
         let thumbnails = data.results[0].photos;
 
@@ -136,9 +136,6 @@ class ImageGallery extends React.Component {
       return null;
     }
   }
-
-
-
 
 }
 
