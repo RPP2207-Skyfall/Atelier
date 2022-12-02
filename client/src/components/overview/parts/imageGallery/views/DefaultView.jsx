@@ -1,22 +1,29 @@
 import React, { useState, useEffect } from 'react';
+import Thumbnail from '../Thumbnails.jsx';
 
-function DefaultView ({ expand }) {
 
-  return (
-    <div id="default-view">
-      <h1>Default View</h1>
+function DefaultView (props) {
 
-        <div id="sample-images">
-          <div id="sample">image sample</div>
-          <div id="sample">image sample</div>
-          <div id="sample">image sample</div>
-          <div id="sample">image sample</div>
-        </div>
+  if (props.mainPic.length === 0) {
+    return (
+      <div>
+        loading
+      </div>
+    )
+  } else {
+    let currentStyle = props.mainPic.url;
 
-      <div id="slider">Slider</div>
+    return (
+      <div id="default-view">
+        <h1>Default View</h1>
 
-    </div>
-  )
+        <img src={currentStyle} alt="style" />
+
+      </div>
+    )
+  }
+
+
 }
 
 export default DefaultView;

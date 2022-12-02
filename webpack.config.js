@@ -1,5 +1,5 @@
 require("dotenv").config();
-
+const Dotenv = require('dotenv-webpack');
 const path = require("path");
 const webpack = require('webpack');
 const srcDir = path.join(__dirname, '/client/src');
@@ -24,5 +24,8 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       }
     ]
-  }
+  },
+  plugins: [
+    new Dotenv()
+  ]
 };
