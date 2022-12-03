@@ -44,10 +44,13 @@ class StarRating extends React.Component {
       console.log('incomplete star:', incompleteStar)
       for (let i = 0; i < this.state.totalRating; i++) {
         if (i < fullStars) {
-          this.state.starArray.push('100%')
+          var star = starElement.generateIncompleteStar('100%')
+
+          this.state.starArray.push(star)
         }
         if (i === fullStars) {
           if (incompleteStar === 25) {
+
             this.state.starArray.push('25%')
 
           } else if (incompleteStar === 50) {
@@ -95,27 +98,12 @@ class StarRating extends React.Component {
 
 
   render() {
-
+    // var width = '75%'
+    // var test = starElement.generateIncompleteStar(width)
+    // console.log(test)
     return (
       <div>
-        {
-          this.state.starArray.map((width, idx) => {
-            if (width === '100%') {
-              return <FontAwesomeIcon className="star" icon={faStar} key={idx} />
-            } else if (width === '0%') {
-              return <FontAwesomeIcon className="star" icon={emptyStar} key={idx} />
-            } else if (width === '50%') {
-              return <FontAwesomeIcon className="star" icon={faStarHalfAlt} key={idx} />
-            } else if (width === '25%') {
-              return <FontAwesomeIcon className="star" icon={faStarHalfStroke} key={idx} />
-            } else if (width === '75%') {
-              return <FontAwesomeIcon className="star" icon={faSun} key={idx} />
-            }
-          })
 
-
-
-        }
       </div>
 
     )
@@ -148,3 +136,23 @@ export default StarRating
 //   //}
 
 // })
+
+
+// {
+//   this.state.starArray.map((width, idx) => {
+//     if (width === '100%') {
+//       return <FontAwesomeIcon className="star" icon={faStar} key={idx} />
+//     } else if (width === '0%') {
+//       return <FontAwesomeIcon className="star" icon={emptyStar} key={idx} />
+//     } else if (width === '50%') {
+//       return <FontAwesomeIcon className="star" icon={faStarHalfAlt} key={idx} />
+//     } else if (width === '25%') {
+//       return <FontAwesomeIcon className="star" icon={faStarHalfStroke} key={idx} />
+//     } else if (width === '75%') {
+//       return <FontAwesomeIcon className="star" icon={faSun} key={idx} />
+//     }
+//   })
+
+
+
+// }
