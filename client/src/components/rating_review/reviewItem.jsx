@@ -5,7 +5,7 @@ import Stars from './starRating/starRating.jsx'
 const reviewItem = (props) => {
   var summaryDisplayLimit = 60
   var bodyDisplayLimit = 250
-  var helpfulnessCount = props.reviewData.helpfulness
+  var helpfulnessCount = props.reviewData.helpfulness || 0
   var dateOption = {
     day: "numeric",
     month: "long",
@@ -83,7 +83,7 @@ const reviewItem = (props) => {
       </div>
 
       <div className="row flex-column">
-        <div className="helpfulCount">Helpful? {<span onClick={() => { helpfulVote() }}>Yes</span>} ({helpfulCount})  |  {<span onClick={() => { reportReview() }}>Report</span>}</div>
+        <div className="helpfulCount" >Helpful? {<span onClick={() => { helpfulVote() }}>Yes</span>} ({helpfulCount})  |  {<span onClick={() => { reportReview() }}>Report</span>}</div>
         <hr />
       </div>
 
