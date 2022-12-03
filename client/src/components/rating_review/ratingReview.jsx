@@ -41,6 +41,9 @@ class RatingReview extends React.Component {
           reviewData: res.data.results
         })
       })
+      .catch(err => {
+        console.log("Err: ", err)
+      })
   }
 
   render() {
