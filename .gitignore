@@ -12,4 +12,5 @@ node_modules/
 
 *bundle.js
 
-package-lock.json
+*package-lock.json
+

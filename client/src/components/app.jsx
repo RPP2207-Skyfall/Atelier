@@ -2,10 +2,12 @@ import React from 'react';
 import RatingReview from './rating_review/ratingReview.jsx'
 import Overview from './overview/Overview.jsx';
 import RelatedItem from './relatedItem/relatedItemSection.jsx';
+import QandA from './QA/QandA.jsx';
+
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
   }
 
@@ -16,10 +18,12 @@ class App extends React.Component {
         <Overview />
         <RatingReview />
         <RelatedItem />
+        <QandA />
+
       </>
     )
   }
 
 }
 
-export default App
+export default App;

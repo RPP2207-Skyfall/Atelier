@@ -284,3 +284,23 @@ main {
 
 
 /**********************************************/
+
+#qaitem-question-helpful-count:hover {
+  cursor:pointer;
+}
+
+#qaitem-answer-helpful-count:hover {
+  cursor:pointer;
+}
+
+#qaitem-add-answer:hover {
+  cursor:pointer;
+}
+
+#qaitem-report:hover {
+  cursor:pointer;
+}
+=======
+
+/**********************************************/
+
