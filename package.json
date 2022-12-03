@@ -4,6 +4,7 @@
   "description": "FEC Project",
   "main": "server/index.js",
   "scripts": {
+    "test": "jest",
     "server-dev": "npx nodemon --watch server/index.js",
     "client-dev": "npx webpack --watch",
     "build": "npx webpack",
