@@ -61,6 +61,7 @@ main {
 .ratingReview {
   color: rgb(157, 155, 155);
   font-size: smaller;
+  margin: 100px 0 50px 0;
 }
 
 .reviewBreakdown {
@@ -172,32 +173,43 @@ main {
   margin: 10px 10px 10px 10px;
 }
 
-.oneStar {
-  display: inline-block;
-  position: relative;
-  color: #ddd;
+
+.star-outline {
+  height: 26px;
+  width: 21px;
 }
 
-.oneStar::after {
-  font-family: "Font Awesome 5 Free";
-  content: "\f005";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: var(--width);
-  overflow: hidden;
-  color: #f80;
+
+.star-fill {
+  position: relative;
+  display: inline-block;
+  height: 26px;
+  background-color: #333333;
+}
+
+.star-fill img {
+  max-width: none
+}
+
+
+.star-container {
+  border-color: black;
+  background-color: white;
+  height: 26px;
+  width: 21px;
+  display: inline-block;
 }
 
 
 /**********************************************/
-
 /****** Style for Overview widget****/
 #expanded-image {
   width: 90vw;
 }
-/**********************************************/
 
+
+
+/**********************************************/
 /****** Style for Ratings and related item widget ****/
 
 .main-container {
@@ -207,7 +219,7 @@ main {
   margin: 0 auto;
 }
 
-.carousel-style h5{
+.carousel-style h5 {
   text-align: left;
   font-weight: 400;
 }
@@ -228,7 +240,7 @@ main {
   width: 200px;
   margin-right: 20px;
   height: 300px;
-  background-color: rgb(190,190,190);
+  background-color: rgb(190, 190, 190);
   outline: 2px solid #bebebe;
 }
 
@@ -280,6 +292,25 @@ main {
   margin: 0;
   font-size: 0.6rem;
   text-align: left;
+}
+
+/**********************************************/
+/*****************Style for Q&A widget*****************************/
+
+#qaitem-question-helpful-count:hover {
+  cursor: pointer;
+}
+
+#qaitem-answer-helpful-count:hover {
+  cursor: pointer;
+}
+
+#qaitem-add-answer:hover {
+  cursor: pointer;
+}
+
+#qaitem-report:hover {
+  cursor: pointer;
 }
 
 

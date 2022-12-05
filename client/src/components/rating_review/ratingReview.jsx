@@ -23,7 +23,11 @@ class RatingReview extends React.Component {
 
   getProductReviews(product_id) {
     var url = process.env.REACT_APP_API_REVIEW_RATING_URL
+<<<<<<< HEAD
     console.log(url)
+=======
+    //console.log(url)
+>>>>>>> master
     var requestOption = {
       headers: {
         "Content-Type": "application/json",
@@ -40,6 +44,9 @@ class RatingReview extends React.Component {
         this.setState({
           reviewData: res.data.results
         })
+      })
+      .catch(err => {
+        console.log("Err: ", err)
       })
   }
 

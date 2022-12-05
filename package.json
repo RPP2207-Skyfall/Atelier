@@ -41,10 +41,17 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.20.1",
+<<<<<<< HEAD
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-regular-svg-icons": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+=======
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.10.14",
+    "@mui/material": "^5.10.14",
+>>>>>>> master
     "@testing-library/jest-dom": "^5.16.5",
     "axios": "^1.1.3",
     "bluebird": "^3.7.2",
@@ -53,6 +60,10 @@
     "mysql2": "^2.3.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+<<<<<<< HEAD
+=======
+    "react-icons": "^4.7.1",
+>>>>>>> master
     "react-jss": "^10.9.2"
   }
 }

@@ -12,4 +12,9 @@ node_modules/
 
 *bundle.js
 
+<<<<<<< HEAD
 *package-lock.json
+=======
+*package-lock.json
+
+>>>>>>> master
