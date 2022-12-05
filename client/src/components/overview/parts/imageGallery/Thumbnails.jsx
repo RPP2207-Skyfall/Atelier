@@ -49,7 +49,7 @@ class Thumbnail extends React.Component {
             this.props.images[this.state.imageSection].map((image) => {
               return (
                 <div>
-                  <img src={image.thumbnail_url} onClick={() => this.handleClick(image, image.index)}/>
+                  <img id="gallery-thumbnail" src={image.thumbnail_url} onClick={() => this.handleClick(image, image.index)}/>
                 </div>
               )
             })

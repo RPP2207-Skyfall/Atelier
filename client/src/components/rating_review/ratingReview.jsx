@@ -22,12 +22,12 @@ class RatingReview extends React.Component {
 
 
   getProductReviews(product_id) {
-    var url = process.env.REACT_APP_API_URL
+    var url = process.env.REACT_APP_API_REVIEW_RATING_URL
     console.log(url)
     var requestOption = {
       headers: {
         "Content-Type": "application/json",
-        "Authorization": process.env.REACT_APP_API_KEY
+        "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY
       },
       params: {
         product_id: product_id,

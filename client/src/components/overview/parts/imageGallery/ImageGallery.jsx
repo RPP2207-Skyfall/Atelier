@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import DefaultView from './views/DefaultView.jsx';
 import ExpandedView from './views/ExpandedView.jsx';
 import Thumbnail from './Thumbnails.jsx';
@@ -56,18 +56,18 @@ class ImageGallery extends React.Component {
 
   getImages() {
 
-    const url = process.env.REACT_APP_API_KEY + `products/71697/styles`;
+    const url = process.env.REACT_APP_API_OVERVIEW_URL + `products/71697/styles`;
 
-       fetch (url,
+    fetch(url,
+      {
+        method: "GET",
+        headers:
         {
-          method: "GET",
-          headers:
-            {
-              "Content-Type": "application/json",
-              "Authorization": process.env.REACT_APP_TOKEN
-            }
+          "Content-Type": "application/json",
+          "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
         }
-      )
+      }
+    )
       .then(res => res.json())
       .then((data) => {
         console.log(data);
@@ -110,25 +110,25 @@ class ImageGallery extends React.Component {
       return (
         <div id="image-gallery">
           <h3>ImageGallery</h3>
-          <DefaultView styles={this.state.styles} mainPic={this.state.current}/>
+          <DefaultView styles={this.state.styles} mainPic={this.state.current} />
           <div id="main-slider">
             <button id="main-backward" onClick={() => this.mainSlide(-1)}>back</button>
             <button id="main-forward" onClick={() => this.mainSlide(1)}>forward</button>
           </div>
-          <button onClick={() => this.setState({expanded: true})}>expand</button>
+          <button onClick={() => this.setState({ expanded: true })}>expand</button>
           <Thumbnail updateMainPic={this.updateMainPic} images={this.state.currentThumbnails} />
         </div>
       )
-    } else if (this.state.expanded){
+    } else if (this.state.expanded) {
       return (
         <div id="image-gallery">
           <h3>ImageGallery</h3>
-          <ExpandedView styles={this.state.styles} mainPic={this.state.current}/>
-            <div id="expanded-slider">
-              <button id="expanded-backward" onClick={() => this.mainSlide(-1)}>back</button>
-              <button id="expanded-forward" onClick={() => this.mainSlide(1)}>forward</button>
-            </div>
-          <button onClick={() => this.setState({expanded: false})}>default</button>
+          <ExpandedView styles={this.state.styles} mainPic={this.state.current} />
+          <div id="expanded-slider">
+            <button id="expanded-backward" onClick={() => this.mainSlide(-1)}>back</button>
+            <button id="expanded-forward" onClick={() => this.mainSlide(1)}>forward</button>
+          </div>
+          <button onClick={() => this.setState({ expanded: false })}>default</button>
           <Thumbnail updateMainPic={this.updateMainPic} images={this.state.currentThumbnails} />
         </div>
       )
