@@ -18,43 +18,11 @@ class ImageGallery extends React.Component {
       currentThumbnails: []
     }
     this.getImages = this.getImages.bind(this);
-    this.updateMainPic = this.updateMainPic.bind(this);
-    this.mainSlide = this.mainSlide.bind(this);
-  }
-
-  mainSlide(dir) {
-
-    if (this.state.mainIndex === 0 && dir === -1) {
-      return
-    }
-
-    if (this.state.mainIndex === this.state.amount - 1 && dir > 0) {
-      return
-    }
-
-    if (this.state.mainIndex === 0) {
-      this.setState({
-        current: this.state.styles.results[0].photos[dir],
-        mainIndex: dir
-      })
-
-    } else {
-      this.setState({
-        current: this.state.styles.results[0].photos[this.state.mainIndex + dir],
-        mainIndex: this.state.mainIndex + dir
-      })
-    }
-
-  }
-
-  updateMainPic(picInfo, index) {
-    this.setState({
-      current: picInfo,
-      mainIndex: index
-    })
   }
 
   getImages() {
+
+    // console.log('props in image', this.props)
 
     const url = process.env.REACT_APP_API_OVERVIEW_URL + `products/71697/styles`;
 
@@ -70,7 +38,7 @@ class ImageGallery extends React.Component {
     )
       .then(res => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
 
         let thumbnails = data.results[0].photos;
 
@@ -101,22 +69,34 @@ class ImageGallery extends React.Component {
       })
   }
 
+
+
   componentDidMount() {
     this.getImages();
   }
 
+  // this.state.expanded === false && this.state.styles.length !== 0
+
   render() {
-    if (this.state.expanded === false && this.state.styles.length !== 0) {
+
+  if (this.props.info.styles.length !== 0) {
+    console.log('loaded props', this.props)
+  }
+
+    if (this.props.info.styles.length !== 0) {
+
+      console.log('props in imageGallery', this.state.styles)
+
       return (
         <div id="image-gallery">
           <h3>ImageGallery</h3>
-          <DefaultView styles={this.state.styles} mainPic={this.state.current} />
+          <DefaultView styles={this.props.info.styles} mainPic={this.props.info.current} />
           <div id="main-slider">
-            <button id="main-backward" onClick={() => this.mainSlide(-1)}>back</button>
-            <button id="main-forward" onClick={() => this.mainSlide(1)}>forward</button>
+            <button id="main-backward" onClick={() => this.props.mainSlide(-1)}>back</button>
+            <button id="main-forward" onClick={() => this.props.mainSlide(1)}>forward</button>
           </div>
           <button onClick={() => this.setState({ expanded: true })}>expand</button>
-          <Thumbnail updateMainPic={this.updateMainPic} images={this.state.currentThumbnails} />
+          <Thumbnail updateMainPic={this.props.updateMainPic} images={this.props.info.currentThumbnails} />
         </div>
       )
     } else if (this.state.expanded) {
