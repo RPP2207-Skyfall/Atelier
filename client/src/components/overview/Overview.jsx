@@ -23,6 +23,13 @@ class Overview extends React.Component {
 
     this.mainSlide = this.mainSlide.bind(this);
     this.updateMainPic = this.updateMainPic.bind(this);
+    this.handleExpand = this.handleExpand.bind(this);
+  }
+
+  handleExpand() {
+    this.setState({
+      expanded: !this.state.expanded
+    })
   }
 
   mainSlide(dir) {
@@ -149,7 +156,7 @@ class Overview extends React.Component {
         <ProductInfo info={this.state}/>
         <StyleSelector />
         <AddToCart />
-        <ImageGallery info={this.state} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}/>
+        <ImageGallery info={this.state} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic} handleExpand={this.handleExpand}/>
       </div>
     )
   }

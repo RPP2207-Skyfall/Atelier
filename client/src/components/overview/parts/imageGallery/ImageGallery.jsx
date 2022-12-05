@@ -79,13 +79,7 @@ class ImageGallery extends React.Component {
 
   render() {
 
-  if (this.props.info.styles.length !== 0) {
-    console.log('loaded props', this.props)
-  }
-
-    if (this.props.info.styles.length !== 0) {
-
-      console.log('props in imageGallery', this.state.styles)
+    if (this.props.info.styles.length !== 0 && !this.props.info.expanded) {
 
       return (
         <div id="image-gallery">
@@ -95,21 +89,21 @@ class ImageGallery extends React.Component {
             <button id="main-backward" onClick={() => this.props.mainSlide(-1)}>back</button>
             <button id="main-forward" onClick={() => this.props.mainSlide(1)}>forward</button>
           </div>
-          <button onClick={() => this.setState({ expanded: true })}>expand</button>
+          <button onClick={() => this.props.handleExpand()}>expand</button>
           <Thumbnail updateMainPic={this.props.updateMainPic} images={this.props.info.currentThumbnails} />
         </div>
       )
-    } else if (this.state.expanded) {
+    } else if (this.props.info.expanded) {
       return (
         <div id="image-gallery">
           <h3>ImageGallery</h3>
-          <ExpandedView styles={this.state.styles} mainPic={this.state.current} />
+          <ExpandedView styles={this.props.info.styles} mainPic={this.props.info.current} />
           <div id="expanded-slider">
-            <button id="expanded-backward" onClick={() => this.mainSlide(-1)}>back</button>
-            <button id="expanded-forward" onClick={() => this.mainSlide(1)}>forward</button>
+            <button id="expanded-backward" onClick={() => this.props.mainSlide(-1)}>back</button>
+            <button id="expanded-forward" onClick={() => this.props.mainSlide(1)}>forward</button>
           </div>
-          <button onClick={() => this.setState({ expanded: false })}>default</button>
-          <Thumbnail updateMainPic={this.updateMainPic} images={this.state.currentThumbnails} />
+          <button onClick={() => this.props.handleExpand()}>default</button>
+          <Thumbnail updateMainPic={this.props.updateMainPic} images={this.props.info.currentThumbnails} />
         </div>
       )
     } else {
