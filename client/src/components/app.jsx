@@ -16,9 +16,9 @@ class App extends React.Component {
       <>
         <h3>Ateiler</h3>
         <Overview />
-        <RatingReview />
         <RelatedItem />
         <QandA />
+        <RatingReview />
 
       </>
     )
