@@ -2,11 +2,7 @@ import React from 'react';
 import RatingReview from './rating_review/ratingReview.jsx'
 import Overview from './overview/Overview.jsx';
 import RelatedItem from './relatedItem/relatedItemSection.jsx';
-<<<<<<< HEAD
-=======
 import QandA from './QA/QandA.jsx';
-
->>>>>>> master
 
 class App extends React.Component {
   constructor(props) {
@@ -22,11 +18,7 @@ class App extends React.Component {
         <RelatedItem />
         <QandA />
         <RatingReview />
-<<<<<<< HEAD
         <RelatedItem />
-=======
-
->>>>>>> master
       </>
     )
   }

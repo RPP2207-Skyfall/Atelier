@@ -5,22 +5,26 @@ import AddToCart from './parts/addToCart/AddToCart.jsx';
 import ImageGallery from './parts/ImageGallery/ImageGallery.jsx';
 import axios from 'axios';
 
+class Overview extends React.Component {
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      data: []
+    }
+  }
 
-function Overview() {
-
-
-  const [info, getInfo] = useState([]);
-
-
-  return (
-    <div>
-      <ProductInfo />
-      <StyleSelector />
-      <AddToCart />
-      <ImageGallery />
-    </div>
-  )
+  render() {
+    return (
+      <div>
+        <ProductInfo />
+        <StyleSelector />
+        <AddToCart />
+        <ImageGallery />
+      </div>
+    )
+  }
 }
+
 
 export default Overview;

@@ -1,6 +1,7 @@
 import React from 'react';
 
 function ProductInfo() {
+
   return (
     <div id="product-info">
       <h3>Product Info</h3>
