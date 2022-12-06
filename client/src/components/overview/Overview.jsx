@@ -11,19 +11,31 @@ class Overview extends React.Component {
 
     this.state = {
       data: [],
-      productInfo: [],
       SKU: null,
       expanded: false,
       styles: [],
       current: [],
       mainIndex: 0,
       amount: 0,
-      currentThumbnails: []
+      currentThumbnails: [],
+      currentStyle: null,
+      thumbnailSection: 0
     }
 
     this.mainSlide = this.mainSlide.bind(this);
     this.updateMainPic = this.updateMainPic.bind(this);
     this.handleExpand = this.handleExpand.bind(this);
+    this.updateStyle = this.updateStyle.bind(this);
+  }
+
+  updateStyle(style) {
+    this.setState({
+      currentStyle: style,
+      mainIndex: 0,
+
+    })
+
+    // console.log(this.state.currentStyle)
   }
 
   handleExpand() {
@@ -59,11 +71,17 @@ class Overview extends React.Component {
 
   }
 
-  updateMainPic(picInfo, index) {
+  updateMainPic(index) {
+
+    console.log('from thumb', index);
+
     this.setState({
-      current: picInfo,
       mainIndex: index
     })
+  }
+
+  getProductInfo(SKU) {
+
   }
 
   getGeneralInfo() {
@@ -126,16 +144,12 @@ class Overview extends React.Component {
             }
           }
 
-
           this.setState({
             styles: data,
             current: data.results[0].photos[this.state.mainIndex],
             amount: data.results[0].photos.length,
-            currentThumbnails: holder
-          })
-
-          this.setState({
-            productInfo: data
+            currentThumbnails: holder,
+            currentStyle: data.results[0]
           })
           // console.log('data from product', data);
         })
@@ -153,10 +167,10 @@ class Overview extends React.Component {
   render() {
     return (
       <div>
-        <ProductInfo info={this.state}/>
-        <StyleSelector />
+        <ProductInfo info={this.state} style={this.state.currentStyle}/>
+        <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle}/>
         <AddToCart />
-        <ImageGallery info={this.state} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic} handleExpand={this.handleExpand}/>
+        <ImageGallery info={this.state} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic} handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection}/>
       </div>
     )
   }

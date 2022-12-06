@@ -33,7 +33,7 @@ class Thumbnail extends React.Component {
 
   render() {
 
-    if (this.props.images === undefined) {
+    if (this.props.images.length === 0) {
 
       return (
         <div>
@@ -41,25 +41,63 @@ class Thumbnail extends React.Component {
         </div>
       )
     } else {
+
+      let holder = [];
+      let box = [];
+
+      let imageData = this.props.images;
+
+
+      for (var i = 0; i < imageData.length; i++) {
+        imageData[i].index = i
+        box.push(imageData[i]);
+
+        if (box.length === 3) {
+          holder.push(box);
+          box = [];
+        }
+      }
+
+      let currentSection = holder[this.props.section];
+
+      console.log('props in thumb', this.props)
       return (
-
         <div>
-
           {
-            this.props.images[this.state.imageSection].map((image) => {
+            currentSection.map((image) => {
               return (
-                <div>
-                  <img id="gallery-thumbnail" src={image.thumbnail_url} onClick={() => this.handleClick(image, image.index)}/>
+                <div onClick={() => this.props.updateMainPic(image.index)}>
+                   <img src={image.thumbnail_url}></img>
                 </div>
               )
             })
           }
 
-          <button onClick={() => this.slider(-1)}>backward</button>
-          <button onClick={() => this.slider(1)}>forward</button>
         </div>
-
       )
+
+      // return (
+
+      //   console.log(holder)
+      //   <div>
+
+      //     {
+      //       currentSection.map((image) => {
+      //         console.log(image);
+      //         return (
+      //           <div>
+      //             <img id="gallery-thumbnail" src={image.thumbnail_url} onClick={() => this.handleClick(image, image.index)}/>
+      //           </div>
+      //         )
+      //       })
+      //     }
+
+      //     <button onClick={() => this.slider(-1)}>backward</button>
+      //     <button onClick={() => this.slider(1)}>forward</button>
+      //   </div>
+
+      // )
+
     }
 
   }

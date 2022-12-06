@@ -17,87 +17,38 @@ class ImageGallery extends React.Component {
       amount: 0,
       currentThumbnails: []
     }
-    this.getImages = this.getImages.bind(this);
-  }
 
-  getImages() {
-
-    // console.log('props in image', this.props)
-
-    const url = process.env.REACT_APP_API_OVERVIEW_URL + `products/71697/styles`;
-
-    fetch(url,
-      {
-        method: "GET",
-        headers:
-        {
-          "Content-Type": "application/json",
-          "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
-        }
-      }
-    )
-      .then(res => res.json())
-      .then((data) => {
-        // console.log(data);
-
-        let thumbnails = data.results[0].photos;
-
-        let holder = [];
-        let box = [];
-
-        for (var i = 0; i < thumbnails.length; i++) {
-
-          thumbnails[i].index = i;
-          box.push(thumbnails[i]);
-
-          if (box.length === 3) {
-            holder.push(box);
-            box = [];
-          }
-        }
-
-
-        this.setState({
-          styles: data,
-          current: data.results[0].photos[this.state.mainIndex],
-          amount: data.results[0].photos.length,
-          currentThumbnails: holder
-        })
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-  }
-
-
-
-  componentDidMount() {
-    this.getImages();
   }
 
   // this.state.expanded === false && this.state.styles.length !== 0
 
   render() {
 
-    if (this.props.info.styles.length !== 0 && !this.props.info.expanded) {
+    if (this.props.info.styles.length !== 0 && !this.props.info.expanded ) {
+
+      let index = this.props.info.mainIndex;
+
 
       return (
         <div id="image-gallery">
           <h3>ImageGallery</h3>
-          <DefaultView styles={this.props.info.styles} mainPic={this.props.info.current} />
+          <DefaultView  mainPic={this.props.currentStyle.photos[index].url} />
           <div id="main-slider">
             <button id="main-backward" onClick={() => this.props.mainSlide(-1)}>back</button>
             <button id="main-forward" onClick={() => this.props.mainSlide(1)}>forward</button>
           </div>
           <button onClick={() => this.props.handleExpand()}>expand</button>
-          <Thumbnail updateMainPic={this.props.updateMainPic} images={this.props.info.currentThumbnails} />
+          <Thumbnail updateMainPic={this.props.updateMainPic} images={this.props.currentStyle.photos} section={this.props.thumbnailSection} />
         </div>
       )
     } else if (this.props.info.expanded) {
+      let index = this.props.info.mainIndex;
+      console.log('expanede')
+
       return (
         <div id="image-gallery">
           <h3>ImageGallery</h3>
-          <ExpandedView styles={this.props.info.styles} mainPic={this.props.info.current} />
+          <ExpandedView mainPic={this.props.currentStyle.photos[index].url} />
           <div id="expanded-slider">
             <button id="expanded-backward" onClick={() => this.props.mainSlide(-1)}>back</button>
             <button id="expanded-forward" onClick={() => this.props.mainSlide(1)}>forward</button>

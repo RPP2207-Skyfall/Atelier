@@ -11,13 +11,12 @@ function DefaultView (props) {
       </div>
     )
   } else {
-    let currentStyle = props.mainPic.url;
 
     return (
       <div id="default-view">
         <h1>Default View</h1>
 
-        <img src={currentStyle} alt="style" />
+        <img src={props.mainPic} alt="style" />
 
       </div>
     )

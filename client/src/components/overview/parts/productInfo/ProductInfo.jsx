@@ -3,7 +3,10 @@ import React from 'react';
 function ProductInfo(props) {
 
 
-  if (props.info.data.length !== 0) {
+  if (props.info.data.length !== 0 && props.style) {
+
+    console.log('product infor porps', props)
+
     return (
       <div id="product-info">
         <h3>Product Info</h3>
@@ -11,8 +14,8 @@ function ProductInfo(props) {
         <div id="stars">Stars</div>
         <div id="overview-reviews">read all # reviews</div>
         <div id="product-category">{props.info.data[0].category}</div>
-        <div id="title">{props.info.data[0].name}</div>
-        <div id="price">{props.info.data[0].default_price}</div>
+        <div id="title">{props.style.name}</div>
+        <div id="price">{props.style.original_price}</div>
 
       </div>
     )
