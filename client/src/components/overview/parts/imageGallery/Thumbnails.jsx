@@ -60,9 +60,6 @@ class Thumbnail extends React.Component {
 
       let currentSection = holder[this.props.section];
 
-      console.log('holder', holder);
-
-      console.log('props in thumb', this.props)
       return (
         <div>
           {
@@ -79,28 +76,6 @@ class Thumbnail extends React.Component {
 
         </div>
       )
-
-      // return (
-
-      //   console.log(holder)
-      //   <div>
-
-      //     {
-      //       currentSection.map((image) => {
-      //         console.log(image);
-      //         return (
-      //           <div>
-      //             <img id="gallery-thumbnail" src={image.thumbnail_url} onClick={() => this.handleClick(image, image.index)}/>
-      //           </div>
-      //         )
-      //       })
-      //     }
-
-      //     <button onClick={() => this.slider(-1)}>backward</button>
-      //     <button onClick={() => this.slider(1)}>forward</button>
-      //   </div>
-
-      // )
 
     }
 

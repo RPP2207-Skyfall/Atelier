@@ -19,7 +19,8 @@ class Overview extends React.Component {
       amount: 0,
       currentThumbnails: [],
       currentStyle: null,
-      thumbnailSection: 0
+      thumbnailSection: 0,
+      selectedSize: null
     }
 
     this.mainSlide = this.mainSlide.bind(this);
@@ -27,6 +28,7 @@ class Overview extends React.Component {
     this.handleExpand = this.handleExpand.bind(this);
     this.updateStyle = this.updateStyle.bind(this);
     this.updateThumbnailSection = this.updateThumbnailSection.bind(this);
+    this.selectSize = this.selectSize.bind(this);
   }
 
   updateStyle(style) {
@@ -41,7 +43,6 @@ class Overview extends React.Component {
 
   updateThumbnailSection(dir) {
 
-    console.log('made it to thumbnial section', dir)
     if (this.state.thumbnailSection === 0 && dir === -1) {
       return;
     }
@@ -61,8 +62,6 @@ class Overview extends React.Component {
   }
 
   mainSlide(dir) {
-
-    console.log('dir', dir)
 
     if (this.state.mainIndex === 0 && dir === -1) {
       return
@@ -88,8 +87,6 @@ class Overview extends React.Component {
   }
 
   updateMainPic(index) {
-
-    console.log('from thumb', index);
 
     this.setState({
       mainIndex: index
@@ -175,6 +172,13 @@ class Overview extends React.Component {
       })
   }
 
+  selectSize(size) {
+    // console.log('size attempted', size);
+    this.setState({
+      selectedSize: size
+    })
+  }
+
 
   componentDidMount() {
     this.getGeneralInfo()
@@ -185,7 +189,7 @@ class Overview extends React.Component {
       <div>
         <ProductInfo info={this.state} style={this.state.currentStyle}/>
         <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle}/>
-        <AddToCart />
+        <AddToCart currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}/>
         <ImageGallery info={this.state} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic} handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnail={this.updateThumbnailSection}/>
       </div>
     )

@@ -29,7 +29,6 @@ class ImageGallery extends React.Component {
       let index = this.props.info.mainIndex;
 
 
-      console.log('props in imageFal', this.props)
       return (
         <div id="image-gallery">
           <h3>ImageGallery</h3>
