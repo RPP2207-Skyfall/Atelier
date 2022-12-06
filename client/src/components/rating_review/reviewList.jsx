@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReviewItem from './reviewItem.jsx'
+import SortMenu from './sorting/sorting.jsx'
 
 class reviewList extends React.Component {
   constructor(props) {
@@ -55,7 +56,7 @@ class reviewList extends React.Component {
     const datalength = this.state.reviewData.length
     return (
       <div className="reviewBreakdown">
-        <div>{`${datalength} reviews, sorted by `}</div>
+        <div>{`${datalength} reviews, sorted by `}{datalength > 0 ? <SortMenu /> : null}</div>
         <div className="reviewItemContaier">
           <div className="container-Content">
             {this.state.displayReview.map((item) =>
