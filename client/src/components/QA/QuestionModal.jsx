@@ -20,6 +20,7 @@ class QuestionModal extends React.Component {
   constructor(props) {
     super(props);
     this.state={
+      product_name:'',
       question:'',
       nickname:'',
       email:''
@@ -30,8 +31,8 @@ class QuestionModal extends React.Component {
     return(
       <div className='question-modal-container'>
         <Modal
-          open={this.props.isModalOpen}
-          onClose={() => {this.props.handleModalClose()}}
+          open={this.props.isQModalOpen}
+          onClose={() => {this.props.handleQModalClose()}}
           aria-labelledby='modal-modal-title'
           aria-describedby='modal-modal-description'
         >
@@ -55,7 +56,7 @@ class QuestionModal extends React.Component {
               placeholder="example@atelier.com"
               required>
             </TextField>
-            <Button variant='outlined' size='medium' onClick={() => {this.props.handleModalClose()}}>SUBMIT</Button>
+            <Button variant='outlined' size='medium' onClick={() => {this.props.handleQModalClose()}}>SUBMIT</Button>
           </Box>
         </Modal>
       </div>

@@ -6,7 +6,7 @@ import QAItem from './QAItem.jsx';
 const QAList = (props) => (
   <div className='question-and-answer-qalist'>
     {props.list.map((item, index) =>
-     <QAItem item = {item} key = {index}/>
+     <QAItem item = {item} key = {index} handleAModalOpen={props.handleAModalOpen}/>
     )}
   </div>
 );

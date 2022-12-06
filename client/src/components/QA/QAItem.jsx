@@ -1,8 +1,10 @@
 import React from 'react';
+import AnswerList from './AnswerList.jsx';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Grid from '@mui/material/Unstable_Grid2';
 import Stack from '@mui/material/Stack';
-import AnswerModal from './AnswerModal.jsx';
+
 
 //Receives question from QAList
 //Map answers list to answer item
@@ -11,24 +13,32 @@ class QAItem extends React.Component {
   constructor(props) {
     super(props);
     this.state={
-      Q:{
-        question_body: '',
-        question_date: '',
-        asker_name: '',
-        question_helpfulness: 0,
-        reported: false
-      },
-      A:{},
-      QhelpfulCount:0
+      Q: this.props.item,
+      A_List: Object.values(this.props.item.answers),
+      QhelpfulCount: this.props.item.question_helpfulness,
+      QhelpfulClicked: false
     };
-    this.isHelpful = this.isHelpful.bind(this);
+    this.isQHelpful = this.isQHelpful.bind(this);
+    this.handleAModalOpen = this.handleAModalOpen.bind(this);
   };
 
-  isHelpful() {
-    this.setState({
-      QhelpfulCount: this.state.QhelpfulCount + 1
-    })
+  isQHelpful() {
+    if (this.state.QhelpfulClicked === false) {
+      this.setState({
+        QhelpfulCount: this.state.QhelpfulCount + 1,
+        QhelpfulClicked: true
+      })
+    } else {
+      this.setState({
+        QhelpfulCount: this.state.QhelpfulCount - 1,
+        QhelpfulClicked: false
+      })
+    }
   };
+
+  handleAModalOpen() {
+    this.props.handleAModalOpen();
+  }
 
   render() {
     return(
@@ -36,20 +46,22 @@ class QAItem extends React.Component {
         <Box sx={{ flexGrow: 1}}>
           <Grid container spacing={2}>
             <Grid xs={8}>
-              <h4>Q:</h4>
-              <p>This is where question goes...</p>
+              <h4>Q: {this.state.Q.question_body}</h4>
             </Grid>
             <Grid xs={4}>
               <Stack spacing={1} direction='row'>
                 <p>Helpful?</p>
-                <p id = 'qaitem-question-helpful-count' onClick={this.isHelpful}>Yes({this.state.QhelpfulCount})</p>
+                <p id = 'qaitem-question-helpful-count' onClick={() => {this.isQHelpful()}}>Yes({this.state.QhelpfulCount})</p>
                 <p>|</p>
-                <p id = 'qaitem-add-answer' onClick={() => {this.props.handleModalOpen()}}>Add Answer</p>
+                <p id = 'qaitem-add-answer' onClick={this.handleAModalOpen}>Add Answer</p>
               </Stack>
             </Grid>
+            <Stack spacing={1} direction='row'>
+              <AnswerList list={this.state.A_List} />
+            </Stack>
           </Grid>
+          <Button variant='text'>LOAD MORE ANSWERS</Button>
         </Box>
-        <AnswerModal isModalOpen={this.props.isModalOpen} handleModalOpen={this.props.handleModalOpen} handleModalClose={this.props.handleModalClose}/>
       </div>
     )
   }
