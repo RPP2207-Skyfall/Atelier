@@ -57,9 +57,11 @@ class reviewList extends React.Component {
       <div className="reviewBreakdown">
         <div>{`${datalength} reviews, sorted by `}</div>
         <div className="reviewItemContaier">
-          {this.state.displayReview.map((item, idx) =>
-            <ReviewItem reviewData={item} key={idx} />
-          )}
+          <div className="container-Content">
+            {this.state.displayReview.map((item) =>
+              <ReviewItem reviewData={item} key={item.review_id} />
+            )}
+          </div>
         </div>
         {this.state.loadBtn ? <button className="loadReviewBtn" onClick={() => { this.handleMoreReviewClick() }}>MORE REVIEWS</button> : null} <button className="addReviewBtn" >ADD A REVIEW +</button>
         <></>
