@@ -15,6 +15,7 @@ const SortMenu = (props) => {
 
   const updateDisplay = (value) => {
     setSortOptionOnDisplay(value)
+    setDisplaySortOption('none')
   }
 
   var style = {
@@ -24,9 +25,11 @@ const SortMenu = (props) => {
   return (
 
     <><span className="sort-dropdown" onClick={() => { handleClick() }}>{`${sortOptionOnDisplay}`}</span>
-      <div className="option-helpful" onClick={() => { updateDisplay('helpful') }} style={style}>Helpful</div>
-      <div className="option-newest" onClick={() => { updateDisplay('newest') }} style={style}>Newest</div>
-      <div className="option-relevant" onClick={() => { updateDisplay('relevant') }} style={style}>Relevant</div>
+      <div className="sort-col col">
+        <div className="row option-helpful" onClick={() => { updateDisplay('helpful') }} style={style}>Helpful</div>
+        <div className="row option-newest" onClick={() => { updateDisplay('newest') }} style={style}>Newest</div>
+        <div className="row option-relevant" onClick={() => { updateDisplay('relevance') }} style={style}>Relevant</div>
+      </div>
     </>
   )
 

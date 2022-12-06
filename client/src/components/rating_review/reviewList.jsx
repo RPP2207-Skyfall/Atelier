@@ -56,7 +56,7 @@ class reviewList extends React.Component {
     const datalength = this.state.reviewData.length
     return (
       <div className="reviewBreakdown">
-        <div>{`${datalength} reviews, sorted by `}{datalength > 0 ? <SortMenu /> : null}</div>
+        <div className="review-sort-bar">{`${datalength} reviews, sorted by `}{datalength > 0 ? <SortMenu /> : null}</div>
         <div className="reviewItemContaier">
           <div className="container-Content">
             {this.state.displayReview.map((item) =>
