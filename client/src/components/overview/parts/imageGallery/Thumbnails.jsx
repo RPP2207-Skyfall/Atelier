@@ -52,7 +52,10 @@ class Thumbnail extends React.Component {
         imageData[i].index = i
         box.push(imageData[i]);
 
-        if (box.length === 3) {
+        if (box.length === 7) {
+          holder.push(box);
+          box = [];
+        } else if (i === imageData.length - 1) {
           holder.push(box);
           box = [];
         }
@@ -61,18 +64,21 @@ class Thumbnail extends React.Component {
       let currentSection = holder[this.props.section];
 
       return (
-        <div>
+        <div className="thumbnail-container">
           {
-            currentSection.map((image) => {
+            currentSection.map((image, i) => {
               return (
-                <div onClick={() => this.props.updateMainPic(image.index)}>
-                   <img src={image.thumbnail_url}></img>
+                <div className="thumbnail" onClick={() => this.props.updateMainPic(image.index)} key={i}>
+                   <img className="thumbnail-image" src={image.thumbnail_url} ></img>
                 </div>
               )
             })
           }
-          <button onClick={() => this.props.updateThumbnail(-1)}>backward</button>
-          <button onClick={() => this.props.updateThumbnail(1)}>forward</button>
+          <div className="thumbnail-buttons">
+            <button onClick={() => this.props.updateThumbnail(-1)}>backward thumb</button>
+            <button onClick={() => this.props.updateThumbnail(1)}>forward thumb</button>
+          </div>
+
 
         </div>
       )

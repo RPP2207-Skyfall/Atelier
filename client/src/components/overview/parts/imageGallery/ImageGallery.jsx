@@ -30,15 +30,15 @@ class ImageGallery extends React.Component {
 
 
       return (
-        <div id="image-gallery">
-          <h3>ImageGallery</h3>
+        <div className="default-image-gallery">
           <DefaultView  mainPic={this.props.currentStyle.photos[index].url} />
-          <div id="main-slider">
-            <button id="main-backward" onClick={() => this.props.mainSlide(-1)}>back</button>
-            <button id="main-forward" onClick={() => this.props.mainSlide(1)}>forward</button>
-          </div>
-          <button onClick={() => this.props.handleExpand()}>expand</button>
           <Thumbnail updateMainPic={this.props.updateMainPic} images={this.props.currentStyle.photos} section={this.props.thumbnailSection} updateThumbnail={this.props.updateThumbnail} />
+          <div className="main-slider">
+            <button className="main-backward" onClick={() => this.props.mainSlide(-1)}>backMain</button>
+            <button className="main-forward" onClick={() => this.props.mainSlide(1)}>forwardMain</button>
+          </div>
+          <button className="expand-button" onClick={() => this.props.handleExpand()}>expand</button>
+
         </div>
       )
     } else if (this.props.info.expanded) {
@@ -46,12 +46,11 @@ class ImageGallery extends React.Component {
       console.log('expanede')
 
       return (
-        <div id="image-gallery">
-          <h3>ImageGallery</h3>
+        <div class="expaned-image-gallery">
           <ExpandedView mainPic={this.props.currentStyle.photos[index].url} />
-          <div id="expanded-slider">
-            <button id="expanded-backward" onClick={() => this.props.mainSlide(-1)}>back</button>
-            <button id="expanded-forward" onClick={() => this.props.mainSlide(1)}>forward</button>
+          <div class="expanded-slider">
+            <button class="expanded-backward" onClick={() => this.props.mainSlide(-1)}>back</button>
+            <button class="expanded-forward" onClick={() => this.props.mainSlide(1)}>forward</button>
           </div>
           <button onClick={() => this.props.handleExpand()}>default</button>
           <Thumbnail updateMainPic={this.props.updateMainPic} images={this.props.info.currentThumbnails} />

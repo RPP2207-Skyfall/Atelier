@@ -9,19 +9,29 @@ function AddToCart(props) {
     setOpen(!open);
   };
 
+  // console.log(props.currentStyle)
+
+  if (props.currentStyle && Object.keys(props.currentStyle.skus).length === 0) {
+    return (
+      <div>
+        OUT OF STOCK
+      </div>
+    )
+  }
+
   if (open && props.currentStyle) {
-    console.log('Add to Cart', props.currentStyle.skus);
+    // console.log('Add to Cart', props.currentStyle.skus);
     let skus = props.currentStyle.skus
     return (
       <div id="add-to-cart-dropdown-closed" onClick={handleOpen}>
 
         {
-          Object.keys(props.currentStyle.skus).map((sku) => {
+          Object.keys(props.currentStyle.skus).map((sku, i) => {
             let currentSku = sku;
 
             if (skus[currentSku].quantity > 0) {
               return (
-                <div onClick={() => props.selectSize(skus[currentSku].size)}>
+                <div onClick={() => props.selectSize(skus[currentSku].size)} key={i} >
                   <p>{skus[currentSku].size}</p>
                 </div>
               )
@@ -45,15 +55,6 @@ function AddToCart(props) {
     )
   }
 
-
-  // return (
-  //   <div id="add-to-cart">
-  //     <h3>AddToCart</h3>
-  //     <div id="size-selector">Size Selector</div>
-  //     <div id="quantity-selector">Quantity Selector</div>
-  //     <div id="add-button">Add To Cart</div>
-  //   </div>
-  // )
 }
 
 export default AddToCart;

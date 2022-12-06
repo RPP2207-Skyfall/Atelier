@@ -13,11 +13,9 @@ function DefaultView (props) {
   } else {
 
     return (
-      <div id="default-view">
-        <h1>Default View</h1>
-
-        <img src={props.mainPic} alt="style" />
-
+      <div class="default-view">
+        {/* <h1>Default View</h1> */}
+        <img class="default-image" src={props.mainPic} alt="style" />
       </div>
     )
   }

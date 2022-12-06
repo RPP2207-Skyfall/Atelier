@@ -12,11 +12,11 @@ function StyleSelector(props) {
         <div id="style-name">Style > {props.currentStyle.name}</div>
 
         {
-              props.styles.results.map((style) => {
+              props.styles.results.map((style, i) => {
 
                 return (
-                  <div id="current-style" onClick={() => props.updateStyle(style)}>
-                    <img src={style.photos[0].thumbnail_url} />
+                  <div key={i} id="current-style" onClick={() => props.updateStyle(style)}>
+                    <img src={style.photos[0].thumbnail_url} key={i} />
                   </div>
                 )
               })

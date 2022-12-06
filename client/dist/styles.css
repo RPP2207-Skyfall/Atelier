@@ -203,9 +203,70 @@ main {
 
 /**********************************************/
 /****** Style for Overview widget****/
-#expanded-image {
-  width: 90vw;
+
+.overview-container {
+  margin: 100px;
 }
+
+/* image gallery */
+
+.default-image-gallery {
+  padding-bottom: 100px;
+  margin-bottom: 100px;
+  height: 500px;
+}
+
+.default-view {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+ .default-image {
+  height: 50vh;
+  width: 50vw;
+  position: absolute;
+}
+
+.thumbnail {
+  display: flex;
+  /* flex: 1 1 0; */
+  height: 50px;
+  width: 50px;
+  border: 1px solid black;
+  box-sizing: border-box;
+
+}
+
+.thumbnail-container {
+  position: relative;
+  display: flex;
+  gap: 7px;
+  top: 12%;
+  left: 2%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+
+.thumbnail-image {
+
+}
+
+.main-slider {
+  position: relative;
+  z-index: 1;
+  left: 12%;
+  top: -45%;
+}
+
+.main-slider .main-forward {
+  position: relative;
+  left: 50%;
+}
+
+
 
 
 
