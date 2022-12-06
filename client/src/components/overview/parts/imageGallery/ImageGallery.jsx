@@ -29,6 +29,7 @@ class ImageGallery extends React.Component {
       let index = this.props.info.mainIndex;
 
 
+      console.log('props in imageFal', this.props)
       return (
         <div id="image-gallery">
           <h3>ImageGallery</h3>
@@ -38,7 +39,7 @@ class ImageGallery extends React.Component {
             <button id="main-forward" onClick={() => this.props.mainSlide(1)}>forward</button>
           </div>
           <button onClick={() => this.props.handleExpand()}>expand</button>
-          <Thumbnail updateMainPic={this.props.updateMainPic} images={this.props.currentStyle.photos} section={this.props.thumbnailSection} />
+          <Thumbnail updateMainPic={this.props.updateMainPic} images={this.props.currentStyle.photos} section={this.props.thumbnailSection} updateThumbnail={this.props.updateThumbnail} />
         </div>
       )
     } else if (this.props.info.expanded) {

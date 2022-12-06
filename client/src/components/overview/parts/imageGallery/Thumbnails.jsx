@@ -60,6 +60,8 @@ class Thumbnail extends React.Component {
 
       let currentSection = holder[this.props.section];
 
+      console.log('holder', holder);
+
       console.log('props in thumb', this.props)
       return (
         <div>
@@ -72,6 +74,8 @@ class Thumbnail extends React.Component {
               )
             })
           }
+          <button onClick={() => this.props.updateThumbnail(-1)}>backward</button>
+          <button onClick={() => this.props.updateThumbnail(1)}>forward</button>
 
         </div>
       )

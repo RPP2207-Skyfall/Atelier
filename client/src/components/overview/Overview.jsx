@@ -26,6 +26,7 @@ class Overview extends React.Component {
     this.updateMainPic = this.updateMainPic.bind(this);
     this.handleExpand = this.handleExpand.bind(this);
     this.updateStyle = this.updateStyle.bind(this);
+    this.updateThumbnailSection = this.updateThumbnailSection.bind(this);
   }
 
   updateStyle(style) {
@@ -36,6 +37,21 @@ class Overview extends React.Component {
     })
 
     // console.log(this.state.currentStyle)
+  }
+
+  updateThumbnailSection(dir) {
+
+    console.log('made it to thumbnial section', dir)
+    if (this.state.thumbnailSection === 0 && dir === -1) {
+      return;
+    }
+    if (this.state.thumbnailSection === 1 && dir === 1) {
+      return;
+    }
+
+    this.setState({
+      thumbnailSection: this.state.thumbnailSection + dir
+    })
   }
 
   handleExpand() {
@@ -170,7 +186,7 @@ class Overview extends React.Component {
         <ProductInfo info={this.state} style={this.state.currentStyle}/>
         <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle}/>
         <AddToCart />
-        <ImageGallery info={this.state} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic} handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection}/>
+        <ImageGallery info={this.state} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic} handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnail={this.updateThumbnailSection}/>
       </div>
     )
   }

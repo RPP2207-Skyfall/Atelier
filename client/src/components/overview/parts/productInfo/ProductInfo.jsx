@@ -5,7 +5,7 @@ function ProductInfo(props) {
 
   if (props.info.data.length !== 0 && props.style) {
 
-    console.log('product infor porps', props)
+    // console.log('product infor porps', props)
 
     return (
       <div id="product-info">
