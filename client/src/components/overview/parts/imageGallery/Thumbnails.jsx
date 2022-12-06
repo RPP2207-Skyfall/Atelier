@@ -5,7 +5,7 @@ class Thumbnail extends React.Component {
     super(props)
 
     this.state = {
-      imageSection: 0
+      currentThumbnail: 0
     }
 
     this.handleClick = this.handleClick.bind(this);
@@ -67,6 +67,16 @@ class Thumbnail extends React.Component {
         <div className="thumbnail-container">
           {
             currentSection.map((image, i) => {
+
+              if (i === this.props.index) {
+                console.log('props', this.props.index)
+                console.log('image in thumbnail', image)
+                return (
+                  <div className="selected-thumbnail" onClick={() => this.props.updateMainPic(image.index)} key={i}>
+                     <img className="thumbnail-image" src={image.thumbnail_url} ></img>
+                  </div>
+                )
+              }
               return (
                 <div className="thumbnail" onClick={() => this.props.updateMainPic(image.index)} key={i}>
                    <img className="thumbnail-image" src={image.thumbnail_url} ></img>
@@ -75,8 +85,8 @@ class Thumbnail extends React.Component {
             })
           }
           <div className="thumbnail-buttons">
-            <button onClick={() => this.props.updateThumbnail(-1)}>backward thumb</button>
-            <button onClick={() => this.props.updateThumbnail(1)}>forward thumb</button>
+            <button className="thumbnail-backwards" onClick={() => this.props.updateThumbnail(-1)}>backward thumb</button>
+            <button className="thumbnail-forwards" onClick={() => this.props.updateThumbnail(1)}>forward thumb</button>
           </div>
 
 

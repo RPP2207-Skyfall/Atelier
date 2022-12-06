@@ -32,7 +32,7 @@ class ImageGallery extends React.Component {
       return (
         <div className="default-image-gallery">
           <DefaultView  mainPic={this.props.currentStyle.photos[index].url} />
-          <Thumbnail updateMainPic={this.props.updateMainPic} images={this.props.currentStyle.photos} section={this.props.thumbnailSection} updateThumbnail={this.props.updateThumbnail} />
+          <Thumbnail index={index} updateMainPic={this.props.updateMainPic} images={this.props.currentStyle.photos} section={this.props.thumbnailSection} updateThumbnail={this.props.updateThumbnail} />
           <div className="main-slider">
             <button className="main-backward" onClick={() => this.props.mainSlide(-1)}>backMain</button>
             <button className="main-forward" onClick={() => this.props.mainSlide(1)}>forwardMain</button>
