@@ -10,9 +10,13 @@ class Thumbnail extends React.Component {
 
     this.handleClick = this.handleClick.bind(this);
     this.slider = this.slider.bind(this);
+    this.addThumbnailInfo = this.addThumbnailInfo.bind(this);
 
   }
 
+  addThumbnailInfo(boxes) {
+
+  }
 
   handleClick(target, index) {
     this.props.updateMainPic(target, index);
@@ -31,6 +35,7 @@ class Thumbnail extends React.Component {
     })
   }
 
+
   render() {
 
     if (this.props.images.length === 0) {
@@ -40,62 +45,60 @@ class Thumbnail extends React.Component {
           Loading
         </div>
       )
-    } else {
+    }
 
-      let holder = [];
-      let box = [];
+    let currentSection = this.props.info.currentThumbnails[this.props.thumbnailSection]
+    // console.log(this.props)
 
-      let imageData = this.props.images;
-
-
-      for (var i = 0; i < imageData.length; i++) {
-        imageData[i].index = i
-        box.push(imageData[i]);
-
-        if (box.length === 7) {
-          holder.push(box);
-          box = [];
-        } else if (i === imageData.length - 1) {
-          holder.push(box);
-          box = [];
-        }
-      }
-
-      let currentSection = holder[this.props.section];
+      // if (this.props.index >= currentSection.length) {
+      //   this.props.updateThumbnailSection(1)
+      //   console.log(this.props.index)
+      // }
+      console.log('currentSection', currentSection)
 
       return (
         <div className="thumbnail-container">
           {
             currentSection.map((image, i) => {
 
-              if (i === this.props.index) {
-                console.log('props', this.props.index)
-                console.log('image in thumbnail', image)
+
+              if (image.index === this.props.index) {
                 return (
                   <div className="selected-thumbnail" onClick={() => this.props.updateMainPic(image.index)} key={i}>
-                     <img className="thumbnail-image" src={image.thumbnail_url} ></img>
+                      <img className="thumbnail-image" src={image.thumbnail_url} ></img>
                   </div>
                 )
               }
               return (
                 <div className="thumbnail" onClick={() => this.props.updateMainPic(image.index)} key={i}>
-                   <img className="thumbnail-image" src={image.thumbnail_url} ></img>
+                    <img className="thumbnail-image" src={image.thumbnail_url} ></img>
                 </div>
               )
+
+
             })
+
           }
-          <div className="thumbnail-buttons">
-            <button className="thumbnail-backwards" onClick={() => this.props.updateThumbnail(-1)}>backward thumb</button>
-            <button className="thumbnail-forwards" onClick={() => this.props.updateThumbnail(1)}>forward thumb</button>
-          </div>
+            <div className="thumbnail-buttons">
+              <button className="thumbnail-backwards" onClick={() => this.props.updateThumbnail(-1)}>↑</button>
+              <button className="thumbnail-forwards" onClick={() => this.props.updateThumbnail(1)}>↓</button>
+            </div>
 
 
         </div>
       )
 
+      return (
+        <div>
+          there is an issue with this logic
+        </div>
+      )
+
     }
 
-  }
+
+
+
 }
 
 export default Thumbnail;

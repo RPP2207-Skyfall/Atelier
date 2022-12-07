@@ -29,6 +29,7 @@ class Overview extends React.Component {
     this.updateStyle = this.updateStyle.bind(this);
     this.updateThumbnailSection = this.updateThumbnailSection.bind(this);
     this.selectSize = this.selectSize.bind(this);
+    this.checkThumbnailSection = this.checkThumbnailSection.bind(this);
   }
 
   updateStyle(style) {
@@ -55,12 +56,49 @@ class Overview extends React.Component {
     })
   }
 
+  // checkThumb(dir) {
+  //   this.setState({
+  //     thumbnailSection: this.state.thumbnailSection + dir
+  //   })
+  //   // console.log('chceking thumb')
+  //   // check to see if we are at the end of the current thumbnal
+  // }
+
+  checkThumbnailSection(dir) {
+    let thumbnailLength = this.state.currentThumbnails[0].length;
+
+    console.log('checking thumbnail section lenght', this.state.currentThumbnails[0].length)
+    console.log('checking index', this.state.mainIndex)
+    // if (this.state.index >= this.state.info.currentThumbnails[0].length) {
+    //   console.log('length')
+    // }
+
+    // if the thumbnail length is greater than or equal to the current index
+    if (this.state.mainIndex + dir > thumbnailLength - 1) {
+      // set the state of the current section to be next
+
+      // console.log(this.state.thumbnailSection)
+      this.setState({
+        thumbnailSection: 1
+      })
+    }
+
+    if (this.state.mainIndex + dir <= thumbnailLength - 1) {
+      // set the state of the current section to be next
+      this.setState({
+        thumbnailSection: 0
+      })
+    }
+    // else set the state of the current section to be previous
+  }
+
   handleExpand() {
     this.setState({
       expanded: !this.state.expanded
     })
   }
 
+  // handles left or right main button click
   mainSlide(dir) {
 
     if (this.state.mainIndex === 0 && dir === -1) {
@@ -74,8 +112,10 @@ class Overview extends React.Component {
     if (this.state.mainIndex === 0) {
       this.setState({
         current: this.state.styles.results[0].photos[dir],
-        mainIndex: dir
+        mainIndex: this.state.mainIndex + dir
       })
+
+      console.log(this.state.mainIndex)
 
     } else {
       this.setState({
@@ -84,13 +124,16 @@ class Overview extends React.Component {
       })
     }
 
+    console.log(this.state.mainIndex)
+
   }
 
+  // handles thumbnail click
   updateMainPic(index) {
-
     this.setState({
       mainIndex: index
     })
+
   }
 
   getProductInfo(SKU) {
@@ -190,7 +233,11 @@ class Overview extends React.Component {
         <ProductInfo info={this.state} style={this.state.currentStyle}/>
         <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle}/>
         <AddToCart currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}/>
-        <ImageGallery info={this.state} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic} handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnail={this.updateThumbnailSection}/>
+        <ImageGallery
+          info={this.state} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
+          handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
+          checkThumbnailSection={this.checkThumbnailSection}
+        />
       </div>
     )
   }

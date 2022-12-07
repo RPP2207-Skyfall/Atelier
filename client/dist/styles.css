@@ -226,7 +226,9 @@ main {
   height: 50vh;
   width: 50vw;
   position: absolute;
+  cursor: zoom-in;
 }
+
 
 .thumbnail {
   display: flex;
@@ -257,6 +259,7 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  width: 10%;
 }
 
 
@@ -279,12 +282,12 @@ main {
   position: relative;
   z-index: 1;
   left: 12%;
-  top: -45%;
+  top: -50%;
 }
 
 .main-slider .main-forward {
   position: relative;
-  left: 50%;
+  left: 75%;
 }
 
 
