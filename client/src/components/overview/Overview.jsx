@@ -63,40 +63,28 @@ class Overview extends React.Component {
 
   }
 
-  // checkThumb(dir) {
-  //   this.setState({
-  //     thumbnailSection: this.state.thumbnailSection + dir
-  //   })
-  //   // console.log('chceking thumb')
-  //   // check to see if we are at the end of the current thumbnal
-  // }
 
   checkThumbnailSection(dir) {
     let thumbnailLength = this.state.currentThumbnails[0].length;
 
-    console.log('checking thumbnail section lenght', this.state.currentThumbnails[0].length)
-    console.log('checking index', this.state.mainIndex)
-    // if (this.state.index >= this.state.info.currentThumbnails[0].length) {
-    //   console.log('length')
-    // }
+    if ((this.state.mainIndex + dir === this.state.amount)) {
+      return;
+    }
 
-    // if the thumbnail length is greater than or equal to the current index
     if (this.state.mainIndex + dir > thumbnailLength - 1) {
-      // set the state of the current section to be next
 
-      // console.log(this.state.thumbnailSection)
       this.setState({
         thumbnailSection: 1
       })
     }
 
     if (this.state.mainIndex + dir <= thumbnailLength - 1) {
-      // set the state of the current section to be next
+
       this.setState({
         thumbnailSection: 0
       })
     }
-    // else set the state of the current section to be previous
+
   }
 
   handleExpand() {
@@ -122,16 +110,12 @@ class Overview extends React.Component {
         mainIndex: this.state.mainIndex + dir
       })
 
-      console.log(this.state.mainIndex)
-
     } else {
       this.setState({
         current: this.state.styles.results[0].photos[this.state.mainIndex + dir],
         mainIndex: this.state.mainIndex + dir
       })
     }
-
-    console.log(this.state.mainIndex)
 
   }
 
@@ -201,10 +185,16 @@ class Overview extends React.Component {
             thumbnails[i].index = i;
             box.push(thumbnails[i]);
 
-            if (box.length === 3) {
+            if (box.length === 7) {
               holder.push(box);
               box = [];
             }
+
+            if (i >= thumbnails.length - 1) {
+              holder.push(box);
+              box = [];
+            }
+
           }
 
           this.setState({

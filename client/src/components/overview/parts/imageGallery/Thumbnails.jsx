@@ -50,11 +50,7 @@ class Thumbnail extends React.Component {
     let currentSection = this.props.info.currentThumbnails[this.props.thumbnailSection]
     // console.log(this.props)
 
-      // if (this.props.index >= currentSection.length) {
-      //   this.props.updateThumbnailSection(1)
-      //   console.log(this.props.index)
-      // }
-      console.log('currentSection', currentSection)
+      // console.log('currentSection', currentSection)
 
       return (
         <div className="thumbnail-container">
