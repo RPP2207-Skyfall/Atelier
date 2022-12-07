@@ -15,9 +15,9 @@ class App extends React.Component {
     return (
       <>
         <h3>Ateiler</h3>
-        {/* <Overview />
+        <Overview />
         <RelatedItem />
-        <QandA /> */}
+        <QandA />
         <RatingReview />
 
       </>
