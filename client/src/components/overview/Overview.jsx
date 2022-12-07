@@ -30,12 +30,24 @@ class Overview extends React.Component {
     this.updateThumbnailSection = this.updateThumbnailSection.bind(this);
     this.selectSize = this.selectSize.bind(this);
     this.checkThumbnailSection = this.checkThumbnailSection.bind(this);
+    this.makeImageHolder = this.makeImageHolder.bind(this);
   }
 
   updateStyle(style) {
+
+    // update current thumbnails to be the thumbnails of the new style
+
+    // console.log(style.photos)
+
+    let newThumbnails = this.makeImageHolder(style.photos)
+
+    // console.log('style', images)
+
+
     this.setState({
       currentStyle: style,
       mainIndex: 0,
+      currentThumbnails: newThumbnails
 
     })
 
@@ -217,6 +229,30 @@ class Overview extends React.Component {
     this.setState({
       selectedSize: size
     })
+  }
+
+  makeImageHolder(images) {
+
+    let holder = [];
+    let box = [];
+
+    for (var i = 0; i < images.length; i++) {
+
+      images[i].index = i;
+      box.push(images[i]);
+
+      if (box.length === 7) {
+        holder.push(box);
+        box = [];
+      }
+
+      if (i >= images.length - 1) {
+        holder.push(box);
+        box = [];
+      }
+
+    }
+    return holder;
   }
 
 

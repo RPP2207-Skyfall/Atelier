@@ -19,7 +19,6 @@ class ImageGallery extends React.Component {
     this.props.checkThumbnailSection(dir);
   }
 
-  // this.state.expanded === false && this.state.styles.length !== 0
 
   render() {
 
