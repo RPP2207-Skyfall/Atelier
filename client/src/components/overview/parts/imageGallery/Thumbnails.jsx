@@ -80,8 +80,8 @@ class Thumbnail extends React.Component {
 
           }
             <div className="thumbnail-buttons">
-              <button className="thumbnail-backwards" onClick={() => this.props.updateThumbnail(-1)}>↑</button>
-              <button className="thumbnail-forwards" onClick={() => this.props.updateThumbnail(1)}>↓</button>
+              <button className="thumbnail-backwards" onClick={() => this.props.updateThumbnailSection(-1)}>↑</button>
+              <button className="thumbnail-forwards" onClick={() => this.props.updateThumbnailSection(1)}>↓</button>
             </div>
 
 

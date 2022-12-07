@@ -51,9 +51,16 @@ class Overview extends React.Component {
       return;
     }
 
+    let newIndex = this.state.currentThumbnails[this.state.thumbnailSection + dir][0].index;
+
+    console.log('newIndex', newIndex)
+
+
     this.setState({
-      thumbnailSection: this.state.thumbnailSection + dir
+      thumbnailSection: this.state.thumbnailSection + dir,
+      mainIndex: newIndex
     })
+
   }
 
   // checkThumb(dir) {
