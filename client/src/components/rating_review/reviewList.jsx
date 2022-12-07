@@ -8,7 +8,8 @@ class reviewList extends React.Component {
     this.state = {
       reviewData: [],
       displayReview: [],
-      loadBtn: false
+      loadBtn: false,
+      currentSorting: 'relevent'
 
     }
   }
@@ -49,6 +50,10 @@ class reviewList extends React.Component {
     }
   }
 
+  updateSortingMethod(value) {
+    console.log(value) //sorting method from sorting.jsx
+  }
+
 
 
 
@@ -56,7 +61,7 @@ class reviewList extends React.Component {
     const datalength = this.state.reviewData.length
     return (
       <div className="reviewBreakdown">
-        <div className="review-sort-bar">{`${datalength} reviews, sorted by `}{datalength > 0 ? <SortMenu /> : null}</div>
+        <div className="review-sort-bar">{`${datalength} reviews, sorted by `}{datalength > 0 ? <SortMenu sortValue={this.state.currentSorting} updateSortingMethod={this.updateSortingMethod.bind(this)} /> : null}</div>
         <div className="reviewItemContaier">
           <div className="container-Content">
             {this.state.displayReview.map((item) =>
