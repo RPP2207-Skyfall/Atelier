@@ -31,7 +31,7 @@ class RatingReview extends React.Component {
       },
       params: {
         product_id: product_id,
-        count: 10
+        count: 50
       }
     }
     Axios.get(url, requestOption)
