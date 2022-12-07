@@ -25,8 +25,8 @@ class StarRating extends React.Component {
     var decimal = this.props.rating - fullStars
 
     //testing
-    // var fullStars = Math.floor(3.5) //3
-    // var decimal = (3.5 - fullStars) // 0.5 = 3 quarters star
+    // var fullStars = Math.floor(3.8) //3
+    // var decimal = (3.8 - fullStars) // 0.5 = 3 quarters star
 
 
 
@@ -93,7 +93,7 @@ class StarRating extends React.Component {
 
           return (
             <div className="star-container" key={idx}>
-              <div className="star-fill" style={{ "width": `${(width * 26)}px` }}>
+              <div className="star-fill" style={{ "width": `${(width * 21)}px` }}>
                 <img className="star-outline" src="star.png"></img>
               </div>
             </div>
