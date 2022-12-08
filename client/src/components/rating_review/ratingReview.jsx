@@ -8,14 +8,14 @@ class RatingReview extends React.Component {
     super(props)
     this.state = {
       product_id: props.product_id || 71698,
-      reviewData: []
+      reviewData: [],
+      sortOption: 'relevant'
 
     }
 
   }
 
   componentDidMount() {
-
     this.getProductReviews(this.state.product_id)
   }
 
@@ -31,7 +31,8 @@ class RatingReview extends React.Component {
       },
       params: {
         product_id: product_id,
-        count: 50
+        count: 50,
+        sort: this.state.sortOption
       }
     }
     Axios.get(url, requestOption)
@@ -46,6 +47,13 @@ class RatingReview extends React.Component {
       })
   }
 
+  updateSortMethod(sortMethod) {
+    console.log('here', sortMethod)
+    this.setState({
+      sortOption: sortMethod
+    })
+  }
+
   render() {
     return (
       <div className="container ratingReview">
@@ -55,7 +63,7 @@ class RatingReview extends React.Component {
             rating breakdown
           </div>
           <div className="col-8">
-            <ReviewList reviewData={this.state.reviewData} />
+            <ReviewList reviewData={this.state.reviewData} updateSortMethod={this.updateSortMethod.bind(this)} />
           </div>
         </div>
       </div>
