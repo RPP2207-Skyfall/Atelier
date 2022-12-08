@@ -59,7 +59,7 @@ main {
 
 /****** Style for Ratings and review widget ****/
 .ratingReview {
-  color: rgb(157, 155, 155);
+  /* color: rgb(157, 155, 155); */
   font-size: smaller;
   margin: 100px 0 50px 0;
 }
@@ -70,8 +70,19 @@ main {
 
 .reviewItemContaier {
   margin: 20px 0 20px 0;
-  overflow-y: scroll;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  width: 100%;
   height: 600px;
+
+}
+
+.container-Content {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 105%;
+  height: 600px;
+
 }
 
 .helpfulCount span {
@@ -198,6 +209,27 @@ main {
   height: 26px;
   width: 21px;
   display: inline-block;
+}
+
+.sort-col {
+  width: 20%;
+  margin: 0.5% 40% 0 30%;
+  position: absolute;
+  background-color: #ffff;
+  z-index: 2;
+  border-radius: 5px;
+}
+
+.option-helpful,
+.option-newest,
+.option-relevant {
+  margin: 5px 0 5px 0;
+  padding: 0 0 0 2px;
+}
+
+.sort-col .row:hover {
+  background-color: rgb(173, 173, 173);
+  border-radius: 3px;
 }
 
 
