@@ -3,24 +3,30 @@ import React from 'react';
 function StyleSelector(props) {
 
 
+  // console.log(props);
+
+
   if (props.styles.results) {
 
     return (
-      <div id="style-selector">
+      <div className="style-container">
 
         <h3>Style Selector</h3>
-        <div id="style-name">Style > {props.currentStyle.name}</div>
+        <div className="style-name">Style > {props.currentStyle.name}</div>
 
-        {
-              props.styles.results.map((style, i) => {
+        <div className="styles-holder">
+          {
+                props.styles.results.map((style, i) => {
 
-                return (
-                  <div key={i} id="current-style" onClick={() => props.updateStyle(style)}>
-                    <img src={style.photos[0].thumbnail_url} key={i} />
-                  </div>
-                )
-              })
-        }
+                  return (
+                    <div key={i} className="current-style" onClick={() => props.updateStyle(style)}>
+                      <img className="style-image" src={style.photos[0].thumbnail_url} key={i} />
+                    </div>
+                  )
+                })
+          }
+        </div>
+
       </div>
     )
 

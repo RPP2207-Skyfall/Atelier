@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 
 function ExpandedView (props) {
 
+  return (
+    <div>
+      expanded view
+    </div>
+  )
+
   if (props.mainPic.length === 0) {
     return (
       <div>
