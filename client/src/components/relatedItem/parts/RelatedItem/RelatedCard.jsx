@@ -1,23 +1,69 @@
 import React from 'react';
+import Axios from 'axios';
 
-const RelatedCard = (props) => (
-  <div className="carousel-box">
-    <button className="star-btn">star</button>
-    <div className="category-box">
-      <div className="category-title">CATEGORY</div>
-      <div className="category-wrapper">
-        <p>Expanded Product Name With Extra Text</p>
-        <div className="price-box">
-          $123
-        </div>
-        <div className="star-box">
-          ★★★★★
+class RelatedCard extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      product_id: this.props.item,
+      product_detail: [],
+      rating: 0,
+
+    }
+    this.getRelatedDetails = this.getRelatedDetails.bind(this);
+  }
+
+  componentDidMount() {
+    this.getRelatedDetails(this.state.product_id)
+  }
+
+  getRelatedDetails(ID) {
+    console.log(ID)
+    var requestOption = {
+      headers: {
+        "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
+      }
+      // params: {
+      //   product_id: IDList[x],
+      // }
+    }
+    Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${ID}`, requestOption)
+    .then(res => {
+      console.log(res.data)
+      this.setState({product_detail: res.data})
+    })
+    .catch(err => {
+      console.log("Err: ", err)
+    })
+  }
+
+  render() {
+    console.log("category", this.state.product_detail.default_price)
+    if (this.state.product_detail.length === 0) {
+      return (
+        <p>Empty</p>
+      )
+    } else {
+      return (
+        <div className="carousel-box">
+        <button className="star-btn">star</button>
+        <div className="category-box">
+          <div className="category-title">{this.state.product_detail.category}</div>
+          <div className="category-wrapper">
+            <p>{this.state.product_detail.name}</p>
+            <div className="price-box">
+            ${this.state.product_detail.default_price}
+            </div>
+            <div className="star-box">
+              ★★★★★
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-)
-
+      )
+    }
+  }
+}
 
 
 export default RelatedCard;

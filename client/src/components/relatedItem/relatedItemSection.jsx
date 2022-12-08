@@ -17,7 +17,7 @@ function RelatedItem() {
       <h5>RELATED PRODUCTS</h5>
       <RelatedList />
       </section>
-      <h5>RELATED PRODUCTS</h5>
+      <h5>YOUR OUTFIT</h5>
       <section className="carousel-upper">
       <OutfitList />
       </section>
