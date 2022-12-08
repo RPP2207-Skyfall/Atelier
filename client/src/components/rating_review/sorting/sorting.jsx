@@ -30,8 +30,8 @@ const SortMenu = (props) => {
 
     <><span className="sort-dropdown" onClick={() => { handleClick() }}>{`${sortOptionOnDisplay}`}</span>
       <div className="sort-col col">
-        {sortOptionsArr.map((sortMethod) =>
-          <div className={`row option-${sortMethod}`} onClick={() => { handleSortingClick(sortMethod) }} style={style}>{sortMethod}</div>
+        {sortOptionsArr.map((sortMethod, idx) =>
+          <div className={`row option-${sortMethod}`} key={idx} onClick={() => { handleSortingClick(sortMethod) }} style={style}>{sortMethod}</div>
         )}
       </div>
     </>
