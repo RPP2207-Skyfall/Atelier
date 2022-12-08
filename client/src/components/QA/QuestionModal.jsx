@@ -21,7 +21,6 @@ class QuestionModal extends React.Component {
   constructor(props) {
     super(props);
     this.state={
-      product_name:'',
       question:'',
       nickname:'',
       email:'',
@@ -38,7 +37,7 @@ class QuestionModal extends React.Component {
       this.setState({
         emailError: 'You must enter the following: Email'
       })
-    } else if (this.state.nickname.includes('@') === false) {
+    } else if (this.state.email.includes('@') === false) {
       this.setState({
         emailError: 'You must enter the correct email format'
       })
@@ -104,7 +103,7 @@ class QuestionModal extends React.Component {
             <Stack spacing={1}>
               <TextField
                 label='Email'
-                placeholder="Why did you like the product or not?"
+                placeholder="example@atelier.com"
                 fullWidth
                 inputProps={{maxLength: 60}}
                 value={this.state.email}

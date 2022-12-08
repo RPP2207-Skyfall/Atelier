@@ -18,7 +18,7 @@ class App extends React.Component {
         <Overview />
         <RatingReview />
         <RelatedItem />
-        <QandA />
+        <QandA product_name={'Camo Windblocker'}/>
 
       </>
     )

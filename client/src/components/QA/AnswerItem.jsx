@@ -6,13 +6,13 @@ class AnswerItem extends React.Component {
   constructor(props) {
     super(props);
     this.state={
-      A: this.props.item,
-      id: this.props.item.id,
-      body: this.props.item.body,
-      date: this.props.item.date,
-      answerer_name: this.props.item.answerer_name,
-      helpfulness: this.props.item.helpfulness,
-      photos: this.props.item.photo
+      A: this.props.item || '',
+      id: this.props.item.id || '',
+      body: this.props.item.body || '',
+      date: this.props.item.date || '',
+      answerer_name: this.props.item.answerer_name || '',
+      helpfulness: this.props.item.helpfulness || '',
+      photos: this.props.item.photo || ''
     };
   };
 

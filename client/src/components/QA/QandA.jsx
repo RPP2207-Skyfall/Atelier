@@ -4,7 +4,6 @@ import Search from './Search.jsx';
 import QAItem from './QAItem.jsx';
 import QAList from './QAList.jsx';
 import QuestionModal from './QuestionModal.jsx';
-import AnswerModal from './AnswerModal.jsx';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import AddIcon from '@mui/icons-material/Add';
@@ -87,7 +86,7 @@ class QandA extends React.Component {
       <div className='question-and-answer-container'>
         <h4>QUESTIONS & ANSWERS</h4>
         <Search />
-        <QAList list={this.state.QA} handleAModalOpen={this.handleAModalOpen}/>
+        <QAList list={this.state.QA} handleAModalOpen={this.handleAModalOpen} isAModalOpen={this.state.isAModalOpen} handleAModalClose={this.handleAModalClose} product_name={this.props.product_name}/>
         {/* <QAItem isModalOpen={this.state.isAModalOpen} handleModalOpen={this.handleAModalOpen} handleModalClose={this.handleAModalClose}/>
         <QAItem isModalOpen={this.state.isAModalOpen} handleModalOpen={this.handleAModalOpen} handleModalClose={this.handleAModalClose}/> */}
         <Stack spacing={1} direction={{ xs: 'column', xs: 'row' }}>
@@ -95,7 +94,6 @@ class QandA extends React.Component {
           <Button variant='outlined' size='medium' onClick={this.handleQModalOpen}>ADD A QUESTION <AddIcon/></Button>
         </Stack>
         <QuestionModal isQModalOpen={this.state.isQModalOpen} handleQModalClose={this.handleQModalClose}/>
-        <AnswerModal isAModalOpen={this.state.isAModalOpen} handleAModalClose={this.handleAModalClose}/>
       </div>
     )
   }

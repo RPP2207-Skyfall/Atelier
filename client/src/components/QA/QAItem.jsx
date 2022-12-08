@@ -4,6 +4,10 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Unstable_Grid2';
 import Stack from '@mui/material/Stack';
+import AnswerModal from './AnswerModal.jsx';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
 
 
 //Receives question from QAList
@@ -15,11 +19,41 @@ class QAItem extends React.Component {
     this.state={
       Q: this.props.item,
       A_List: Object.values(this.props.item.answers),
+      A_List_Shown: [],
       QhelpfulCount: this.props.item.question_helpfulness,
-      QhelpfulClicked: false
+      QhelpfulClicked: false,
+      moreAnswerBtn: false
     };
     this.isQHelpful = this.isQHelpful.bind(this);
     this.handleAModalOpen = this.handleAModalOpen.bind(this);
+    this.handleMoreAnswer = this.handleMoreAnswer.bind(this);
+  };
+
+  componentDidMount() {
+    if (this.state.A_List.length > 2) {
+      this.setState({
+        A_List_Shown: [this.state.A_List[0], this.state.A_List[1]],
+        moreAnswerBtn: true
+      })
+    } else {
+      this.setState({
+        A_List_Shown: this.state.A_List
+      })
+    }
+  };
+
+  handleMoreAnswer() {
+    var A_List_Idx = this.state.A_List_Shown.length;
+    var new_A_List_Shown = this.state.A_List_Shown;
+    if (this.state.A_List.length > new_A_List_Shown.length) {
+      for (var i = 0; i < 2; i++) {
+        new_A_List_Shown.push(this.state.A_List[A_List_Idx]);
+        A_List_Idx++;
+      }
+      this.setState({
+        A_List_Shown: new_A_List_Shown
+      })
+    }
   };
 
   isQHelpful() {
@@ -41,6 +75,7 @@ class QAItem extends React.Component {
   }
 
   render() {
+    console.log(this.state.A_List_Shown);
     return(
       <div className='question-and-answer-qaitem-container'>
         <Box sx={{ flexGrow: 1}}>
@@ -57,11 +92,12 @@ class QAItem extends React.Component {
               </Stack>
             </Grid>
             <Stack spacing={1} direction='row'>
-              <AnswerList list={this.state.A_List} />
+              <AnswerList list={this.state.A_List_Shown} />
             </Stack>
           </Grid>
-          <Button variant='text'>LOAD MORE ANSWERS</Button>
+          {this.state.moreAnswerBtn ? <Button onClick={this.handleMoreAnswer}>More Answered Questions</Button> : null}
         </Box>
+        <AnswerModal isAModalOpen={this.props.isAModalOpen} handleAModalClose={this.props.handleAModalClose} question={this.state.Q.question_body} product_name={this.props.product_name}/>
       </div>
     )
   }
