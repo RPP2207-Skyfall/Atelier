@@ -3,6 +3,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
 
 const style = {
   position: 'absolute',
@@ -23,9 +24,54 @@ class QuestionModal extends React.Component {
       product_name:'',
       question:'',
       nickname:'',
-      email:''
+      email:'',
+      questionError: '',
+      nicknameError: '',
+      emailError: ''
     };
+    this.handleSubmitError = this.handleSubmitError.bind(this);
   };
+
+  handleSubmitError(e) {
+    e.preventDefault();
+    if (this.state.email === '') {
+      this.setState({
+        emailError: 'You must enter the following: Email'
+      })
+    } else if (this.state.nickname.includes('@') === false) {
+      this.setState({
+        emailError: 'You must enter the correct email format'
+      })
+    } else {
+      this.setState({
+        emailError: ''
+      })
+    }
+
+    if (this.state.nickname === '') {
+      this.setState({
+        nicknameError: 'You must enter the following: Nickname'
+      })
+    } else {
+      this.setState({
+        nicknameError: ''
+      })
+    }
+
+    if (this.state.question === '') {
+      this.setState({
+        questionError: 'You must enter the following: Question'
+      })
+    } else {
+      this.setState({
+        questionError: ''
+      })
+    }
+
+    if (this.state.email && this.state.nickname && this.state.question) {
+      this.props.handleQModalClose();
+    }
+  }
 
   render() {
     return(
@@ -39,24 +85,52 @@ class QuestionModal extends React.Component {
           <Box sx={style}>
             <h2 id='question-modal-title'>ASK YOUR QUESTION</h2>
             <h3 id='question-modal-subtitle'>About [Your Product]</h3>
-            <TextField
-              label='Question'
-              multiline
-              maxRows={6}
-              placeholder="What do you like to know...?"
-              required>
-            </TextField>
-            <TextField
-              label='Nickname'
-              placeholder="Howard878"
-              required>
-            </TextField>
-            <TextField
-              label='Email'
-              placeholder="example@atelier.com"
-              required>
-            </TextField>
-            <Button variant='outlined' size='medium' onClick={() => {this.props.handleQModalClose()}}>SUBMIT</Button>
+            <Stack direction='row' spacing={2}>
+              <TextField
+                label='Question'
+                multiline
+                placeholder="What do you like to know...?"
+                rows={4}
+                fullWidth
+                inputProps={{maxLength: 1000}}
+                value={this.state.question}
+                error={!!this.state.questionError}
+                helperText={this.state.questionError}
+                onChange={e => this.setState({question: e.target.value})}
+                required>
+              </TextField>
+            </Stack>
+            <br></br>
+            <Stack spacing={1}>
+              <TextField
+                label='Email'
+                placeholder="Why did you like the product or not?"
+                fullWidth
+                inputProps={{maxLength: 60}}
+                value={this.state.email}
+                error={!!this.state.emailError}
+                helperText={this.state.emailError}
+                onChange={e => this.setState({email: e.target.value})}
+                required>
+              </TextField>
+              <p>For authentication reasons, you will not be emailed</p>
+            </Stack>
+            <br></br>
+            <Stack spacing={1}>
+              <TextField
+                label='Nickname'
+                placeholder="Howard878"
+                inputProps={{maxLength: 60}}
+                value={this.state.nickname}
+                error={!!this.state.nicknameError}
+                helperText={this.state.nicknameError}
+                onChange={e => this.setState({nickname: e.target.value})}
+                required>
+              </TextField>
+              <p>For privacy reasons, do not use your full name or email address</p>
+            </Stack>
+            <br></br>
+            <Button variant='outlined' size='medium' onClick={this.handleSubmitError} type='submit'>SUBMIT</Button>
           </Box>
         </Modal>
       </div>

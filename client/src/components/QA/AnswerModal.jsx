@@ -45,6 +45,7 @@ class AnswerModal extends React.Component {
                 multiline
                 rows={4}
                 fullWidth
+                inputProps={{maxLength: 1000}}
                 required>
               </TextField>
             </Stack>
@@ -54,6 +55,7 @@ class AnswerModal extends React.Component {
                 label='Email'
                 placeholder="example@atelier.com"
                 fullWidth
+                inputProps={{maxLength: 60}}
                 required>
               </TextField>
             </Stack>
@@ -62,6 +64,7 @@ class AnswerModal extends React.Component {
               <TextField
                 label='Nickname'
                 placeholder="Howard878"
+                inputProps={{maxLength: 60}}
                 required>
               </TextField>
             </Stack>
