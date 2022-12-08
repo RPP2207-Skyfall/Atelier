@@ -23,7 +23,7 @@ function AddToCart(props) {
     // console.log('Add to Cart', props.currentStyle.skus);
     let skus = props.currentStyle.skus
     return (
-      <div id="add-to-cart-dropdown-closed" onClick={handleOpen}>
+      <div className="add-to-cart-dropdown-closed" onClick={handleOpen}>
 
         {
           Object.keys(props.currentStyle.skus).map((sku, i) => {
@@ -49,7 +49,7 @@ function AddToCart(props) {
     )
   } else {
     return (
-      <div id="add-to-cart-dropdown-closed" onClick={handleOpen}>
+      <div className="add-to-cart-dropdown-closed" onClick={handleOpen}>
         <h3>Select Size</h3>
       </div>
     )

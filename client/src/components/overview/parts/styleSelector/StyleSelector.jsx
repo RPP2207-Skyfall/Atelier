@@ -11,7 +11,6 @@ function StyleSelector(props) {
     return (
       <div className="style-container">
 
-        <h3>Style Selector</h3>
         <div className="style-name">Style > {props.currentStyle.name}</div>
 
         <div className="styles-holder">

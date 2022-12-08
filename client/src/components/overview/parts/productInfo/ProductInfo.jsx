@@ -8,14 +8,14 @@ function ProductInfo(props) {
     // console.log('product infor porps', props)
 
     return (
-      <div id="product-info">
+      <div className="product-info">
         <h3>Product Info</h3>
 
-        <div id="stars">Stars</div>
-        <div id="overview-reviews">read all # reviews</div>
-        <div id="product-category">{props.info.data[0].category}</div>
-        <div id="title">{props.style.name}</div>
-        <div id="price">{props.style.original_price}</div>
+        <div className="product-info-stars">Stars</div>
+        <div className="product-info-reviews">read all # reviews</div>
+        <div className="product-info-category">{props.info.data[0].category}</div>
+        <h2 className="product-info-title">{props.style.name}</h2>
+        <div id="product-info-price">{props.style.original_price}</div>
 
       </div>
     )
