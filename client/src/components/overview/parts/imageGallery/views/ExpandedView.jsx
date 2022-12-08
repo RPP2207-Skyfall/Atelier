@@ -2,11 +2,6 @@ import React, { useState } from 'react';
 
 function ExpandedView (props) {
 
-  return (
-    <div>
-      expanded view
-    </div>
-  )
 
   if (props.mainPic.length === 0) {
     return (
@@ -17,9 +12,9 @@ function ExpandedView (props) {
   } else {
 
     return (
-      <div id="expanded-view">
-        {/* <h1>Expanded View</h1> */}
-        <img class="expanded-image" src={props.mainPic} alt="style" onClick={() => props.expand()}/>
+      <div className="expanded-view">
+        {/* <h1>Default View</h1> */}
+        <img className="expanded-image" src={props.mainPic} alt="style" onClick={() => props.expand()}/>
       </div>
     )
   }

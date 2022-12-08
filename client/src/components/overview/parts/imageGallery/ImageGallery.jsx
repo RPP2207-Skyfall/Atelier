@@ -51,12 +51,17 @@ class ImageGallery extends React.Component {
       // console.log('expanede')
 
       return (
-        <div class="expaned-image-gallery">
+        <div className="expanded-image-gallery">
           <ExpandedView mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand}/>
-          <Thumbnail index={index} updateMainPic={this.props.updateMainPic} images={this.props.currentStyle.photos} section={this.props.thumbnailSection} updateThumbnail={this.props.updateThumbnail} />
-          <div class="expanded-slider">
-            <button class="expanded-backward" onClick={() => this.props.mainSlide(-1)}>back</button>
-            <button class="expanded-forward" onClick={() => this.props.mainSlide(1)}>forward</button>
+          <Thumbnail
+            info={this.props.info} index={index} updateMainPic={this.props.updateMainPic}
+            images={this.props.currentStyle.photos} section={this.props.thumbnailSection} updateThumbnailSection={this.props.updateThumbnailSection}
+            checkThumb={this.props.checkThumb}
+            thumbnailSection={this.props.thumbnailSection}
+          />
+          <div className="expanded-slider">
+            <button className="expanded-backward" onClick={() => this.props.mainSlide(-1)}>back</button>
+            <button className="expanded-forward" onClick={() => this.props.mainSlide(1)}>forward</button>
           </div>
           <button onClick={() => this.props.handleExpand()}>default</button>
         </div>

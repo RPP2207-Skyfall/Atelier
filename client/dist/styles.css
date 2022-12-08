@@ -215,6 +215,8 @@ main {
 
 /* image gallery */
 
+/* default view */
+
 .default-image-gallery {
   position: relative;
   padding-bottom: 100px;
@@ -304,6 +306,34 @@ main {
 .main-slider .main-forward {
   position: relative;
   left: 42%;
+}
+
+/* expanded-view */
+
+.expanded-image-gallery {
+  position: relative;
+  padding-bottom: 100px;
+  margin-bottom: 100px;
+  height: 50vh;
+  width: 100vw;
+  top: -70vh;
+  left: -10vw;
+}
+
+.expanded-view {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.expanded-image {
+  height: 50vh;
+  width: 100vw;
+  position: absolute;
+  cursor: zoom-in;
+}
+.expanded-slider {
+  display: flex;
 }
 
 /* Style Selector */
