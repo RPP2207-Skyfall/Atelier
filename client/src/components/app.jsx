@@ -16,7 +16,7 @@ class App extends React.Component {
         <h3>Ateiler</h3>
         <Overview />
         <RelatedItem />
-        <QandA />
+        <QandA product_name={'Camo Windblocker'}/>
         <RatingReview />
       </>
     )
