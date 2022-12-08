@@ -219,8 +219,9 @@ main {
   position: relative;
   padding-bottom: 100px;
   margin-bottom: 100px;
-  height: 500px;
-  top: -55vh;
+  height: 50vh;
+  width: 50vw;
+  top: -70vh;
   left: -10vw;
 }
 
@@ -261,12 +262,22 @@ main {
 .thumbnail-container {
   position: relative;
   display: flex;
-  gap: 7px;
-  top: 15%;
+  gap: 10px;
   left: 2%;
+  top: 4vh;
   display: flex;
   flex-direction: column;
   width: 10%;
+  z-index: 1;
+}
+
+.thumbnail-buttons {
+  position: relative;
+  display: flex;
+  left: 16%;
+  flex-direction: column;
+  z-index: -1;
+  width: 80%;
 }
 
 .thumbnail-backwards {
@@ -280,14 +291,14 @@ main {
   display: flex;
   flex-direction: column;
   position: relative;
-  top: -1em;
+  top: -3em;
 }
 
 .main-slider {
   position: relative;
   z-index: 1;
-  left: 12%;
-  top: -50%;
+  left: 24%;
+  top: -70%;
 }
 
 .main-slider .main-forward {
