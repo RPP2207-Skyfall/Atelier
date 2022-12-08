@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReviewItem from './reviewItem.jsx'
+import SortMenu from './sorting/sorting.jsx'
 
 class reviewList extends React.Component {
   constructor(props) {
@@ -7,7 +8,8 @@ class reviewList extends React.Component {
     this.state = {
       reviewData: [],
       displayReview: [],
-      loadBtn: false
+      loadBtn: false,
+      currentSorting: 'relevent'
 
     }
   }
@@ -48,6 +50,10 @@ class reviewList extends React.Component {
     }
   }
 
+  updateSortingMethod(value) {
+    console.log(value) //sorting method from sorting.jsx
+  }
+
 
 
 
@@ -55,11 +61,13 @@ class reviewList extends React.Component {
     const datalength = this.state.reviewData.length
     return (
       <div className="reviewBreakdown">
-        <div>{`${datalength} reviews, sorted by `}</div>
+        <div className="review-sort-bar">{`${datalength} reviews, sorted by `}{datalength > 0 ? <SortMenu sortValue={this.state.currentSorting} updateSortingMethod={this.updateSortingMethod.bind(this)} /> : null}</div>
         <div className="reviewItemContaier">
-          {this.state.displayReview.map((item, idx) =>
-            <ReviewItem reviewData={item} key={idx} />
-          )}
+          <div className="container-Content">
+            {this.state.displayReview.map((item) =>
+              <ReviewItem reviewData={item} key={item.review_id} />
+            )}
+          </div>
         </div>
         {this.state.loadBtn ? <button className="loadReviewBtn" onClick={() => { this.handleMoreReviewClick() }}>MORE REVIEWS</button> : null} <button className="addReviewBtn" >ADD A REVIEW +</button>
         <></>

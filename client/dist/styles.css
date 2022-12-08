@@ -59,8 +59,9 @@ main {
 
 /****** Style for Ratings and review widget ****/
 .ratingReview {
-  color: rgb(157, 155, 155);
+  /* color: rgb(157, 155, 155); */
   font-size: smaller;
+  margin: 100px 0 50px 0;
 }
 
 .reviewBreakdown {
@@ -69,8 +70,19 @@ main {
 
 .reviewItemContaier {
   margin: 20px 0 20px 0;
-  overflow-y: scroll;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  width: 100%;
   height: 600px;
+
+}
+
+.container-Content {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 105%;
+  height: 600px;
+
 }
 
 .helpfulCount span {
@@ -172,32 +184,149 @@ main {
   margin: 10px 10px 10px 10px;
 }
 
-.oneStar {
-  display: inline-block;
+
+.star-outline {
+  height: 26px;
+  width: 21px;
+}
+
+
+.star-fill {
   position: relative;
-  color: #ddd;
+  display: inline-block;
+  height: 26px;
+  background-color: #333333;
 }
 
-.oneStar::after {
-  font-family: "Font Awesome 5 Free";
-  content: "\f005";
+.star-fill img {
+  max-width: none
+}
+
+
+.star-container {
+  border-color: black;
+  background-color: white;
+  height: 26px;
+  width: 21px;
+  display: inline-block;
+}
+
+.sort-col {
+  width: 20%;
+  margin: 0.5% 40% 0 30%;
   position: absolute;
-  left: 0;
-  top: 0;
-  width: var(--width);
-  overflow: hidden;
-  color: #f80;
+  background-color: #ffff;
+  z-index: 2;
+  border-radius: 5px;
+}
+
+.option-helpful,
+.option-newest,
+.option-relevant {
+  margin: 5px 0 5px 0;
+  padding: 0 0 0 2px;
+}
+
+.sort-col .row:hover {
+  background-color: rgb(173, 173, 173);
+  border-radius: 3px;
 }
 
 
 /**********************************************/
-
 /****** Style for Overview widget****/
-#expanded-image {
-  width: 90vw;
-}
-/**********************************************/
 
+.overview-container {
+  margin: 100px;
+}
+
+/* image gallery */
+
+.default-image-gallery {
+  padding-bottom: 100px;
+  margin-bottom: 100px;
+  height: 500px;
+}
+
+.default-view {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+ .default-image {
+  height: 50vh;
+  width: 50vw;
+  position: absolute;
+  cursor: zoom-in;
+}
+
+
+.thumbnail {
+  display: flex;
+  /* flex: 1 1 0; */
+  height: 50px;
+  width: 50px;
+  border: 1px solid black;
+  box-sizing: border-box;
+
+}
+
+.selected-thumbnail {
+  display: flex;
+  /* flex: 1 1 0; */
+  height: 50px;
+  width: 50px;
+  border: 2px solid rgb(125, 125, 188);
+  box-sizing: border-box;
+
+}
+
+.thumbnail-container {
+  position: relative;
+  display: flex;
+  gap: 7px;
+  top: 15%;
+  left: 2%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 10%;
+}
+
+
+
+.thumbnail-backwards {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: -24em;
+}
+
+.thumbnail-forwards {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: -1em;
+}
+
+.main-slider {
+  position: relative;
+  z-index: 1;
+  left: 12%;
+  top: -50%;
+}
+
+.main-slider .main-forward {
+  position: relative;
+  left: 75%;
+}
+
+
+
+
+
+/**********************************************/
 /****** Style for Ratings and related item widget ****/
 
 .main-container {
@@ -207,7 +336,7 @@ main {
   margin: 0 auto;
 }
 
-.carousel-style h5{
+.carousel-style h5 {
   text-align: left;
   font-weight: 400;
 }
@@ -228,7 +357,7 @@ main {
   width: 200px;
   margin-right: 20px;
   height: 300px;
-  background-color: rgb(190,190,190);
+  background-color: rgb(190, 190, 190);
   outline: 2px solid #bebebe;
 }
 
@@ -282,25 +411,24 @@ main {
   text-align: left;
 }
 
-
 /**********************************************/
+/*****************Style for Q&A widget*****************************/
 
 #qaitem-question-helpful-count:hover {
-  cursor:pointer;
+  cursor: pointer;
 }
 
 #qaitem-answer-helpful-count:hover {
-  cursor:pointer;
+  cursor: pointer;
 }
 
 #qaitem-add-answer:hover {
-  cursor:pointer;
+  cursor: pointer;
 }
 
 #qaitem-report:hover {
-  cursor:pointer;
+  cursor: pointer;
 }
-=======
+
 
 /**********************************************/
-
