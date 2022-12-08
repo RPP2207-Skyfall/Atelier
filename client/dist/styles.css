@@ -235,9 +235,94 @@ main {
 
 /**********************************************/
 /****** Style for Overview widget****/
-#expanded-image {
-  width: 90vw;
+
+.overview-container {
+  margin: 100px;
 }
+
+/* image gallery */
+
+.default-image-gallery {
+  padding-bottom: 100px;
+  margin-bottom: 100px;
+  height: 500px;
+}
+
+.default-view {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+ .default-image {
+  height: 50vh;
+  width: 50vw;
+  position: absolute;
+  cursor: zoom-in;
+}
+
+
+.thumbnail {
+  display: flex;
+  /* flex: 1 1 0; */
+  height: 50px;
+  width: 50px;
+  border: 1px solid black;
+  box-sizing: border-box;
+
+}
+
+.selected-thumbnail {
+  display: flex;
+  /* flex: 1 1 0; */
+  height: 50px;
+  width: 50px;
+  border: 2px solid rgb(125, 125, 188);
+  box-sizing: border-box;
+
+}
+
+.thumbnail-container {
+  position: relative;
+  display: flex;
+  gap: 7px;
+  top: 15%;
+  left: 2%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 10%;
+}
+
+
+
+.thumbnail-backwards {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: -24em;
+}
+
+.thumbnail-forwards {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: -1em;
+}
+
+.main-slider {
+  position: relative;
+  z-index: 1;
+  left: 12%;
+  top: -50%;
+}
+
+.main-slider .main-forward {
+  position: relative;
+  left: 75%;
+}
+
+
 
 
 

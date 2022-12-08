@@ -4,6 +4,9 @@ import Thumbnail from '../Thumbnails.jsx';
 
 function DefaultView (props) {
 
+          // if the main image thumbnail is currently in the second box of thumbnails,
+          // then update the section to the next section
+
   if (props.mainPic.length === 0) {
     return (
       <div>
@@ -11,14 +14,11 @@ function DefaultView (props) {
       </div>
     )
   } else {
-    let currentStyle = props.mainPic.url;
 
     return (
-      <div id="default-view">
-        <h1>Default View</h1>
-
-        <img src={currentStyle} alt="style" />
-
+      <div class="default-view">
+        {/* <h1>Default View</h1> */}
+        <img class="default-image" src={props.mainPic} alt="style" onClick={() => props.expand()}/>
       </div>
     )
   }

@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+import react from 'react';
+=======
 /**
  * @jest-environment jsdom
  */
@@ -42,3 +45,4 @@ describe("Review and rating widget", () => {
 
 //   })
 // })
+>>>>>>> master

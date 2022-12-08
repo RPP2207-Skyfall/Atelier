@@ -9,14 +9,11 @@ function ExpandedView (props) {
       </div>
     )
   } else {
-    let currentStyle = props.mainPic.url;
 
     return (
       <div id="expanded-view">
-        <h1>Expanded View</h1>
-
-        <img src={currentStyle} alt="style" id="expanded-image" />
-
+        {/* <h1>Expanded View</h1> */}
+        <img class="expanded-image" src={props.mainPic} alt="style" onClick={() => props.expand()}/>
       </div>
     )
   }
