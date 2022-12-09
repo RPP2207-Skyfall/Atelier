@@ -1,20 +1,63 @@
 import React from 'react';
 import OutfitCard from './OutfitCard.jsx';
+import Axios from 'axios';
 
-const OutfitList = (props) => (
-  <div className="carousel-container">
-    <OutfitCard />
-    <OutfitCard />
-    <OutfitCard />
-    <OutfitCard />
-    <OutfitCard />
+class OutfitList extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      product_id: props.product_id || 71698,
+      relatedItem_id: [],
+    }
+    this.getRelatedID = this.getRelatedID.bind(this);
+  }
 
-     {/* {props.list.map((item, index) =>
-      <OutfitCard item= {item} key= {index} id= {index} />
-    )} */}
+  componentDidMount() {
+    this.getRelatedID(this.state.product_id)
+  }
 
-  </div>
-)
+
+  getOutfit(searchID) {
+    var url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${searchID}/related`
+    var requestOption = {
+      headers: {
+        // "Content-Type": "application/json",
+        "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
+      },
+      params: {
+        product_id: searchID,
+      }
+    }
+    Axios.get(url, requestOption)
+      .then(res => {
+        this.setState({
+          relatedItem_id: res.data
+        })
+      })
+      .catch(err => {
+        console.log("Err: ", err)
+      })
+    }
+
+
+  render() {
+    console.log('state', this.state.relatedItem_id)
+    if (this.state.relatedItem_id.length === 0) {
+      return (
+        <p>Empty</p>
+      )
+    } else {
+      return (
+      <div className="carousel-container">
+        {this.state.relatedItem_id.map((item, index) =>
+        <OutfitCard item= {item} key= {index} id= {index} />
+        )}
+      </div>
+      )
+    }
+  }
+}
+
 
 
 
