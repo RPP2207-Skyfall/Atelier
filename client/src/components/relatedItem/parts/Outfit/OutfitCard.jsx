@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Axios from 'axNoeee
+import Axios from 'axios'
 
 const OutfitCard = (props) => (
   <div className="carousel-box">
