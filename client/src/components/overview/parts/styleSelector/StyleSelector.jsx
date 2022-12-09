@@ -17,11 +17,19 @@ function StyleSelector(props) {
           {
                 props.styles.results.map((style, i) => {
 
-                  return (
-                    <div key={i} className="current-style" onClick={() => props.updateStyle(style)}>
-                      <img className="style-image" src={style.photos[0].thumbnail_url} key={i} />
-                    </div>
-                  )
+                  if (style.style_id === props.currentStyle.style_id) {
+                    return (
+                      <div key={i} className="current-style-selected" onClick={() => props.updateStyle(style)}>
+                        <img className="style-image-selected" src={style.photos[0].thumbnail_url} key={i} />
+                      </div>
+                    )
+                  } else {
+                    return (
+                      <div key={i} className="current-style" onClick={() => props.updateStyle(style)}>
+                        <img className="style-image" src={style.photos[0].thumbnail_url} key={i} />
+                      </div>
+                    )
+                  }
                 })
           }
         </div>

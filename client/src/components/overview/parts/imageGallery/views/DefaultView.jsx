@@ -16,9 +16,9 @@ function DefaultView (props) {
   } else {
 
     return (
-      <div class="default-view">
+      <div className="default-view">
         {/* <h1>Default View</h1> */}
-        <img class="default-image" src={props.mainPic} alt="style" onClick={() => props.expand()}/>
+        <img className="default-image" src={props.mainPic} alt="style" onClick={() => props.expand()}/>
       </div>
     )
   }

@@ -24,28 +24,67 @@ class ImageGallery extends React.Component {
 
     if (this.props.info.styles.length !== 0 && !this.props.info.expanded ) {
 
-      // console.log(this.props)
-
       let index = this.props.info.mainIndex;
 
+      if (index === 0) {
+        return (
+          <div className="default-image-gallery">
 
-      return (
-        <div className="default-image-gallery">
-          <DefaultView  mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand}/>
-          <Thumbnail
-            info={this.props.info} index={index} updateMainPic={this.props.updateMainPic}
-            images={this.props.currentStyle.photos} section={this.props.thumbnailSection} updateThumbnailSection={this.props.updateThumbnailSection}
-            checkThumb={this.props.checkThumb}
-            thumbnailSection={this.props.thumbnailSection}
-          />
-          <div className="main-slider">
-            <button className="main-backward" onClick={() => this.handleClick(-1)}>←</button>
-            <button className="main-forward" onClick={() => this.handleClick(1)}>→</button>
+            <DefaultView  mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand}/>
+            <Thumbnail
+              info={this.props.info} index={index} updateMainPic={this.props.updateMainPic}
+              images={this.props.currentStyle.photos} section={this.props.thumbnailSection} updateThumbnailSection={this.props.updateThumbnailSection}
+              checkThumb={this.props.checkThumb}
+              thumbnailSection={this.props.thumbnailSection}
+            />
+            <div className="main-slider">
+              {/* <button className="main-backward" onClick={() => this.handleClick(-1)}>←</button> */}
+              <button className="main-forward" onClick={() => this.handleClick(1)}>→</button>
+            </div>
+            {/* <button className="expand-button" onClick={() => this.props.handleExpand()}>expand</button> */}
+
           </div>
-          {/* <button className="expand-button" onClick={() => this.props.handleExpand()}>expand</button> */}
+        )
+      } else if (index === this.props.info.amount - 1) {
+        return (
+          <div className="default-image-gallery">
 
-        </div>
-      )
+            <DefaultView  mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand}/>
+            <Thumbnail
+              info={this.props.info} index={index} updateMainPic={this.props.updateMainPic}
+              images={this.props.currentStyle.photos} section={this.props.thumbnailSection} updateThumbnailSection={this.props.updateThumbnailSection}
+              checkThumb={this.props.checkThumb}
+              thumbnailSection={this.props.thumbnailSection}
+            />
+            <div className="main-slider">
+              <button className="main-backward" onClick={() => this.handleClick(-1)}>←</button>
+              {/* <button className="main-forward" onClick={() => this.handleClick(1)}>→</button> */}
+            </div>
+            {/* <button className="expand-button" onClick={() => this.props.handleExpand()}>expand</button> */}
+
+          </div>
+        )
+      } else {
+        return (
+          <div className="default-image-gallery">
+
+            <DefaultView  mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand}/>
+            <Thumbnail
+              info={this.props.info} index={index} updateMainPic={this.props.updateMainPic}
+              images={this.props.currentStyle.photos} section={this.props.thumbnailSection} updateThumbnailSection={this.props.updateThumbnailSection}
+              checkThumb={this.props.checkThumb}
+              thumbnailSection={this.props.thumbnailSection}
+            />
+            <div className="main-slider">
+              <button className="main-backward" onClick={() => this.handleClick(-1)}>←</button>
+              <button className="main-forward" onClick={() => this.handleClick(1)}>→</button>
+            </div>
+            {/* <button className="expand-button" onClick={() => this.props.handleExpand()}>expand</button> */}
+
+          </div>
+        )
+      }
+
     } else if (this.props.info.expanded) {
       let index = this.props.info.mainIndex;
       // console.log('expanede')

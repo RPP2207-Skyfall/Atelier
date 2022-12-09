@@ -20,7 +20,8 @@ class Overview extends React.Component {
       currentThumbnails: [],
       currentStyle: null,
       thumbnailSection: 0,
-      selectedSize: null
+      selectedSize: null,
+      sizeQuant: 0
     }
 
     this.mainSlide = this.mainSlide.bind(this);
@@ -41,14 +42,11 @@ class Overview extends React.Component {
 
     let newThumbnails = this.makeImageHolder(style.photos)
 
-    // console.log('style', images)
-
 
     this.setState({
       currentStyle: style,
       mainIndex: 0,
       currentThumbnails: newThumbnails
-
     })
 
     // console.log(this.state.currentStyle)
@@ -224,10 +222,11 @@ class Overview extends React.Component {
       })
   }
 
-  selectSize(size) {
+  selectSize(size, quant) {
     // console.log('size attempted', size);
     this.setState({
-      selectedSize: size
+      selectedSize: size,
+      sizeQuant: quant
     })
   }
 
@@ -262,10 +261,10 @@ class Overview extends React.Component {
 
   render() {
     return (
-      <div class="overview-container">
+      <div className="overview-container">
         <ProductInfo info={this.state} style={this.state.currentStyle}/>
         <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle}/>
-        <AddToCart currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}/>
+        <AddToCart currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize} sizeQuantity={this.state.sizeQuant}/>
         <ImageGallery
           info={this.state} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
           handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
