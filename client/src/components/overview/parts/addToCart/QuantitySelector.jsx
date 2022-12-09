@@ -9,6 +9,8 @@ function QuantitySelector(props) {
     setOpen(!open);
   };
 
+
+
   if (props.selected && !open) {
     console.log(props.quant)
     // first state: closed
@@ -19,13 +21,22 @@ function QuantitySelector(props) {
       </div>
     )
   } else if (props.selected && open) {
-    return (
 
-      <div className="quantity-selector-open" onClick={handleOpen}>
-        <p className="quantity-number">thingy is open</p>
-        <div className="quantity-dropdown-arrow">↓</div>
-      </div>
-    )
+      // return (
+      //   <div className="quantity-selector-open">
+      //     {
+      //       props.quant.map((item, i) => {
+      //         return (
+      //           <div className="quantity-option">
+      //             <p>{i}</p>
+      //           </div>
+      //         )
+      //       })
+      //     }
+      //   </div>
+      // )
+
+      return null;
   }
 
 }
