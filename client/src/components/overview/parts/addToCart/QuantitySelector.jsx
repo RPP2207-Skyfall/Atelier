@@ -9,12 +9,15 @@ function QuantitySelector(props) {
     setOpen(!open);
   };
 
+  const handleQuantSelect = (quant) => {
+    setOpen(!open);
+    props.selectQuant(quant)
+  }
 
-  console.log(props)
+  console.log('props in qunatSelect', props)
 
-
-  if (props.selected && !open) {
-    console.log(props.quant)
+  if (props.selected && !open && props.selectedQuant === 1) {
+    // console.log(props.quant)
     // first state: closed
     return (
       <div className="quantity-selector" onClick={handleOpen}>
@@ -29,7 +32,7 @@ function QuantitySelector(props) {
           {
             Array.from({length: props.quant}, (item, i) => {
               return (
-                <div key={i} className="quantity-option" onClick={() => props.selectQuant(i)}>
+                <div key={i} className="quantity-option" onClick={() => handleQuantSelect(i)}>
                   <p>{i}</p>
                 </div>
               )
@@ -38,10 +41,19 @@ function QuantitySelector(props) {
         </div>
       )
 
-  } else {
+  } else if (!open && props.selected && props.selectedQuant > 0) {
     return (
       <div className="quantity-selector" onClick={handleOpen}>
-        <p className="quantity-number">1</p>
+        <p className="quantity-number">{props.selectedQuant}</p>
+        <div className="quantity-dropdown-arrow">↓</div>
+      </div>
+    )
+  }
+
+  else {
+    return (
+      <div className="quantity-selector" onClick={handleOpen}>
+        <p className="quantity-number">error</p>
         <div className="quantity-dropdown-arrow">↓</div>
       </div>
     )

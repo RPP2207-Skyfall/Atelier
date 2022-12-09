@@ -41,7 +41,8 @@ function AddToCart(props) {
           })
         }
 
-        <QuantitySelector selected={props.selected} quant={props.sizeQuantity} selectQuant={props.selectQuant}/>
+        <QuantitySelector selectedQuant={props.selectedQuant} selectQuant={props.selectQuant}
+        selected={props.selected} quant={props.sizeQuantity}/>
       </div>
     )
   } else if (props.selected) {
@@ -50,7 +51,8 @@ function AddToCart(props) {
         <div className="add-to-cart-dropdown-selected" onClick={handleOpen}>
           <h1 >{props.selected}</h1>
         </div>
-        <QuantitySelector selected={props.selected} quant={props.sizeQuantity}/>
+        <QuantitySelector selectedQuant={props.selectedQuant} selectQuant={props.selectQuant}
+        selected={props.selected} quant={props.sizeQuantity}/>
       </div>
 
     )
@@ -60,7 +62,8 @@ function AddToCart(props) {
         <div className="add-to-cart-dropdown-closed" onClick={handleOpen}>
           <h3>Select Size</h3>
         </div>
-        <QuantitySelector selected={props.selected} quant={props.sizeQuantity}/>
+        <QuantitySelector selectedQuant={props.selectedQuant} selectQuant={props.selectQuant}
+        selected={props.selected} quant={props.sizeQuantity}/>
       </div>
     )
   }
