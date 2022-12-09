@@ -430,5 +430,8 @@ main {
   cursor: pointer;
 }
 
-
+#thumbnail {
+  width: 100px;
+  height: 100px;
+}
 /**********************************************/
