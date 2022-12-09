@@ -78,8 +78,8 @@ class QuestionModal extends React.Component {
         <Modal
           open={this.props.isQModalOpen}
           onClose={() => {this.props.handleQModalClose()}}
-          aria-labelledby='modal-modal-title'
-          aria-describedby='modal-modal-description'
+          aria-labelledby='modal-question-modal-title'
+          aria-describedby='modal-question-modal-description'
         >
           <Box sx={style}>
             <h2 id='question-modal-title'>ASK YOUR QUESTION</h2>
