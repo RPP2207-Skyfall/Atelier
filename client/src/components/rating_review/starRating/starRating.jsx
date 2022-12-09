@@ -94,7 +94,7 @@ class StarRating extends React.Component {
           return (
             <div className="star-container" key={idx}>
               <div className="star-fill" style={{ "width": `${(width * 21)}px` }}>
-                <img className="star-outline" src="star.png"></img>
+                <img className="star-outline" alt="star-image" src="star.png"></img>
               </div>
             </div>
           );

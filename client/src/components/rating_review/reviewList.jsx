@@ -2,23 +2,33 @@ import React, { useState, useEffect } from 'react';
 import ReviewItem from './reviewItem.jsx'
 import SortMenu from './sorting/sorting.jsx'
 
+
 class reviewList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      reviewData: [],
+      reviewDataCopy: [],
       displayReview: [],
-      loadBtn: false,
-      currentSorting: 'relevent'
+      loadBtn: false
+      // incomingSortValue: this.props.currentSortValue,
+      // sortValueTracker: ''
 
     }
   }
 
+  // componentDidMount() {
+  //   this.setState({
+  //     sortValueTracker: this.state.incomingSortValue,
+  //   })
 
-  componentDidUpdate() {
-    if (this.state.reviewData.length !== this.props.reviewData.length) {
+  // }
+
+
+  componentDidUpdate(prevProps, prevState) {
+
+    if (this.state.reviewDataCopy.length !== this.props.reviewData.length) {
       this.setState({
-        reviewData: this.props.reviewData,
+        reviewDataCopy: this.props.reviewData,
         displayReview: [this.props.reviewData[0], this.props.reviewData[1]]
       })
       if (this.props.reviewData.length > 2) {
@@ -27,6 +37,16 @@ class reviewList extends React.Component {
         })
       }
     }
+
+    if (prevProps.reviewData !== this.props.reviewData) {
+      this.setState({ reviewDataCopy: this.props.reviewData }, () => {
+        this.setState({
+          reviewDataCopy: this.props.reviewData,
+          displayReview: [this.props.reviewData[0], this.props.reviewData[1]]
+        })
+      })
+    }
+
   }
 
 
@@ -34,34 +54,38 @@ class reviewList extends React.Component {
     var currentReviewIdx = this.state.displayReview.length //2
     //console.log(currentReviewIdx)
     var newDisplayReview = this.state.displayReview
-    if (this.state.reviewData.length > newDisplayReview.length) {
+    if (this.state.reviewDataCopy.length > newDisplayReview.length) {
       for (let i = 0; i < 2; i++) {
-        newDisplayReview.push(this.state.reviewData[currentReviewIdx])
+        newDisplayReview.push(this.state.reviewDataCopy[currentReviewIdx])
         currentReviewIdx++
       }
 
       this.setState({
         displayReview: newDisplayReview
       })
-    } else if (this.state.reviewData.length === newDisplayReview.length) {
+    } else if (this.state.reviewDataCopy.length === newDisplayReview.length) {
       this.setState({
         loadBtn: false
       })
     }
   }
 
-  updateSortingMethod(value) {
-    console.log(value) //sorting method from sorting.jsx
+  updateSortMethod(sortMethod) {
+    this.props.updateSortMethod(sortMethod)
+    this.setState({
+      sortValueTracker: sortMethod
+    })
+
   }
 
 
 
 
   render() {
-    const datalength = this.state.reviewData.length
+    const datalength = this.state.reviewDataCopy.length
     return (
       <div className="reviewBreakdown">
-        <div className="review-sort-bar">{`${datalength} reviews, sorted by `}{datalength > 0 ? <SortMenu sortValue={this.state.currentSorting} updateSortingMethod={this.updateSortingMethod.bind(this)} /> : null}</div>
+        <div className="review-sort-bar">{`${datalength} reviews, sorted by `}{datalength > 0 ? <SortMenu currentSortValue={this.props.currentSortValue} updateSortMethod={this.updateSortMethod.bind(this)} /> : null}</div>
         <div className="reviewItemContaier">
           <div className="container-Content">
             {this.state.displayReview.map((item) =>
