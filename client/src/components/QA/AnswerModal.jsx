@@ -3,6 +3,8 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 const style = {
   position: 'absolute',
@@ -20,41 +22,198 @@ class AnswerModal extends React.Component {
   constructor(props) {
     super(props);
     this.state={
-      question:'',
+      answer:'',
       nickname:'',
-      email:''
+      email:'',
+      answerError: '',
+      nicknameError: '',
+      emailError: '',
+      answerPass: false,
+      nicknamePass: false,
+      emailPass: false,
+      images:[],
+      uploadImgBtn: true
     };
+    this.handleSubmitError = this.handleSubmitError.bind(this);
+    this.handleImageUpload = this.handleImageUpload.bind(this);
+    this.handleInput = this.handleInput.bind(this);
+  };
+
+  handleInput(e) {
+    var type = e.target.id;
+    var value = e.target.value;
+    if (type === 'Email') {
+      this.setState({
+        email: value
+      })
+    } else if (type === 'Answer') {
+      this.setState({
+        answer: value
+      })
+    } else if (type === 'Nickname') {
+      this.setState({
+        nickname: value
+      })
+    }
+
+    if (this.state.email !== '') {
+      this.setState({
+        emailPass: true
+      })
+    } else {
+      this.setState({
+        emailPass: false
+      })
+    }
+    if (this.state.answer !== '') {
+      this.setState({
+        answerPass: true
+      })
+    } else {
+      this.setState({
+        answerPass: false
+      })
+    }
+    if (this.state.nickname !== '') {
+      this.setState({
+        nicknamePass: true
+      })
+    } else {
+      this.setState({
+        nicknamePass: false
+      })
+    }
+
+  }
+
+  handleSubmitError(e) {
+    e.preventDefault();
+
+    if (this.state.email === '') {
+      this.setState({
+        emailError: 'You must enter the following: Email'
+      })
+    } else if (this.state.email.includes('@') === false) {
+      this.setState({
+        emailError: 'You must enter the correct email format'
+      })
+    } else {
+      this.setState({
+        emailError: ''
+      })
+    }
+
+    if (this.state.nickname === '') {
+      this.setState({
+        nicknameError: 'You must enter the following: Nickname'
+      })
+    } else {
+      this.setState({
+        nicknameError: ''
+      })
+    }
+
+    if (this.state.answer === '') {
+      this.setState({
+        answerError: 'You must enter the following: Answer'
+      })
+    } else {
+      this.setState({
+        answerError: ''
+      })
+    }
+    if (this.state.emailPass && this.state.nicknamePass && this.state.answerPass) {
+      this.props.handleAModalClose();
+    }
+  };
+
+  handleImageUpload(e) {
+    var imageStorage = this.state.images;
+    imageStorage.push(URL.createObjectURL(event.target.files[0]));
+    this.setState({
+      images: imageStorage
+    });
+    if (this.state.images.length >= 5) {
+      this.setState({
+        uploadImgBtn: false
+      })
+    }
   };
 
   render() {
     return(
       <div className='answer-modal-container'>
         <Modal
-          open={this.props.isModalOpen}
-          onClose={() => {this.props.handleModalClose()}}
-          aria-labelledby='modal-modal-title'
-          aria-describedby='modal-modal-description'
+          open={this.props.isAModalOpen}
+          onClose={() => {this.props.handleAModalClose()}}
+          aria-labelledby='modal-answer-modal-title'
+          aria-describedby='modal-answer-modal-description'
         >
           <Box sx={style}>
             <h2 id='answer-modal-title'>SUBMIT YOUR ANSWER</h2>
-            <h3 id='answer-modal-subtitle'>[Product Name]:[Question Body]</h3>
-            <TextField
-              label='Answer'
-              multiline
-              maxRows={6}
-              required>
-            </TextField>
-            <TextField
-              label='Nickname'
-              placeholder="Howard878"
-              required>
-            </TextField>
-            <TextField
-              label='Email'
-              placeholder="example@atelier.com"
-              required>
-            </TextField>
-            <Button variant='outlined' size='medium' onClick={() => {this.props.handleModalClose()}}>SUBMIT</Button>
+            <h3 id='answer-modal-subtitle'>{this.props.product_name}:{this.props.question}</h3>
+            <Stack spacing={1}>
+              <TextField
+                id='Answer'
+                label='Answer'
+                multiline
+                rows={4}
+                fullWidth
+                inputProps={{maxLength: 1000}}
+                value={this.state.answer}
+                error={!!this.state.answerError}
+                helperText={this.state.answerError}
+                onChange={this.handleInput}
+                required>
+              </TextField>
+            </Stack>
+            <br></br>
+            <Stack spacing={1}>
+              <TextField
+                id='Email'
+                label='Email'
+                placeholder="example@atelier.com"
+                fullWidth
+                inputProps={{maxLength: 60}}
+                value={this.state.email}
+                error={!!this.state.emailError}
+                helperText={this.state.emailError}
+                onChange={this.handleInput}
+                required>
+              </TextField>
+              <p>For authentication reasons, you will not be emailed</p>
+            </Stack>
+            <br></br>
+            <Stack spacing={1}>
+              <TextField
+                id='Nickname'
+                label='Nickname'
+                placeholder="Howard878"
+                inputProps={{maxLength: 60}}
+                value={this.state.nickname}
+                error={!!this.state.nicknameError}
+                helperText={this.state.nicknameError}
+                onChange={this.handleInput}
+                required>
+              </TextField>
+              <p>For privacy reasons, do not use your full name or email address</p>
+            </Stack>
+            <br></br>
+            <Stack direction='row' spacing={1}>
+              {this.state.images.map((image, index) => <img id='thumbnail' src={image}></img>)}
+              {/* <img id='thumbnail' src={this.state.images}></img> */}
+            </Stack>
+            <br></br>
+            <Stack spacing={1}>
+              {this.state.uploadImgBtn ? <Button variant='contained' size='large' component="label" endIcon={<PhotoCamera/>}>
+                UPLOAD IMAGE
+                <input accept="image/*" multiple type="file" hidden onChange={this.handleImageUpload}/>
+              </Button> : null}
+            </Stack>
+            <br></br>
+            <Stack spacing={1}>
+              <Button variant='outlined' size='medium' onClick={this.handleSubmitError}>SUBMIT</Button>
+            </Stack>
           </Box>
         </Modal>
       </div>

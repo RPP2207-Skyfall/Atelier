@@ -4,7 +4,6 @@ import Overview from './overview/Overview.jsx';
 import RelatedItem from './relatedItem/relatedItemSection.jsx';
 import QandA from './QA/QandA.jsx';
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -17,9 +16,8 @@ class App extends React.Component {
         <h3>Ateiler</h3>
         <Overview />
         <RelatedItem />
-        <QandA />
+        <QandA product_name={'Camo Windblocker'}/>
         <RatingReview />
-
       </>
     )
   }

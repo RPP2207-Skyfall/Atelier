@@ -9,136 +9,64 @@ class ImageGallery extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      expanded: false,
-      styles: [],
-      current: [],
-      mainIndex: 0,
-      amount: 0,
-      currentThumbnails: []
-    }
-    this.getImages = this.getImages.bind(this);
-    this.updateMainPic = this.updateMainPic.bind(this);
-    this.mainSlide = this.mainSlide.bind(this);
+    this.handleClick = this.handleClick.bind(this)
   }
 
-  mainSlide(dir) {
-
-    if (this.state.mainIndex === 0 && dir === -1) {
-      return
-    }
-
-    if (this.state.mainIndex === this.state.amount - 1 && dir > 0) {
-      return
-    }
-
-    if (this.state.mainIndex === 0) {
-      this.setState({
-        current: this.state.styles.results[0].photos[dir],
-        mainIndex: dir
-      })
-
-    } else {
-      this.setState({
-        current: this.state.styles.results[0].photos[this.state.mainIndex + dir],
-        mainIndex: this.state.mainIndex + dir
-      })
-    }
-
+  handleClick(dir) {
+    // move the mainSLide direction
+    this.props.mainSlide(dir);
+    // check to see if we need to update the thumbnail section
+    this.props.checkThumbnailSection(dir);
   }
 
-  updateMainPic(picInfo, index) {
-    this.setState({
-      current: picInfo,
-      mainIndex: index
-    })
-  }
-
-  getImages() {
-
-    const url = process.env.REACT_APP_API_OVERVIEW_URL + `products/71697/styles`;
-
-    fetch(url,
-      {
-        method: "GET",
-        headers:
-        {
-          "Content-Type": "application/json",
-          "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
-        }
-      }
-    )
-      .then(res => res.json())
-      .then((data) => {
-        // console.log(data.results[0].photos);
-
-        let thumbnails = data.results[0].photos;
-
-        let holder = [];
-        let box = [];
-
-        for (var i = 0; i < thumbnails.length; i++) {
-
-          thumbnails[i].index = i;
-          box.push(thumbnails[i]);
-
-          if (box.length === 3) {
-            holder.push(box);
-            box = [];
-          }
-        }
-
-
-        this.setState({
-          styles: data,
-          current: data.results[0].photos[this.state.mainIndex],
-          amount: data.results[0].photos.length,
-          currentThumbnails: holder
-        })
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-  }
-
-  componentDidMount() {
-    this.getImages();
-  }
+  // this.state.expanded === false && this.state.styles.length !== 0
 
   render() {
-    if (this.state.expanded === false && this.state.styles.length !== 0) {
+
+    if (this.props.info.styles.length !== 0 && !this.props.info.expanded ) {
+
+      // console.log(this.props)
+
+      let index = this.props.info.mainIndex;
+
+
       return (
-        <div id="image-gallery">
-          <h3>ImageGallery</h3>
-          <DefaultView styles={this.state.styles} mainPic={this.state.current} />
-          <div id="main-slider">
-            <button id="main-backward" onClick={() => this.mainSlide(-1)}>back</button>
-            <button id="main-forward" onClick={() => this.mainSlide(1)}>forward</button>
+        <div className="default-image-gallery">
+          <DefaultView  mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand}/>
+          <Thumbnail
+            info={this.props.info} index={index} updateMainPic={this.props.updateMainPic}
+            images={this.props.currentStyle.photos} section={this.props.thumbnailSection} updateThumbnailSection={this.props.updateThumbnailSection}
+            checkThumb={this.props.checkThumb}
+            thumbnailSection={this.props.thumbnailSection}
+          />
+          <div className="main-slider">
+            <button className="main-backward" onClick={() => this.handleClick(-1)}>←</button>
+            <button className="main-forward" onClick={() => this.handleClick(1)}>→</button>
           </div>
-          <button onClick={() => this.setState({ expanded: true })}>expand</button>
-          <Thumbnail updateMainPic={this.updateMainPic} images={this.state.currentThumbnails} />
+          {/* <button className="expand-button" onClick={() => this.props.handleExpand()}>expand</button> */}
+
         </div>
       )
-    } else if (this.state.expanded) {
+    } else if (this.props.info.expanded) {
+      let index = this.props.info.mainIndex;
+      // console.log('expanede')
+
       return (
-        <div id="image-gallery">
-          <h3>ImageGallery</h3>
-          <ExpandedView styles={this.state.styles} mainPic={this.state.current} />
-          <div id="expanded-slider">
-            <button id="expanded-backward" onClick={() => this.mainSlide(-1)}>back</button>
-            <button id="expanded-forward" onClick={() => this.mainSlide(1)}>forward</button>
+        <div class="expaned-image-gallery">
+          <ExpandedView mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand}/>
+          <Thumbnail index={index} updateMainPic={this.props.updateMainPic} images={this.props.currentStyle.photos} section={this.props.thumbnailSection} updateThumbnail={this.props.updateThumbnail} />
+          <div class="expanded-slider">
+            <button class="expanded-backward" onClick={() => this.props.mainSlide(-1)}>back</button>
+            <button class="expanded-forward" onClick={() => this.props.mainSlide(1)}>forward</button>
           </div>
-          <button onClick={() => this.setState({ expanded: false })}>default</button>
-          <Thumbnail updateMainPic={this.updateMainPic} images={this.state.currentThumbnails} />
+          <button onClick={() => this.props.handleExpand()}>default</button>
         </div>
       )
     } else {
+
       return null;
     }
   }
-
-
-
 
 }
 

@@ -8,14 +8,14 @@ class RatingReview extends React.Component {
     super(props)
     this.state = {
       product_id: props.product_id || 71698,
-      reviewData: []
+      reviewData: [],
+      currentSortValue: 'relevant'
 
     }
 
   }
 
   componentDidMount() {
-
     this.getProductReviews(this.state.product_id)
   }
 
@@ -31,12 +31,13 @@ class RatingReview extends React.Component {
       },
       params: {
         product_id: product_id,
-        count: 10
+        count: 50,
+        sort: this.state.currentSortValue
       }
     }
     Axios.get(url, requestOption)
       .then(res => {
-        ///console.log(res.data)
+        //console.log(res.data.results)
         this.setState({
           reviewData: res.data.results
         })
@@ -44,6 +45,18 @@ class RatingReview extends React.Component {
       .catch(err => {
         console.log("Err: ", err)
       })
+  }
+
+  updateSortMethod(sortMethod) {
+    if (sortMethod !== this.state.currentSortValue) {
+      this.setState({
+        currentSortValue: sortMethod
+      }, () => {
+        this.getProductReviews(this.state.product_id)
+      })
+
+    }
+
   }
 
   render() {
@@ -55,7 +68,7 @@ class RatingReview extends React.Component {
             rating breakdown
           </div>
           <div className="col-8">
-            <ReviewList reviewData={this.state.reviewData} />
+            <ReviewList reviewData={this.state.reviewData} currentSortValue={this.state.currentSortValue} updateSortMethod={this.updateSortMethod.bind(this)} />
           </div>
         </div>
       </div>
