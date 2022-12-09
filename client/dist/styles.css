@@ -244,6 +244,10 @@ main {
   outline: 2px solid #bebebe;
 }
 
+.image-box {
+  object-fit: fill;
+}
+
 .star-btn {
   position: absolute;
   cursor: pointer;
@@ -252,6 +256,8 @@ main {
   outline: none;
   top: 5px;
   right: 5px;
+  width:35px;
+  height:35px;
 }
 
 .category-box {
@@ -293,6 +299,40 @@ main {
   font-size: 0.6rem;
   text-align: left;
 }
+
+/*********************Star CSS************************/
+.star-ratings {
+  width: 50%;
+  unicode-bidi: bidi-override;
+  color: #ccc;
+  font-size: 64px;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+.fill-ratings {
+  color: #000000;
+  padding: 0;
+  position: absolute;
+  z-index: 1;
+  display: block;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+
+    /*Allows us to grab the width of the span elements*/
+  }
+  span {
+    display: inline-block;
+  }
+
+  .empty-ratings {
+    color: #c0c0c0;
+    padding: 0;
+    display: block;
+    z-index: 0;
+  }
+
 
 /**********************************************/
 /*****************Style for Q&A widget*****************************/
