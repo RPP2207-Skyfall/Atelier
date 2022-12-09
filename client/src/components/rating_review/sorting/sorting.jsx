@@ -1,10 +1,10 @@
 import react, { useState } from 'react'
 
 const SortMenu = (props) => {
-  const sortOptionsArr = ['helpful', 'newest', 'relevance']
+  const sortOptionsArr = ['helpful', 'newest', 'relevant']
   const [displaySortOption, setDisplaySortOption] = useState('none')
-  const [sortOptionOnDisplay, setSortOptionOnDisplay] = useState(props.sortValue)
-  const [sortingMethod, setSortingMethod] = useState(props.sortValue)
+  const [sortOptionOnDisplay, setSortOptionOnDisplay] = useState('relevance')
+
 
 
   const handleClick = () => {
@@ -16,9 +16,13 @@ const SortMenu = (props) => {
   }
 
   const handleSortingClick = (sortMethod) => {
-    setSortOptionOnDisplay(sortMethod)
+    var displayValue = sortMethod
+    if (sortMethod === 'relevant') {
+      displayValue = 'relevance'
+    }
+    setSortOptionOnDisplay(displayValue)
     setDisplaySortOption('none')
-    setSortingMethod(sortMethod)
+    //setSortingMethod(sortMethod)
     props.updateSortMethod(sortMethod)
   }
 

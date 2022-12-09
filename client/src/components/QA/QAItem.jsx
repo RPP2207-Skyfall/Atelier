@@ -16,7 +16,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 class QAItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state={
+    this.state = {
       Q: this.props.item,
       A_List: Object.values(this.props.item.answers),
       A_List_Shown: [],
@@ -75,10 +75,10 @@ class QAItem extends React.Component {
   }
 
   render() {
-    console.log(this.state.A_List_Shown);
-    return(
+    // console.log(this.state.A_List_Shown);
+    return (
       <div className='question-and-answer-qaitem-container'>
-        <Box sx={{ flexGrow: 1}}>
+        <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
             <Grid xs={8}>
               <h4>Q: {this.state.Q.question_body}</h4>
@@ -86,9 +86,9 @@ class QAItem extends React.Component {
             <Grid xs={4}>
               <Stack spacing={1} direction='row'>
                 <p>Helpful?</p>
-                <p id = 'qaitem-question-helpful-count' onClick={() => {this.isQHelpful()}}>Yes({this.state.QhelpfulCount})</p>
+                <p id='qaitem-question-helpful-count' onClick={() => { this.isQHelpful() }}>Yes({this.state.QhelpfulCount})</p>
                 <p>|</p>
-                <p id = 'qaitem-add-answer' onClick={this.handleAModalOpen}>Add Answer</p>
+                <p id='qaitem-add-answer' onClick={this.handleAModalOpen}>Add Answer</p>
               </Stack>
             </Grid>
             <Stack spacing={1} direction='row'>
@@ -97,7 +97,7 @@ class QAItem extends React.Component {
           </Grid>
           {this.state.moreAnswerBtn ? <Button onClick={this.handleMoreAnswer}>More Answered Questions</Button> : null}
         </Box>
-        <AnswerModal isAModalOpen={this.props.isAModalOpen} handleAModalClose={this.props.handleAModalClose} question={this.state.Q.question_body} product_name={this.props.product_name}/>
+        <AnswerModal isAModalOpen={this.props.isAModalOpen} handleAModalClose={this.props.handleAModalClose} question={this.state.Q.question_body} product_name={this.props.product_name} />
       </div>
     )
   }

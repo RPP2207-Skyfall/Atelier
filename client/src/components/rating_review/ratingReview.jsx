@@ -9,7 +9,7 @@ class RatingReview extends React.Component {
     this.state = {
       product_id: props.product_id || 71698,
       reviewData: [],
-      sortOption: 'relevant'
+      currentSortValue: 'relevant'
 
     }
 
@@ -23,7 +23,7 @@ class RatingReview extends React.Component {
 
   getProductReviews(product_id) {
     var url = process.env.REACT_APP_API_REVIEW_RATING_URL
-    console.log(url)
+    //console.log(url)
     var requestOption = {
       headers: {
         "Content-Type": "application/json",
@@ -32,12 +32,12 @@ class RatingReview extends React.Component {
       params: {
         product_id: product_id,
         count: 50,
-        sort: this.state.sortOption
+        sort: this.state.currentSortValue
       }
     }
     Axios.get(url, requestOption)
       .then(res => {
-        ///console.log(res.data)
+        //console.log(res.data.results)
         this.setState({
           reviewData: res.data.results
         })
@@ -48,10 +48,15 @@ class RatingReview extends React.Component {
   }
 
   updateSortMethod(sortMethod) {
-    console.log('here', sortMethod)
-    this.setState({
-      sortOption: sortMethod
-    })
+    if (sortMethod !== this.state.currentSortValue) {
+      this.setState({
+        currentSortValue: sortMethod
+      }, () => {
+        this.getProductReviews(this.state.product_id)
+      })
+
+    }
+
   }
 
   render() {
@@ -63,7 +68,7 @@ class RatingReview extends React.Component {
             rating breakdown
           </div>
           <div className="col-8">
-            <ReviewList reviewData={this.state.reviewData} updateSortMethod={this.updateSortMethod.bind(this)} />
+            <ReviewList reviewData={this.state.reviewData} currentSortValue={this.state.currentSortValue} updateSortMethod={this.updateSortMethod.bind(this)} />
           </div>
         </div>
       </div>

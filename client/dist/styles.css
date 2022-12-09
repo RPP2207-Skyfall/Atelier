@@ -225,11 +225,13 @@ main {
 .option-relevant {
   margin: 5px 0 5px 0;
   padding: 0 0 0 2px;
+  background-color: #dcdcdc;
 }
 
 .sort-col .row:hover {
-  background-color: rgb(173, 173, 173);
+  background-color: rgb(233, 233, 233);
   border-radius: 3px;
+
 }
 
 
@@ -254,7 +256,7 @@ main {
   left: 0;
 }
 
- .default-image {
+.default-image {
   height: 50vh;
   width: 50vw;
   position: absolute;
