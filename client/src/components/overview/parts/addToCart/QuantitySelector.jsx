@@ -10,6 +10,8 @@ function QuantitySelector(props) {
   };
 
 
+  console.log(props)
+
 
   if (props.selected && !open) {
     console.log(props.quant)
@@ -22,21 +24,27 @@ function QuantitySelector(props) {
     )
   } else if (props.selected && open) {
 
-      // return (
-      //   <div className="quantity-selector-open">
-      //     {
-      //       props.quant.map((item, i) => {
-      //         return (
-      //           <div className="quantity-option">
-      //             <p>{i}</p>
-      //           </div>
-      //         )
-      //       })
-      //     }
-      //   </div>
-      // )
+      return (
+        <div className="quantity-selector-open">
+          {
+            Array.from({length: props.quant}, (item, i) => {
+              return (
+                <div key={i} className="quantity-option" onClick={() => props.selectQuant(i)}>
+                  <p>{i}</p>
+                </div>
+              )
+            })
+          }
+        </div>
+      )
 
-      return null;
+  } else {
+    return (
+      <div className="quantity-selector" onClick={handleOpen}>
+        <p className="quantity-number">1</p>
+        <div className="quantity-dropdown-arrow">↓</div>
+      </div>
+    )
   }
 
 }

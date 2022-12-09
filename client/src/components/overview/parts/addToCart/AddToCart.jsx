@@ -10,7 +10,7 @@ function AddToCart(props) {
     setOpen(!open);
   };
 
-  // console.log(props.currentStyle)
+  console.log('props in cart', props)
 
   if (props.currentStyle && Object.keys(props.currentStyle.skus).length === 0) {
     return (
@@ -40,6 +40,8 @@ function AddToCart(props) {
 
           })
         }
+
+        <QuantitySelector selected={props.selected} quant={props.sizeQuantity} selectQuant={props.selectQuant}/>
       </div>
     )
   } else if (props.selected) {
@@ -54,8 +56,11 @@ function AddToCart(props) {
     )
   } else {
     return (
-      <div className="add-to-cart-dropdown-closed" onClick={handleOpen}>
-        <h3>Select Size</h3>
+      <div className="add-to-cart-container">
+        <div className="add-to-cart-dropdown-closed" onClick={handleOpen}>
+          <h3>Select Size</h3>
+        </div>
+        <QuantitySelector selected={props.selected} quant={props.sizeQuantity}/>
       </div>
     )
   }

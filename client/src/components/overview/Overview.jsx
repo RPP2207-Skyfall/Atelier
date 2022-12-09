@@ -21,7 +21,8 @@ class Overview extends React.Component {
       currentStyle: null,
       thumbnailSection: 0,
       selectedSize: null,
-      sizeQuant: 0
+      sizeQuant: 0,
+      selectedQuant: 0
     }
 
     this.mainSlide = this.mainSlide.bind(this);
@@ -32,6 +33,7 @@ class Overview extends React.Component {
     this.selectSize = this.selectSize.bind(this);
     this.checkThumbnailSection = this.checkThumbnailSection.bind(this);
     this.makeImageHolder = this.makeImageHolder.bind(this);
+    this.selectQuant = this.selectQuant.bind(this);
   }
 
   updateStyle(style) {
@@ -230,6 +232,15 @@ class Overview extends React.Component {
     })
   }
 
+  selectQuant(quant) {
+
+    console.log('quant', quant);
+
+    this.setState({
+      selectedQuant: quant
+    })
+  }
+
   makeImageHolder(images) {
 
     let holder = [];
@@ -264,7 +275,9 @@ class Overview extends React.Component {
       <div className="overview-container">
         <ProductInfo info={this.state} style={this.state.currentStyle}/>
         <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle}/>
-        <AddToCart currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize} sizeQuantity={this.state.sizeQuant}/>
+        <AddToCart
+        currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
+        sizeQuantity={this.state.sizeQuant} selectedQuant={this.state.selectedQuant} selectQuant={this.selectQuant}/>
         <ImageGallery
           info={this.state} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
           handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
