@@ -33,7 +33,7 @@ class StarRating extends React.Component {
     //console.log(fullStars, parseFloat(decimal.toFixed(1)))
     if (decimal !== 0) {
       var incompleteStar = await this.calculateIncompleteStar(parseFloat(decimal.toFixed(1)))
-      // console.log('incomplete star:', incompleteStar)
+      console.log('incomplete star:', incompleteStar)
       for (let i = 0; i < this.state.totalRating; i++) {
         if (i < fullStars) {
 
@@ -86,16 +86,16 @@ class StarRating extends React.Component {
 
 
   render() {
-    // console.log('starArr', this.state.starArray)
+    console.log('starArr', this.state.starArray)
     return (
-      <div className="star-bar">
+      <div className="star-bar2">
         {this.state.starArray.map((width, idx) => {
           // console.log('width', width)
-
+          <p>star</p>
           return (
-            <div className="star-container" key={idx}>
-              <div className="star-fill" style={{ "width": `${(width * 21)}px` }}>
-                <img className="star-outline" alt="star-image" src="star.png"></img>
+            <div className="star-container2" key={idx}>
+              <div className="star-fill2" style={{ "width": `${(width * 21)}px` }}>
+                <img className="star-outline2" alt="star-image" src="star.png"></img>
               </div>
             </div>
           );

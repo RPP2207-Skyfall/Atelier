@@ -8,18 +8,18 @@ import axios from 'axios';
 function RelatedItem() {
 
 
-  // const [info, getInfo] = useState([]);
+  const [outfit, toggleOutfit] = useState([71703, 71699, 71702]);
 
 
   return (
     <div className="main-container carousel-style">
       <section className="carousel-upper">
       <h5>RELATED PRODUCTS</h5>
-      <RelatedList />
+      <RelatedList toggleOutfit = {toggleOutfit}/>
       </section>
       <h5>YOUR OUTFIT</h5>
       <section className="carousel-upper">
-      <OutfitList />
+      <OutfitList outfitList = {outfit} toggleOutfit = {toggleOutfit}/>
       </section>
     </div>
   )

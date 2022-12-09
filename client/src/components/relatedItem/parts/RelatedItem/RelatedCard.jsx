@@ -1,6 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
-import Star from './../../../rating_review/starRating/starRating.jsx';
+import Star from './../star/starRating.jsx';
 
 class RelatedCard extends React.Component {
   constructor(props) {
@@ -31,15 +31,15 @@ class RelatedCard extends React.Component {
 
 
   toggleStar() {
-    if (this.state.starPic === "StarOutline.png") {
-      this.setState({
-        starPic: "FillStar.png"
-      })
-    } else {
-      this.setState({
-        starPic: "StarOutline.png"
-      })
-    }
+    // if (this.state.starPic === "StarOutline.png") {
+    //   this.setState({
+    //     starPic: "FillStar.png"
+    //   })
+    // } else {
+    //   this.setState({
+    //     starPic: "StarOutline.png"
+    //   })
+    // }
   }
 
   getImages(ID) {
@@ -98,7 +98,7 @@ class RelatedCard extends React.Component {
     }
     Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${ID}`, requestOption)
     .then(res => {
-      console.log(res.data)
+      // console.log(res.data)
       this.setState({product_detail: res.data})
     })
     .catch(err => {
@@ -117,7 +117,7 @@ class RelatedCard extends React.Component {
     }
     Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${ID}`, requestOption)
     .then(res => {
-      console.log('meta', res)
+      // console.log('meta', res)
       const rateObj = res.data.ratings;
       var numOfRate = 0;
       var points = 0;
@@ -126,7 +126,7 @@ class RelatedCard extends React.Component {
         numOfRate += Number(rateObj[key]);
       }
       var averageRate = Math.round(points / numOfRate * 10) / 10;
-      console.log('aveRating', averageRate)
+      // console.log('aveRating', averageRate)
       this.setState({rating: averageRate})
       return averageRate;
     })
@@ -147,6 +147,7 @@ class RelatedCard extends React.Component {
 
 
   render() {
+    // console.log(this.state.product_detail.id, 'rating', this.state.rating)
     if (this.state.product_detail.length === 0 || this.state.rating === null || this.state.currentPic.length === 0) {
       return (
         <p>Empty</p>
@@ -155,7 +156,7 @@ class RelatedCard extends React.Component {
       return (
         <div className="carousel-box">
            <img className = "image-box" src={this.state.currentPic[0].url} alt="style" />
-        <button className="star-btn" onclick={this.toggleStar()}><img src={this.state.starPic}></img></button>
+        <button className="star-btn" onClick={this.toggleStar()}><img src={this.state.starPic}></img></button>
         <div className="category-box">
           <div className="category-title">{this.state.product_detail.category}</div>
           <div className="category-wrapper">
@@ -164,7 +165,7 @@ class RelatedCard extends React.Component {
             ${this.state.product_detail.default_price}
             </div>
             <div className="star-box">
-              ★★★★★
+              <Star rating={this.state.rating}/>
             </div>
           </div>
         </div>

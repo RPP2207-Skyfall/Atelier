@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Axios from 'axNoeee
 
 const OutfitCard = (props) => (
   <div className="carousel-box">
