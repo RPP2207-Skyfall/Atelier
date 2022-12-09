@@ -231,9 +231,17 @@ main {
 .sort-col .row:hover {
   background-color: rgb(233, 233, 233);
   border-radius: 3px;
-
 }
 
+.averageNumber {
+  font-size: 60px;
+  font-weight: bold;
+}
+
+
+.averageStar {
+  margin: 20px 0 0 20px
+}
 
 /**********************************************/
 /****** Style for Overview widget****/

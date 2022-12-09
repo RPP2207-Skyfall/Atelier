@@ -1,6 +1,7 @@
 import React from 'react';
 import ReviewList from './reviewList.jsx'
 import Axios from 'axios';
+import RatingSummary from './ratingSummary/ratingSummary.jsx'
 
 
 class RatingReview extends React.Component {
@@ -9,7 +10,8 @@ class RatingReview extends React.Component {
     this.state = {
       product_id: props.product_id || 71698,
       reviewData: [],
-      currentSortValue: 'relevant'
+      currentSortValue: 'relevant',
+      metadata: {}
 
     }
 
@@ -17,12 +19,13 @@ class RatingReview extends React.Component {
 
   componentDidMount() {
     this.getProductReviews(this.state.product_id)
+    this.getReviewMetadata(this.state.product_id)
   }
 
 
 
   getProductReviews(product_id) {
-    var url = process.env.REACT_APP_API_REVIEW_RATING_URL
+    var url = process.env.REACT_APP_API_REVIEW_URL
     //console.log(url)
     var requestOption = {
       headers: {
@@ -31,7 +34,7 @@ class RatingReview extends React.Component {
       },
       params: {
         product_id: product_id,
-        count: 50,
+        count: 15,
         sort: this.state.currentSortValue
       }
     }
@@ -43,9 +46,42 @@ class RatingReview extends React.Component {
         })
       })
       .catch(err => {
-        console.log("Err: ", err)
+        console.log("getProductReviews Err: ", err)
       })
   }
+
+  getReviewMetadata = async (product_id) => {
+    var url = process.env.REACT_APP_API_REVIEW_METADATA_URL
+    console.log(url)
+    var requestOption = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY
+      },
+      params: {
+        product_id: product_id
+      }
+    }
+    try {
+      let res = await Axios.get(url, requestOption)
+      this.setState({ metadata: res.data })
+    } catch (err) {
+      console.log("getReviewMetadata Err: ", err)
+    }
+    // Axios.get(url, requestOption)
+    //   .then(res => {
+    //     console.log('getReviewMetadata: ', res.data)
+
+    //     this.setState({
+    //       metadata: res.data
+    //     })
+
+    //   })
+    //   .catch(err => {
+    //     console.log("getReviewMetadata Err: ", err)
+    //   })
+  }
+
 
   updateSortMethod(sortMethod) {
     if (sortMethod !== this.state.currentSortValue) {
@@ -59,13 +95,15 @@ class RatingReview extends React.Component {
 
   }
 
+
+
   render() {
     return (
       <div className="container ratingReview">
         <h6>RATINGS & REVIEWS</h6>
         <div className="row">
           <div className="col-4">
-            rating breakdown
+            <RatingSummary metadata={this.state.metadata} />
           </div>
           <div className="col-8">
             <ReviewList reviewData={this.state.reviewData} currentSortValue={this.state.currentSortValue} updateSortMethod={this.updateSortMethod.bind(this)} />
