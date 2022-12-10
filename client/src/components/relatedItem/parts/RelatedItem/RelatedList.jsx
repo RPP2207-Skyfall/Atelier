@@ -3,6 +3,7 @@ import RelatedCard from './RelatedCard.jsx';
 import Axios from 'axios';
 
 
+<<<<<<< HEAD
 class RelatedList extends React.Component {
   constructor(props) {
     super(props)
@@ -69,6 +70,11 @@ class RelatedList extends React.Component {
 //   </div>
 // )
 
+=======
+    {/* {props.list.map((item, index) =>
+      <RelatedCard item= {item} key= {index} id= {index} />
+    )} */}
+>>>>>>> master
 
 
 

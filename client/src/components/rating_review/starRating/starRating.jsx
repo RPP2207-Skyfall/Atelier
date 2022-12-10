@@ -1,4 +1,7 @@
 import React from 'react'
+import helpers from './helper.js'
+import StarDiv from './starDiv.jsx'
+
 
 
 class StarRating extends React.Component {
@@ -6,20 +9,19 @@ class StarRating extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      fullStars: 0,
-      halfStar: 0,
-      quarterStar: 0,
-      threeQuarterStar: 0,
       starArray: [],
-      totalRating: 5,
-      testArr: []
+      totalRating: 5
     }
   }
 
-  componentDidMount() {
-    this.generateStars()
+  async componentDidMount() {
+    // this.generateStars()
+    let starArray = await helpers.generateStars(this.props.rating, this.state.totalRating)
+    //console.log(starArray)
+    this.setState({ starArray: starArray })
   }
 
+<<<<<<< HEAD
   async generateStars() {
     var fullStars = Math.floor(this.props.rating) // if rating 3.8 fullstars = 3
     var decimal = this.props.rating - fullStars
@@ -101,8 +103,14 @@ class StarRating extends React.Component {
           );
         })
         }
+=======
+  render() {
+    //console.log('star array in review item: ', this.state.starArray)
+    return (
+      <div className="star-bar">
+        <StarDiv starArray={this.state.starArray} />
+>>>>>>> master
       </div>
-
     )
   }
 

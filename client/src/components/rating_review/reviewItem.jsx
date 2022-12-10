@@ -56,10 +56,10 @@ const reviewItem = (props) => {
   return (
     <div className="reviewBlock">
       <div className="row">
-        <div className="col-4">
+        <div className="col-5">
           <Stars rating={props.reviewData.rating} />
         </div>
-        <div className="col-8">
+        <div className="col-7">
           {`${props.reviewData.reviewer_name}, ${createDateTime}`}
         </div>
       </div>
