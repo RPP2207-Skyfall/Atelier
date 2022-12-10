@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import OutfitList from './parts/Outfit/OutfitList.jsx';
 import RelatedList from './parts/RelatedItem/RelatedList.jsx';
@@ -14,12 +15,12 @@ function RelatedItem() {
   return (
     <div className="main-container carousel-style">
       <section className="carousel-upper">
-      <h5>RELATED PRODUCTS</h5>
-      <RelatedList />
+        <h5>RELATED PRODUCTS</h5>
+        <RelatedList />
       </section>
       <h5>RELATED PRODUCTS</h5>
       <section className="carousel-upper">
-      <OutfitList />
+        <OutfitList />
       </section>
     </div>
   )

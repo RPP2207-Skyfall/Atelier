@@ -9,7 +9,7 @@ const RelatedList = (props) => (
     <RelatedCard />
     <RelatedCard />
 
-     {/* {props.list.map((item, index) =>
+    {/* {props.list.map((item, index) =>
       <RelatedCard item= {item} key= {index} id= {index} />
     )} */}
 
