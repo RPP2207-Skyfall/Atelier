@@ -6,7 +6,6 @@ const averageStar = (props) => {
 
   const [starArray, setStarArray] = useState([])
   const totalRating = 5
-  console.log(props.rating)
 
   useEffect(() => {
     (async () => {
@@ -15,7 +14,7 @@ const averageStar = (props) => {
     })()
   }, [props.rating])
 
-  console.log('star array in average star: ', starArray)
+  //console.log('star array in average star: ', starArray)
   return (
     <div className="star-bar">
       <StarDiv starArray={starArray} />

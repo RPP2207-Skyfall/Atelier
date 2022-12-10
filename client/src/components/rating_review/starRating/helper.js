@@ -10,10 +10,10 @@ const helpers = {
 
     //console.log(fullStars, parseFloat(decimal.toFixed(1)))
     if (decimal !== 0) {
-      console.log(decimal)
+      // console.log(decimal)
       var fillValue = parseFloat(decimal.toFixed(1)) * 100
       var incompleteStar = await helpers.calculateIncompleteStar(parseFloat(decimal.toFixed(1)))
-      console.log('incomplete star:', incompleteStar)
+      //console.log('incomplete star:', incompleteStar)
       for (let i = 0; i < totalRating; i++) {
         if (i < fullStars) {
 

@@ -22,7 +22,7 @@ class StarRating extends React.Component {
   }
 
   render() {
-    console.log('star array in review item: ', this.state.starArray)
+    //console.log('star array in review item: ', this.state.starArray)
     return (
       <div className="star-bar">
         <StarDiv starArray={this.state.starArray} />
