@@ -52,7 +52,7 @@ class RatingReview extends React.Component {
 
   getReviewMetadata = async (product_id) => {
     var url = process.env.REACT_APP_API_REVIEW_METADATA_URL
-    console.log(url)
+    //console.log(url)
     var requestOption = {
       headers: {
         "Content-Type": "application/json",

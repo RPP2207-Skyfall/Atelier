@@ -1,5 +1,6 @@
 import react, { useState, useEffect } from 'react'
 import Star from './averageStar.jsx'
+import Recommendation from './recommendation.jsx'
 
 const ratingSummary = (props) => {
 
@@ -46,8 +47,9 @@ const ratingSummary = (props) => {
             <div className="averageStar"><Star rating={averageRating} /></div>
           </div>
         </div>
-        <div className="row recommend-row">recommend</div>
         <div className="row starchart-row">chart</div>
+        <div className="row recommend-row"><Recommendation percentage={props.metadata.recommended} /></div>
+
         <div className="row product-breakdown-row">product-breakdown</div>
         <div className="row product-breakdown-row">product-breakdown</div>
 

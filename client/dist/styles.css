@@ -52,7 +52,7 @@ main {
 }
 
 #root {
-  padding: 20px 20px 20px 20px;
+  padding: 20px 5px 20px 5px;
 }
 
 
@@ -241,6 +241,10 @@ main {
 
 .averageStar {
   margin: 20px 0 0 20px
+}
+
+.recommend-precent {
+  font-size: 13px;
 }
 
 /**********************************************/
@@ -444,4 +448,5 @@ main {
   width: 100px;
   height: 100px;
 }
+
 /**********************************************/
