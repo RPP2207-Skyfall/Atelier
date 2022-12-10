@@ -100,28 +100,28 @@ const OutfitCard = (props) => {
     })
   }
 
-  const toggleID = () => {
-    console.log('check outfitList', props.outfit)
-      var index = props.outfit.indexOf(id)
-      if (index === -1) {
-        var newList = props.outfit
-        newList.push(id)
-        console.log('after add', newList)
-        props.toggleOutfit(newList)
-      } else {
-        var newList = props.outfit
-        newList.splice(index, 1)
-        console.log('after remove', newList)
-        props.toggleOutfit(newList)
-      }
-    }
+  // const toggleID = () => {
+  //   console.log('check outfitList', props.outfit)
+  //     var index = props.outfit.indexOf(id)
+  //     if (index === -1) {
+  //       var newList = props.outfit
+  //       newList.push(id)
+  //       console.log('after add', newList)
+  //       props.toggleOutfit(newList)
+  //     } else {
+  //       var newList = props.outfit
+  //       newList.splice(index, 1)
+  //       console.log('after remove', newList)
+  //       props.toggleOutfit(newList)
+  //     }
+  //   }
 
 
 
   const content = (
     <div className="carousel-box">
      <img className = "image-box" src={imageList} alt="style" />
-      <button className="star-btn" onClick= {toggleID}>X</button>
+      <button className="star-btn" onClick= {()=>{props.toggleID(id)}}>X</button>
       <div className="category-box">
         <div className="category-title">{detail.category}</div>
         <div className="category-wrapper">

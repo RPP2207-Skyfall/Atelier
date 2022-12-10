@@ -6,19 +6,20 @@ import axios from 'axios';
 
 
 
-function RelatedItem() {
+const RelatedItem = () => {
 
 
   const [outfit, toggleOutfit] = useState([71697, 71705, 71700]);
 
 
   const updateList = (idArr) => {
+    console.log('before', outfit)
     toggleOutfit (idArr)
-    console.log('parent state', outfit)
+    console.log('after', outfit)
   }
 
   useEffect (()=> {
-    console.log('outfit render')
+    console.log('outfit render', outfit)
   }, [outfit])
   // if (Array.isArray(outfit)) {
   //   var outfitArr = outfit
