@@ -53,7 +53,7 @@ function QuantitySelector(props) {
   else {
     return (
       <div className="quantity-selector" onClick={handleOpen}>
-        <p className="quantity-number">error</p>
+        <p className="quantity-number">1</p>
         <div className="quantity-dropdown-arrow">↓</div>
       </div>
     )
