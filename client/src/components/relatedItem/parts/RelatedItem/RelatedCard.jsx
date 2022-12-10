@@ -8,7 +8,7 @@ class RelatedCard extends React.Component {
     this.state = {
       product_id: this.props.item,
       product_detail: [],
-      rating: null,
+      rating: 0,
       currentPic: [],
       picList: [],
       hoverPicShow: false,
@@ -29,6 +29,10 @@ class RelatedCard extends React.Component {
     this.getImages(this.state.product_id)
   }
 
+  componentDidUpdate() {
+    this.state.rating;
+
+  }
 
   toggleStar() {
     // if (this.state.starPic === "StarOutline.png") {
@@ -148,7 +152,7 @@ class RelatedCard extends React.Component {
 
   render() {
     // console.log(this.state.product_detail.id, 'rating', this.state.rating)
-    if (this.state.product_detail.length === 0 || this.state.rating === null || this.state.currentPic.length === 0) {
+    if (this.state.product_detail.length === 0 || this.state.currentPic.length === 0) {
       return (
         <p>Empty</p>
       )
