@@ -12,7 +12,14 @@ function RelatedItem() {
   const [outfit, toggleOutfit] = useState([71697, 71705, 71700]);
 
 
+  const updateList = (idArr) => {
+    toggleOutfit (idArr)
+    console.log('parent state', outfit)
+  }
 
+  useEffect (()=> {
+    console.log('outfit render')
+  }, [outfit])
   // if (Array.isArray(outfit)) {
   //   var outfitArr = outfit
   // } else {
@@ -20,15 +27,16 @@ function RelatedItem() {
   // }
 
 
+
   return (
     <div className="main-container carousel-style">
       <section className="carousel-upper">
       <h5>RELATED PRODUCTS</h5>
-      <RelatedList outfitList = {outfit}/>
+      <RelatedList outfitList = {outfit} toggleOutfit = {updateList}/>
       </section>
       <h5>YOUR OUTFIT</h5>
       <section className="carousel-upper">
-      <OutfitList outfitList = {outfit} toggleOutfit = {toggleOutfit}/>
+      <OutfitList outfitList = {outfit} toggleOutfit = {updateList}/>
       </section>
     </div>
   )
