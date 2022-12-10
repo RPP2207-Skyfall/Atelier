@@ -1,10 +1,10 @@
 import React from 'react'
-import helpers from './helper.js'
-import StarDiv from './starDiv.jsx'
+import helpers from './../../../rating_review/starRating/helper.js'
+import StarDiv from './../../../rating_review/starRating/starDiv.jsx'
 
 
 
-class StarRating extends React.Component {
+class Relatestar extends React.Component {
 
   constructor(props) {
     super(props)
@@ -33,4 +33,4 @@ class StarRating extends React.Component {
 
 }
 
-export default StarRating
+export default Relatestar

@@ -9,27 +9,26 @@ import axios from 'axios';
 function RelatedItem() {
 
 
-  const [outfit, toggleOutfit] = useState([71703, 71699, 71702]);
+  const [outfit, toggleOutfit] = useState([71697, 71705, 71700]);
+
+
+
+  // if (Array.isArray(outfit)) {
+  //   var outfitArr = outfit
+  // } else {
+  //   var outfitArr = []
+  // }
 
 
   return (
     <div className="main-container carousel-style">
       <section className="carousel-upper">
-<<<<<<< HEAD
       <h5>RELATED PRODUCTS</h5>
-      <RelatedList toggleOutfit = {toggleOutfit}/>
-=======
-        <h5>RELATED PRODUCTS</h5>
-        <RelatedList />
->>>>>>> master
+      <RelatedList outfitList = {outfit}/>
       </section>
       <h5>YOUR OUTFIT</h5>
       <section className="carousel-upper">
-<<<<<<< HEAD
       <OutfitList outfitList = {outfit} toggleOutfit = {toggleOutfit}/>
-=======
-        <OutfitList />
->>>>>>> master
       </section>
     </div>
   )

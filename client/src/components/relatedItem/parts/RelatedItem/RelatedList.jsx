@@ -2,14 +2,13 @@ import React from 'react';
 import RelatedCard from './RelatedCard.jsx';
 import Axios from 'axios';
 
-
-<<<<<<< HEAD
 class RelatedList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      product_id: props.product_id || 71698,
+      product_id: this.props.product_id || 71698,
       relatedItem_id: [],
+      toggleFunc: this.props.toggleID
     }
     this.getRelatedID = this.getRelatedID.bind(this);
   }
@@ -43,7 +42,7 @@ class RelatedList extends React.Component {
 
 
   render() {
-    console.log('state', this.state.relatedItem_id)
+    // console.log('state', this.state.relatedItem_id)
     if (this.state.relatedItem_id.length === 0) {
       return (
         <p>Empty</p>
@@ -52,7 +51,7 @@ class RelatedList extends React.Component {
       return (
       <div className="carousel-container">
         {this.state.relatedItem_id.map((item, index) =>
-        <RelatedCard item= {item} key= {index} id= {index} />
+        <RelatedCard item= {item} key= {index} id= {index} toggleID = {this.state.toggleFunc}/>
         )}
       </div>
       )
@@ -70,11 +69,6 @@ class RelatedList extends React.Component {
 //   </div>
 // )
 
-=======
-    {/* {props.list.map((item, index) =>
-      <RelatedCard item= {item} key= {index} id= {index} />
-    )} */}
->>>>>>> master
 
 
 

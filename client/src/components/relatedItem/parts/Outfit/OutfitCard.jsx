@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios'
+import Star from './../Star/relateStarRating.jsx';
 
 const OutfitCard = (props) => {
   const id = props.item
@@ -10,9 +11,8 @@ const OutfitCard = (props) => {
 
   useEffect(() => {
     getRelatedDetails(id);
-    getRating(id);
     getImages(id);
-    console.log('anythings', imageList)
+    getRating(id);
    }, [])
 
   const getRelatedDetails = (ID) => {
@@ -48,25 +48,13 @@ const OutfitCard = (props) => {
     )
       .then(res => res.json())
       .then((data) => {
-        console.log(data.results[0].photos);
+        // console.log(data.results[0].photos);
 
         let thumbnails = data.results[0].photos;
 
-        let holder = [];
-        let box = [];
 
-        for (var i = 0; i < thumbnails.length; i++) {
+        setImage(thumbnails[0].thumbnail_url)
 
-          thumbnails[i].index = i;
-          box.push(thumbnails[i]);
-
-          if (box.length === 3) {
-            holder.push(box);
-            box = [];
-          }
-        }
-        console.log('state image', data.results[0].photos)
-        setImage(data.results[0].photos)
       })
       .catch((err) => {
         console.error(err);
@@ -94,7 +82,7 @@ const OutfitCard = (props) => {
       }
       var averageRate = Math.round(points / numOfRate * 10) / 10;
       // console.log('aveRating', averageRate)
-      setRating(averageRate)
+      setRating (averageRate)
       return averageRate;
     })
     .then(averageRate => {
@@ -112,12 +100,24 @@ const OutfitCard = (props) => {
     })
   }
 
+  const toggleID = (id) => {
+    // event.preventDefault()
+    //   var index = props.outfit.indexOf(id)
+    //   if (index === -1) {
+    //     var newList = props.outfit.push(id)
+    //     props.toggleOutfit(newList)
+    //   } else {
+    //     var newList = props.outfit.splice(index, 1)
+    //     props.toggleOutfit(newList)
+    //   }
+    }
+
 
 
   const content = (
     <div className="carousel-box">
-
-      <button className="star-btn">X</button>
+     <img className = "image-box" src={imageList} alt="style" />
+      <button className="star-btn" onClick = {toggleID(id)}>X</button>
       <div className="category-box">
         <div className="category-title">{detail.category}</div>
         <div className="category-wrapper">
@@ -126,14 +126,18 @@ const OutfitCard = (props) => {
             ${detail.default_price}
           </div>
           <div className="star-box">
-            ★★★★★
+           <Star rating={rating}/>
           </div>
         </div>
       </div>
     </div>
   )
-  return content
-
+  if (imageList.length === 0 || detail.length === 0 || rating === 0) {
+    return
+  } else {
+    // console.log(id, imageList[0].thumbnail_url)
+    return content
+  }
 }
 
 

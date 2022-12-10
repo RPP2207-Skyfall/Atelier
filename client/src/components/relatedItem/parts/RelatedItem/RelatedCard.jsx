@@ -1,6 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
-import Star from './../star/starRating.jsx';
+import Star from './../Star/relateStarRating.jsx';
 
 class RelatedCard extends React.Component {
   constructor(props) {
@@ -8,7 +8,7 @@ class RelatedCard extends React.Component {
     this.state = {
       product_id: this.props.item,
       product_detail: [],
-      rating: 0,
+      rating: 3.4,
       currentPic: [],
       picList: [],
       hoverPicShow: false,
@@ -47,6 +47,7 @@ class RelatedCard extends React.Component {
   }
 
   getImages(ID) {
+    // console.log('getImages call')
     const url = process.env.REACT_APP_API_OVERVIEW_URL + `products/${this.state.product_id}/styles`;
 
     fetch(url,

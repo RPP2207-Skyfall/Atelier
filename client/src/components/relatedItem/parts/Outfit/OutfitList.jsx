@@ -9,7 +9,7 @@ const OutfitList = (props) => {
     </div>
 
     {props.outfitList.map((item, index) =>
-      <OutfitCard item= {item} key= {index} id= {index} toggleOutfit = {props.toggleOutfit}/>
+      <OutfitCard item= {item} key= {index} id= {index} outfit = {props.outfitList} toggleOutfit = {props.toggleOutfit}/>
     )}
 
   </div>
