@@ -169,43 +169,43 @@ class Overview extends React.Component {
             }
           }
         )
-        .then(res => res.json())
+          .then(res => res.json())
 
-        // get the info for the pictures, style and thumbnail
+          // get the info for the pictures, style and thumbnail
 
-        .then((data) => {
+          .then((data) => {
 
-          let thumbnails = data.results[0].photos;
+            let thumbnails = data.results[0].photos;
 
-          let holder = [];
-          let box = [];
+            let holder = [];
+            let box = [];
 
-          for (var i = 0; i < thumbnails.length; i++) {
+            for (var i = 0; i < thumbnails.length; i++) {
 
-            thumbnails[i].index = i;
-            box.push(thumbnails[i]);
+              thumbnails[i].index = i;
+              box.push(thumbnails[i]);
 
-            if (box.length === 7) {
-              holder.push(box);
-              box = [];
+              if (box.length === 7) {
+                holder.push(box);
+                box = [];
+              }
+
+              if (i >= thumbnails.length - 1) {
+                holder.push(box);
+                box = [];
+              }
+
             }
 
-            if (i >= thumbnails.length - 1) {
-              holder.push(box);
-              box = [];
-            }
-
-          }
-
-          this.setState({
-            styles: data,
-            current: data.results[0].photos[this.state.mainIndex],
-            amount: data.results[0].photos.length,
-            currentThumbnails: holder,
-            currentStyle: data.results[0]
+            this.setState({
+              styles: data,
+              current: data.results[0].photos[this.state.mainIndex],
+              amount: data.results[0].photos.length,
+              currentThumbnails: holder,
+              currentStyle: data.results[0]
+            })
+            // console.log('data from product', data);
           })
-          // console.log('data from product', data);
-        })
       })
       .catch((err) => {
         console.error(err);
@@ -226,10 +226,10 @@ class Overview extends React.Component {
 
   render() {
     return (
-      <div class="overview-container">
-        <ProductInfo info={this.state} style={this.state.currentStyle}/>
-        <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle}/>
-        <AddToCart currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}/>
+      <div className="overview-container">
+        <ProductInfo info={this.state} style={this.state.currentStyle} />
+        <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle} />
+        <AddToCart currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize} />
         <ImageGallery
           info={this.state} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
           handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
