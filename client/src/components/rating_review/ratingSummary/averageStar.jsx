@@ -1,5 +1,6 @@
 import react, { useState, useEffect } from 'react'
 import helpers from '../starRating/helper.js'
+import StarDiv from '../starRating/starDiv.jsx'
 
 const averageStar = (props) => {
 
@@ -14,19 +15,10 @@ const averageStar = (props) => {
     })()
   }, [props.rating])
 
+  console.log('star array in average star: ', starArray)
   return (
     <div className="star-bar">
-      {starArray.map((width, idx) => {
-
-        return (
-          <div className="star-container" key={idx}>
-            <div className="star-fill" style={{ "width": `${(width * 31)}px` }}>
-              <img className="star-outline" alt="star-image" src="star.png"></img>
-            </div>
-          </div>
-        );
-      })
-      }
+      <StarDiv starArray={starArray} />
     </div>
   )
 }

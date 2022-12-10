@@ -185,11 +185,13 @@ main {
 }
 
 
-.star-outline {
+.star-container {
+  border-color: black;
+  background-color: white;
   height: 26px;
   width: 21px;
+  display: inline-block;
 }
-
 
 .star-fill {
   position: relative;
@@ -198,18 +200,16 @@ main {
   background-color: #333333;
 }
 
+
+.star-outline {
+  height: 26px;
+  width: 21px;
+}
+
 .star-fill img {
   max-width: none
 }
 
-
-.star-container {
-  border-color: black;
-  background-color: white;
-  height: 26px;
-  width: 21px;
-  display: inline-block;
-}
 
 .sort-col {
   width: 20%;
