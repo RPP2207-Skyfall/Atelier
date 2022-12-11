@@ -20,10 +20,12 @@ class QandA extends React.Component {
     this.state={
       QA : [],
       QA_searched : [],
+      QA_shown: [],
       product_id: 71698,
       isQueryOn: false,
       isQModalOpen: false,
       isAModalOpen: false,
+      isLastQuestion: false,
       searchQuery:''
     };
     this.handleQModalOpen = this.handleQModalOpen.bind(this);
@@ -32,6 +34,7 @@ class QandA extends React.Component {
     this.handleAModalClose = this.handleAModalClose.bind(this);
     this.getProductQA = this.getProductQA.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.loadMoreAnsweredQs = this.loadMoreAnsweredQs.bind(this);
   };
 
   componentDidMount() {
@@ -53,7 +56,8 @@ class QandA extends React.Component {
     Axios.get(url, requestOption)
       .then(res => {
         this.setState({
-          QA: res.data.results
+          QA: res.data.results,
+          QA_shown: [res.data.results[0], res.data.results[1]]
         })
       })
       .catch(err => {
@@ -112,19 +116,36 @@ class QandA extends React.Component {
     }
   };
 
+  loadMoreAnsweredQs(e) {
+    e.preventDefault();
+    var newQA_shown = this.state.QA_shown;
+    var currentShownIdx = this.state.QA_shown.length;
+    for (var i = 0; i < 2; i++) {
+      newQA_shown.push(this.state.QA[currentShownIdx]);
+      currentShownIdx++;
+    }
+    this.setState({
+      QA_shown: newQA_shown
+    })
+    if (this.state.QA_shown.length === this.state.QA.length) {
+      this.setState({
+        isLastQuestion: true
+      })
+    }
+  }
+
   render() {
+    console.log(this.state.QA_shown.length, this.state.QA.length);
     return (
       <div className='question-and-answer-main' data-testid='question-and-answer-main'>
         <h4>QUESTIONS & ANSWERS</h4>
         <Search handleSearch={this.handleSearch}/>
-        <QAList list={this.state.isQueryOn ? this.state.QA_searched : this.state.QA} handleAModalOpen={this.handleAModalOpen} isAModalOpen={this.state.isAModalOpen} handleAModalClose={this.handleAModalClose} product_name={this.props.product_name}/>
-        {/* <QAItem isModalOpen={this.state.isAModalOpen} handleModalOpen={this.handleAModalOpen} handleModalClose={this.handleAModalClose}/>
-        <QAItem isModalOpen={this.state.isAModalOpen} handleModalOpen={this.handleAModalOpen} handleModalClose={this.handleAModalClose}/> */}
+        <QAList list={this.state.isQueryOn ? this.state.QA_searched : this.state.QA_shown} handleAModalOpen={this.handleAModalOpen} isAModalOpen={this.state.isAModalOpen} handleAModalClose={this.handleAModalClose} product_name={this.props.product_name}/>
         <Stack spacing={1} direction={{ xs: 'column', xs: 'row' }}>
-          <Button variant='outlined' size='medium' className='question-and-answer-more-question-btn'>MORE ANSWERED QUESTIONS</Button>
+          {this.state.isLastQuestion ? null: <Button variant='outlined' size='medium' className='question-and-answer-more-question-btn' onClick={this.loadMoreAnsweredQs}>MORE ANSWERED QUESTIONS</Button>}
           <Button variant='outlined' size='medium' onClick={this.handleQModalOpen} className='question-and-answer-add-question-btn'>ADD A QUESTION <AddIcon/></Button>
         </Stack>
-        <QuestionModal isQModalOpen={this.state.isQModalOpen} handleQModalClose={this.handleQModalClose}/>
+        <QuestionModal isQModalOpen={this.state.isQModalOpen} handleQModalClose={this.handleQModalClose} product_name={this.props.product_name}/>
       </div>
     )
   }

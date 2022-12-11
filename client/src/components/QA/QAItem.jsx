@@ -18,7 +18,7 @@ class QAItem extends React.Component {
     super(props);
     this.state = {
       Q: this.props.item,
-      A_List: Object.values(this.props.item.answers),
+      A_List: Object.values(this.props.item.answers) || [],
       A_List_Shown: [],
       QhelpfulCount: this.props.item.question_helpfulness,
       QhelpfulClicked: false,

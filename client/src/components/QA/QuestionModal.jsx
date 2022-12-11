@@ -83,7 +83,7 @@ class QuestionModal extends React.Component {
         >
           <Box sx={style}>
             <h2 id='question-modal-title'>ASK YOUR QUESTION</h2>
-            <h3 id='question-modal-subtitle'>About [Your Product]</h3>
+            <h3 id='question-modal-subtitle'>About {this.props.product_name}</h3>
             <Stack direction='row' spacing={2}>
               <TextField
                 label='Question'
