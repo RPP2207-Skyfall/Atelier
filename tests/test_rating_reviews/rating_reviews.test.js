@@ -96,7 +96,7 @@ describe("ReviewItem Component", () => {
 
   })
 
-  test("Should not show response if CS team did not leave a response ", async () => {
+  test("Should not show response if CS team did not leave a response.", async () => {
 
     await act(async () => {
       render(<ReviewItem reviewData={testData.reviewData_sample1} />)
@@ -106,7 +106,7 @@ describe("ReviewItem Component", () => {
 
   })
 
-  test("Should render review photos if reviewer submitted review photos ", async () => {
+  test("Should render review photos if reviewer submitted review photos.", async () => {
     await act(async () => {
       render(<ReviewItem reviewData={testData.reviewData_sample1} />)
     })
@@ -114,7 +114,7 @@ describe("ReviewItem Component", () => {
     const reviewPhoto = screen.getByAltText(/thumbnail-photo-2414648/i)
     expect(reviewPhoto).toBeInTheDocument()
   })
-  test("Should not render review photos if reviewer did not submit review photos ", async () => {
+  test("Should not render review photos if reviewer did not submit review photos.", async () => {
     await act(async () => {
       render(<ReviewItem reviewData={testData.reviewData_sample2} />)
     })
