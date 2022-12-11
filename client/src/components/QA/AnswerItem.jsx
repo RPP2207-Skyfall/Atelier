@@ -12,8 +12,38 @@ class AnswerItem extends React.Component {
       date: this.props.item.date || '',
       answerer_name: this.props.item.answerer_name || '',
       helpfulness: this.props.item.helpfulness || '',
+      AhelpfulClicked: false,
+      isReported: false,
       photos: this.props.item.photo || ''
     };
+    this.isAHelpful = this.isAHelpful.bind(this);
+    this.handleReport = this.handleReport.bind(this);
+  };
+
+  isAHelpful() {
+    if (this.state.AhelpfulClicked === false) {
+      this.setState({
+        helpfulness: this.state.helpfulness + 1,
+        AhelpfulClicked: true
+      })
+    } else {
+      this.setState({
+        helpfulness: this.state.helpfulness - 1,
+        AhelpfulClicked: false
+      })
+    }
+  };
+
+  handleReport() {
+    if (this.state.isReported === false) {
+      this.setState({
+        isReported: true
+      })
+    } else {
+      this.setState({
+        isReported: false
+      })
+    }
   };
 
   render() {
@@ -28,12 +58,12 @@ class AnswerItem extends React.Component {
             </Stack>
             <Stack direction='row' spacing={1}>
                 <p>by {this.state.answerer_name},</p>
-                <p>{this.state.date}</p>
+                <p>{new Date(this.state.date).toLocaleDateString({}, {month:'long', day:'2-digit', year: 'numeric'})}</p>
                 <p> | </p>
                 <p>Helpful?</p>
-                <p id = 'answeritem-helpful-count'>Yes({this.state.helpfulness})</p>
+                <p className='answeritem-helpful-count' data-testid='answeritem-helpful-count' onClick={this.isAHelpful}>Yes({this.state.helpfulness})</p>
                 <p> | </p>
-                <p id = 'answeritem-report'>Report</p>
+                {this.state.isReported ? <p className='answeritem-reported' data-testid='answeritem-reported' onClick={this.handleReport}>Reported</p> : <p className='answeritem-report' data-testid='answeritem-reported' onClick={this.handleReport}>Report</p>}
             </Stack>
           </Grid>
         </Stack>
