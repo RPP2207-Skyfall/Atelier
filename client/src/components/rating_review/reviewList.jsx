@@ -93,7 +93,7 @@ class reviewList extends React.Component {
             )}
           </div>
         </div>
-        {this.state.loadBtn ? <button className="loadReviewBtn" onClick={() => { this.handleMoreReviewClick() }}>MORE REVIEWS</button> : null} <button className="addReviewBtn" >ADD A REVIEW +</button>
+        {this.state.loadBtn ? <button className="loadReviewBtn" onClick={() => { this.handleMoreReviewClick() }}>MORE REVIEWS</button> : null} <button className="addReviewBtn" data-testid="addReviewBtn-testId">ADD A REVIEW +</button>
         <></>
       </div>
 

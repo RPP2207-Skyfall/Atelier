@@ -83,12 +83,9 @@ const reviewItem = (props) => {
       </div>
 
       <div className="row flex-column">
-        <div className="helpfulCount" >Helpful? {<span onClick={() => { helpfulVote() }}>Yes</span>} ({helpfulCount})  |  {<span onClick={() => { reportReview() }}>Report</span>}</div>
+        <div className="helpfulCount" >Helpful? {<span className="helpful-click" data-testid="helpful-span" onClick={() => { helpfulVote() }}>Yes</span>} <span data-testid="helpful-count-span">{` (${helpfulCount})`} </span>  |  {<span onClick={() => { reportReview() }}>Report</span>}</div>
         <hr />
       </div>
-
-
-
     </div >
 
 

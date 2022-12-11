@@ -68,18 +68,6 @@ class RatingReview extends React.Component {
     } catch (err) {
       console.log("getReviewMetadata Err: ", err)
     }
-    // Axios.get(url, requestOption)
-    //   .then(res => {
-    //     console.log('getReviewMetadata: ', res.data)
-
-    //     this.setState({
-    //       metadata: res.data
-    //     })
-
-    //   })
-    //   .catch(err => {
-    //     console.log("getReviewMetadata Err: ", err)
-    //   })
   }
 
 

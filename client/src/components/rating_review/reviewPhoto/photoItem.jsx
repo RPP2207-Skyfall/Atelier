@@ -12,7 +12,7 @@ const photoItem = (props) => {
 
   return (
     <>
-      <div className="thumbnail-Box"><img className="thumbnail-photo" src={`${props.photo.url}`} onClick={() => { enableModal() }} alt="thumbnail-photo" /></div>
+      <div className="thumbnail-Box"><img className="thumbnail-photo" src={`${props.photo.url}`} onClick={() => { enableModal() }} alt={`thumbnail-photo-${props.photo.id}`} /></div>
       {modal ?
         <div className="modal">
           <div className="overlay" onClick={() => { enableModal() }}>
