@@ -19,15 +19,19 @@ class QandA extends React.Component {
     super(props);
     this.state={
       QA : [],
+      QA_searched : [],
       product_id: 71698,
+      isQueryOn: false,
       isQModalOpen: false,
-      isAModalOpen: false
+      isAModalOpen: false,
+      searchQuery:''
     };
     this.handleQModalOpen = this.handleQModalOpen.bind(this);
     this.handleQModalClose = this.handleQModalClose.bind(this);
     this.handleAModalOpen = this.handleAModalOpen.bind(this);
     this.handleAModalClose = this.handleAModalClose.bind(this);
     this.getProductQA = this.getProductQA.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   };
 
   componentDidMount() {
@@ -53,7 +57,7 @@ class QandA extends React.Component {
         })
       })
       .catch(err => {
-        console.log("Err: ", err)
+        // console.log("Err: ", err)
       })
   };
 
@@ -81,17 +85,44 @@ class QandA extends React.Component {
     })
   };
 
+  handleSearch(query) {
+    this.setState({
+      searchQuery: query
+    });
+    if (this.state.searchQuery.length >= 3) {
+      this.setState({
+        isQueryOn: true
+      })
+    } else {
+      this.setState({
+        isQueryOn: false
+      })
+    }
+
+    if (this.state.isQueryOn) {
+      var questionList = this.state.QA;
+      var result = questionList.filter(item => item.question_body.includes(this.state.searchQuery));
+      this.setState({
+        QA_searched: result
+      })
+    } else {
+      this.setState({
+        QA_searched: []
+      })
+    }
+  };
+
   render() {
     return (
-      <div className='question-and-answer-container'>
+      <div className='question-and-answer-main' data-testid='question-and-answer-main'>
         <h4>QUESTIONS & ANSWERS</h4>
-        <Search />
-        <QAList list={this.state.QA} handleAModalOpen={this.handleAModalOpen} isAModalOpen={this.state.isAModalOpen} handleAModalClose={this.handleAModalClose} product_name={this.props.product_name}/>
+        <Search handleSearch={this.handleSearch}/>
+        <QAList list={this.state.isQueryOn ? this.state.QA_searched : this.state.QA} handleAModalOpen={this.handleAModalOpen} isAModalOpen={this.state.isAModalOpen} handleAModalClose={this.handleAModalClose} product_name={this.props.product_name}/>
         {/* <QAItem isModalOpen={this.state.isAModalOpen} handleModalOpen={this.handleAModalOpen} handleModalClose={this.handleAModalClose}/>
         <QAItem isModalOpen={this.state.isAModalOpen} handleModalOpen={this.handleAModalOpen} handleModalClose={this.handleAModalClose}/> */}
         <Stack spacing={1} direction={{ xs: 'column', xs: 'row' }}>
-          <Button variant='outlined' size='medium'>MORE ANSWERED QUESTIONS</Button>
-          <Button variant='outlined' size='medium' onClick={this.handleQModalOpen}>ADD A QUESTION <AddIcon/></Button>
+          <Button variant='outlined' size='medium' className='question-and-answer-more-question-btn'>MORE ANSWERED QUESTIONS</Button>
+          <Button variant='outlined' size='medium' onClick={this.handleQModalOpen} className='question-and-answer-add-question-btn'>ADD A QUESTION <AddIcon/></Button>
         </Stack>
         <QuestionModal isQModalOpen={this.state.isQModalOpen} handleQModalClose={this.handleQModalClose}/>
       </div>

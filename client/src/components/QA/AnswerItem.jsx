@@ -18,6 +18,7 @@ class AnswerItem extends React.Component {
 
   render() {
     return (
+      <div className='question-and-answer-answeritem' data-testid='question-and-answer-answeritem'>
       <Grid container spacing={2}>
         <Stack spacing={1}>
           <Grid xs={12}>
@@ -30,13 +31,14 @@ class AnswerItem extends React.Component {
                 <p>{this.state.date}</p>
                 <p> | </p>
                 <p>Helpful?</p>
-                <p id = 'qaitem-answer-helpful-count'>Yes({this.state.helpfulness})</p>
+                <p id = 'answeritem-helpful-count'>Yes({this.state.helpfulness})</p>
                 <p> | </p>
-                <p id = 'qaitem-report'>Report</p>
+                <p id = 'answeritem-report'>Report</p>
             </Stack>
           </Grid>
         </Stack>
       </Grid>
+      </div>
     )
   }
 };

@@ -4,7 +4,8 @@
   "description": "FEC Project",
   "main": "server/index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
+    "testQA": "jest --coverage q&a.test.js",
     "server-dev": "npx nodemon --watch server/index.js",
     "client-dev": "npx webpack --watch",
     "build": "npx webpack",
@@ -55,5 +56,9 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-jss": "^10.9.2"
+  },
+  "jest --config": {
+    "testEnvironment":"jsdom",
+    "collectCoverage":true
   }
 }

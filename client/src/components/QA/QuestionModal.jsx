@@ -74,7 +74,7 @@ class QuestionModal extends React.Component {
 
   render() {
     return(
-      <div className='question-modal-container'>
+      <div className='question-modal' data-testid='question-modal'>
         <Modal
           open={this.props.isQModalOpen}
           onClose={() => {this.props.handleQModalClose()}}
@@ -87,6 +87,7 @@ class QuestionModal extends React.Component {
             <Stack direction='row' spacing={2}>
               <TextField
                 label='Question'
+                data-testid='QModal-Question'
                 multiline
                 placeholder="What do you like to know...?"
                 rows={4}
@@ -103,6 +104,7 @@ class QuestionModal extends React.Component {
             <Stack spacing={1}>
               <TextField
                 label='Email'
+                data-testid='QModal-Email'
                 placeholder="example@atelier.com"
                 fullWidth
                 inputProps={{maxLength: 60}}
@@ -112,12 +114,13 @@ class QuestionModal extends React.Component {
                 onChange={e => this.setState({email: e.target.value})}
                 required>
               </TextField>
-              <p>For authentication reasons, you will not be emailed</p>
+              <p className='QModal-Email-Disclaimer'>For authentication reasons, you will not be emailed</p>
             </Stack>
             <br></br>
             <Stack spacing={1}>
               <TextField
                 label='Nickname'
+                data-testid='QModal-Nickname'
                 placeholder="Howard878"
                 inputProps={{maxLength: 60}}
                 value={this.state.nickname}
@@ -126,10 +129,10 @@ class QuestionModal extends React.Component {
                 onChange={e => this.setState({nickname: e.target.value})}
                 required>
               </TextField>
-              <p>For privacy reasons, do not use your full name or email address</p>
+              <p className='QModal-Nickname-Disclaimer'>For privacy reasons, do not use your full name or email address</p>
             </Stack>
             <br></br>
-            <Button variant='outlined' size='medium' onClick={this.handleSubmitError} type='submit'>SUBMIT</Button>
+            <Button className='QModal-Submit-Btn' data-testid='QModal-Submit-Btn' variant='outlined' size='medium' onClick={this.handleSubmitError} type='submit'>SUBMIT</Button>
           </Box>
         </Modal>
       </div>
