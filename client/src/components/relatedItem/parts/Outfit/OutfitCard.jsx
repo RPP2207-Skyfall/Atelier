@@ -121,7 +121,7 @@ const OutfitCard = (props) => {
   const content = (
     <div className="carousel-box">
      <img className = "image-box" src={imageList} alt="style" />
-      <button className="star-btn" onClick= {()=>{props.toggleID(id)}}>X</button>
+      <button className="star-btn" onClick= {()=>{toggleID(id)}}>X</button>
       <div className="category-box">
         <div className="category-title">{detail.category}</div>
         <div className="category-wrapper">

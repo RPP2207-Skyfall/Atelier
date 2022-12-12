@@ -7,7 +7,6 @@ class RelatedCard extends React.Component {
     super(props)
     this.state = {
       product_id: this.props.item,
-      product_detail: [],
       rating: 3.4,
       currentPic: [],
       picList: [],

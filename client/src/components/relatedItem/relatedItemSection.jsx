@@ -13,7 +13,7 @@ const RelatedItem = () => {
 
 
   const updateList = (idArr) => {
-    console.log('before', outfit)
+    console.log('before', idArr)
     toggleOutfit (idArr)
     console.log('after', outfit)
   }

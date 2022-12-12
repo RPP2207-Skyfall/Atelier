@@ -8,7 +8,8 @@
     "server-dev": "npx nodemon --watch server/index.js",
     "client-dev": "npx webpack --watch",
     "build": "npx webpack",
-    "start": "node server/index.js"
+    "start": "node server/index.js",
+    "test-related": "jest -- coverage relatedItem.test.js"
   },
   "repository": {
     "type": "git",

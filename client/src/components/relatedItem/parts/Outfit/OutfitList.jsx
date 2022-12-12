@@ -22,7 +22,7 @@ const OutfitList = (props) => {
 
   // console.log('Outfitlist', props.outfitList)
   return (
-  <div className="carousel-container">
+  <div className="carousel-container" data-testid= "outfitList">
     <div className="carousel-box">
     </div>
     {props.outfitList.map((item, index) =>
