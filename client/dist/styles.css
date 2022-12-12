@@ -347,8 +347,8 @@ main {
   padding-bottom: 100px;
   margin-bottom: 100px;
   height: 50vh;
-  width: 100vw;
-  top: -70vh;
+  width: 78vw;
+  top: 3vh;
   left: -10vw;
 }
 
@@ -421,18 +421,16 @@ main {
   width: 40px;
   position: relative;
   left: 56%;
-  top: -25%;
+  top: -17%;
 }
 
 .add-to-cart-dropdown-closed {
   border: 1px solid black;
   position: relative;
-  left: 60%;
-  top: -25%;
+  left: 5%;
+  top: -55%;
   width: 40vw;
   text-align: center;
-  /* display: flex;
-  flex-direction: column; */
 }
 
 .add-to-cart-dropdown-open {
@@ -461,10 +459,29 @@ main {
   border: 1px solid;
 }
 
-.quantity-selector {
+.quantity-selector-start {
   position: relative;
-  top: -56px;
-  left: 1000%;
+  top: 0px;
+  left: 9%;
+  border: 1px solid black;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+}
+.quantity-selector-start-size {
+    position: relative;
+    top: 0px;
+    left: 63%;
+    border: 1px solid black;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+}
+
+.quantity-selector-selected {
+  position: relative;
+  top: 0px;
+  left: 63%;
   border: 1px solid black;
   width: 50px;
   height: 50px;
@@ -473,11 +490,11 @@ main {
 
 .quantity-selector-open {
   position: relative;
-  top: -54px;
-  left: 1000%;
+  top: 0px;
+  left: 64%;
   border: 1px solid black;
   width: 52px;
-  height: 105px;
+  height: 57px;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -501,7 +518,8 @@ main {
   border: 1 px solid;
   border: 1px solid black;
   width: 40vw;
-  left: 24px;
+  left: 23px;
+  top: 15px;
   height: 50px;
   text-align: center;
 }
@@ -522,6 +540,7 @@ main {
   height: 50px;
   width: 50px;
   left: 40px;
+  top: 15px;
   text-align: center;
 }
 
@@ -533,6 +552,14 @@ main {
   flex-direction: row;
 }
 
+.upper-section-add-to-cart-selected {
+  position: relative;
+  display: flex;
+  top: -40px;
+  left: -606%;
+  width: 445px;
+  flex-direction: row;
+}
 
 
 

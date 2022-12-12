@@ -143,89 +143,89 @@ class Overview extends React.Component {
 
   }
 
-  // getGeneralInfo() {
-  //   const generalUrl = process.env.REACT_APP_API_OVERVIEW_URL + `products`;
+  getGeneralInfo() {
+    const generalUrl = process.env.REACT_APP_API_OVERVIEW_URL + `products`;
 
-  //   fetch(generalUrl,
-  //     {
-  //       method: "GET",
-  //       headers:
-  //       {
-  //         "Content-Type": "application/json",
-  //         "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
-  //       }
-  //     }
-  //   )
-  //     .then(res => res.json())
-  //     .then((data) => {
+    fetch(generalUrl,
+      {
+        method: "GET",
+        headers:
+        {
+          "Content-Type": "application/json",
+          "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
+        }
+      }
+    )
+      .then(res => res.json())
+      .then((data) => {
 
-  //       // get general info (SKU and product info like name and description)
-  //       this.setState({
-  //         data: data,
-  //         SKU: data[0].id
-  //       })
-  //       // console.log(this.state);
-  //       return data;
-  //     })
-  //     .then((data) => {
-  //       const SKU = data[0].id;
-  //       const productUrl = process.env.REACT_APP_API_OVERVIEW_URL + `products/${SKU}/styles`;
+        // get general info (SKU and product info like name and description)
+        this.setState({
+          data: data,
+          SKU: data[0].id
+        })
+        // console.log(this.state);
+        return data;
+      })
+      .then((data) => {
+        const SKU = data[0].id;
+        const productUrl = process.env.REACT_APP_API_OVERVIEW_URL + `products/${SKU}/styles`;
 
-  //       fetch(productUrl,
-  //         {
-  //           method: "GET",
-  //           headers:
-  //           {
-  //             "Content-Type": "application/json",
-  //             "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
-  //           }
-  //         }
-  //       )
-  //       .then(res => res.json())
+        fetch(productUrl,
+          {
+            method: "GET",
+            headers:
+            {
+              "Content-Type": "application/json",
+              "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
+            }
+          }
+        )
+        .then(res => res.json())
 
-  //       // get the info for the pictures, style and thumbnail
+        // get the info for the pictures, style and thumbnail
 
-  //       .then((data) => {
+        .then((data) => {
 
-  //         let thumbnails = data.results[0].photos;
+          let thumbnails = data.results[0].photos;
 
-  //         let holder = [];
-  //         let box = [];
+          let holder = [];
+          let box = [];
 
-  //         for (var i = 0; i < thumbnails.length; i++) {
+          for (var i = 0; i < thumbnails.length; i++) {
 
-  //           thumbnails[i].index = i;
-  //           box.push(thumbnails[i]);
+            thumbnails[i].index = i;
+            box.push(thumbnails[i]);
 
-  //           if (box.length === 7) {
-  //             holder.push(box);
-  //             box = [];
-  //           }
+            if (box.length === 7) {
+              holder.push(box);
+              box = [];
+            }
 
-  //           if (i >= thumbnails.length - 1) {
-  //             holder.push(box);
-  //             box = [];
-  //           }
+            if (i >= thumbnails.length - 1) {
+              holder.push(box);
+              box = [];
+            }
 
-  //         }
+          }
 
-  //         console.log('currentStyle', data.results[0])
+          console.log('currentStyle', data.results[0])
 
-  //         this.setState({
-  //           styles: data,
-  //           current: data.results[0].photos[this.state.mainIndex],
-  //           amount: data.results[0].photos.length,
-  //           currentThumbnails: holder,
-  //           currentStyle: data.results[0]
-  //         })
-  //         // console.log('data from product', data);
-  //       })
+          this.setState({
+            styles: data,
+            current: data.results[0].photos[this.state.mainIndex],
+            amount: data.results[0].photos.length,
+            currentThumbnails: holder,
+            currentStyle: data.results[0]
+          })
+          // console.log('data from product', data);
+        })
 
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     })
-  // }
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+  }
 
   selectSize(size, quant) {
     // console.log('size attempted', size);
@@ -269,14 +269,24 @@ class Overview extends React.Component {
   }
 
 
-  // componentDidMount() {
-  //   this.getGeneralInfo()
-  // }
+  componentDidMount() {
+    this.getGeneralInfo()
+  }
 
   render() {
+    if (this.state.expanded) {
+      return (
+      <div className="overview-container-expanded">
+        <ImageGallery
+          info={this.state} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
+          handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
+          checkThumbnailSection={this.checkThumbnailSection}
+        />
+      </div>
+      )
+    }
     return (
       <div className="overview-container">
-        <p>overview</p>
         <ProductInfo info={this.state} style={this.state.currentStyle}/>
         <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle}/>
         <AddToCart

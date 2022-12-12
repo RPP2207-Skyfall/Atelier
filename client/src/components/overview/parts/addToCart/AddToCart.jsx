@@ -48,11 +48,20 @@ function AddToCart(props) {
   } else if (props.selected) {
     return (
       <div className="add-to-cart-container">
-        <div className="add-to-cart-dropdown-selected" onClick={handleOpen}>
-          <h1 >{props.selected}</h1>
+        <div className="upper-section-add-to-cart-selected">
+          <div className="add-to-cart-dropdown-selected" onClick={handleOpen}>
+            <h1 >{props.selected}</h1>
+          </div>
+          <QuantitySelector selectedQuant={props.selectedQuant} selectQuant={props.selectQuant}
+          selected={props.selected} quant={props.sizeQuantity}/>
         </div>
-        <QuantitySelector selectedQuant={props.selectedQuant} selectQuant={props.selectQuant}
-        selected={props.selected} quant={props.sizeQuantity}/>
+        <div className="add-to-bag-container">
+          <div className="add-to-bag-button">
+            <p>ADD TO BAG</p>
+            <div className="add-to-bag-plus">+</div>
+          </div>
+          <div className="add-to-bag-star">☆</div>
+        </div>
       </div>
 
     )
