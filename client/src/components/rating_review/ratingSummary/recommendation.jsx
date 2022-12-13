@@ -12,14 +12,16 @@ const recommendation = (props) => {
 
     (async () => {
       let percentage = await helpers.calculatePercentage(recommendObj)
-      console.log(percentage)
+      console.log('sss', percentage)
       setPercentage(percentage)
     })()
   }, [recommendObj])
 
 
   return (
-    <div className="recommend-precent">{`${percentage}% of reviews recommend this product`}</div>
+
+    <div className="recommend-precent">{`${percentage !== undefined ? percentage : null}% of reviews recommend this product`}</div>
+
   )
 
 }

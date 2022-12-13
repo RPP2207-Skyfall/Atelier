@@ -1,32 +1,22 @@
 import react, { useState, useEffect } from 'react'
+import helpers from '../helperFunctions/helper.js'
 
 const ratingBreakdown = (props) => {
 
-  var ratingObj = props.ratingObj
+  const ratingObj = props.ratingObj
   const [individualRating, setIndividualRating] = useState([])
   const [totalSubmitted, setTotalSubmitted] = useState([])
 
   let ratingBar = <></>
 
+
   useEffect(() => {
-    populateIndividualRating(ratingObj)
+    (async () => {
+      let individualRating = await helpers.populateIndividualRating(ratingObj)
+      console.log(individualRating)
+      setIndividualRating(individualRating)
+    })()
   }, [ratingObj])
-
-  const populateIndividualRating = (ratingObj) => {
-    if (ratingObj) {
-      var individualRatingArr = []
-      for (let key in ratingObj) {
-        var current = [<span>{`${key} Stars`}</span>, <span>{ratingObj[key]}</span>]
-
-        individualRatingArr.push(current)
-      }
-      console.log(individualRatingArr)
-      setIndividualRating(individualRatingArr)
-    }
-  }
-
-
-
 
 
 
@@ -34,9 +24,9 @@ const ratingBreakdown = (props) => {
     <div className="rating-breakdownn-container">
       <div className="breakdown-title">Rating Breakdown</div>
       <div className="breakdown-chart">
-        {individualRating.map((eachDiv, idx) =>
+        {individualRating !== undefined ? individualRating.map((eachDiv, idx) =>
           <div className={`${idx}-star`} key={idx}>{eachDiv[0]} bar {eachDiv[1]}</div>
-        )}
+        ) : null}
       </div>
     </div>
   )

@@ -88,9 +88,18 @@ const helpers = {
       return percentage
     }
 
+  },
+  populateIndividualRating: async (ratingObj) => {
+    if (ratingObj) {
+      var individualRatingArr = []
+      for (let key in ratingObj) {
+        var current = [<span>{`${key} Stars`}</span>, <span>{ratingObj[key]}</span>]
+
+        individualRatingArr.push(current)
+      }
+      return individualRatingArr
+    }
   }
-
-
 }
 
 
