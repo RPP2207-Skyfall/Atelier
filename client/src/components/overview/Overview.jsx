@@ -22,7 +22,8 @@ class Overview extends React.Component {
       thumbnailSection: 0,
       selectedSize: null,
       sizeQuant: 0,
-      selectedQuant: 0
+      selectedQuant: 0,
+      zoomBox: false
     }
 
     this.mainSlide = this.mainSlide.bind(this);
@@ -34,6 +35,13 @@ class Overview extends React.Component {
     this.checkThumbnailSection = this.checkThumbnailSection.bind(this);
     this.makeImageHolder = this.makeImageHolder.bind(this);
     this.selectQuant = this.selectQuant.bind(this);
+    this.zoom = this.zoom.bind(this);
+  }
+
+  zoom() {
+    this.setState({
+      zoomBox: !this.state.zoomBox
+    })
   }
 
   updateStyle(style) {
@@ -280,7 +288,7 @@ class Overview extends React.Component {
         <ImageGallery
           info={this.state} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
           handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
-          checkThumbnailSection={this.checkThumbnailSection}
+          checkThumbnailSection={this.checkThumbnailSection} zoomBox={this.state.zoomBox} zoom={this.zoom}
         />
       </div>
       )

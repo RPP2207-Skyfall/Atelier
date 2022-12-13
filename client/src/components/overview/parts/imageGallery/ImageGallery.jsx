@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DefaultView from './views/DefaultView.jsx';
 import ExpandedView from './views/ExpandedView.jsx';
 import Thumbnail from './Thumbnails.jsx';
+import ZoomBox from './views/ZoomBox.jsx';
 import axios from 'axios';
 
 
@@ -21,6 +22,17 @@ class ImageGallery extends React.Component {
 
 
   render() {
+
+    console.log('expanded', this.props)
+
+    if (this.props.zoomBox) {
+      return (
+        <div className="expanded-again-image-gallery">
+          <ZoomBox />
+        </div>
+      )
+
+    }
 
     if (this.props.info.styles.length !== 0 && !this.props.info.expanded ) {
 
@@ -103,9 +115,11 @@ class ImageGallery extends React.Component {
             <button className="expanded-forward" onClick={() => this.props.mainSlide(1)}>forward</button>
           </div>
           <button onClick={() => this.props.handleExpand()}>default</button>
+          <button className="zoom-btn" onClick={() => this.props.zoom()}>ZOOM</button>
         </div>
       )
-    } else {
+    }
+    else {
 
       return null;
     }
