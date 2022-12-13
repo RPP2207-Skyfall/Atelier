@@ -69,6 +69,25 @@ const helpers = {
     }
 
     return { 'average': average, 'totalRatingAmount': totalRatingAmount }
+  },
+  calculatePercentage: async (recommendObj) => {
+    if (recommendObj) {
+      var percentage = null
+      var total = 0
+      var recommended = 0
+      for (let key in recommendObj) {
+
+        if (key === 'true') {
+          recommended += parseInt(recommendObj[key])
+        }
+        total += parseInt(recommendObj[key])
+      }
+      percentage = Math.round(((recommended / total) * 100) * 10) / 10
+
+      //setPercentage(Math.round(((recommended / total) * 100) * 10) / 10)
+      return percentage
+    }
+
   }
 
 

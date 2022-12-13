@@ -1,5 +1,5 @@
 import react, { useState, useEffect } from 'react'
-import helper from '../helperFunctions/helper.js'
+import helpers from '../helperFunctions/helper.js'
 
 const recommendation = (props) => {
 
@@ -9,30 +9,13 @@ const recommendation = (props) => {
 
 
   useEffect(() => {
-    calculatePercentage(recommendObj)
+
+    (async () => {
+      let percentage = await helpers.calculatePercentage(recommendObj)
+      console.log(percentage)
+      setPercentage(percentage)
+    })()
   }, [recommendObj])
-
-
-  const calculatePercentage = (recommendObj) => {
-    if (recommendObj) {
-
-      var total = 0
-      var recommended = 0
-      for (let key in recommendObj) {
-
-        if (key === 'true') {
-          recommended += parseInt(recommendObj[key])
-        }
-        total += parseInt(recommendObj[key])
-      }
-
-      setPercentage(Math.round(((recommended / total) * 100) * 10) / 10)
-    }
-
-  }
-
-
-
 
 
   return (
