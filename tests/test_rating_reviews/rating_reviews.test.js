@@ -204,17 +204,17 @@ describe("ReviewItem Component", () => {
 
 
 
-  test("Should show recommendation tickbox when reviewer recommended the product ", async () => {
+  test("Should show recommendation tickbox when product is recommended ", async () => {
     await act(async () => {
       render(<ReviewItem reviewData={testData.reviewData_sample2} />)
     })
     const tickBox = screen.queryByText('I recommend this product')
-    const responseBlock = screen.getByTestId('responseBlock')
+    const responseBlock = screen.getByTestId('response-block')
     expect(tickBox).toBeInTheDocument()
     expect(responseBlock).toBeInTheDocument()
   })
 
-  test("Should not show recommendation tickbox when response is a empty string ", async () => {
+  test("Should not show recommendation tickbox when product is not recommended ", async () => {
 
     await act(async () => {
       render(<ReviewItem reviewData={testData.reviewData_sample1} />)
@@ -225,16 +225,16 @@ describe("ReviewItem Component", () => {
 
 
   })
-  test("Should not show recommendation tickbox when response is null ", async () => {
+  // test("Should not show recommendation tickbox when response is null ", async () => {
 
-    await act(async () => {
-      render(<ReviewItem reviewData={testData.reviewData_sample6} />)
-    })
-    const tickBox = screen.queryByText('I recommend this product')
-    expect(tickBox).not.toBeInTheDocument()
+  //   await act(async () => {
+  //     render(<ReviewItem reviewData={testData.reviewData_sample6} />)
+  //   })
+  //   const tickBox = screen.queryByText('I recommend this product')
+  //   expect(tickBox).not.toBeInTheDocument()
 
 
-  })
+  // })
 
 
   test("Should show response if CS team left a response ", async () => {
@@ -246,10 +246,19 @@ describe("ReviewItem Component", () => {
 
   })
 
-  test("Should not show response if CS team did not leave a response.", async () => {
+  test("Should not show response if response is a empty string.", async () => {
 
     await act(async () => {
       render(<ReviewItem reviewData={testData.reviewData_sample1} />)
+    })
+    const response = screen.queryByText("Glad you're enjoying the product!")
+    expect(response).not.toBeInTheDocument()
+
+  })
+  test("Should not show response if response is null.", async () => {
+
+    await act(async () => {
+      render(<ReviewItem reviewData={testData.reviewData_sample6} />)
     })
     const response = screen.queryByText("Glad you're enjoying the product!")
     expect(response).not.toBeInTheDocument()
