@@ -2,7 +2,7 @@ import react, { useState, useEffect } from 'react'
 import Star from './averageStar.jsx'
 import Recommendation from './recommendation.jsx'
 import RatingBreakdown from './ratingBreakdown.jsx'
-import helpers from '../starRating/helper.js'
+import helpers from '../helperFunctions/helper.js'
 
 const ratingSummary = (props) => {
   var ratingObj = props.metadata.ratings

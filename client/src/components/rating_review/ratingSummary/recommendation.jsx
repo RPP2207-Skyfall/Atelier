@@ -1,4 +1,5 @@
 import react, { useState, useEffect } from 'react'
+import helper from '../helperFunctions/helper.js'
 
 const recommendation = (props) => {
 

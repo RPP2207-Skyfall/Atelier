@@ -27,6 +27,7 @@ const reviewItem = (props) => {
     }
 
     if (props.reviewData.body.length > bodyDisplayLimit) {
+      console.log(props.reviewData.body.length, bodyDisplayLimit)
       setPartBody(props.reviewData.body.substring(0, bodyDisplayLimit) + "...")
     }
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1670912315559" clover="3.2.0">
-  <project timestamp="1670912315559" name="All files">
-    <metrics statements="201" coveredstatements="155" conditionals="84" coveredconditionals="61" methods="58" coveredmethods="47" elements="343" coveredelements="263" complexity="0" loc="201" ncloc="201" packages="6" files="14" classes="14"/>
+<coverage generated="1670971450127" clover="3.2.0">
+  <project timestamp="1670971450127" name="All files">
+    <metrics statements="202" coveredstatements="156" conditionals="84" coveredconditionals="61" methods="58" coveredmethods="47" elements="344" coveredelements="264" complexity="0" loc="202" ncloc="202" packages="6" files="14" classes="14"/>
     <package name="client.src.components.rating_review">
-      <metrics statements="79" coveredstatements="47" conditionals="46" coveredconditionals="27" methods="25" coveredmethods="15"/>
+      <metrics statements="80" coveredstatements="48" conditionals="46" coveredconditionals="27" methods="25" coveredmethods="15"/>
       <file name="ratingReview.jsx" path="/Users/saikitJK/HackReactor/Atelier/client/src/components/rating_review/ratingReview.jsx">
         <metrics statements="27" coveredstatements="15" conditionals="10" coveredconditionals="2" methods="9" coveredmethods="6"/>
         <line num="9" count="1" type="stmt"/>
@@ -35,7 +35,7 @@
         <line num="101" count="1" type="stmt"/>
       </file>
       <file name="reviewItem.jsx" path="/Users/saikitJK/HackReactor/Atelier/client/src/components/rating_review/reviewItem.jsx">
-        <metrics statements="28" coveredstatements="28" conditionals="22" coveredconditionals="22" methods="8" coveredmethods="7"/>
+        <metrics statements="29" coveredstatements="29" conditionals="22" coveredconditionals="22" methods="8" coveredmethods="7"/>
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="31" type="stmt"/>
         <line num="7" count="31" type="stmt"/>
@@ -52,18 +52,19 @@
         <line num="26" count="5" type="stmt"/>
         <line num="29" count="13" type="cond" truecount="2" falsecount="0"/>
         <line num="30" count="5" type="stmt"/>
-        <line num="33" count="13" type="cond" truecount="2" falsecount="0"/>
-        <line num="34" count="8" type="stmt"/>
-        <line num="38" count="31" type="stmt"/>
-        <line num="39" count="2" type="stmt"/>
-        <line num="42" count="31" type="stmt"/>
-        <line num="43" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="44" count="1" type="stmt"/>
-        <line num="46" count="2" type="stmt"/>
-        <line num="56" count="31" type="stmt"/>
-        <line num="76" count="1" type="stmt"/>
+        <line num="31" count="5" type="stmt"/>
+        <line num="34" count="13" type="cond" truecount="2" falsecount="0"/>
+        <line num="35" count="8" type="stmt"/>
+        <line num="39" count="31" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="43" count="31" type="stmt"/>
+        <line num="44" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="47" count="2" type="stmt"/>
+        <line num="57" count="31" type="stmt"/>
         <line num="77" count="1" type="stmt"/>
-        <line num="86" count="3" type="stmt"/>
+        <line num="78" count="1" type="stmt"/>
+        <line num="87" count="3" type="stmt"/>
       </file>
       <file name="reviewList.jsx" path="/Users/saikitJK/HackReactor/Atelier/client/src/components/rating_review/reviewList.jsx">
         <metrics statements="24" coveredstatements="4" conditionals="14" coveredconditionals="3" methods="8" coveredmethods="2"/>

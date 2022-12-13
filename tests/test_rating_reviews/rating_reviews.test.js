@@ -225,16 +225,6 @@ describe("ReviewItem Component", () => {
 
 
   })
-  // test("Should not show recommendation tickbox when response is null ", async () => {
-
-  //   await act(async () => {
-  //     render(<ReviewItem reviewData={testData.reviewData_sample6} />)
-  //   })
-  //   const tickBox = screen.queryByText('I recommend this product')
-  //   expect(tickBox).not.toBeInTheDocument()
-
-
-  // })
 
 
   test("Should show response if CS team left a response ", async () => {
@@ -282,34 +272,26 @@ describe("ReviewItem Component", () => {
     expect(reviewPhoto).not.toBeInTheDocument()
   })
 
-  test.skip("Should show more review body if show more is clicked  ", async () => {
+  test("Should show the full review body and partial review body if show more and show less are toggled  ", async () => {
     // const { container } = render(<ReviewItem reviewData={testData.reviewData_sample1} />);
     await act(async () => {
       const reviewItem = render(<ReviewItem reviewData={testData.reviewData_sample4} />)
     })
 
-
-    const spanToClick = screen.getByTestId('show-more-span')
-    fireEvent.click(spanToClick)
+    const showMoreSpan = screen.getByTestId('show-more-span')
+    fireEvent.click(showMoreSpan)
+    expect(await screen.getByTestId('reviewText')).toBeInTheDocument()
     const showLessSpan = screen.getByTestId('show-less-span')
-    expect(await screen.getByTestId('ReviewText')).toBeInTheDocument()
     expect(showLessSpan).toBeInTheDocument()
 
-  })
+    fireEvent.click(showLessSpan)
 
-  test("Should show less review body if show less is clicked  ", async () => {
-    // const { container } = render(<ReviewItem reviewData={testData.reviewData_sample1} />);
-    await act(async () => {
-      const reviewItem = render(<ReviewItem reviewData={testData.reviewData_sample4} />)
-    })
-    const spanToClick1 = screen.getByTestId('show-more-span')
-    fireEvent.click(spanToClick1)
-    const spanToClick2 = screen.getByTestId('show-less-span')
-    fireEvent.click(spanToClick2)
     expect(await screen.getByTestId('partial-ReviewText')).toBeInTheDocument()
-    expect(spanToClick1).toBeInTheDocument()
+    expect(showMoreSpan).toBeInTheDocument()
 
   })
+
+
   test("Should only display first 60 characters of review summary if it is longer than 60 characters", async () => {
     await act(async () => {
       render(<ReviewItem reviewData={testData.reviewData_sample4} />)

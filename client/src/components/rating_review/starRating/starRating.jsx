@@ -1,5 +1,5 @@
 import React from 'react'
-import helpers from './helper.js'
+import helpers from '../helperFunctions/helper.js'
 import StarDiv from './starDiv.jsx'
 
 
