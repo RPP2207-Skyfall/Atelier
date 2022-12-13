@@ -42,15 +42,15 @@ const reviewItem = (props) => {
   const helpfulVote = () => {
     if (helpfulCount > helpfulnessCount) {
       setHelpfulCount(helpfulCount - 1)
-    } else if (helpfulCount === helpfulnessCount) {
+    } else {
       setHelpfulCount(helpfulCount + 1)
     }
     // STILL NEED TO UPDATE API
   }
 
-  const reportReview = () => {
-    console.log('report')
-  }
+  // const reportReview = () => {
+  //   console.log('report')
+  // }
 
 
   return (
@@ -71,15 +71,15 @@ const reviewItem = (props) => {
 
         {showAll ?
           <div className="reviewBody">
-            <div className="reviewText">{`${props.reviewData.body}`}</div>
+            <div className="reviewText" data-testid='reviewText'>{`${props.reviewData.body}`}</div>
             {props.reviewData.photos.length !== 0 ? <ReviewPhotoList photoList={props.reviewData.photos} /> : null}
-            {<div className="showLessSpan"><span onClick={() => { showMoreOrLess() }}>Show less</span></div>}
-          </div> : <div>{partBody} <div className="showMoreSpan">{<span onClick={() => { showMoreOrLess() }}>Show more</span>}</div></div>
+            {<div className="showLessSpan"><span data-testid="show-less-span" onClick={() => { showMoreOrLess() }}>Show less</span></div>}
+          </div> : <div className="partial-ReviewText" data-testid='partial-ReviewText'>{partBody} <div className="showMoreSpan">{<span data-testid="show-more-span" onClick={() => { showMoreOrLess() }}>Show more</span>}</div></div>
         }
 
 
         {props.reviewData.recommend ? <div className="recommendCheck"><span> &#10003; </span>I recommend this product</div> : null}
-        {props.reviewData.response !== null ? <>{props.reviewData.response.length !== 0 ? <div className="responseBlock">{props.reviewData.response}</div> : null}</> : null}
+        {props.reviewData.response !== null ? <>{props.reviewData.response.length !== 0 ? <div className="responseBlock" data-testid="response-block">{props.reviewData.response}</div> : null}</> : null}
       </div>
 
       <div className="row flex-column">

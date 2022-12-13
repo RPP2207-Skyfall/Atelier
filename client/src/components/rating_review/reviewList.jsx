@@ -25,13 +25,13 @@ class reviewList extends React.Component {
 
 
   componentDidUpdate(prevProps, prevState) {
-
     if (this.state.reviewDataCopy.length !== this.props.reviewData.length) {
       this.setState({
         reviewDataCopy: this.props.reviewData,
         displayReview: [this.props.reviewData[0], this.props.reviewData[1]]
       })
       if (this.props.reviewData.length > 2) {
+        // console.log('length:', this.props.reviewData.length)
         this.setState({
           loadBtn: true
         })
@@ -82,10 +82,10 @@ class reviewList extends React.Component {
 
 
   render() {
-    const datalength = this.state.reviewDataCopy.length
+    const datalength = this.props.reviewData.length
     return (
       <div className="reviewBreakdown">
-        <div className="review-sort-bar">{`${datalength} reviews, sorted by `}{datalength > 0 ? <SortMenu currentSortValue={this.props.currentSortValue} updateSortMethod={this.updateSortMethod.bind(this)} /> : null}</div>
+        <div className="review-sort-bar" data-testid='review-amount'>{`${datalength} reviews, sorted by `}{datalength > 0 ? <SortMenu currentSortValue={this.props.currentSortValue} updateSortMethod={this.updateSortMethod.bind(this)} /> : null}</div>
         <div className="reviewItemContaier">
           <div className="container-Content">
             {this.state.displayReview.map((item) =>
@@ -93,7 +93,7 @@ class reviewList extends React.Component {
             )}
           </div>
         </div>
-        {this.state.loadBtn ? <button className="loadReviewBtn" onClick={() => { this.handleMoreReviewClick() }}>MORE REVIEWS</button> : null} <button className="addReviewBtn" data-testid="addReviewBtn-testId">ADD A REVIEW +</button>
+        {this.state.loadBtn ? <button className="loadReviewBtn" data-testid="moreReviewBtn-testId" onClick={() => { this.handleMoreReviewClick() }}>MORE REVIEWS</button> : null} <button className="addReviewBtn" data-testid="addReviewBtn-testId">ADD A REVIEW +</button>
         <></>
       </div>
 
