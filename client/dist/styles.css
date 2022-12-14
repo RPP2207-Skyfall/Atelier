@@ -52,7 +52,7 @@ main {
 }
 
 #root {
-  padding: 20px 5px 20px 5px;
+  padding: 20px 0 20px 0;
 }
 
 
@@ -85,7 +85,7 @@ main {
 
 }
 
-.helpfulCount span {
+.helpful-click {
   text-decoration: underline;
 }
 
@@ -222,7 +222,7 @@ main {
 
 .option-helpful,
 .option-newest,
-.option-relevant {
+.option-relevance {
   margin: 5px 0 5px 0;
   padding: 0 0 0 2px;
   background-color: #dcdcdc;
@@ -247,6 +247,21 @@ main {
   font-size: 13px;
 }
 
+.progress_wrapper {
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: green;
+}
+
+.progress_bar {
+  position: absolute;
+  width: 100%;
+  height: 10px;
+  background-color: grey;
+}
+
+*/
 /**********************************************/
 /****** Style for Overview widget****/
 

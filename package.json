@@ -5,6 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "test": "jest --coverage",
+    "test-coverage-report": "jest --coverage rating_reviews.test.js",
     "testQA": "jest --coverage q&a.test.js",
     "server-dev": "npx nodemon --watch server/index.js",
     "client-dev": "npx webpack --watch",
@@ -58,7 +59,7 @@
     "react-jss": "^10.9.2"
   },
   "jest --config": {
-    "testEnvironment":"jsdom",
-    "collectCoverage":true
+    "testEnvironment": "jsdom",
+    "collectCoverage": true
   }
 }

@@ -40,10 +40,14 @@ class RatingReview extends React.Component {
     }
     Axios.get(url, requestOption)
       .then(res => {
-        //console.log(res.data.results)
-        this.setState({
-          reviewData: res.data.results
-        })
+        if (res.data.results.length === 0) {
+          throw new Error('No data found')
+        } else {
+          this.setState({
+            reviewData: res.data.results
+          })
+        }
+
       })
       .catch(err => {
         console.log("getProductReviews Err: ", err)
@@ -64,26 +68,22 @@ class RatingReview extends React.Component {
     }
     try {
       let res = await Axios.get(url, requestOption)
+      //console.log('gg', res)
+      if (!res.data) {
+        throw new Error('No data found')
+      }
       this.setState({ metadata: res.data })
     } catch (err) {
       console.log("getReviewMetadata Err: ", err)
     }
-    // Axios.get(url, requestOption)
-    //   .then(res => {
-    //     console.log('getReviewMetadata: ', res.data)
-
-    //     this.setState({
-    //       metadata: res.data
-    //     })
-
-    //   })
-    //   .catch(err => {
-    //     console.log("getReviewMetadata Err: ", err)
-    //   })
   }
 
 
   updateSortMethod(sortMethod) {
+    console.log(sortMethod)
+    if (sortMethod === 'relevance') {
+      sortMethod = 'relevant'
+    }
     if (sortMethod !== this.state.currentSortValue) {
       this.setState({
         currentSortValue: sortMethod

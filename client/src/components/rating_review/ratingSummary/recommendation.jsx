@@ -1,4 +1,5 @@
 import react, { useState, useEffect } from 'react'
+import helpers from '../helperFunctions/helper.js'
 
 const recommendation = (props) => {
 
@@ -8,50 +9,19 @@ const recommendation = (props) => {
 
 
   useEffect(() => {
-    calculatePercentage(recommendObj)
-    // console.log(recommendObj)
-    // var total = 0
-    // var recommended = 0
-    // for (let key in recommendObj) {
 
-    //   if (key === 'true') {
-    //     recommended += parseInt(recommendObj[key])
-    //   }
-    //   total += parseInt(recommendObj[key])
-    // }
-
-    // result = Math.round(((recommended / total) * 100) * 10) / 10
-    // console.log('gg', result)
+    (async () => {
+      let percentage = await helpers.calculatePercentage(recommendObj)
+      console.log('sss', percentage)
+      setPercentage(percentage)
+    })()
   }, [recommendObj])
-
-  // useEffect(() => {
-  //   setPercentage(result)
-  // }, [result])
-
-  const calculatePercentage = (recommendObj) => {
-    if (recommendObj) {
-      console.log(recommendObj)
-      var total = 0
-      var recommended = 0
-      for (let key in recommendObj) {
-
-        if (key === 'true') {
-          recommended += parseInt(recommendObj[key])
-        }
-        total += parseInt(recommendObj[key])
-      }
-
-      setPercentage(Math.round(((recommended / total) * 100) * 10) / 10)
-    }
-
-  }
-
-
-
 
 
   return (
-    <div className="recommend-precent">{`${percentage}% of reviews recommend this product`}</div>
+
+    <div className="recommend-precent">{`${percentage !== undefined ? percentage : null}% of reviews recommend this product`}</div>
+
   )
 
 }
