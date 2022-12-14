@@ -23,14 +23,23 @@ const ratingBreakdown = (props) => {
   return (
     <div className="rating-breakdownn-container">
       <div className="breakdown-title">Rating Breakdown</div>
-      <div className="breakdown-chart">
-        {individualRating !== undefined ? individualRating.map((eachDiv, idx) =>
-          <div className={`${idx}-star`} key={idx}>{eachDiv[0]} bar {eachDiv[1]}</div>
-        ) : null}
-      </div>
+
+      {individualRating !== undefined ? individualRating.map((eachDiv, idx) =>
+        <div className={`${idx}-star `} key={idx}>
+          {<span>{eachDiv[0]}
+            <span className="progress_wrapper">
+              <span className="progress_bar"></span>
+            </span>
+            {eachDiv[1]}</span>}
+        </div>
+      ) : null}
     </div>
+
   )
 
 }
 
 export default ratingBreakdown
+
+
+{/* <div className=" breakdown-chart"> */ }

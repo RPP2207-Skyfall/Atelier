@@ -247,6 +247,21 @@ main {
   font-size: 13px;
 }
 
+.progress_wrapper {
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: green;
+}
+
+.progress_bar {
+  position: absolute;
+  width: 100%;
+  height: 10px;
+  background-color: grey;
+}
+
+*/
 /**********************************************/
 /****** Style for Overview widget****/
 
