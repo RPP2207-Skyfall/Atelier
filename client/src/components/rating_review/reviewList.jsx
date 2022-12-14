@@ -10,18 +10,12 @@ class reviewList extends React.Component {
       reviewDataCopy: [],
       displayReview: [],
       loadBtn: false
-      // incomingSortValue: this.props.currentSortValue,
-      // sortValueTracker: ''
+
 
     }
   }
 
-  // componentDidMount() {
-  //   this.setState({
-  //     sortValueTracker: this.state.incomingSortValue,
-  //   })
 
-  // }
 
 
   componentDidUpdate(prevProps, prevState) {
