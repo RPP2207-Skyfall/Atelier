@@ -93,12 +93,25 @@ const helpers = {
     if (ratingObj) {
       var individualRatingArr = []
       for (let key in ratingObj) {
-        var current = [<span>{`${key} Stars`}</span>, <span>{ratingObj[key]}</span>]
+        //var current = [<span>{`${key} Stars`}</span>, <span>{ratingObj[key]}</span>]
+        var current = [key, ratingObj[key]]
 
         individualRatingArr.push(current)
       }
       return individualRatingArr
     }
+  },
+  calculateBarFillPercentage: (totalAmount, ratingAmount) => {
+
+    if (isNaN(parseInt(totalAmount)) || isNaN(parseInt(ratingAmount))) {
+      return 0
+    }
+
+    var fillAmount = Math.round(((parseInt(ratingAmount) / parseInt(totalAmount)) * 100) * 10) / 10
+    //console.log('fillAmount', fillAmount)
+    return fillAmount
+
+
   }
 }
 
