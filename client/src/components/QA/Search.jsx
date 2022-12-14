@@ -16,9 +16,9 @@ class Search extends React.Component {
 
   render() {
     return(
-      <div className='question-and-answer-search-bar'>
+      <div className='question-and-answer-search-bar' data-testid='question-and-answer-search-bar'>
         <Stack direction='row' spacing={1}>
-          <TextField fullWidth id='search-bar' placeholder='HAVE A QUESTION? SEARCH FOR ANSWER...'></TextField>
+          <TextField fullWidth id='search-bar' placeholder='HAVE A QUESTION? SEARCH FOR ANSWER...' onChange={(e) => {this.props.handleSearch(e.target.value)}}></TextField>
             <IconButton color='primary' aria-label='search QA'>
               <SearchIcon id='search-icon'/>
             </IconButton>

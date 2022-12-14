@@ -390,6 +390,10 @@ main {
   outline: 2px solid #bebebe;
 }
 
+.image-box {
+  object-fit: fill;
+}
+
 .star-btn {
   position: absolute;
   cursor: pointer;
@@ -398,6 +402,8 @@ main {
   outline: none;
   top: 5px;
   right: 5px;
+  width:35px;
+  height:35px;
 }
 
 .category-box {
@@ -440,22 +446,56 @@ main {
   text-align: left;
 }
 
-/**********************************************/
+.star-outline2 {
+  height: 26px;
+  width: 21px;
+}
+
+
+.star-fill2 {
+  position: relative;
+  display: inline-block;
+  height: 26px;
+  background-color: #333333;
+}
+
+.star-fill2 img {
+  max-width: none
+}
+
+
+.star-container2 {
+  border-color: black;
+  background-color: white;
+  height: 26px;
+  width: 21px;
+  display: inline-block;
+}
+
+
 /*****************Style for Q&A widget*****************************/
 
-#qaitem-question-helpful-count:hover {
+.qaitem-question-helpful-count:hover {
   cursor: pointer;
 }
 
-#qaitem-answer-helpful-count:hover {
+.qaitem-answer-helpful-count:hover {
   cursor: pointer;
 }
 
-#qaitem-add-answer:hover {
+.qaitem-add-answer:hover {
   cursor: pointer;
 }
 
-#qaitem-report:hover {
+.qaitem-report:hover {
+  cursor: pointer;
+}
+
+.answeritem-helpful-count:hover {
+  cursor: pointer;
+}
+
+.answeritem-reported:hover, .answeritem-report:hover {
   cursor: pointer;
 }
 

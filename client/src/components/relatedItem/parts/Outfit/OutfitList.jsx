@@ -1,20 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import OutfitCard from './OutfitCard.jsx';
 
-const OutfitList = (props) => (
+const OutfitList = (props) => {
+  // console.log('Outfitlist', props.outfitList)
+  const content = (
   <div className="carousel-container">
-    <OutfitCard />
-    <OutfitCard />
-    <OutfitCard />
-    <OutfitCard />
-    <OutfitCard />
+    <div className="carousel-box">
+    </div>
 
-     {/* {props.list.map((item, index) =>
-      <OutfitCard item= {item} key= {index} id= {index} />
-    )} */}
+    {props.outfitList.map((item, index) =>
+      <OutfitCard item= {item} key= {index} id= {index} outfit = {props.outfitList} toggleOutfit = {props.toggleOutfit}/>
+    )}
 
   </div>
-)
+  )
+  return content
+}
 
 
 
