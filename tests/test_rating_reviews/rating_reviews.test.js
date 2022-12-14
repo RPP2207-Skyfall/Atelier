@@ -376,7 +376,7 @@ describe("Helper functions", () => {
     expect(result).toEqual(expected)
 
   })
-  test('generateStars should generate an empty array if rating is not a number', async () => {
+  test('generateStars should generate an empty array if rating is not a number.', async () => {
 
     const result = await helperFn.generateStars('3.4', 5)
     const expected = []
