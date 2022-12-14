@@ -460,19 +460,27 @@ main {
 
 /*****************Style for Q&A widget*****************************/
 
-#qaitem-question-helpful-count:hover {
+.qaitem-question-helpful-count:hover {
   cursor: pointer;
 }
 
-#qaitem-answer-helpful-count:hover {
+.qaitem-answer-helpful-count:hover {
   cursor: pointer;
 }
 
-#qaitem-add-answer:hover {
+.qaitem-add-answer:hover {
   cursor: pointer;
 }
 
-#qaitem-report:hover {
+.qaitem-report:hover {
+  cursor: pointer;
+}
+
+.answeritem-helpful-count:hover {
+  cursor: pointer;
+}
+
+.answeritem-reported:hover, .answeritem-report:hover {
   cursor: pointer;
 }
 
