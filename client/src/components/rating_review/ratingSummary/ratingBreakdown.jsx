@@ -40,6 +40,3 @@ const ratingBreakdown = (props) => {
 }
 
 export default ratingBreakdown
-
-
-{/* <div className=" breakdown-chart"> */ }
