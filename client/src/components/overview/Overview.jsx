@@ -65,11 +65,11 @@ class Overview extends React.Component {
 
     // console.log(style.photos)
 
-    console.log('style', style)
+    // console.log('style', style)
 
     let newThumbnails = this.makeThumbnailBoxes(style.photos);
 
-    console.log('style.photos', style.photos)
+    // console.log('style.photos', style.photos)
 
 
 
@@ -231,7 +231,7 @@ class Overview extends React.Component {
           // console.log('data after first call', data[1].id)
           this.setState({
             data: data,
-            SKU: data[3].id
+            SKU: data[0].id
           }, () => {
             // console.log(this.state)
             resolve(this.state)
@@ -268,7 +268,7 @@ class Overview extends React.Component {
         holder.push(box);
         box = [];
       }
-      console.log('box', box)
+      // console.log('box', box)
     }
 
     return holder;
@@ -316,7 +316,7 @@ class Overview extends React.Component {
       .then(res => res.json())
       .then((data) => {
 
-        console.log('data in styles', data)
+        // console.log('data in styles', data)
 
        let holder = this.makeThumbnailBoxes(data.results[0].photos)
 
