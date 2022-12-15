@@ -23,7 +23,7 @@ class ImageGallery extends React.Component {
 
   render() {
 
-    console.log('expanded', this.props)
+    // console.log('expanded', this.props)
 
     if (this.props.zoomBox) {
       let index = this.props.info.mainIndex;

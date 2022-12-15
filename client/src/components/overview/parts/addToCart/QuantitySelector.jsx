@@ -14,7 +14,7 @@ function QuantitySelector(props) {
     props.selectQuant(quant)
   }
 
-  console.log('props in qunatSelect', props)
+  // console.log('props in qunatSelect', props)
   // && props.selectedQuant === 1
 
   if (props.selected && !open) {

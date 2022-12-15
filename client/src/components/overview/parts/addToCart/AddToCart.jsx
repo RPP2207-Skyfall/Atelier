@@ -10,7 +10,7 @@ function AddToCart(props) {
     setOpen(!open);
   };
 
-  console.log('props in cart', props)
+  // console.log('props in cart', props)
 
   if (props.currentStyle && Object.keys(props.currentStyle.skus).length === 0) {
     return (
