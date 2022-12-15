@@ -458,6 +458,32 @@ main {
   margin: 10px;
 }
 
+.overview-star-outline {
+  height: 26px;
+  width: 21px;
+}
+
+
+.overview-star-fill {
+  position: relative;
+  display: inline-block;
+  height: 26px;
+  background-color: #333333;
+}
+
+.overview-star-fill img {
+  max-width: none
+}
+
+
+.overview-star-container {
+  border-color: black;
+  background-color: white;
+  height: 26px;
+  width: 21px;
+  display: inline-block;
+}
+
 /* Add to cart */
 
 .add-to-cart-container {

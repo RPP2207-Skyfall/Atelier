@@ -24,7 +24,9 @@ class Overview extends React.Component {
       sizeQuant: 0,
       selectedQuant: 0,
       zoomBox: false,
-      reviewData: []
+      reviewData: [],
+      rating: null,
+      done: false
     }
 
     this.mainSlide = this.mainSlide.bind(this);
@@ -48,6 +50,7 @@ class Overview extends React.Component {
     this.makeThumbnailBoxes = this.makeThumbnailBoxes.bind(this);
     this.getReviews = this.getReviews.bind(this);
     this.getAverageRating = this.getAverageRating.bind(this);
+    this.setAverageRating = this.setAverageRating.bind(this);
   }
 
   zoom() {
@@ -166,7 +169,6 @@ class Overview extends React.Component {
 
 
   getData() {
-    // console.log('something')
     this.getGeneralProducts()
     .then((data) => {
       return this.getStyles(data.SKU)
@@ -179,7 +181,16 @@ class Overview extends React.Component {
       return this.getAverageRating(reviews.reviewData)
     })
     .then((averageReview) => {
-      console.log('Avg Rev: ', averageReview)
+      return this.setAverageRating(averageReview);
+    })
+    .then((done) => {
+
+      this.setState({
+        done: true
+      })
+      console.log('done', done)
+
+      // make a state with done where it is verified that all api calls are done
     })
     .catch((err) => {
       console.log('ERR', err)
@@ -257,6 +268,17 @@ class Overview extends React.Component {
     }
 
     return result/ratings.length;
+  }
+
+  setAverageRating(rating) {
+    return new Promise((resolve, reject) => {
+      this.setState({
+        rating: rating
+      }, () => {
+        resolve(this.state);
+      })
+
+    })
   }
 
 
@@ -508,31 +530,34 @@ class Overview extends React.Component {
   }
 
   render() {
-    if (this.state.expanded) {
+    if (this.state.done) {
+      if (this.state.expanded) {
+        return (
+        <div className="overview-container-expanded">
+          <ImageGallery
+            info={this.state} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
+            handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
+            checkThumbnailSection={this.checkThumbnailSection} zoomBox={this.state.zoomBox} zoom={this.zoom}
+          />
+        </div>
+        )
+      }
       return (
-      <div className="overview-container-expanded">
-        <ImageGallery
-          info={this.state} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
-          handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
-          checkThumbnailSection={this.checkThumbnailSection} zoomBox={this.state.zoomBox} zoom={this.zoom}
-        />
-      </div>
+        <div className="overview-container">
+          <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating}/>
+          <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle}/>
+          <AddToCart
+          currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
+          sizeQuantity={this.state.sizeQuant} selectedQuant={this.state.selectedQuant} selectQuant={this.selectQuant}/>
+          <ImageGallery
+            info={this.state} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
+            handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
+            checkThumbnailSection={this.checkThumbnailSection}
+          />
+        </div>
       )
     }
-    return (
-      <div className="overview-container">
-        <ProductInfo info={this.state} style={this.state.currentStyle}/>
-        <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle}/>
-        <AddToCart
-        currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
-        sizeQuantity={this.state.sizeQuant} selectedQuant={this.state.selectedQuant} selectQuant={this.selectQuant}/>
-        <ImageGallery
-          info={this.state} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
-          handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
-          checkThumbnailSection={this.checkThumbnailSection}
-        />
-      </div>
-    )
+
   }
 }
 

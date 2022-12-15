@@ -91,6 +91,7 @@ class StarRating extends React.Component {
       <div className="star-bar">
         {this.state.starArray.map((width, idx) => {
 
+
           return (
             <div className="star-container" key={idx}>
               <div className="star-fill" style={{ "width": `${(width * 21)}px` }}>
