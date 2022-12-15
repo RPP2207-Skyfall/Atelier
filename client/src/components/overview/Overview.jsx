@@ -65,7 +65,18 @@ class Overview extends React.Component {
 
     // console.log(style.photos)
 
-    let newThumbnails = this.makeImageHolder(style.photos)
+    console.log('style', style)
+
+    let newThumbnails = this.makeThumbnailBoxes(style.photos);
+
+    console.log('style.photos', style.photos)
+
+
+
+    // let otherThumb = this.makeThumbnailBoxes(style.photos);
+
+    // console.log('new thunm', newThumbnails)
+    // console.log('other thunm', otherThumb)
 
 
     this.setState({
@@ -174,6 +185,7 @@ class Overview extends React.Component {
       return this.getStyles(data.SKU)
     })
     .then((state) => {
+      // console.log('state', state)
       return this.getReviews(state.styles.product_id);
     })
     .then((reviews) => {
@@ -188,7 +200,7 @@ class Overview extends React.Component {
       this.setState({
         done: true
       })
-      console.log('done', done)
+      // console.log('done', done)
 
       // make a state with done where it is verified that all api calls are done
     })
@@ -216,11 +228,12 @@ class Overview extends React.Component {
         .then(res => res.json())
         .then((data) => {
 
+          // console.log('data after first call', data[1].id)
           this.setState({
             data: data,
-            SKU: data[0].id
+            SKU: data[3].id
           }, () => {
-            console.log(this.state)
+            // console.log(this.state)
             resolve(this.state)
           });
         })
@@ -234,6 +247,7 @@ class Overview extends React.Component {
   // helpers
 
   makeThumbnailBoxes(thumbnails) {
+
 
     // let thumbnails = data.results[0].photos;
 
@@ -254,8 +268,9 @@ class Overview extends React.Component {
         holder.push(box);
         box = [];
       }
-
+      console.log('box', box)
     }
+
     return holder;
   }
 
@@ -300,6 +315,8 @@ class Overview extends React.Component {
       )
       .then(res => res.json())
       .then((data) => {
+
+        console.log('data in styles', data)
 
        let holder = this.makeThumbnailBoxes(data.results[0].photos)
 
@@ -501,6 +518,7 @@ class Overview extends React.Component {
 
   makeImageHolder(images) {
 
+
     let holder = [];
     let box = [];
 
@@ -531,11 +549,12 @@ class Overview extends React.Component {
 
   render() {
     if (this.state.done) {
+      console.log(this.state)
       if (this.state.expanded) {
         return (
         <div className="overview-container-expanded">
           <ImageGallery
-            info={this.state} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
+            info={this.state} currentThumbnails={this.state.currentThumbnails} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
             handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
             checkThumbnailSection={this.checkThumbnailSection} zoomBox={this.state.zoomBox} zoom={this.zoom}
           />
@@ -550,7 +569,7 @@ class Overview extends React.Component {
           currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
           sizeQuantity={this.state.sizeQuant} selectedQuant={this.state.selectedQuant} selectQuant={this.selectQuant}/>
           <ImageGallery
-            info={this.state} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
+            info={this.state} currentThumbnails={this.state.currentThumbnails} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
             handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
             checkThumbnailSection={this.checkThumbnailSection}
           />

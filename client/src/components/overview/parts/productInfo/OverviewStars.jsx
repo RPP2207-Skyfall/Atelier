@@ -21,7 +21,7 @@ class OverviewStars extends React.Component {
 
   async generateStars() {
 
-    console.log('stars', this.props)
+    // console.log('stars', this.props)
 
     var fullStars = Math.floor(this.props.rating) // if rating 3.8 fullstars = 3
     var decimal = this.props.rating - fullStars
@@ -98,7 +98,7 @@ class OverviewStars extends React.Component {
       return (
         <div className="overview-star-bar">
           {this.state.starArray.map((width, idx) => {
-            {console.log('widht', width)}
+            // {console.log('widht', width)}
 
             return (
               <div className="overview-star-container" key={idx}>

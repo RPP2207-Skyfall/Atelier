@@ -3,7 +3,7 @@ import React from 'react';
 function StyleSelector(props) {
 
 
-  // console.log(props);
+  console.log(props);
 
 
   if (props.styles.results) {
@@ -17,6 +17,7 @@ function StyleSelector(props) {
           {
                 props.styles.results.map((style, i) => {
 
+                  console.log('style in selector: ', style)
                   if (style.style_id === props.currentStyle.style_id) {
                     return (
                       <div key={i} className="current-style-selected" onClick={() => props.updateStyle(style)}>

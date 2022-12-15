@@ -23,7 +23,7 @@ class ImageGallery extends React.Component {
 
   render() {
 
-    // console.log('expanded', this.props)
+    // console.log('propsimaggw gal', this.props.currentStyle.photos[this.props.info.mainIndex].url)
 
     if (this.props.zoomBox) {
       let index = this.props.info.mainIndex;
@@ -39,13 +39,15 @@ class ImageGallery extends React.Component {
 
       let index = this.props.info.mainIndex;
 
+      // console.log('1')
+
       if (index === 0) {
         return (
           <div className="default-image-gallery">
 
             <DefaultView  mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand}/>
             <Thumbnail
-              info={this.props.info} index={index} updateMainPic={this.props.updateMainPic}
+              info={this.props.info} currentThumbnails={this.props.currentThumbnails} index={index} updateMainPic={this.props.updateMainPic}
               images={this.props.currentStyle.photos} section={this.props.thumbnailSection} updateThumbnailSection={this.props.updateThumbnailSection}
               checkThumb={this.props.checkThumb}
               thumbnailSection={this.props.thumbnailSection}
@@ -64,7 +66,7 @@ class ImageGallery extends React.Component {
 
             <DefaultView  mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand}/>
             <Thumbnail
-              info={this.props.info} index={index} updateMainPic={this.props.updateMainPic}
+              info={this.props.info} index={index} currentThumbnails={this.props.currentThumbnails} updateMainPic={this.props.updateMainPic}
               images={this.props.currentStyle.photos} section={this.props.thumbnailSection} updateThumbnailSection={this.props.updateThumbnailSection}
               checkThumb={this.props.checkThumb}
               thumbnailSection={this.props.thumbnailSection}
@@ -83,7 +85,7 @@ class ImageGallery extends React.Component {
 
             <DefaultView  mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand}/>
             <Thumbnail
-              info={this.props.info} index={index} updateMainPic={this.props.updateMainPic}
+              info={this.props.info} index={index}  currentThumbnails={this.props.currentThumbnails} updateMainPic={this.props.updateMainPic}
               images={this.props.currentStyle.photos} section={this.props.thumbnailSection} updateThumbnailSection={this.props.updateThumbnailSection}
               checkThumb={this.props.checkThumb}
               thumbnailSection={this.props.thumbnailSection}
