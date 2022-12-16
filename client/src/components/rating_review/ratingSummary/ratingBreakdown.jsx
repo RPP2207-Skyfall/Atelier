@@ -26,7 +26,7 @@ const ratingBreakdown = (props) => {
       <div className="breakdown-title">Rating Breakdown</div>
 
       {individualRating !== undefined ? individualRating.map((valueSet, idx) =>
-        <Bar key={idx} totalAmount={totalAmount} star={valueSet[0]} ratingAmount={valueSet[1]} />
+        <Bar key={idx} totalAmount={totalAmount} star={valueSet[0]} ratingAmount={valueSet[1]} hanleFilterClicked={props.hanleFilterClicked} filterClicked={props.filterClicked} />
       ) : null}
     </div>
 

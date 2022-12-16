@@ -15,9 +15,6 @@ class reviewList extends React.Component {
     }
   }
 
-
-
-
   componentDidUpdate(prevProps, prevState) {
     if (this.state.reviewDataCopy.length !== this.props.reviewData.length) {
       this.setState({
@@ -76,6 +73,7 @@ class reviewList extends React.Component {
 
 
   render() {
+    // console.log('reviewlist rendered')
     const datalength = this.props.reviewData.length
     return (
       <div className="reviewBreakdown">
