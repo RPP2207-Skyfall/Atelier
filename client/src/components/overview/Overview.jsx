@@ -181,32 +181,32 @@ class Overview extends React.Component {
 
   getData() {
     this.getGeneralProducts()
-    .then((data) => {
-      return this.getStyles(data.SKU)
-    })
-    .then((state) => {
-      // console.log('state', state)
-      return this.getReviews(state.styles.product_id);
-    })
-    .then((reviews) => {
-      // console.log('reviews', reviews);
-      return this.getAverageRating(reviews.reviewData)
-    })
-    .then((averageReview) => {
-      return this.setAverageRating(averageReview);
-    })
-    .then((done) => {
-
-      this.setState({
-        done: true
+      .then((data) => {
+        return this.getStyles(data.SKU)
       })
-      // console.log('done', done)
+      .then((state) => {
+        // console.log('state', state)
+        return this.getReviews(state.styles.product_id);
+      })
+      .then((reviews) => {
+        // console.log('reviews', reviews);
+        return this.getAverageRating(reviews.reviewData)
+      })
+      .then((averageReview) => {
+        return this.setAverageRating(averageReview);
+      })
+      .then((done) => {
 
-      // make a state with done where it is verified that all api calls are done
-    })
-    .catch((err) => {
-      console.log('ERR', err)
-    })
+        this.setState({
+          done: true
+        })
+        // console.log('done', done)
+
+        // make a state with done where it is verified that all api calls are done
+      })
+      .catch((err) => {
+        console.log('ERR', err)
+      })
 
   }
 
@@ -282,7 +282,7 @@ class Overview extends React.Component {
       result += ratings[i].rating;
     }
 
-    return result/ratings.length;
+    return result / ratings.length;
   }
 
   setAverageRating(rating) {
@@ -313,33 +313,33 @@ class Overview extends React.Component {
           }
         }
       )
-      .then(res => res.json())
-      .then((data) => {
+        .then(res => res.json())
+        .then((data) => {
 
-        // console.log('data in styles', data)
+          // console.log('data in styles', data)
 
-       let holder = this.makeThumbnailBoxes(data.results[0].photos)
+          let holder = this.makeThumbnailBoxes(data.results[0].photos)
 
-        this.setState({
-          styles: data,
-          current: data.results[0].photos[this.state.mainIndex],
-          amount: data.results[0].photos.length,
-          currentThumbnails: holder,
-          currentStyle: data.results[0]
-        }, () => {
-          resolve(this.state)
+          this.setState({
+            styles: data,
+            current: data.results[0].photos[this.state.mainIndex],
+            amount: data.results[0].photos.length,
+            currentThumbnails: holder,
+            currentStyle: data.results[0]
+          }, () => {
+            resolve(this.state)
+          })
         })
-      })
-      .catch((err) => {
-        reject(err)
-      })
+        .catch((err) => {
+          reject(err)
+        })
     })
   }
 
   getReviews(product_id) {
     // console.log('id', id)
 
-    var url = process.env.REACT_APP_API_REVIEW_RATING_URL
+    var url = process.env.REACT_APP_API_REVIEW_URL
 
     return new Promise((resolve, reject) => {
       // console.log(url)
@@ -374,131 +374,131 @@ class Overview extends React.Component {
 
 
 
-  getGeneralInfo() {
-    const generalUrl = process.env.REACT_APP_API_OVERVIEW_URL + `products`;
+  // getGeneralInfo() {
+  //   const generalUrl = process.env.REACT_APP_API_OVERVIEW_URL + `products`;
 
-    fetch(generalUrl,
-      {
-        method: "GET",
-        headers:
-        {
-          "Content-Type": "application/json",
-          "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
-        }
-      }
-    )
-      .then(res => res.json())
-      .then((data) => {
+  //   fetch(generalUrl,
+  //     {
+  //       method: "GET",
+  //       headers:
+  //       {
+  //         "Content-Type": "application/json",
+  //         "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
+  //       }
+  //     }
+  //   )
+  //     .then(res => res.json())
+  //     .then((data) => {
 
-        // get general info (SKU and product info like name and description)
+  //       // get general info (SKU and product info like name and description)
 
-        // console.log('data Overview 172: ', data)
+  //       // console.log('data Overview 172: ', data)
 
-        this.setState({
-          data: data,
-          SKU: data[0].id
-        })
-        // console.log(this.state);
-        return data;
-      })
-      .then((data) => {
-        const SKU = data[0].id;
-        const productUrl = process.env.REACT_APP_API_OVERVIEW_URL + `products/${SKU}/styles`;
+  //       this.setState({
+  //         data: data,
+  //         SKU: data[0].id
+  //       })
+  //       // console.log(this.state);
+  //       return data;
+  //     })
+  //     .then((data) => {
+  //       const SKU = data[0].id;
+  //       const productUrl = process.env.REACT_APP_API_OVERVIEW_URL + `products/${SKU}/styles`;
 
-        fetch(productUrl,
-          {
-            method: "GET",
-            headers:
-            {
-              "Content-Type": "application/json",
-              "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
-            }
-          }
-        )
-          .then(res => res.json())
+  //       fetch(productUrl,
+  //         {
+  //           method: "GET",
+  //           headers:
+  //           {
+  //             "Content-Type": "application/json",
+  //             "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
+  //           }
+  //         }
+  //       )
+  //         .then(res => res.json())
 
-          // get the info for the pictures, style and thumbnail
+  //         // get the info for the pictures, style and thumbnail
 
-          .then((data) => {
+  //         .then((data) => {
 
-          // console.log('data overview 201: ', data);
+  //         // console.log('data overview 201: ', data);
 
-          let thumbnails = data.results[0].photos;
+  //         let thumbnails = data.results[0].photos;
 
 
-            let holder = [];
-            let box = [];
+  //           let holder = [];
+  //           let box = [];
 
-            for (var i = 0; i < thumbnails.length; i++) {
+  //           for (var i = 0; i < thumbnails.length; i++) {
 
-              thumbnails[i].index = i;
-              box.push(thumbnails[i]);
+  //             thumbnails[i].index = i;
+  //             box.push(thumbnails[i]);
 
-              if (box.length === 7) {
-                holder.push(box);
-                box = [];
-              }
+  //             if (box.length === 7) {
+  //               holder.push(box);
+  //               box = [];
+  //             }
 
-              if (i >= thumbnails.length - 1) {
-                holder.push(box);
-                box = [];
-              }
+  //             if (i >= thumbnails.length - 1) {
+  //               holder.push(box);
+  //               box = [];
+  //             }
 
-            }
+  //           }
 
-          //console.log('currentStyle', data.results[0])
+  //         //console.log('currentStyle', data.results[0])
 
-          this.setState({
-            styles: data,
-            current: data.results[0].photos[this.state.mainIndex],
-            amount: data.results[0].photos.length,
-            currentThumbnails: holder,
-            currentStyle: data.results[0]
-          })
-          // console.log('data from product', data);
+  //         this.setState({
+  //           styles: data,
+  //           current: data.results[0].photos[this.state.mainIndex],
+  //           amount: data.results[0].photos.length,
+  //           currentThumbnails: holder,
+  //           currentStyle: data.results[0]
+  //         })
+  //         // console.log('data from product', data);
 
-          return data;
-        })
-        .then((data) => {
+  //         return data;
+  //       })
+  //       .then((data) => {
 
-          var url = process.env.REACT_APP_API_REVIEW_RATING_URL
-          // console.log(url)
-          // console.log('data at 246', data.product_id)
-          let product_id = data.product_id;
-          var requestOption = {
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY
-            },
-            params: {
-              product_id: product_id,
-              count: 10
-            }
-          }
-          Axios.get(url, requestOption)
-            .then(res => {
-              ///console.log(res.data)
-              this.setState({
-                reviewData: res.data.results
-              })
+  //         var url = process.env.REACT_APP_API_REVIEW_RATING_URL
+  //         // console.log(url)
+  //         // console.log('data at 246', data.product_id)
+  //         let product_id = data.product_id;
+  //         var requestOption = {
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //             "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY
+  //           },
+  //           params: {
+  //             product_id: product_id,
+  //             count: 10
+  //           }
+  //         }
+  //         Axios.get(url, requestOption)
+  //           .then(res => {
+  //             ///console.log(res.data)
+  //             this.setState({
+  //               reviewData: res.data.results
+  //             })
 
-              return this.state;
-            })
-            .then((state) => {
-              console.log(state)
-            })
+  //             return this.state;
+  //           })
+  //           .then((state) => {
+  //             console.log(state)
+  //           })
 
-            .catch(err => {
-              console.log("Err: ", err)
-            })
-        })
+  //           .catch(err => {
+  //             console.log("Err: ", err)
+  //           })
+  //       })
 
-      })
+  //     })
 
-      .catch((err) => {
-        console.error(err);
-      })
-  }
+  //     .catch((err) => {
+  //       console.error(err);
+  //     })
+  // }
 
   selectSize(size, quant) {
     // console.log('size attempted', size);
@@ -554,22 +554,22 @@ class Overview extends React.Component {
       console.log(this.state)
       if (this.state.expanded) {
         return (
-        <div className="overview-container-expanded">
-          <ImageGallery
-            info={this.state} currentThumbnails={this.state.currentThumbnails} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
-            handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
-            checkThumbnailSection={this.checkThumbnailSection} zoomBox={this.state.zoomBox} zoom={this.zoom}
-          />
-        </div>
+          <div className="overview-container-expanded">
+            <ImageGallery
+              info={this.state} currentThumbnails={this.state.currentThumbnails} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
+              handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
+              checkThumbnailSection={this.checkThumbnailSection} zoomBox={this.state.zoomBox} zoom={this.zoom}
+            />
+          </div>
         )
       }
       return (
         <div className="overview-container">
-          <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating}/>
-          <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle}/>
+          <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} />
+          <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle} />
           <AddToCart
-          currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
-          sizeQuantity={this.state.sizeQuant} selectedQuant={this.state.selectedQuant} selectQuant={this.selectQuant}/>
+            currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
+            sizeQuantity={this.state.sizeQuant} selectedQuant={this.state.selectedQuant} selectQuant={this.selectQuant} />
           <ImageGallery
             info={this.state} currentThumbnails={this.state.currentThumbnails} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
             handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
