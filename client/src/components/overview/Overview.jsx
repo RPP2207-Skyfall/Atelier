@@ -26,7 +26,8 @@ class Overview extends React.Component {
       zoomBox: false,
       reviewData: [],
       rating: null,
-      done: false
+      done: false,
+      skuToBuy: null
     }
 
     this.mainSlide = this.mainSlide.bind(this);
@@ -374,142 +375,144 @@ class Overview extends React.Component {
 
 
 
-  getGeneralInfo() {
-    const generalUrl = process.env.REACT_APP_API_OVERVIEW_URL + `products`;
+  // getGeneralInfo() {
+  //   const generalUrl = process.env.REACT_APP_API_OVERVIEW_URL + `products`;
 
-    fetch(generalUrl,
-      {
-        method: "GET",
-        headers:
-        {
-          "Content-Type": "application/json",
-          "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
-        }
-      }
-    )
-      .then(res => res.json())
-      .then((data) => {
+  //   fetch(generalUrl,
+  //     {
+  //       method: "GET",
+  //       headers:
+  //       {
+  //         "Content-Type": "application/json",
+  //         "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
+  //       }
+  //     }
+  //   )
+  //     .then(res => res.json())
+  //     .then((data) => {
 
-        // get general info (SKU and product info like name and description)
+  //       // get general info (SKU and product info like name and description)
 
-        // console.log('data Overview 172: ', data)
+  //       // console.log('data Overview 172: ', data)
 
-        this.setState({
-          data: data,
-          SKU: data[0].id
-        })
-        // console.log(this.state);
-        return data;
-      })
-      .then((data) => {
-        const SKU = data[0].id;
-        const productUrl = process.env.REACT_APP_API_OVERVIEW_URL + `products/${SKU}/styles`;
+  //       this.setState({
+  //         data: data,
+  //         SKU: data[0].id
+  //       })
+  //       // console.log(this.state);
+  //       return data;
+  //     })
+  //     .then((data) => {
+  //       const SKU = data[0].id;
+  //       const productUrl = process.env.REACT_APP_API_OVERVIEW_URL + `products/${SKU}/styles`;
 
-        fetch(productUrl,
-          {
-            method: "GET",
-            headers:
-            {
-              "Content-Type": "application/json",
-              "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
-            }
-          }
-        )
-        .then(res => res.json())
+  //       fetch(productUrl,
+  //         {
+  //           method: "GET",
+  //           headers:
+  //           {
+  //             "Content-Type": "application/json",
+  //             "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
+  //           }
+  //         }
+  //       )
+  //       .then(res => res.json())
 
-        // get the info for the pictures, style and thumbnail
+  //       // get the info for the pictures, style and thumbnail
 
-        .then((data) => {
+  //       .then((data) => {
 
-          // console.log('data overview 201: ', data);
+  //         // console.log('data overview 201: ', data);
 
-          let thumbnails = data.results[0].photos;
+  //         let thumbnails = data.results[0].photos;
 
-          let holder = [];
-          let box = [];
+  //         let holder = [];
+  //         let box = [];
 
-          for (var i = 0; i < thumbnails.length; i++) {
+  //         for (var i = 0; i < thumbnails.length; i++) {
 
-            thumbnails[i].index = i;
-            box.push(thumbnails[i]);
+  //           thumbnails[i].index = i;
+  //           box.push(thumbnails[i]);
 
-            if (box.length === 7) {
-              holder.push(box);
-              box = [];
-            }
+  //           if (box.length === 7) {
+  //             holder.push(box);
+  //             box = [];
+  //           }
 
-            if (i >= thumbnails.length - 1) {
-              holder.push(box);
-              box = [];
-            }
+  //           if (i >= thumbnails.length - 1) {
+  //             holder.push(box);
+  //             box = [];
+  //           }
 
-          }
+  //         }
 
-          console.log('currentStyle', data.results[0])
+  //         // console.log('currentStyle', data.results[0])
 
-          this.setState({
-            styles: data,
-            current: data.results[0].photos[this.state.mainIndex],
-            amount: data.results[0].photos.length,
-            currentThumbnails: holder,
-            currentStyle: data.results[0]
-          })
-          // console.log('data from product', data);
+  //         this.setState({
+  //           styles: data,
+  //           current: data.results[0].photos[this.state.mainIndex],
+  //           amount: data.results[0].photos.length,
+  //           currentThumbnails: holder,
+  //           currentStyle: data.results[0]
+  //         })
+  //         // console.log('data from product', data);
 
-          return data;
-        })
-        .then((data) => {
+  //         return data;
+  //       })
+  //       .then((data) => {
 
-          var url = process.env.REACT_APP_API_REVIEW_RATING_URL
-          // console.log(url)
-          // console.log('data at 246', data.product_id)
-          let product_id = data.product_id;
-          var requestOption = {
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY
-            },
-            params: {
-              product_id: product_id,
-              count: 10
-            }
-          }
-          Axios.get(url, requestOption)
-            .then(res => {
-              ///console.log(res.data)
-              this.setState({
-                reviewData: res.data.results
-              })
+  //         var url = process.env.REACT_APP_API_REVIEW_RATING_URL
+  //         // console.log(url)
+  //         // console.log('data at 246', data.product_id)
+  //         let product_id = data.product_id;
+  //         var requestOption = {
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //             "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY
+  //           },
+  //           params: {
+  //             product_id: product_id,
+  //             count: 10
+  //           }
+  //         }
+  //         Axios.get(url, requestOption)
+  //           .then(res => {
+  //             ///console.log(res.data)
+  //             this.setState({
+  //               reviewData: res.data.results
+  //             })
 
-              return this.state;
-            })
-            .then((state) => {
-              console.log(state)
-            })
+  //             return this.state;
+  //           })
+  //           .then((state) => {
+  //             // console.log(state)
+  //           })
 
-            .catch(err => {
-              console.log("Err: ", err)
-            })
-        })
+  //           .catch(err => {
+  //             console.log("Err: ", err)
+  //           })
+  //       })
 
-      })
+  //     })
 
-      .catch((err) => {
-        console.error(err);
-      })
-  }
+  //     .catch((err) => {
+  //       console.error(err);
+  //     })
+  // }
 
-  selectSize(size, quant) {
+  selectSize(size, quant, skuToBuy) {
     // console.log('size attempted', size);
+    // console.log('sku to byt', skuToBuy)
     this.setState({
       selectedSize: size,
-      sizeQuant: quant
+      sizeQuant: quant,
+      skuToBuy: skuToBuy
     })
   }
 
   selectQuant(quant) {
 
-    console.log('quant', quant);
+    // console.log('quant', quant);
 
     this.setState({
       selectedQuant: quant
@@ -549,7 +552,7 @@ class Overview extends React.Component {
 
   render() {
     if (this.state.done) {
-      console.log(this.state)
+      // console.log(this.state)
       if (this.state.expanded) {
         return (
         <div className="overview-container-expanded">
@@ -567,7 +570,7 @@ class Overview extends React.Component {
           <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle}/>
           <AddToCart
           currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
-          sizeQuantity={this.state.sizeQuant} selectedQuant={this.state.selectedQuant} selectQuant={this.selectQuant}/>
+          sizeQuantity={this.state.sizeQuant} selectedQuant={this.state.selectedQuant} selectQuant={this.selectQuant} skuToBuy={this.state.skuToBuy}/>
           <ImageGallery
             info={this.state} currentThumbnails={this.state.currentThumbnails} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
             handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}

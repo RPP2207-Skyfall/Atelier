@@ -1,5 +1,6 @@
 import React from 'react';
 import QuantitySelector from './QuantitySelector.jsx';
+import AddToBag from './AddToBag.jsx';
 
 function AddToCart(props) {
 
@@ -32,7 +33,7 @@ function AddToCart(props) {
 
             if (skus[currentSku].quantity > 0) {
               return (
-                <div className="size-option" onClick={() => props.selectSize(skus[currentSku].size, skus[currentSku].quantity)} key={i} >
+                <div className="size-option" onClick={() => props.selectSize(skus[currentSku].size, skus[currentSku].quantity, sku)} key={i} >
                   <p>{skus[currentSku].size}</p>
                 </div>
               )
@@ -55,13 +56,8 @@ function AddToCart(props) {
           <QuantitySelector selectedQuant={props.selectedQuant} selectQuant={props.selectQuant}
           selected={props.selected} quant={props.sizeQuantity}/>
         </div>
-        <div className="add-to-bag-container">
-          <div className="add-to-bag-button">
-            <p>ADD TO BAG</p>
-            <div className="add-to-bag-plus">+</div>
-          </div>
-          <div className="add-to-bag-star">☆</div>
-        </div>
+          <AddToBag selectedQuant={props.selectedQuant} selectQuant={props.selectQuant}
+          selected={props.selected} quant={props.sizeQuantity} style={props.currentStyle} skuToBuy={props.skuToBuy}/>
       </div>
 
     )
