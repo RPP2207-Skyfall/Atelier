@@ -3,6 +3,10 @@ import OutfitCard from './OutfitCard.jsx';
 
 const OutfitList = (props) => {
 
+  const [outfitList, updateOutfitList] = useState(71697)
+  const [outfitItemDestils, updateOutfitItemDetails] = useState({})
+  const [outfitItemImages, updateOutfitItemImages] = useState([])
+  const [outfitItemRating, updateOutfitItemRating] = useState([])
 
   const toggleID = (id) => {
     console.log('current outfit list', props.outfitList)

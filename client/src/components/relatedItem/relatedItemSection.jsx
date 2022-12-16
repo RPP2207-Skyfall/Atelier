@@ -2,30 +2,89 @@
 import React, { useState, useEffect } from 'react';
 import OutfitList from './parts/Outfit/OutfitList.jsx';
 import RelatedList from './parts/RelatedItem/RelatedList.jsx';
-import axios from 'axios';
+import Axios from 'axios';
 
 
 
-const RelatedItem = () => {
+const RelatedItem = (props) => {
+
+  const [relatedList, updateRelatedList] = useState([])
+  const [relatedItemDetails, updateRelatedItemDetails] = useState([])
+  const [relatedItemImages, updateRelatedItemImages] = useState([])
+  const [relatedItemRating, updateRelatedItemRating] = useState([])
 
 
-  const [outfit, toggleOutfit] = useState([71697, 71705, 71700]);
 
+  const getRelatedID = async (mainID) => {
+    try {
+      const list = await Axios.get('http://localhost:3000/relateItems', { params: { id: mainID } })
+      getRelatedDetails(list.data)
+      updateRelatedList(list.data)
+      getImage(list.data)
+      getRating(list.data)
+    } catch (err) {
+      console.log(err.message)
+    }
+  };
 
-  const updateList = (idArr) => {
-    console.log('before', idArr)
-    toggleOutfit (idArr)
-    console.log('after', outfit)
+  const getRelatedDetails = (relatedIDList) => {
+    const promiseArr = relatedIDList.map((id)=>{
+      return Axios.get('http://localhost:3000/details', {params:{id: id}})
+      .then((response) => {
+        return response.data
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+    })
+    Promise.all(promiseArr)
+    .then((array) => {
+      updateRelatedItemDetails(array)
+      console.log('DetailArray', array.slice())
+    })
   }
 
-  useEffect (()=> {
-    console.log('outfit render', outfit)
-  }, [outfit])
-  // if (Array.isArray(outfit)) {
-  //   var outfitArr = outfit
-  // } else {
-  //   var outfitArr = []
-  // }
+  const getImage = (relatedIDList) => {
+    const promiseArr = relatedIDList.map((id)=>{
+      return Axios.get('http://localhost:3000/images', {params:{id: id}})
+      .then((response) => {
+        //need to retun a promise
+        return response.data
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+    })
+    Promise.all(promiseArr)
+    .then((array) => {
+      updateRelatedItemImages(array)
+      console.log('ImageArray', array.slice())
+    })
+  }
+
+  const getRating = (relatedIDList) => {
+    const promiseArr = relatedIDList.map((id)=>{
+      return Axios.get('http://localhost:3000/rating', {params:{id: id}})
+      .then((response) => {
+        return (Number(response.data))
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+    })
+    Promise.all(promiseArr)
+    .then((array) => {
+      updateRelatedItemImages(array)
+      console.log('RatingArr', array.slice())
+    })
+  }
+
+
+  // useEffect (()=> {
+  //   getRelatedID(71698)
+  //   console.log('use effect running')
+
+  // }, [])
 
 
 
@@ -33,11 +92,11 @@ const RelatedItem = () => {
     <div className="main-container carousel-style">
       <section className="carousel-upper">
       <h5>RELATED PRODUCTS</h5>
-      <RelatedList outfitList = {outfit} toggleOutfit = {updateList}/>
+      {/* <RelatedList itemDetails = {relatedItemDestils} itemImages = {relatedItemImages} itemRating = {relatedItemRating}/> */}
       </section>
       <h5>YOUR OUTFIT</h5>
       <section className="carousel-upper">
-      <OutfitList outfitList = {outfit} toggleOutfit = {updateList}/>
+      {/* <OutfitList/> */}
       </section>
     </div>
   )
