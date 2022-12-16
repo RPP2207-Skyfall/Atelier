@@ -6,52 +6,26 @@ class RelatedList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      product_id: this.props.product_id || 71698,
-      relatedItem_id: [],
-      toggleFunc: this.props.toggleID
+      relatedList: this.props.relatedList,
+      relatedItemDetails:  this.props.relatedItemDetails,
+      relatedItemImages:  this.props.relatedItemImages,
+      relatedItemRating:  this.props.relatedItemRating
     }
-    this.getRelatedID = this.getRelatedID.bind(this);
+    // this.getRelatedID = this.getRelatedID.bind(this);
   }
-
-  componentDidMount() {
-    this.getRelatedID(this.state.product_id)
-  }
-
-
-  getRelatedID(searchID) {
-    var url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${searchID}/related`
-    var requestOption = {
-      headers: {
-        // "Content-Type": "application/json",
-        "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
-      },
-      params: {
-        product_id: searchID,
-      }
-    }
-    Axios.get(url, requestOption)
-      .then(res => {
-        this.setState({
-          relatedItem_id: res.data
-        })
-      })
-      .catch(err => {
-        console.log("Err: ", err)
-      })
-    }
 
 
   render() {
     // console.log('state', this.state.relatedItem_id)
-    if (this.state.relatedItem_id.length === 0) {
+    if (this.state.relatedList.length === 0) {
       return (
-        <p>Empty</p>
+        <p>Empty.................................................</p>
       )
     } else {
       return (
       <div className="carousel-container">
-        {this.state.relatedItem_id.map((item, index) =>
-        <RelatedCard item= {item} key= {index} id= {index} outfit = {this.props.outfitList} toggleOutfit = {this.props.toggleOutfit}/>
+        {this.state.relatedList.map((item, index) =>
+        <RelatedCard details= {this.state.relatedItemDetails[index]} image= {this.state.relatedItemImages[index]} rating= {this.state.relatedItemRating[index]}/>
         )}
       </div>
       )

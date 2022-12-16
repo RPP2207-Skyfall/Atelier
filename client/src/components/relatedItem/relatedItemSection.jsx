@@ -17,7 +17,7 @@ const RelatedItem = (props) => {
 
   const getRelatedID = async (mainID) => {
     try {
-      const list = await Axios.get('http://localhost:3000/relateItems', { params: { id: mainID } })
+      const list = await Axios.get('http://localhost:3000/relateItemsID', { params: { id: mainID } })
       getRelatedDetails(list.data)
       updateRelatedList(list.data)
       getImage(list.data)
@@ -29,7 +29,7 @@ const RelatedItem = (props) => {
 
   const getRelatedDetails = (relatedIDList) => {
     const promiseArr = relatedIDList.map((id)=>{
-      return Axios.get('http://localhost:3000/details', {params:{id: id}})
+      return Axios.get('http://localhost:3000/getItemDetails', {params:{id: id}})
       .then((response) => {
         return response.data
       })
@@ -46,7 +46,7 @@ const RelatedItem = (props) => {
 
   const getImage = (relatedIDList) => {
     const promiseArr = relatedIDList.map((id)=>{
-      return Axios.get('http://localhost:3000/images', {params:{id: id}})
+      return Axios.get('http://localhost:3000/getFirstImage', {params:{id: id}})
       .then((response) => {
         //need to retun a promise
         return response.data
@@ -64,7 +64,7 @@ const RelatedItem = (props) => {
 
   const getRating = (relatedIDList) => {
     const promiseArr = relatedIDList.map((id)=>{
-      return Axios.get('http://localhost:3000/rating', {params:{id: id}})
+      return Axios.get('http://localhost:3000/getRating', {params:{id: id}})
       .then((response) => {
         return (Number(response.data))
       })
@@ -80,11 +80,11 @@ const RelatedItem = (props) => {
   }
 
 
-  // useEffect (()=> {
-  //   getRelatedID(71698)
-  //   console.log('use effect running')
+  useEffect (()=> {
+    getRelatedID(71700)
+    console.log('use effect running')
 
-  // }, [])
+  }, [])
 
 
 
@@ -92,7 +92,7 @@ const RelatedItem = (props) => {
     <div className="main-container carousel-style">
       <section className="carousel-upper">
       <h5>RELATED PRODUCTS</h5>
-      {/* <RelatedList itemDetails = {relatedItemDestils} itemImages = {relatedItemImages} itemRating = {relatedItemRating}/> */}
+      <RelatedList relatedList = {relatedList} relatedItemDetails = {relatedItemDetails} relatedItemImages = {relatedItemImages} relatedItemRating = {relatedItemRating}/>
       </section>
       <h5>YOUR OUTFIT</h5>
       <section className="carousel-upper">
