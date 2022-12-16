@@ -5,6 +5,7 @@ function QuantitySelector(props) {
 
   const [open, setOpen] = useState(false);
 
+
   const handleOpen = () => {
     setOpen(!open);
   };
@@ -59,7 +60,7 @@ function QuantitySelector(props) {
   else {
     return (
       <div className="quantity-selector-start" onClick={handleOpen}>
-        <p className="quantity-number">1</p>
+        <p className="quantity-number">-</p>
         <div className="quantity-dropdown-arrow">↓</div>
       </div>
     )

@@ -6,8 +6,6 @@ function AddToBag(props) {
 
   const updateCart = (bag) => {
 
-    // console.log(bag)
-
     var url = process.env.REACT_APP_API_OVERVIEW_URL + `cart`
 
       axios({
@@ -29,40 +27,50 @@ function AddToBag(props) {
         console.log(err);
       })
 
-      // axios.post(url, requestOption)
-      //   .then(res => {
-      //     // ///console.log(res.data)
-      //     // this.setState({
-      //     //   reviewData: res.data.results
-      //     // }, () => {
-      //     //   resolve(this.state)
-      //     // })
-      //     console.log('res', res)
-      //   })
-      //   .catch(err => {
-      //     console.log('err', err)
-      //     // reject(err)
-      //     // console.log("Err: ", err)
-      //   })
-    // })
+  }
+
+  const forceSelection = () => {
+    console.log('force selection', props);
+    props.handleNoSelection()
+  }
+
+  const addToList = () => {
+    console.log('propsInList', props)
+    props.likeOutfit(props);
   }
 
   // console.log(props)
+
+  console.log('props in addtobag', props)
 
   let bag = {
     sku: props.skuToBuy,
     quantity: props.selectedQuant,
   }
 
-  return (
-    <div className="add-to-bag-container">
-      <div className="add-to-bag-button" onClick={() => updateCart(bag)}>
-        <p>ADD TO BAG</p>
-        <div className="add-to-bag-plus">+</div>
+  if (!props.selected) {
+    return (
+      <div className="add-to-bag-container">
+        <div className="add-to-bag-button" onClick={() => forceSelection()}>
+          <p>ADD TO BAG</p>
+          <div className="add-to-bag-plus">+</div>
+        </div>
+        <div className="add-to-bag-star" onClick={() => addToList()}>☆</div>
       </div>
-      <div className="add-to-bag-star">☆</div>
-    </div>
-  )
+    )
+  } else {
+    return (
+      <div className="add-to-bag-container">
+        <div className="add-to-bag-button" onClick={() => updateCart(bag)}>
+          <p>ADD TO BAG</p>
+          <div className="add-to-bag-plus">+</div>
+        </div>
+        <div className="add-to-bag-star" onClick={() => addToList()}>☆</div>
+      </div>
+    )
+  }
+
+
 
 }
 
