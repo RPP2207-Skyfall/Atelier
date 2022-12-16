@@ -25,7 +25,20 @@ class StarRating extends React.Component {
     //console.log('star array in review item: ', this.state.starArray)
     return (
       <div className="star-bar">
-        <StarDiv starArray={this.state.starArray} />
+
+        {this.state.starArray.map((width, idx) => {
+
+
+          return (
+            <div className="star-container" key={idx}>
+              <div className="star-fill" style={{ "width": `${(width * 21)}px` }}>
+                <img className="star-outline" src="star.png"></img>
+              </div>
+            </div>
+          );
+        })
+        }
+
       </div>
     )
   }
