@@ -21,6 +21,8 @@ function StyleSelector(props) {
                   if (style.style_id === props.currentStyle.style_id) {
                     return (
                       <div key={i} className="current-style-selected" onClick={() => props.updateStyle(style)}>
+                        {/* <FontAwesomeIcon icon="fa-thin fa-circle-check" /> */}
+                        <img className="selected-style-icon" src="checkmark.png"></img>
                         <img className="style-image-selected" src={style.photos[0].thumbnail_url} key={i} />
                       </div>
                     )

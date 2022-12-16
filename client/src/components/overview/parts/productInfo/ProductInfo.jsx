@@ -52,7 +52,7 @@ function ProductInfo(props) {
         {/* <div className="product-info-stars">Stars</div> */}
         <OverviewStars rating={props.rating}/>
 
-        <div className="product-info-reviews">read all # reviews</div>
+        <div className="product-info-reviews">read all {reviewNum} reviews</div>
         <div className="product-info-category">{props.info.data[0].category}</div>
         <h2 className="product-info-title">{props.style.name}</h2>
         <s id="product-info-price" style={{color: 'red' }}>{props.style.original_price} </s>
