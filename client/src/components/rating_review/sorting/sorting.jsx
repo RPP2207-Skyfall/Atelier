@@ -1,7 +1,7 @@
 import react, { useState } from 'react'
 
 const SortMenu = (props) => {
-  const sortOptionsArr = ['helpful', 'newest', 'relevant']
+  const sortOptionsArr = ['helpful', 'newest', 'relevance']
   const [displaySortOption, setDisplaySortOption] = useState('none')
   const [sortOptionOnDisplay, setSortOptionOnDisplay] = useState('relevance')
 
@@ -16,11 +16,8 @@ const SortMenu = (props) => {
   }
 
   const handleSortingClick = (sortMethod) => {
-    var displayValue = sortMethod
-    if (sortMethod === 'relevant') {
-      displayValue = 'relevance'
-    }
-    setSortOptionOnDisplay(displayValue)
+
+    setSortOptionOnDisplay(sortMethod)
     setDisplaySortOption('none')
     //setSortingMethod(sortMethod)
     props.updateSortMethod(sortMethod)
@@ -32,10 +29,10 @@ const SortMenu = (props) => {
 
   return (
 
-    <><span className="sort-dropdown" onClick={() => { handleClick() }}>{`${sortOptionOnDisplay}`}</span>
+    <><span className="sort-dropdown" data-testid='sort-dropdown' onClick={() => { handleClick() }}>{`${sortOptionOnDisplay}`}</span>
       <div className="sort-col col">
         {sortOptionsArr.map((sortMethod, idx) =>
-          <div className={`row option-${sortMethod}`} key={idx} onClick={() => { handleSortingClick(sortMethod) }} style={style}>{sortMethod}</div>
+          <div className={`row option-${sortMethod}`} data-testid={`sort-options-${idx}`} key={idx} onClick={() => { handleSortingClick(sortMethod) }} style={style}>{sortMethod}</div>
         )}
       </div>
     </>

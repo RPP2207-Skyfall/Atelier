@@ -18,7 +18,7 @@ class QAItem extends React.Component {
     super(props);
     this.state = {
       Q: this.props.item,
-      A_List: Object.values(this.props.item.answers),
+      A_List: Object.values(this.props.item.answers) || [],
       A_List_Shown: [],
       QhelpfulCount: this.props.item.question_helpfulness,
       QhelpfulClicked: false,
@@ -77,25 +77,25 @@ class QAItem extends React.Component {
   render() {
     // console.log(this.state.A_List_Shown);
     return (
-      <div className='question-and-answer-qaitem-container'>
+      <div className='question-and-answer-qaitem' data-testid='question-and-answer-qaitem'>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
             <Grid xs={8}>
-              <h4>Q: {this.state.Q.question_body}</h4>
+              <h4 className='qaitem-question-body' data-testid='qaitem-question-body'>Q: {this.state.Q.question_body}</h4>
             </Grid>
             <Grid xs={4}>
               <Stack spacing={1} direction='row'>
                 <p>Helpful?</p>
-                <p id='qaitem-question-helpful-count' onClick={() => { this.isQHelpful() }}>Yes({this.state.QhelpfulCount})</p>
+                <p className='qaitem-question-helpful-count' data-testid='qaitem-question-helpful-count' onClick={() => { this.isQHelpful() }}>Yes({this.state.QhelpfulCount})</p>
                 <p>|</p>
-                <p id='qaitem-add-answer' onClick={this.handleAModalOpen}>Add Answer</p>
+                <p className='qaitem-add-answer' data-testid='qaitem-add-answer' onClick={this.handleAModalOpen}>Add Answer</p>
               </Stack>
             </Grid>
             <Stack spacing={1} direction='row'>
               <AnswerList list={this.state.A_List_Shown} />
             </Stack>
           </Grid>
-          {this.state.moreAnswerBtn ? <Button onClick={this.handleMoreAnswer}>More Answered Questions</Button> : null}
+          {this.state.moreAnswerBtn ? <Button className='qaitem-more-answers-btn' data-testid='qaitem-more-answers-btn' onClick={this.handleMoreAnswer}>See more answers</Button> : null}
         </Box>
         <AnswerModal isAModalOpen={this.props.isAModalOpen} handleAModalClose={this.props.handleAModalClose} question={this.state.Q.question_body} product_name={this.props.product_name} />
       </div>

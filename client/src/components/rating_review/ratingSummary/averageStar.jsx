@@ -1,5 +1,5 @@
 import react, { useState, useEffect } from 'react'
-import helpers from '../starRating/helper.js'
+import helpers from '../helperFunctions/helper.js'
 import StarDiv from '../starRating/starDiv.jsx'
 
 const averageStar = (props) => {
