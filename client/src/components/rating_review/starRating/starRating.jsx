@@ -21,7 +21,6 @@ class StarRating extends React.Component {
     this.setState({ starArray: starArray })
   }
 
-
   render() {
     //console.log('star array in review item: ', this.state.starArray)
     return (
