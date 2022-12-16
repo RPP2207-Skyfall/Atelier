@@ -28,7 +28,7 @@ function AddToCart(props) {
   }
 
 
-  console.log('props in add to cart', props)
+  // console.log('props in add to cart', props)
 
   if (open && props.currentStyle && !noSelection) {
     // console.log('Add to Cart', props.currentStyle.skus);

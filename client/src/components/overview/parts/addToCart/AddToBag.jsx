@@ -30,18 +30,18 @@ function AddToBag(props) {
   }
 
   const forceSelection = () => {
-    console.log('force selection', props);
+    // console.log('force selection', props);
     props.handleNoSelection()
   }
 
   const addToList = () => {
-    console.log('propsInList', props)
+    // console.log('propsInList', props)
     props.likeOutfit(props);
   }
 
   // console.log(props)
 
-  console.log('props in addtobag', props)
+  // console.log('props in addtobag', props)
 
   let bag = {
     sku: props.skuToBuy,

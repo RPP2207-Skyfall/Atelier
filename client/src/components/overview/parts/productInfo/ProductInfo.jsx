@@ -4,7 +4,17 @@ import OverviewStars from './OverviewStars.jsx';
 function ProductInfo(props) {
 
 
-  // console.log('product info', props)
+  // console.log('product info', props.info.reviewData.length)
+
+  const handleScroll = () => {
+    window.scroll({
+      top: document.body.offsetHeight,
+      left: 0,
+      behavior: 'smooth',
+    });
+  }
+
+  let reviewNum = props.info.reviewData.length;
 
   if (props.info.data === undefined) {
     return (
@@ -27,7 +37,7 @@ function ProductInfo(props) {
         {/* <div className="product-info-stars">Stars</div> */}
         <OverviewStars rating={props.rating}/>
 
-        <div className="product-info-reviews">read all # reviews</div>
+        <div className="product-info-reviews" onClick={() => handleScroll()}>read all {reviewNum} reviews</div>
         <div className="product-info-category">{props.info.data[0].category}</div>
         <h2 className="product-info-title">{props.style.name}</h2>
         <div id="product-info-price">{props.style.original_price}</div>
