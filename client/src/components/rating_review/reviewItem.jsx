@@ -27,6 +27,7 @@ const reviewItem = (props) => {
     }
 
     if (props.reviewData.body.length > bodyDisplayLimit) {
+      console.log(props.reviewData.body.length, bodyDisplayLimit)
       setPartBody(props.reviewData.body.substring(0, bodyDisplayLimit) + "...")
     }
 
@@ -42,24 +43,24 @@ const reviewItem = (props) => {
   const helpfulVote = () => {
     if (helpfulCount > helpfulnessCount) {
       setHelpfulCount(helpfulCount - 1)
-    } else if (helpfulCount === helpfulnessCount) {
+    } else {
       setHelpfulCount(helpfulCount + 1)
     }
     // STILL NEED TO UPDATE API
   }
 
-  const reportReview = () => {
-    console.log('report')
-  }
+  // const reportReview = () => {
+  //   console.log('report')
+  // }
 
 
   return (
     <div className="reviewBlock">
       <div className="row">
-        <div className="col-4">
+        <div className="col-5">
           <Stars rating={props.reviewData.rating} />
         </div>
-        <div className="col-8">
+        <div className="col-7">
           {`${props.reviewData.reviewer_name}, ${createDateTime}`}
         </div>
       </div>
@@ -71,24 +72,21 @@ const reviewItem = (props) => {
 
         {showAll ?
           <div className="reviewBody">
-            <div className="reviewText">{`${props.reviewData.body}`}</div>
+            <div className="reviewText" data-testid='reviewText'>{`${props.reviewData.body}`}</div>
             {props.reviewData.photos.length !== 0 ? <ReviewPhotoList photoList={props.reviewData.photos} /> : null}
-            {<div className="showLessSpan"><span onClick={() => { showMoreOrLess() }}>Show less</span></div>}
-          </div> : <div>{partBody} <div className="showMoreSpan">{<span onClick={() => { showMoreOrLess() }}>Show more</span>}</div></div>
+            {<div className="showLessSpan"><span data-testid="show-less-span" onClick={() => { showMoreOrLess() }}>Show less</span></div>}
+          </div> : <div className="partial-ReviewText" data-testid='partial-ReviewText'>{partBody} <div className="showMoreSpan">{<span data-testid="show-more-span" onClick={() => { showMoreOrLess() }}>Show more</span>}</div></div>
         }
 
 
         {props.reviewData.recommend ? <div className="recommendCheck"><span> &#10003; </span>I recommend this product</div> : null}
-        {props.reviewData.response !== null ? <>{props.reviewData.response.length !== 0 ? <div className="responseBlock">{props.reviewData.response}</div> : null}</> : null}
+        {props.reviewData.response !== null ? <>{props.reviewData.response.length !== 0 ? <div className="responseBlock" data-testid="response-block">{props.reviewData.response}</div> : null}</> : null}
       </div>
 
       <div className="row flex-column">
-        <div className="helpfulCount" >Helpful? {<span onClick={() => { helpfulVote() }}>Yes</span>} ({helpfulCount})  |  {<span onClick={() => { reportReview() }}>Report</span>}</div>
+        <div className="helpfulCount" >Helpful? {<span className="helpful-click" data-testid="helpful-span" onClick={() => { helpfulVote() }}>Yes</span>} <span data-testid="helpful-count-span">{` (${helpfulCount})`} </span>  |  {<span onClick={() => { reportReview() }}>Report</span>}</div>
         <hr />
       </div>
-
-
-
     </div >
 
 

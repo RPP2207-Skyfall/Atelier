@@ -177,32 +177,32 @@ class Overview extends React.Component {
 
   getData() {
     this.getGeneralProducts()
-    .then((data) => {
-      return this.getStyles(data.SKU)
-    })
-    .then((state) => {
-      // console.log('state', state)
-      return this.getReviews(state.styles.product_id);
-    })
-    .then((reviews) => {
-      // console.log('reviews', reviews);
-      return this.getAverageRating(reviews.reviewData)
-    })
-    .then((averageReview) => {
-      return this.setAverageRating(averageReview);
-    })
-    .then((done) => {
-
-      this.setState({
-        done: true
+      .then((data) => {
+        return this.getStyles(data.SKU)
       })
-      // console.log('done', done)
+      .then((state) => {
+        // console.log('state', state)
+        return this.getReviews(state.styles.product_id);
+      })
+      .then((reviews) => {
+        // console.log('reviews', reviews);
+        return this.getAverageRating(reviews.reviewData)
+      })
+      .then((averageReview) => {
+        return this.setAverageRating(averageReview);
+      })
+      .then((done) => {
 
-      // make a state with done where it is verified that all api calls are done
-    })
-    .catch((err) => {
-      console.log('ERR', err)
-    })
+        this.setState({
+          done: true
+        })
+        // console.log('done', done)
+
+        // make a state with done where it is verified that all api calls are done
+      })
+      .catch((err) => {
+        console.log('ERR', err)
+      })
 
   }
 
@@ -245,7 +245,7 @@ class Overview extends React.Component {
       result += ratings[i].rating;
     }
 
-    return result/ratings.length;
+    return result / ratings.length;
   }
 
   setAverageRating(rating) {
@@ -277,33 +277,33 @@ class Overview extends React.Component {
           }
         }
       )
-      .then(res => res.json())
-      .then((data) => {
+        .then(res => res.json())
+        .then((data) => {
 
-        // console.log('data in styles', data)
+          // console.log('data in styles', data)
 
-       let holder = this.makeThumbnailBoxes(data.results[0].photos)
+          let holder = this.makeThumbnailBoxes(data.results[0].photos)
 
-        this.setState({
-          styles: data,
-          current: data.results[0].photos[this.state.mainIndex],
-          amount: data.results[0].photos.length,
-          currentThumbnails: holder,
-          currentStyle: data.results[0]
-        }, () => {
-          resolve(this.state)
+          this.setState({
+            styles: data,
+            current: data.results[0].photos[this.state.mainIndex],
+            amount: data.results[0].photos.length,
+            currentThumbnails: holder,
+            currentStyle: data.results[0]
+          }, () => {
+            resolve(this.state)
+          })
         })
-      })
-      .catch((err) => {
-        reject(err)
-      })
+        .catch((err) => {
+          reject(err)
+        })
     })
   }
 
   getReviews(product_id) {
     // console.log('id', id)
 
-    var url = process.env.REACT_APP_API_REVIEW_RATING_URL
+    var url = process.env.REACT_APP_API_REVIEW_URL
 
     return new Promise((resolve, reject) => {
       // console.log(url)
@@ -421,23 +421,24 @@ class Overview extends React.Component {
   }
 
   render() {
+
     if (this.state.done) {
       // console.log(this.state)
       if (this.state.expanded) {
         return (
-        <div className="overview-container-expanded">
-          <ImageGallery
-            info={this.state} currentThumbnails={this.state.currentThumbnails} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
-            handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
-            checkThumbnailSection={this.checkThumbnailSection} zoomBox={this.state.zoomBox} zoom={this.zoom}
-          />
-        </div>
+          <div className="overview-container-expanded">
+            <ImageGallery
+              info={this.state} currentThumbnails={this.state.currentThumbnails} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
+              handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
+              checkThumbnailSection={this.checkThumbnailSection} zoomBox={this.state.zoomBox} zoom={this.zoom}
+            />
+          </div>
         )
       }
       return (
         <div className="overview-container">
-          <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating}/>
-          <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle}/>
+          <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} />
+          <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle} />
           <AddToCart
           currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
           sizeQuantity={this.state.sizeQuant} selectedQuant={this.state.selectedQuant} selectQuant={this.selectQuant} skuToBuy={this.state.skuToBuy}
@@ -450,6 +451,7 @@ class Overview extends React.Component {
         </div>
       )
     }
+
 
   }
 }
