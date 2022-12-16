@@ -3,20 +3,48 @@ import axios from 'axios';
 
 function AddToBag(props) {
 
-  const generalUrl = process.env.REACT_APP_API_OVERVIEW_URL + `cart`
 
   const updateCart = (bag) => {
 
-    axios({
-      method: 'POST',
-      parameters: {
-        sku_id: bag.skuToBuy
-      }
-    })
-    .then((response) => {
-      console.log('res', response)
-    })
+    // console.log(bag)
 
+    var url = process.env.REACT_APP_API_OVERVIEW_URL + `cart`
+
+      axios({
+        method: 'post',
+        url: url,
+        headers:
+          {
+            "Content-Type": "application/json",
+            "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
+          } ,
+        data: {
+          sku_id: bag.sku
+        }
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
+      // axios.post(url, requestOption)
+      //   .then(res => {
+      //     // ///console.log(res.data)
+      //     // this.setState({
+      //     //   reviewData: res.data.results
+      //     // }, () => {
+      //     //   resolve(this.state)
+      //     // })
+      //     console.log('res', res)
+      //   })
+      //   .catch(err => {
+      //     console.log('err', err)
+      //     // reject(err)
+      //     // console.log("Err: ", err)
+      //   })
+    // })
   }
 
   // console.log(props)

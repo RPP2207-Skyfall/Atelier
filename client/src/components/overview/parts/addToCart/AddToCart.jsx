@@ -21,6 +21,9 @@ function AddToCart(props) {
     )
   }
 
+
+  console.log('props in add to cart', props)
+
   if (open && props.currentStyle) {
     // console.log('Add to Cart', props.currentStyle.skus);
     let skus = props.currentStyle.skus

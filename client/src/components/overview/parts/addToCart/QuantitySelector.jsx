@@ -17,9 +17,13 @@ function QuantitySelector(props) {
   // console.log('props in qunatSelect', props)
   // && props.selectedQuant === 1
 
-  if (props.selected && !open) {
+  // console.log('props in wuan', props)
+
+  if (props.selected && !open && props.selectedQuant === 0) {
     // console.log(props.quant)
     // first state: closed
+
+    // console.log('This is where I am')
     return (
       <div className="quantity-selector-start-size" onClick={handleOpen}>
         <p className="quantity-number">1</p>
@@ -43,6 +47,7 @@ function QuantitySelector(props) {
       )
 
   } else if (!open && props.selected && props.selectedQuant > 0) {
+    // console.log('this is where I want to be');
     return (
       <div className="quantity-selector-selected" onClick={handleOpen}>
         <p className="quantity-number">{props.selectedQuant}</p>
