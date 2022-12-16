@@ -89,6 +89,10 @@ main {
   text-decoration: underline;
 }
 
+.helpful-click:hover {
+  font-weight: bold;
+}
+
 .flex-column {
   padding: 2px 5px 15px 15px;
 }
@@ -271,6 +275,13 @@ main {
 .starname-bar {
   padding: 12px 0 1px 0
 }
+
+.starname-bar span:hover {
+  background-color: rgba(150, 150, 150, 0.36);
+}
+
+
+
 
 .rateAmount-bar {
   padding: 12px 0 1px 0

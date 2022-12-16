@@ -112,6 +112,30 @@ const helpers = {
     return fillAmount
 
 
+  },
+  addToFilterArr: (filterValue, filterMap) => {
+    // toggle
+    //console.log(filterValue, 'before ', filterMap)
+    filterMap[filterValue] = !filterMap[filterValue]
+    //console.log(filterValue, 'now: ', filterMap)
+    return filterMap
+
+  },
+  filtering: (filterMap, originalReviewData) => {
+    //console.log('helper', filterMap, originalReviewData)
+    var filteredReviewArr = []
+
+    for (let i = 0; i < originalReviewData.length; i++) {
+
+
+      var currentData = originalReviewData[i].rating.toString()
+      if (filterMap[currentData]) {
+        filteredReviewArr.push(originalReviewData[i])
+      }
+    }
+    // console.log('?', filteredReviewArr)
+    return filteredReviewArr
+
   }
 }
 
