@@ -52,7 +52,7 @@ main {
 }
 
 #root {
-  padding: 20px 20px 20px 20px;
+  padding: 20px 0 20px 0;
 }
 
 
@@ -85,7 +85,7 @@ main {
 
 }
 
-.helpfulCount span {
+.helpful-click {
   text-decoration: underline;
 }
 
@@ -185,11 +185,13 @@ main {
 }
 
 
-.star-outline {
+.star-container {
+  border-color: black;
+  background-color: white;
   height: 26px;
   width: 21px;
+  display: inline-block;
 }
-
 
 .star-fill {
   position: relative;
@@ -198,18 +200,16 @@ main {
   background-color: #333333;
 }
 
+
+.star-outline {
+  height: 26px;
+  width: 21px;
+}
+
 .star-fill img {
   max-width: none
 }
 
-
-.star-container {
-  border-color: black;
-  background-color: white;
-  height: 26px;
-  width: 21px;
-  display: inline-block;
-}
 
 .sort-col {
   width: 20%;
@@ -222,17 +222,66 @@ main {
 
 .option-helpful,
 .option-newest,
-.option-relevant {
+.option-relevance {
   margin: 5px 0 5px 0;
   padding: 0 0 0 2px;
+  background-color: #dcdcdc;
 }
 
 .sort-col .row:hover {
-  background-color: rgb(173, 173, 173);
+  background-color: rgb(233, 233, 233);
   border-radius: 3px;
 }
 
+.averageNumber {
+  font-size: 60px;
+  font-weight: bold;
+}
 
+
+.averageStar {
+  margin: 20px 0 0 20px
+}
+
+.recommend-precent {
+  font-size: 13px;
+}
+
+.rating-breakdownn-container {
+  width: 100%;
+  padding: 2px 10px 2px 10px
+}
+
+.bar-chart {
+  height: 30px;
+}
+
+.bar-container {
+  background-color: "#e0e0de";
+  border-Radius: 50;
+  max-width: 150px
+    /* display: inline- */
+}
+
+.green-bar {
+  background-Color: green;
+  border-Radius: 'inherit';
+}
+
+.starname-bar {
+  padding: 12px 0 1px 0
+}
+
+.rateAmount-bar {
+  padding: 12px 0 1px 0
+}
+
+.bar-section {
+  padding: 0px 0px 0 10px
+}
+
+
+*/
 /**********************************************/
 /****** Style for Overview widget****/
 
@@ -265,7 +314,7 @@ main {
   left: 0;
 }
 
- .default-image {
+.default-image {
   height: 50vh;
   width: 50vw;
   position: absolute;
@@ -668,6 +717,10 @@ main {
   outline: 2px solid #bebebe;
 }
 
+.image-box {
+  object-fit: fill;
+}
+
 .star-btn {
   position: absolute;
   cursor: pointer;
@@ -676,6 +729,8 @@ main {
   outline: none;
   top: 5px;
   right: 5px;
+  width: 35px;
+  height: 35px;
 }
 
 .category-box {
@@ -718,24 +773,63 @@ main {
   text-align: left;
 }
 
-/**********************************************/
+.star-outline2 {
+  height: 26px;
+  width: 21px;
+}
+
+
+.star-fill2 {
+  position: relative;
+  display: inline-block;
+  height: 26px;
+  background-color: #333333;
+}
+
+.star-fill2 img {
+  max-width: none
+}
+
+
+.star-container2 {
+  border-color: black;
+  background-color: white;
+  height: 26px;
+  width: 21px;
+  display: inline-block;
+}
+
+
 /*****************Style for Q&A widget*****************************/
 
-#qaitem-question-helpful-count:hover {
+.qaitem-question-helpful-count:hover {
   cursor: pointer;
 }
 
-#qaitem-answer-helpful-count:hover {
+.qaitem-answer-helpful-count:hover {
   cursor: pointer;
 }
 
-#qaitem-add-answer:hover {
+.qaitem-add-answer:hover {
   cursor: pointer;
 }
 
-#qaitem-report:hover {
+.qaitem-report:hover {
   cursor: pointer;
 }
 
+.answeritem-helpful-count:hover {
+  cursor: pointer;
+}
+
+.answeritem-reported:hover,
+.answeritem-report:hover {
+  cursor: pointer;
+}
+
+#thumbnail {
+  width: 100px;
+  height: 100px;
+}
 
 /**********************************************/

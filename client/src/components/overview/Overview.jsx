@@ -415,37 +415,38 @@ class Overview extends React.Component {
             }
           }
         )
-        .then(res => res.json())
+          .then(res => res.json())
 
-        // get the info for the pictures, style and thumbnail
+          // get the info for the pictures, style and thumbnail
 
-        .then((data) => {
+          .then((data) => {
 
           // console.log('data overview 201: ', data);
 
           let thumbnails = data.results[0].photos;
 
-          let holder = [];
-          let box = [];
 
-          for (var i = 0; i < thumbnails.length; i++) {
+            let holder = [];
+            let box = [];
 
-            thumbnails[i].index = i;
-            box.push(thumbnails[i]);
+            for (var i = 0; i < thumbnails.length; i++) {
 
-            if (box.length === 7) {
-              holder.push(box);
-              box = [];
+              thumbnails[i].index = i;
+              box.push(thumbnails[i]);
+
+              if (box.length === 7) {
+                holder.push(box);
+                box = [];
+              }
+
+              if (i >= thumbnails.length - 1) {
+                holder.push(box);
+                box = [];
+              }
+
             }
 
-            if (i >= thumbnails.length - 1) {
-              holder.push(box);
-              box = [];
-            }
-
-          }
-
-          console.log('currentStyle', data.results[0])
+          //console.log('currentStyle', data.results[0])
 
           this.setState({
             styles: data,
@@ -548,6 +549,7 @@ class Overview extends React.Component {
   }
 
   render() {
+
     if (this.state.done) {
       console.log(this.state)
       if (this.state.expanded) {
@@ -576,6 +578,7 @@ class Overview extends React.Component {
         </div>
       )
     }
+
 
   }
 }

@@ -1,10 +1,10 @@
 import React from 'react'
-import helpers from '../helperFunctions/helper.js'
-import StarDiv from './starDiv.jsx'
+import helpers from './../../../rating_review/helperFunctions/helper.js'
+import StarDiv from './../../../rating_review/starRating/starDiv.jsx'
 
 
 
-class StarRating extends React.Component {
+class Relatestar extends React.Component {
 
   constructor(props) {
     super(props)
@@ -25,20 +25,7 @@ class StarRating extends React.Component {
     //console.log('star array in review item: ', this.state.starArray)
     return (
       <div className="star-bar">
-
-        {this.state.starArray.map((width, idx) => {
-
-
-          return (
-            <div className="star-container" key={idx}>
-              <div className="star-fill" style={{ "width": `${(width * 21)}px` }}>
-                <img className="star-outline" src="star.png"></img>
-              </div>
-            </div>
-          );
-        })
-        }
-
+        <StarDiv starArray={this.state.starArray} />
       </div>
     )
   }
@@ -46,4 +33,4 @@ class StarRating extends React.Component {
 
 }
 
-export default StarRating
+export default Relatestar
