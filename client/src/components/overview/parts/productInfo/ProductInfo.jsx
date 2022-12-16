@@ -4,7 +4,7 @@ import OverviewStars from './OverviewStars.jsx';
 function ProductInfo(props) {
 
 
-  console.log('product info', props)
+  // console.log('product info', props)
 
   if (props.info.data === undefined) {
     return (

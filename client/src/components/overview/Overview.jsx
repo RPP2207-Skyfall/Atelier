@@ -421,7 +421,7 @@ class Overview extends React.Component {
 
         .then((data) => {
 
-          console.log('data overview 201: ', data);
+          // console.log('data overview 201: ', data);
 
           let thumbnails = data.results[0].photos;
 

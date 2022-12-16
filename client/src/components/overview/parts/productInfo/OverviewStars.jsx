@@ -36,7 +36,7 @@ class OverviewStars extends React.Component {
 
     if (decimal !== 0) {
       var incompleteStar = await this.calculateIncompleteStar(parseFloat(decimal.toFixed(1)))
-      console.log('incomplete star:', incompleteStar)
+      // console.log('incomplete star:', incompleteStar)
       for (let i = 0; i < this.state.totalRating; i++) {
         if (i < fullStars) {
 
