@@ -9,14 +9,15 @@ class RatingReview extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      product_id: props.product_id || 71698,
-      originalReviewData: [],
+      product_id: props.product_id || 71700,
       reviewData: [],
+      originalReviewData: [],
       currentSortValue: 'relevant',
       metadata: {},
       filterValue: '',
       filterMap: { '1': false, '2': false, '3': false, '4': false, '5': false },
-      filterClicked: false
+      filterClicked: false,
+      filteredReviewData: []
 
     }
 
@@ -26,12 +27,13 @@ class RatingReview extends React.Component {
     this.getProductReviews(this.state.product_id)
     this.getReviewMetadata(this.state.product_id)
   }
-  componentDidUpdate(prevProps, prevState) {
-    console.log('line 30', prevState.filterClicked, this.state.filterClicked)
-    // if (prevState.filterClicked !== this.state.filterClicked) {
-    //   this.updateFilterMap(this.state.filterValue, this.state.reviewData)
-    // }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   //console.log('line 30', prevState.filterClicked, this.state.filterClicked)
+  //   console.log('???', this.state.filterClicked)
+  //   // if (prevState.filterClicked !== this.state.filterClicked) {
+  //   //   this.updateFilterMap(this.state.filterValue, this.state.reviewData)
+  //   // }
+  // }
 
 
 
@@ -55,8 +57,8 @@ class RatingReview extends React.Component {
           throw new Error('No data found')
         } else {
           this.setState({
-            originalReviewData: res.data.results,
-            reviewData: res.data.results
+            reviewData: res.data.results,
+            originalReviewData: res.data.results
           })
         }
       })
@@ -107,35 +109,44 @@ class RatingReview extends React.Component {
 
   }
 
-  hanleFilterClicked(filterValue, clicked) {
-    //console.log(filterValue, clicked)
-    this.setState({
-      filterValue: filterValue,
-      filterClicked: clicked
-    })
-
-  }
-  async updateFilterMap(filterValue) {
-    let originalReviewData = this.state.originalReviewData
-    //console.log('tiggered', originalReviewData)
+  async hanleFilterClicked(filterValue, clicked) {
+    console.log(filterValue, 'new value')
     let filterMap = await helpers.addToFilterArr(filterValue, this.state.filterMap)
     this.setState({
-      filterMap: filterMap
-    })
-    if (this.state.filterClicked) {
-      let filtered = await helpers.filtering(filterMap, originalReviewData)
-      //console.log('?', filtered)
-      //console.log('1')
+      filterMap: filterMap,
+      filterClicked: clicked
+    }, async () => {
+      let originalReviewData = this.state.originalReviewData
+      let reviewData = this.state.reviewData
+      let filtered = await helpers.filtering(filterMap, originalReviewData, reviewData)
+      console.log('before set to state: ', filtered)
       this.setState({
         reviewData: filtered
       })
-    } else {
-      this.setState({
-        reviewData: originalReviewData
-      })
-    }
+    })
 
   }
+  // async updateFilterMap(filterValue) {
+  //   let originalReviewData = this.state.originalReviewData
+  //   //console.log('tiggered', originalReviewData)
+  //   // let filterMap = await helpers.addToFilterArr(filterValue, this.state.filterMap)
+  //   // this.setState({
+  //   //   filterMap: filterMap
+  //   // })
+  //   if (this.state.filterClicked) {
+  //     let filtered = await helpers.filtering(filterMap, originalReviewData)
+  //     //console.log('?', filtered)
+  //     //console.log('1')
+  //     this.setState({
+  //       reviewData: filtered
+  //     })
+  //   } else {
+  //     this.setState({
+  //       reviewData: originalReviewData
+  //     })
+  //   }
+
+  // }
 
 
 

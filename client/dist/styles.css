@@ -253,8 +253,10 @@ main {
 
 .rating-breakdownn-container {
   width: 100%;
-  padding: 2px 10px 2px 10px
+  padding: 2px 10px 2px 10px;
+  margin: 10px 0 0 0
 }
+
 
 .bar-chart {
   height: 30px;
@@ -276,10 +278,15 @@ main {
   padding: 12px 0 1px 0
 }
 
-.starname-bar span:hover {
+
+
+.star-name:hover {
   background-color: rgba(150, 150, 150, 0.36);
 }
 
+.star-name-selected {
+  background-color: rgba(150, 150, 150, 0.36);
+}
 
 
 
@@ -424,6 +431,7 @@ main {
   position: absolute;
   cursor: zoom-in;
 }
+
 .expanded-slider {
   display: flex;
 }
@@ -436,9 +444,9 @@ main {
 }
 
 .expanded-again-image-gallery {
-    position: relative;
-    height: 100%;
-    width: 100%;
+  position: relative;
+  height: 100%;
+  width: 100%;
 }
 
 .zoom-btn {
@@ -603,14 +611,15 @@ main {
   height: 50px;
   text-align: center;
 }
+
 .quantity-selector-start-size {
-    position: relative;
-    top: 0px;
-    left: 63%;
-    border: 1px solid black;
-    width: 50px;
-    height: 50px;
-    text-align: center;
+  position: relative;
+  top: 0px;
+  left: 63%;
+  border: 1px solid black;
+  width: 50px;
+  height: 50px;
+  text-align: center;
 }
 
 .quantity-selector-selected {
