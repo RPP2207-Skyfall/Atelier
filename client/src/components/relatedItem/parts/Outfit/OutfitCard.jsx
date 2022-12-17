@@ -118,9 +118,15 @@ const OutfitCard = (props) => {
 
 
 
-  const content = (
-    <div className="carousel-box">
-     <img className = "image-box" src={imageList} alt="style" />
+  if (imageList.length === 0 || detail.length === 0 || rating === 0) {
+    return (
+      <p>Rendering</p>
+    )
+  } else {
+    // console.log(id, imageList[0].thumbnail_url)
+    return (
+      <div className="carousel-box">
+      <img className = "image-box" src={imageList} alt="style" />
       <button className="star-btn" onClick= {()=>{toggleID(id)}}>X</button>
       <div className="category-box">
         <div className="category-title">{detail.category}</div>
@@ -130,17 +136,12 @@ const OutfitCard = (props) => {
             ${detail.default_price}
           </div>
           <div className="star-box">
-           <Star rating={rating}/>
+            <Star rating={rating}/>
           </div>
         </div>
       </div>
     </div>
-  )
-  if (imageList.length === 0 || detail.length === 0 || rating === 0) {
-    return
-  } else {
-    // console.log(id, imageList[0].thumbnail_url)
-    return content
+    )
   }
 }
 
