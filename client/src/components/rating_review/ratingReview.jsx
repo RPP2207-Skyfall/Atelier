@@ -16,8 +16,7 @@ class RatingReview extends React.Component {
       metadata: {},
       filterValue: '',
       filterMap: { '1': false, '2': false, '3': false, '4': false, '5': false },
-      filterClicked: false,
-      filteredReviewData: []
+      filterClicked: false
 
     }
 
@@ -110,7 +109,7 @@ class RatingReview extends React.Component {
   }
 
   async hanleFilterClicked(filterValue, clicked) {
-    console.log(filterValue, 'new value')
+    //console.log(filterValue, 'new value')
     let filterMap = await helpers.addToFilterArr(filterValue, this.state.filterMap)
     this.setState({
       filterMap: filterMap,
@@ -119,34 +118,20 @@ class RatingReview extends React.Component {
       let originalReviewData = this.state.originalReviewData
       let reviewData = this.state.reviewData
       let filtered = await helpers.filtering(filterMap, originalReviewData, reviewData)
-      console.log('before set to state: ', filtered)
+      //console.log('before set to state: ', filtered)
       this.setState({
         reviewData: filtered
       })
     })
 
   }
-  // async updateFilterMap(filterValue) {
-  //   let originalReviewData = this.state.originalReviewData
-  //   //console.log('tiggered', originalReviewData)
-  //   // let filterMap = await helpers.addToFilterArr(filterValue, this.state.filterMap)
-  //   // this.setState({
-  //   //   filterMap: filterMap
-  //   // })
-  //   if (this.state.filterClicked) {
-  //     let filtered = await helpers.filtering(filterMap, originalReviewData)
-  //     //console.log('?', filtered)
-  //     //console.log('1')
-  //     this.setState({
-  //       reviewData: filtered
-  //     })
-  //   } else {
-  //     this.setState({
-  //       reviewData: originalReviewData
-  //     })
-  //   }
 
-  // }
+  resetAllFilter() {
+    this.setState({
+      filterMap: { '1': false, '2': false, '3': false, '4': false, '5': false },
+      filterClicked: false
+    })
+  }
 
 
 
@@ -156,7 +141,7 @@ class RatingReview extends React.Component {
         <h6>RATINGS & REVIEWS</h6>
         <div className="row">
           <div className="col-4">
-            <RatingSummary metadata={this.state.metadata} hanleFilterClicked={this.hanleFilterClicked.bind(this)} filterClicked={this.state.filterClicked} />
+            <RatingSummary metadata={this.state.metadata} hanleFilterClicked={this.hanleFilterClicked.bind(this)} filterClicked={this.state.filterClicked} resetAllFilter={this.resetAllFilter.bind(this)} />
           </div>
           <div className="col-8">
             <ReviewList reviewData={this.state.reviewData} currentSortValue={this.state.currentSortValue} updateSortMethod={this.updateSortMethod.bind(this)} />

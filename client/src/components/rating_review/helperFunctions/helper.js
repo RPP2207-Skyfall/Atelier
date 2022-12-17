@@ -122,7 +122,7 @@ const helpers = {
 
   },
   filtering: (filterMap, originalReviewData, reviewData) => {
-    console.log('filterMap', filterMap)
+    //console.log('filterMap', filterMap)
 
     // if all filter are off
     if (Object.values(filterMap).every((value) => value === false)) {
@@ -134,7 +134,7 @@ const helpers = {
       var currentData = originalReviewData[i].rating.toString()
 
       if (filterMap[currentData]) {
-        console.log('pushing', originalReviewData[i])
+        //console.log('pushing', originalReviewData[i])
         filteredReviewArr.push(originalReviewData[i])
       }
     }
