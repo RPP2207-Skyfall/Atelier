@@ -303,7 +303,7 @@ class Overview extends React.Component {
   getReviews(product_id) {
     // console.log('id', id)
 
-    var url = process.env.REACT_APP_API_REVIEW_RATING_URL
+    var url = process.env.REACT_APP_API_REVIEW_URL
 
     return new Promise((resolve, reject) => {
       // console.log(url)
