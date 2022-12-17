@@ -7,7 +7,6 @@ class RelatedCard extends React.Component {
     super(props)
     this.state = {
       product_id: this.props.item,
-      product_detail: [],
       rating: 3.4,
       currentPic: [],
       picList: [],
@@ -35,15 +34,19 @@ class RelatedCard extends React.Component {
   }
 
   toggleStar() {
-    // if (this.state.starPic === "StarOutline.png") {
-    //   this.setState({
-    //     starPic: "FillStar.png"
-    //   })
-    // } else {
-    //   this.setState({
-    //     starPic: "StarOutline.png"
-    //   })
-    // }
+    console.log('check outfitList', this.props.outfit)
+    var index = this.props.outfit.indexOf(this.props.item)
+    if (index === -1) {
+      var newList = this.props.outfit
+      newList.push(this.props.item)
+      console.log('after add', newList)
+      this.props.toggleOutfit(newList)
+    } else {
+      var newList = this.props.outfit
+      newList.splice(index, 1)
+      console.log('after remove', newList)
+      this.props.toggleOutfit(newList)
+    }
   }
 
   getImages(ID) {
@@ -161,13 +164,13 @@ class RelatedCard extends React.Component {
       return (
         <div className="carousel-box">
            <img className = "image-box" src={this.state.currentPic[0].url} alt="style" />
-        <button className="star-btn" onClick={this.toggleStar()}><img src={this.state.starPic}></img></button>
+        <button className="star-btn" onClick={this.toggleStar}><img src={this.state.starPic}></img></button>
         <div className="category-box">
           <div className="category-title">{this.state.product_detail.category}</div>
           <div className="category-wrapper">
             <p>{this.state.product_detail.name}</p>
             <div className="price-box">
-            ${this.state.product_detail.default_price}
+              ${this.state.product_detail.default_price}
             </div>
             <div className="star-box">
               <Star rating={this.state.rating}/>

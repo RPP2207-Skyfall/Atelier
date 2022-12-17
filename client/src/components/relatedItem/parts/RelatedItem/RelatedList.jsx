@@ -51,7 +51,7 @@ class RelatedList extends React.Component {
       return (
       <div className="carousel-container">
         {this.state.relatedItem_id.map((item, index) =>
-        <RelatedCard item= {item} key= {index} id= {index} toggleID = {this.state.toggleFunc}/>
+        <RelatedCard item= {item} key= {index} id= {index} outfit = {this.props.outfitList} toggleOutfit = {this.props.toggleOutfit}/>
         )}
       </div>
       )

@@ -38,8 +38,8 @@ class Thumbnail extends React.Component {
 
   render() {
 
-    if (this.props.images.length === 0) {
-
+    if (!this.props.images || this.props.images.length === 0 || !this.props.currentThumbnails) {
+      console.log('error is thumbnails')
       return (
         <div>
           Loading
@@ -47,8 +47,10 @@ class Thumbnail extends React.Component {
       )
     }
 
-    let currentSection = this.props.info.currentThumbnails[this.props.thumbnailSection]
-    // console.log(this.props)
+    let currentSection = this.props.currentThumbnails[this.props.thumbnailSection]
+    // console.log('thumbnails', this.props)
+
+    // console.log('curentSection', currentSection)
 
       // console.log('currentSection', currentSection)
 

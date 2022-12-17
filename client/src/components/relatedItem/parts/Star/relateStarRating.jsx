@@ -1,5 +1,5 @@
 import React from 'react'
-import helpers from './../../../rating_review/starRating/helper.js'
+import helpers from './../../../rating_review/helperFunctions/helper.js'
 import StarDiv from './../../../rating_review/starRating/starDiv.jsx'
 
 
