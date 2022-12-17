@@ -55,7 +55,7 @@ class AnswerModal extends React.Component {
       })
     }
 
-    if (this.state.email !== '') {
+    if (this.state.email !== '' && this.state.email.includes('@') === true) {
       this.setState({
         emailPass: true
       })
@@ -89,6 +89,26 @@ class AnswerModal extends React.Component {
 
   handleSubmitError(e) {
     e.preventDefault();
+    if (this.state.emailPass && this.state.nicknamePass && this.state.answerPass) {
+      //do post request
+
+      //wipe out the field - returning to default state
+      this.setState({
+        answer:'',
+        nickname:'',
+        email:'',
+        answerError: '',
+        nicknameError: '',
+        emailError: '',
+        answerPass: false,
+        nicknamePass: false,
+        emailPass: false,
+        images:[],
+        uploadImgBtn: true
+      });
+      this.props.handleAModalClose();
+    }
+
     if (this.state.email === '') {
       this.setState({
         emailError: 'You must enter the following: Email'
@@ -122,9 +142,7 @@ class AnswerModal extends React.Component {
         answerError: ''
       })
     }
-    if (this.state.emailPass && this.state.nicknamePass && this.state.answerPass) {
-      this.props.handleAModalClose();
-    }
+
   };
 
   handleImageUpload(e) {
