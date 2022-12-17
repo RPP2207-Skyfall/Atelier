@@ -61,7 +61,7 @@ class AnswerItem extends React.Component {
                 <p>{new Date(this.state.date).toLocaleDateString({}, {month:'long', day:'2-digit', year: 'numeric'})}</p>
                 <p> | </p>
                 <p>Helpful?</p>
-                <p className='answeritem-helpful-count' data-testid='answeritem-helpful-count' onClick={this.isAHelpful}>Yes({this.state.helpfulness})</p>
+                <p className='answeritem-helpful-count' data-testid='answeritem-helpful-count' onClick={this.isAHelpful}>Yes</p><p>({this.state.helpfulness})</p>
                 <p> | </p>
                 {this.state.isReported ? <p className='answeritem-reported' data-testid='answeritem-reported' onClick={this.handleReport}>Reported</p> : <p className='answeritem-report' data-testid='answeritem-reported' onClick={this.handleReport}>Report</p>}
             </Stack>

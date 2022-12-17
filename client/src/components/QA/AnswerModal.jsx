@@ -1,21 +1,20 @@
 import React from 'react';
-import Modal from '@mui/material/Modal';
+import Modal from 'react-modal';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 600,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
+const customStyle = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
 };
 
 class AnswerModal extends React.Component {
@@ -65,6 +64,7 @@ class AnswerModal extends React.Component {
         emailPass: false
       })
     }
+
     if (this.state.answer !== '') {
       this.setState({
         answerPass: true
@@ -74,6 +74,7 @@ class AnswerModal extends React.Component {
         answerPass: false
       })
     }
+
     if (this.state.nickname !== '') {
       this.setState({
         nicknamePass: true
@@ -88,7 +89,6 @@ class AnswerModal extends React.Component {
 
   handleSubmitError(e) {
     e.preventDefault();
-
     if (this.state.email === '') {
       this.setState({
         emailError: 'You must enter the following: Email'
@@ -144,12 +144,13 @@ class AnswerModal extends React.Component {
     return(
       <div className='answer-modal' data-testid='answer-modal'>
         <Modal
-          open={this.props.isAModalOpen}
-          onClose={() => {this.props.handleAModalClose()}}
-          aria-labelledby='modal-answer-modal-title'
-          aria-describedby='modal-answer-modal-description'
+          isOpen={this.props.isAModalOpen}
+          onRequestClose={() => {this.props.handleAModalClose()}}
+          contentLabel='answer-modal-contents'
+          style={customStyle}
+          ariaHideApp={false}
         >
-          <Box sx={style}>
+          <Box>
             <h2 id='answer-modal-title' data-testid='answer-modal-title'>SUBMIT YOUR ANSWER</h2>
             <h3 id='answer-modal-subtitle'>{this.props.product_name}:{this.props.question}</h3>
             <Stack spacing={1}>
