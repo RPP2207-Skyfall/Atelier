@@ -3,7 +3,7 @@ import Axios from 'axios'
 import Star from './../Star/relateStarRating.jsx';
 
 const OutfitCard = (props) => {
-  const id = props.item
+  const itemID = props.item
   const [detail, setDetail] = useState([]);
   const [rating, setRating] = useState(0);
   const [featrueShow, toggleFeature] = useState (false)
@@ -11,9 +11,10 @@ const OutfitCard = (props) => {
   const [currentPic, updateCurPic] = useState("")
 
   useEffect(() => {
-    getDetails(id);
-    getImage(id);
-    getRating(id);
+    getDetails(itemID);
+    getImage(itemID);
+    getRating(itemID);
+    console.log(itemID)
    }, [])
 
    const getDetails = async (id) => {
@@ -67,7 +68,7 @@ const OutfitCard = (props) => {
     return (
       <div className="carousel-box">
       <div className="carousel-bg-img" style={{ backgroundImage: "url('" + currentPic + "')" }} ></div>
-      <button className="star-btn" onClick= {()=>{props.toggleStar(id, props.outfitList)}}>X</button>
+      <button className="star-btn" onClick= {()=>{props.toggleStar(itemID, props.outfitList)}}>X</button>
       <div className="category-box">
         <div className="category-title">{detail.category}</div>
         <div className="category-wrapper">

@@ -9,7 +9,7 @@ const RelatedCard = (props) => {
   const [relatedItemRating, updateRelatedItemRating] = useState(3.5)
   const [featrueShow, toggleFeature] = useState (false)
   const [picLibrary, updatePicLibrary] = useState ([])
-  const [currentPic, updateCurPic] = useState("")
+  const [currentPic, updateCurPic] = useState("https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg")
   const [starShow, toggleStar] = useState("emptyStar.png")
 
   useEffect (()=> {

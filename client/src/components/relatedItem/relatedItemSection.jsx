@@ -7,7 +7,7 @@ import Axios from 'axios';
 
 
 const RelatedItem = (props) => {
-  const mainItemId = 71700
+  const mainItemId = props.CurrentItemID
   const [relatedList, updateRelatedList] = useState([71697,71698,71700,71701])
   //current first index
   const [pickIndex, setPickIndex] = useState(4);
