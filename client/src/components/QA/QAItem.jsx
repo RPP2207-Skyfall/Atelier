@@ -16,17 +16,18 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 class QAItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      Q: this.props.item,
+    this.state={
+      Q: this.props.item.question_body || '',
       A_List: Object.values(this.props.item.answers) || [],
       A_List_Shown: [],
-      QhelpfulCount: this.props.item.question_helpfulness,
+      QhelpfulCount: this.props.item.question_helpfulness || 0,
       QhelpfulClicked: false,
       moreAnswerBtn: false
     };
     this.isQHelpful = this.isQHelpful.bind(this);
     this.handleAModalOpen = this.handleAModalOpen.bind(this);
     this.handleMoreAnswer = this.handleMoreAnswer.bind(this);
+    this.handleCollapseExpand = this.handleCollapseExpand.bind(this);
   };
 
   componentDidMount() {
@@ -37,7 +38,8 @@ class QAItem extends React.Component {
       })
     } else {
       this.setState({
-        A_List_Shown: this.state.A_List
+        A_List_Shown: this.state.A_List,
+        moreAnswerBtn: false
       })
     }
   };
@@ -45,16 +47,13 @@ class QAItem extends React.Component {
   handleMoreAnswer() {
     var A_List_Idx = this.state.A_List_Shown.length;
     var new_A_List_Shown = this.state.A_List_Shown;
-    if (this.state.A_List.length > new_A_List_Shown.length) {
-      for (var i = 0; i < 2; i++) {
-        new_A_List_Shown.push(this.state.A_List[A_List_Idx]);
-        A_List_Idx++;
-      }
-      this.setState({
-        A_List_Shown: new_A_List_Shown
-      })
-    }
+    this.setState({
+      A_List_Shown: this.state.A_List,
+      moreAnswerBtn: false
+    });
   };
+
+
 
   isQHelpful() {
     if (this.state.QhelpfulClicked === false) {
@@ -72,31 +71,36 @@ class QAItem extends React.Component {
 
   handleAModalOpen() {
     this.props.handleAModalOpen();
-  }
+  };
+
+  handleCollapseExpand() {
+    this.setState({
+      isExpanded: !this.state.isExpanded
+    })
+  };
 
   render() {
-    // console.log(this.state.A_List_Shown);
+    let div_expandable_class = this.state.isExpanded ? 'qaitem-alist-scrollable-collapsed':'qaitem-alist-scrollable-expanded';
+
     return (
       <div className='question-and-answer-qaitem' data-testid='question-and-answer-qaitem'>
-        <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
             <Grid xs={8}>
-              <h4 className='qaitem-question-body' data-testid='qaitem-question-body'>Q: {this.state.Q.question_body}</h4>
+              <h4 className='qaitem-question-body' data-testid='qaitem-question-body'>Q: {this.state.Q}</h4>
             </Grid>
             <Grid xs={4}>
               <Stack spacing={1} direction='row'>
                 <p>Helpful?</p>
-                <p className='qaitem-question-helpful-count' data-testid='qaitem-question-helpful-count' onClick={() => { this.isQHelpful() }}>Yes({this.state.QhelpfulCount})</p>
+                <p className='qaitem-question-helpful-count' data-testid='qaitem-question-helpful-count' onClick={() => { this.isQHelpful() }}>Yes</p><p>({this.state.QhelpfulCount})</p>
                 <p>|</p>
                 <p className='qaitem-add-answer' data-testid='qaitem-add-answer' onClick={this.handleAModalOpen}>Add Answer</p>
               </Stack>
             </Grid>
-            <Stack spacing={1} direction='row'>
-              <AnswerList list={this.state.A_List_Shown} />
-            </Stack>
+              <div className='qaitem-alist-scrollable'>
+                <AnswerList list={this.state.A_List_Shown} />
+              </div>
           </Grid>
-          {this.state.moreAnswerBtn ? <Button className='qaitem-more-answers-btn' data-testid='qaitem-more-answers-btn' onClick={this.handleMoreAnswer}>See more answers</Button> : null}
-        </Box>
+          {this.state.moreAnswerBtn ? <Button className='qaitem-more-answers-btn' data-testid='qaitem-more-answers-btn' onClick={this.handleMoreAnswer}>See more answers</Button> : <Button className='qaitem-collapse-answers-btn'>Collapse answers</Button>}
         <AnswerModal isAModalOpen={this.props.isAModalOpen} handleAModalClose={this.props.handleAModalClose} question={this.state.Q.question_body} product_name={this.props.product_name} />
       </div>
     )

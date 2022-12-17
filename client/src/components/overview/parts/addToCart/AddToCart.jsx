@@ -1,4 +1,5 @@
 import React from 'react';
+import QuantitySelector from './QuantitySelector.jsx';
 
 function AddToCart(props) {
 
@@ -9,7 +10,7 @@ function AddToCart(props) {
     setOpen(!open);
   };
 
-  // console.log(props.currentStyle)
+  // console.log('props in cart', props)
 
   if (props.currentStyle && Object.keys(props.currentStyle.skus).length === 0) {
     return (
@@ -23,7 +24,7 @@ function AddToCart(props) {
     // console.log('Add to Cart', props.currentStyle.skus);
     let skus = props.currentStyle.skus
     return (
-      <div id="add-to-cart-dropdown-closed" onClick={handleOpen}>
+      <div className="add-to-cart-dropdown-open" onClick={handleOpen}>
 
         {
           Object.keys(props.currentStyle.skus).map((sku, i) => {
@@ -31,7 +32,7 @@ function AddToCart(props) {
 
             if (skus[currentSku].quantity > 0) {
               return (
-                <div onClick={() => props.selectSize(skus[currentSku].size)} key={i} >
+                <div className="size-option" onClick={() => props.selectSize(skus[currentSku].size, skus[currentSku].quantity)} key={i} >
                   <p>{skus[currentSku].size}</p>
                 </div>
               )
@@ -39,18 +40,48 @@ function AddToCart(props) {
 
           })
         }
+
+        <QuantitySelector selectedQuant={props.selectedQuant} selectQuant={props.selectQuant}
+        selected={props.selected} quant={props.sizeQuantity}/>
       </div>
     )
   } else if (props.selected) {
     return (
-      <div id="add-to-cart-dropdown-selected" onClick={handleOpen}>
-        <h1>{props.selected}</h1>
+      <div className="add-to-cart-container">
+        <div className="upper-section-add-to-cart-selected">
+          <div className="add-to-cart-dropdown-selected" onClick={handleOpen}>
+            <h1 >{props.selected}</h1>
+          </div>
+          <QuantitySelector selectedQuant={props.selectedQuant} selectQuant={props.selectQuant}
+          selected={props.selected} quant={props.sizeQuantity}/>
+        </div>
+        <div className="add-to-bag-container">
+          <div className="add-to-bag-button">
+            <p>ADD TO BAG</p>
+            <div className="add-to-bag-plus">+</div>
+          </div>
+          <div className="add-to-bag-star">☆</div>
+        </div>
       </div>
+
     )
   } else {
     return (
-      <div id="add-to-cart-dropdown-closed" onClick={handleOpen}>
-        <h3>Select Size</h3>
+      <div className="add-to-cart-container">
+        <div className="upper-section-add-to-cart">
+          <div className="add-to-cart-dropdown-closed" onClick={handleOpen}>
+            <h3>SELECT SIZE</h3>
+          </div>
+          <QuantitySelector selectedQuant={props.selectedQuant} selectQuant={props.selectQuant}
+          selected={props.selected} quant={props.sizeQuantity}/>
+        </div>
+        <div className="add-to-bag-container">
+          <div className="add-to-bag-button">
+            <p>ADD TO BAG</p>
+            <div className="add-to-bag-plus">+</div>
+          </div>
+          <div className="add-to-bag-star">☆</div>
+        </div>
       </div>
     )
   }

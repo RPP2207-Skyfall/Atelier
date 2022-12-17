@@ -7,6 +7,19 @@ function DefaultView(props) {
   // if the main image thumbnail is currently in the second box of thumbnails,
   // then update the section to the next section
 
+  // console.log(props)
+
+  if (!props.mainPic) {
+
+      return (
+        <div className="default-view">
+          {/* <h1>Default View</h1> */}
+          <img className="default-image" src={props.mainPic} alt="style" onClick={() => props.expand()}/>
+        </div>
+      )
+
+  }
+
   if (props.mainPic.length === 0) {
     return (
       <div>
@@ -18,7 +31,9 @@ function DefaultView(props) {
     return (
       <div className="default-view">
         {/* <h1>Default View</h1> */}
-        <img className="default-image" src={props.mainPic} alt="style" onClick={() => props.expand()} />
+
+        <img className="default-image" src={props.mainPic} alt="style" onClick={() => props.expand()}/>
+
       </div>
     )
   }

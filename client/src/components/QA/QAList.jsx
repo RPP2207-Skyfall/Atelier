@@ -5,8 +5,8 @@ import QAItem from './QAItem.jsx';
 
 const QAList = (props) => (
   <div className='question-and-answer-qalist' data-testid='question-and-answer-qalist'>
-    {props.list.map((item, index) =>
-     <QAItem item = {item} key = {index} handleAModalOpen={props.handleAModalOpen} isAModalOpen={props.isAModalOpen} handleAModalClose={props.handleAModalClose} product_name={props.product_name}/>
+    {props.list.map((item) =>
+     <QAItem item = {item} key={item.question_id} handleAModalOpen={props.handleAModalOpen} isAModalOpen={props.isAModalOpen} handleAModalClose={props.handleAModalClose} product_name={props.product_name}/>
     )}
   </div>
 );
