@@ -25,6 +25,10 @@ const ratingSummary = (props) => {
     props.resetAllFilter()
   }
 
+  // const setHighlightSetting = () =>{
+
+  // }
+
 
 
   return (
