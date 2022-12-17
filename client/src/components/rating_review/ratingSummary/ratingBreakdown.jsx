@@ -19,12 +19,9 @@ const ratingBreakdown = (props) => {
     })()
   }, [ratingObj])
 
-
-
   return (
     <div className="rating-breakdownn-container">
       <div className="row breakdown-title">Rating Breakdown</div>
-
       {individualRating !== undefined ? individualRating.map((valueSet, idx) =>
         <Bar key={idx} totalAmount={totalAmount} star={valueSet[0]} ratingAmount={valueSet[1]} hanleFilterClicked={props.hanleFilterClicked} filterClicked={props.filterClicked} />
       ) : null}

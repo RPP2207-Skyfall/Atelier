@@ -16,11 +16,22 @@ const bar = (props) => {
     })()
   }, [totalAmount])
 
+  // useEffect(() => {
+  //   setClicked(props.filterClicked)
+  // }, [props.filterClicked])
+
+
+
   const hanleFilterClicked = (selectedStar, click) => {
     setClicked(click)
     //console.log(selectedStar, click)
     props.hanleFilterClicked(selectedStar, click)
   }
+
+  // const resetAllFilter = () => {
+  //   console.log('click')
+  //   props.resetAllFilter()
+  // }
 
 
 

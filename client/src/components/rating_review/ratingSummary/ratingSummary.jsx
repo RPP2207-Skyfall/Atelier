@@ -20,6 +20,10 @@ const ratingSummary = (props) => {
 
   }, [ratingObj])
 
+  const resetAllFilter = () => {
+    console.log('click')
+    props.resetAllFilter()
+  }
 
 
 
@@ -37,6 +41,7 @@ const ratingSummary = (props) => {
 
         <div className="row recommend-row"><Recommendation percentage={props.metadata.recommended} /></div>
         <div className="row starchart-row"><RatingBreakdown totalAmount={totalRatingAmount} ratingObj={ratingObj} hanleFilterClicked={props.hanleFilterClicked} filterClicked={props.filterClicked} /></div>
+        {props.filterClicked ? <div className="remove-all-filter-btn"><button onClick={() => resetAllFilter()}>Remove all filters</button></div> : null}
         <div className="row product-breakdown-row">product-breakdown</div>
         <div className="row product-breakdown-row">product-breakdown</div>
 
