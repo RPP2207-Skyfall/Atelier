@@ -16,17 +16,19 @@ const bar = (props) => {
     })()
   }, [totalAmount])
 
-  const hanleFilterClicked = async (selectedStar, click) => {
+  const hanleFilterClicked = (selectedStar, click) => {
     setClicked(click)
-    console.log(selectedStar, click)
+    //console.log(selectedStar, click)
     props.hanleFilterClicked(selectedStar, click)
   }
+
+
 
   return (
 
     <div className="row bar-chart">
       <span className="col-2 starname-bar">
-        <span onClick={() => { hanleFilterClicked(star, !clicked) }}>{`${star} Star`}</span>
+        <span className={clicked ? 'star-name-selected' : 'star-name'} onClick={() => { hanleFilterClicked(star, !clicked) }}>{`${star} Star`}</span>
       </span>
       <div className="col-8 bar-section">
         <div className="bar-container" style={{ "backgroundColor": "grey", "width": "150px" }}>
