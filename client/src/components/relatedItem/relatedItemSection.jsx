@@ -7,7 +7,7 @@ import Axios from 'axios';
 
 
 const RelatedItem = (props) => {
-
+  const mainItemId = 71700
   const [relatedList, updateRelatedList] = useState([71697,71698,71700,71701])
   //current first index
   const [pickIndex, setPickIndex] = useState(4);
@@ -20,7 +20,7 @@ const RelatedItem = (props) => {
 
 
   useEffect (()=> {
-    getRelatedID(71700)
+    getRelatedID(mainItemId)
     setChildLength(relatedList.length);
   }, [])
 
@@ -67,12 +67,12 @@ const RelatedItem = (props) => {
       {/* arrw */}
       <span className="left-arrow" ></span>
       <span className="right-arrow"></span>
-      <p>{JSON.stringify(relatedList)}</p>
-      <RelatedList relatedList = {relatedList}/>
+      <RelatedList relatedList = {relatedList} outfitList = {props.outfitList} toggleStar = {props.toggleStar}/>
       </section>
       <h5>YOUR OUTFIT</h5>
+      <p>{JSON.stringify(props.outfitList)}</p>
       <section className="carousel-upper">
-      {/* <OutfitList/> */}
+      <OutfitList outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId}/>
       </section>
     </div>
   )

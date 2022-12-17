@@ -6,16 +6,17 @@ const RelatedCard = (props) => {
 
   const ID = props.item
   const [relatedItemDetails, updateRelatedItemDetails] = useState({})
-  const [relatedItemRating, updateRelatedItemRating] = useState(3)
+  const [relatedItemRating, updateRelatedItemRating] = useState(3.5)
   const [featrueShow, toggleFeature] = useState (false)
   const [picLibrary, updatePicLibrary] = useState ([])
-  const [currentPic, updateCurPic] = useState("https://images.unsplash.com/photo-1544441892-794166f1e3be?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80")
-  const [starShow, toggleStar] = useState(false)
+  const [currentPic, updateCurPic] = useState("")
+  const [starShow, toggleStar] = useState("emptyStar.png")
 
   useEffect (()=> {
     getRating(ID)
     getDetails(ID)
     getImage(ID)
+    checkOutfit(ID, props.outfitList)
   }, [])
 
   const getDetails = async (id) => {
@@ -51,12 +52,33 @@ const RelatedCard = (props) => {
     await Axios.get('http://localhost:3000/getRating', {params:{id: id}})
     .then((response) => {
       updateRelatedItemRating(Number(response.data))
-      console.log('APIRate', response.data)
+      // console.log('APIRate', response.data)
       return (Number(response.data))
     })
     .catch((err) => {
       console.error(err)
     })
+  }
+
+  const checkOutfit = (currentID, OutfitList)=>  {
+    // console.log("checkOutfit", props.outfitList)
+    var index = OutfitList.indexOf(currentID)
+    var newList = OutfitList
+    if (index === -1) {
+      OutfitList.push(currentID)
+      toggleStar("emptyStar.png")
+    } else {
+      newList.splice(index, 1)
+      toggleStar("FillStar.png")
+    }
+  }
+
+  const switchStar = (starShow) => {
+    if (starShow === "FillStar.png") {
+      toggleStar("emptyStar.png")
+    } else {
+      toggleStar("FillStar.png")
+    }
   }
 
 
@@ -89,7 +111,7 @@ const RelatedCard = (props) => {
     return (
       <div className="carousel-box">
           <div className="carousel-bg-img" style={{ backgroundImage: "url('" + currentPic + "')" }} ></div>
-        <button className="star-btn" ></button>
+        <button className="star-btn" onClick= {()=>{props.toggleStar(ID, props.outfitList); switchStar(starShow)}}><img src={starShow}></img></button>
         <div className="category-box">
           <div className="category-title">{relatedItemDetails.category}</div>
           <div className="category-wrapper">

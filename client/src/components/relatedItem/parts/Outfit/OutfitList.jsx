@@ -2,38 +2,26 @@ import React, { useState, useEffect } from 'react';
 import OutfitCard from './OutfitCard.jsx';
 
 const OutfitList = (props) => {
-
-  const [outfitList, updateOutfitList] = useState(71697)
-  const [outfitItemDestils, updateOutfitItemDetails] = useState({})
-  const [outfitItemImages, updateOutfitItemImages] = useState([])
-  const [outfitItemRating, updateOutfitItemRating] = useState([])
-
-  const toggleID = (id) => {
-    console.log('current outfit list', props.outfitList)
-      var index = props.outfitList.indexOf(id)
-      if (index === -1) {
-        var newList = props.outfitList
-        newList.push(id)
-        console.log('after add', newList)
-        props.toggleOutfit(newList)
-      } else {
-        var newList = props.outfitList
-        newList.splice(index, 1)
-        console.log('after remove', newList)
-        props.toggleOutfit(newList)
-      }
-    }
+  const mainItemID = props.mainItemId
 
   // console.log('Outfitlist', props.outfitList)
-  return (
-  <div className="carousel-container" data-testid= "outfitList">
-    <div className="carousel-box">
+  if (props.outfitList.length === 0) {
+    return (
+      <div className="carousel-container" data-testid= "outfitList">
+        <div className="carousel-box" onClick= {()=>{props.toggleStar(mainItemID, props.outfitList)}}></div>
+      </div>
+    )
+  } else {
+    return (
+    <div className="carousel-container" data-testid= "outfitList">
+      <div className="carousel-box" onClick= {()=>{props.toggleStar(mainItemID,props.outfitList)}}>
+      </div>
+      {props.outfitList.map((item, index) =>
+        <OutfitCard item= {item} key= {index} id= {index} outfitList = {props.outfitList} toggleStar = {props.toggleStar}/>
+      )}
     </div>
-    {props.outfitList.map((item, index) =>
-      <OutfitCard item= {item} key= {index} id= {index} outfit = {props.outfitList} toggleID = {toggleID}/>
-    )}
-  </div>
-  )
+    )
+  }
 }
 
 
