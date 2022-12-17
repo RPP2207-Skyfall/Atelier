@@ -17,23 +17,19 @@ const bar = (props) => {
     })()
   }, [totalAmount])
 
-  // useEffect(() => {
-  //   setClicked(props.filterClicked)
-  // }, [props.filterClicked])
+  useEffect(() => {
+    setHighlighted(false)
+  }, [props.resetHighlighted])
 
 
 
   const hanleFilterClicked = (selectedStar, click) => {
     setClicked(click)
     setHighlighted(!highlighted)
-    console.log(selectedStar, click)
+
     props.hanleFilterClicked(selectedStar, click)
   }
 
-  // const resetAllFilter = () => {
-  //   console.log('click')
-  //   props.resetAllFilter()
-  // }
 
 
 
@@ -58,6 +54,3 @@ const bar = (props) => {
 
 export default bar
 
-// "width": "100%"
-
-// style = {{ "height": '10px', "backgroundColor": "grey" }}
