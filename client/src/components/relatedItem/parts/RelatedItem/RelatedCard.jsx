@@ -1,188 +1,153 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import Star from './../Star/relateStarRating.jsx';
 
-class RelatedCard extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      product_id: this.props.item,
-      rating: 3.4,
-      currentPic: [],
-      picList: [],
-      hoverPicShow: false,
-      compareBoxShow: false,
-      starPic: "StarOutline.png",
-    }
-    this.getRelatedDetails = this.getRelatedDetails.bind(this);
-    this.getRating = this.getRating.bind(this);
-    this.getImages = this.getImages.bind(this);
-    // this.picShow = this.picShow.bind(this);
-    // this.compareShow = this.compareShow.bind(this);
-    this.toggleStar = this.toggleStar.bind(this);
+const RelatedCard = (props) => {
+
+  const ID = props.item
+  const [relatedItemDetails, updateRelatedItemDetails] = useState({})
+  const [relatedItemRating, updateRelatedItemRating] = useState(3.5)
+  const [featrueShow, toggleFeature] = useState (false)
+  const [picLibrary, updatePicLibrary] = useState ([])
+  const [currentPic, updateCurPic] = useState("https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg")
+  const [starShow, toggleStar] = useState("emptyStar.png")
+
+  useEffect (()=> {
+    getRating(ID)
+    getDetails(ID)
+    getImage(ID)
+    checkOutfit(ID, props.outfitList)
+  }, [])
+
+  const getDetails = async (id) => {
+    await Axios.get('http://localhost:3000/getItemDetails', {params:{id: id}})
+    .then((response) => {
+      updateRelatedItemDetails(response.data)
+      // console.log("API detail", response.data)
+      return response.data
+    })
+    .catch((err) => {
+      console.error(err)
+    })
   }
 
-  componentDidMount() {
-    this.getRelatedDetails(this.state.product_id)
-    this.getRating(this.state.product_id)
-    this.getImages(this.state.product_id)
+
+  const getImage = async (id) => {
+  await Axios.get('http://localhost:3000/getFirstImage', {params:{id: id}})
+    .then((response) => {
+      updatePicLibrary([response.data])
+      updateCurPic(response.data)
+      return response.data
+    })
+    // .then((picArr) => {
+    //   updateCurPic(picArr[0])
+    // })
+    .catch((err) => {
+      console.error(err)
+    })
   }
 
-  componentDidUpdate() {
-    this.state.rating;
 
+  const getRating = async (id) => {
+    await Axios.get('http://localhost:3000/getRating', {params:{id: id}})
+    .then((response) => {
+      updateRelatedItemRating(Number(response.data))
+      // console.log('APIRate', response.data)
+      return (Number(response.data))
+    })
+    .catch((err) => {
+      console.error(err)
+    })
   }
 
-  toggleStar() {
-    console.log('check outfitList', this.props.outfit)
-    var index = this.props.outfit.indexOf(this.props.item)
+  const checkOutfit = (currentID, OutfitList)=>  {
+    // console.log("checkOutfit", props.outfitList)
+    var index = OutfitList.indexOf(currentID)
+    var newList = OutfitList
     if (index === -1) {
-      var newList = this.props.outfit
-      newList.push(this.props.item)
-      console.log('after add', newList)
-      this.props.toggleOutfit(newList)
+      OutfitList.push(currentID)
+      toggleStar("emptyStar.png")
     } else {
-      var newList = this.props.outfit
       newList.splice(index, 1)
-      console.log('after remove', newList)
-      this.props.toggleOutfit(newList)
+      toggleStar("FillStar.png")
     }
   }
 
-  getImages(ID) {
-    // console.log('getImages call')
-    const url = process.env.REACT_APP_API_OVERVIEW_URL + `products/${this.state.product_id}/styles`;
-
-    fetch(url,
-      {
-        method: "GET",
-        headers:
-        {
-          "Content-Type": "application/json",
-          "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
-        }
-      }
-    )
-      .then(res => res.json())
-      .then((data) => {
-        // console.log(data.results[0].photos);
-
-        let thumbnails = data.results[0].photos;
-
-        let holder = [];
-        let box = [];
-
-        for (var i = 0; i < thumbnails.length; i++) {
-
-          thumbnails[i].index = i;
-          box.push(thumbnails[i]);
-
-          if (box.length === 3) {
-            holder.push(box);
-            box = [];
-          }
-        }
-
-        this.setState({
-          currentPic: data.results[0].photos,
-          picList: holder
-        })
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-  }
-
-
-
-  getRelatedDetails(ID) {
-    var requestOption = {
-      headers: {
-        "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
-      }
-      // params: {
-      //   product_id: IDList[x],
-      // }
-    }
-    Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${ID}`, requestOption)
-    .then(res => {
-      // console.log(res.data)
-      this.setState({product_detail: res.data})
-    })
-    .catch(err => {
-      console.log("Err: ", err)
-    })
-  }
-
-  getRating(ID) {
-    var requestOption = {
-      headers: {
-        "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
-      },
-      // params: {
-      //   product_id: ID,
-      // }
-    }
-    Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${ID}`, requestOption)
-    .then(res => {
-      // console.log('meta', res)
-      const rateObj = res.data.ratings;
-      var numOfRate = 0;
-      var points = 0;
-      for (var key in rateObj) {
-        points += (key * rateObj[key]);
-        numOfRate += Number(rateObj[key]);
-      }
-      var averageRate = Math.round(points / numOfRate * 10) / 10;
-      // console.log('aveRating', averageRate)
-      this.setState({rating: averageRate})
-      return averageRate;
-    })
-    .then(averageRate => {
-      $(document).ready(function() {
-        // Gets the span width of the filled-ratings span
-        // this will be the same for each rating
-        var star_rating_width = $('.fill-ratings span').width();
-        // Sets the container of the ratings to span width
-        // thus the percentages in mobile will never be wrong
-        $('.star-ratings').width(averageRate / 100);
-      });
-    })
-    .catch(err => {
-      console.log("Err: ", err)
-    })
-  }
-
-
-  render() {
-    // console.log(this.state.product_detail.id, 'rating', this.state.rating)
-    if (this.state.product_detail.length === 0 || this.state.currentPic.length === 0) {
-      return (
-        <p>Empty</p>
-      )
+  const switchStar = (starShow) => {
+    if (starShow === "FillStar.png") {
+      toggleStar("emptyStar.png")
     } else {
-      return (
-        <div className="carousel-box">
-           <img className = "image-box" src={this.state.currentPic[0].url} alt="style" />
-        <button className="star-btn" onClick={this.toggleStar}><img src={this.state.starPic}></img></button>
+      toggleStar("FillStar.png")
+    }
+  }
+
+
+
+  // toggleStar() {
+  //   console.log('check outfitList', this.props.outfit)
+  //   var index = this.props.outfit.indexOf(this.props.item)
+  //   if (index === -1) {
+  //     var newList = this.props.outfit
+  //     newList.push(this.props.item)
+  //     console.log('after add', newList)
+  //     this.props.toggleOutfit(newList)
+  //   } else {
+  //     var newList = this.props.outfit
+  //     newList.splice(index, 1)
+  //     console.log('after remove', newList)
+  //     this.props.toggleOutfit(newList)
+  //   }
+  // }
+
+
+
+
+
+  // if (relatedItemDetails.keys.length === 0) {
+  //   return (
+  //     <p>Loading....</p>
+  //   )
+  // } else {
+    return (
+      <div className="carousel-box">
+          <div className="carousel-bg-img" style={{ backgroundImage: "url('" + currentPic + "')" }} ></div>
+        <button className="star-btn" onClick= {()=>{props.toggleStar(ID, props.outfitList); switchStar(starShow)}}><img src={starShow}></img></button>
         <div className="category-box">
-          <div className="category-title">{this.state.product_detail.category}</div>
+          <div className="category-title">{relatedItemDetails.category}</div>
           <div className="category-wrapper">
-            <p>{this.state.product_detail.name}</p>
+            <p>{relatedItemDetails.name}</p>
             <div className="price-box">
-              ${this.state.product_detail.default_price}
+              ${relatedItemDetails.default_price}
             </div>
             <div className="star-box">
-              <Star rating={this.state.rating}/>
+              <Star rating={relatedItemRating}/>
             </div>
           </div>
         </div>
       </div>
-      )
-    }
-  }
+    )
+  // }
+
 }
 
 
 export default RelatedCard;
 
+
+
+// const getRelatedDetails = (relatedIDList) => {
+//   const promiseArr = relatedIDList.map((id)=>{
+//     return Axios.get('http://localhost:3000/getItemDetails', {params:{id: id}})
+//     .then((response) => {
+//       return response.data
+//     })
+//     .catch((err) => {
+//       console.error(err)
+//     })
+//   })
+//   Promise.all(promiseArr)
+//   .then((array) => {
+//     updateRelatedItemDetails(array)
+//     console.log('DetailArray', array.slice())
+//   })
+// }
