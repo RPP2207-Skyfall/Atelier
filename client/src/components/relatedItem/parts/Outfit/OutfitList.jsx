@@ -3,21 +3,35 @@ import OutfitCard from './OutfitCard.jsx';
 
 const OutfitList = (props) => {
   const mainItemID = props.mainItemId
+  const [outfitList, updateOutfitList] = useState([])
+
+  // var listArr = [];
+  // if (props.outfit) {
+  //   listArr = props.outfitList
+  // } else {
+  //   listArr = props.relatedList
+  // }
+  useEffect(() => {
+    updateOutfitList (props.outfitList)
+  }, [])
+
 
   // console.log('Outfitlist', props.outfitList)
-  if (props.outfitList.length === 0) {
+  if (props.outfitList.length === 0 && props.outfit) {
     return (
-      <div className="carousel-container" data-testid= "outfitList">
-        <div className="carousel-box" onClick= {()=>{props.toggleStar(mainItemID, props.outfitList)}}></div>
-      </div>
+      <div className="carousel-container">
+      {props.outfit && <div className="carousel-box" onClick= {()=>{props.toggleStar(mainItemID, props.outfitList)}}></div>}
+    </div>
     )
   } else {
     return (
-    <div className="carousel-container" data-testid= "outfitList">
-      <div className="carousel-box" onClick= {()=>{props.toggleStar(mainItemID,props.outfitList)}}>
-      </div>
-      {props.outfitList.map((item, index) =>
-        <OutfitCard item= {item} key= {index} outfitList = {props.outfitList} toggleStar = {props.toggleStar}/>
+    <div className="carousel-container">
+      {props.outfit && <div className="carousel-box" onClick= {()=>{props.toggleStar(mainItemID,props.outfitList)}}></div>}
+      {props.outfit && outfitList.map((item, index) =>
+        <OutfitCard item= {item} key= {index} outfitList = {props.outfitList} toggleStar = {props.toggleStar} outfit = {props.outfit}/>
+      )}
+      {!props.outfit && props.relatedList.map((item, index) =>
+        <OutfitCard item= {item} key= {index} outfitList = {props.outfitList} toggleStar = {props.toggleStar} outfit = {props.outfit}/>
       )}
     </div>
     )

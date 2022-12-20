@@ -1,6 +1,6 @@
 const helpers = {
   generateStars: async (rating, totalRating) => {
-    console.log("rating", rating)
+    // console.log("rating", rating)
     if (typeof rating !== 'number' || typeof totalRating !== 'number') {
       return []
     }

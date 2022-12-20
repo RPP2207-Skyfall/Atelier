@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios'
 import Star from './../Star/relateStarRating.jsx';
+import ComparingChart from './../PopUp/ComparingChart.jsx'
 
 const OutfitCard = (props) => {
   const itemID = props.item
   const [detail, setDetail] = useState({});
   const [rating, setRating] = useState(0);
-  const [featrueShow, toggleFeature] = useState (false)
+  const [fearetureShow, toggleFeature] = useState (false)
   const [picLibrary, updatePicLibrary] = useState ([])
   const [currentPic, updateCurPic] = useState("")
+  const [starShow, toggleStar] = useState("emptyStar.png")
 
   useEffect(() => {
     getDetails(itemID);
     getImage(itemID);
     getRating(itemID);
-    console.log(itemID)
+    checkOutfit(itemID, props.outfitList)
    }, [])
 
    const getDetails = async (id) => {
@@ -63,6 +65,30 @@ const OutfitCard = (props) => {
     })
   }
 
+  const switchStar = (starShow) => {
+    if (starShow === "FillStar.png") {
+      toggleStar("emptyStar.png")
+    } else {
+      toggleStar("FillStar.png")
+    }
+  }
+
+  const checkOutfit = (currentID, OutfitList)=>  {
+    var index = OutfitList.indexOf(currentID)
+    var newList = OutfitList
+    if (index === -1) {
+      toggleStar("emptyStar.png")
+    } else {
+      toggleStar("FillStar.png")
+    }
+  }
+
+  const featureCompare = () => {
+    var show = fearetureShow
+    toggleFeature(!show)
+  }
+
+
 
   if (detail.length === 0 || rating === 0) {
     return (
@@ -72,8 +98,9 @@ const OutfitCard = (props) => {
     // console.log(id, imageList[0].thumbnail_url)
     return (
       <div className="carousel-box">
-      <div className="carousel-bg-img" style={{ backgroundImage: "url('" + currentPic.thumbnail_url + "')" }} ></div>
-      <button className="star-btn" onClick= {()=>{props.toggleStar(itemID, props.outfitList)}}>X</button>
+      <div className="carousel-bg-img" style={{ backgroundImage: "url('" + currentPic.thumbnail_url + "')" }} onClick= {() => {featureCompare()}} ></div>
+      {props.outfit && <button className="star-btn" onClick= {()=>{props.toggleStar(itemID, props.outfitList)}}>X</button>}
+      {!props.outfit && <button className="star-btn" onClick= {()=>{props.toggleStar(itemID, props.outfitList); switchStar(starShow)}}><img src={starShow}></img></button>}
       <div className="category-box">
         <div className="category-title">{detail.category}</div>
         <div className="category-wrapper">
@@ -82,11 +109,11 @@ const OutfitCard = (props) => {
             ${detail.default_price}
           </div>
           <div className="star-box">
-            {rating}
             <Star rating={rating}/>
           </div>
         </div>
       </div>
+      {fearetureShow && <ComparingChart toggleFeature = {toggleFeature} compareFeatureDetail = {setDetail} mainItemId = {itemID}/>}
     </div>
     )
   }

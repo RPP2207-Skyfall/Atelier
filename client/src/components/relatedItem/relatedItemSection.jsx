@@ -1,7 +1,7 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import OutfitList from './parts/Outfit/OutfitList.jsx';
-import RelatedList from './parts/RelatedItem/RelatedList.jsx';
+// import RelatedList from './parts/RelatedItem/RelatedList.jsx';
 import Axios from 'axios';
 
 
@@ -67,13 +67,12 @@ const RelatedItem = (props) => {
       {/* arrw */}
       <span className="left-arrow" ></span>
       <span className="right-arrow"></span>
-      {JSON.stringify(relatedList)}
-      <RelatedList relatedIDArr = {relatedList} outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId}/>
+      <OutfitList relatedList = {relatedList} outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId} outfit = {false}/>
       </section>
       <h5>YOUR OUTFIT</h5>
       <p>{JSON.stringify(props.outfitList)}</p>
       <section className="carousel-upper">
-      <OutfitList outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId}/>
+      <OutfitList outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId} outfit = {true}/>
       </section>
     </div>
   )

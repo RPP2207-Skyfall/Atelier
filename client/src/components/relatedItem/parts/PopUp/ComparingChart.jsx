@@ -37,11 +37,14 @@ const ComparingChart = (props) => {
       console.error(err)
     })
   }
+  const closeChart = () => {
+    props.toggleFeature(false)
+  }
 
   return (
     <div>
-          <div className="modal-mask"></div>
-          <div className="modal-container"></div>
+          <div className="modal-mask" onClick= {() => {closeChart()}}></div>
+          <div className="modal-container"><p>chart here</p></div>
         </div>
   )
 }
