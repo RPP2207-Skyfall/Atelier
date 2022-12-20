@@ -4,23 +4,23 @@ import Axios from 'axios';
 
 const RelatedList = (props) => {
 
-const [relatedList, updateRelatedList] = useState(props.relatedList)
+// const [relatedList, updateRelatedList] = useState([])
 
-  useEffect (()=> {
-    // updateRelatedList(props.relatedList)
-    // console.log('passing from parent', props.relatedList)
-    // console.log('local state', relatedList)
-  }, [])
+//   useEffect (()=> {
+//     updateRelatedList(props.relatedIDArr)
+//     // console.log('passing from parent', props.relatedList)
+//     // console.log('local state', relatedList)
+//   }, [relatedList])
 
-  if (relatedList.length === 0) {
+  if (props.relatedIDArr.length === 0) {
     return (
       <p>Rendering</p>
     )
   } else {
     return (
     <div className="carousel-container">
-      {relatedList.map((item, index) =>
-      <RelatedCard item= {item} key= {index} id= {index} outfitList = {props.outfitList} toggleStar = {props.toggleStar}/>
+      {props.relatedIDArr.map((item, index) =>
+      <RelatedCard item= {item} key= {index} outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {props.mainItemId}/>
       )}
     </div>
     )

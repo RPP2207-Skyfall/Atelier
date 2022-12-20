@@ -4,7 +4,7 @@ import Star from './../Star/relateStarRating.jsx';
 
 const OutfitCard = (props) => {
   const itemID = props.item
-  const [detail, setDetail] = useState([]);
+  const [detail, setDetail] = useState({});
   const [rating, setRating] = useState(0);
   const [featrueShow, toggleFeature] = useState (false)
   const [picLibrary, updatePicLibrary] = useState ([])
@@ -33,9 +33,14 @@ const OutfitCard = (props) => {
   const getImage = async (id) => {
   await Axios.get('http://localhost:3000/getFirstImage', {params:{id: id}})
     .then((response) => {
-      updatePicLibrary([response.data])
-      updateCurPic(response.data)
-      return response.data
+      if (response.data[0].thumbnail_url === null) {
+        updateCurPic({thumbnail_url: "https://lyrictheatreokc.com/wp-content/uploads/2021/11/Ciao-Ciao-Image-Coming-Soon-500px.jpg"})
+        return response.data
+      } else {
+        updatePicLibrary([response.data])
+        updateCurPic(response.data[0])
+        return response.data
+      }
     })
     // .then((picArr) => {
     //   updateCurPic(picArr[0])
@@ -51,7 +56,7 @@ const OutfitCard = (props) => {
     .then((response) => {
       setRating(Number(response.data))
       // console.log('APIRate', response.data)
-      return (Number(response.data))
+      // return (Number(response.data))
     })
     .catch((err) => {
       console.error(err)
@@ -67,7 +72,7 @@ const OutfitCard = (props) => {
     // console.log(id, imageList[0].thumbnail_url)
     return (
       <div className="carousel-box">
-      <div className="carousel-bg-img" style={{ backgroundImage: "url('" + currentPic + "')" }} ></div>
+      <div className="carousel-bg-img" style={{ backgroundImage: "url('" + currentPic.thumbnail_url + "')" }} ></div>
       <button className="star-btn" onClick= {()=>{props.toggleStar(itemID, props.outfitList)}}>X</button>
       <div className="category-box">
         <div className="category-title">{detail.category}</div>
@@ -77,6 +82,7 @@ const OutfitCard = (props) => {
             ${detail.default_price}
           </div>
           <div className="star-box">
+            {rating}
             <Star rating={rating}/>
           </div>
         </div>

@@ -17,7 +17,7 @@ const OutfitList = (props) => {
       <div className="carousel-box" onClick= {()=>{props.toggleStar(mainItemID,props.outfitList)}}>
       </div>
       {props.outfitList.map((item, index) =>
-        <OutfitCard item= {item} key= {index} id= {index} outfitList = {props.outfitList} toggleStar = {props.toggleStar}/>
+        <OutfitCard item= {item} key= {index} outfitList = {props.outfitList} toggleStar = {props.toggleStar}/>
       )}
     </div>
     )

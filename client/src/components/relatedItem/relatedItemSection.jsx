@@ -8,7 +8,7 @@ import Axios from 'axios';
 
 const RelatedItem = (props) => {
   const mainItemId = props.CurrentItemID
-  const [relatedList, updateRelatedList] = useState([71697,71698,71700,71701])
+  const [relatedList, updateRelatedList] = useState([])
   //current first index
   const [pickIndex, setPickIndex] = useState(4);
   //total card
@@ -67,7 +67,8 @@ const RelatedItem = (props) => {
       {/* arrw */}
       <span className="left-arrow" ></span>
       <span className="right-arrow"></span>
-      <RelatedList relatedList = {relatedList} outfitList = {props.outfitList} toggleStar = {props.toggleStar}/>
+      {JSON.stringify(relatedList)}
+      <RelatedList relatedIDArr = {relatedList} outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId}/>
       </section>
       <h5>YOUR OUTFIT</h5>
       <p>{JSON.stringify(props.outfitList)}</p>

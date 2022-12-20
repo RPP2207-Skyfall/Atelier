@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import Star from './../Star/relateStarRating.jsx';
+import ComparingChart from './../PopUp/ComparingChart.jsx'
 
 const RelatedCard = (props) => {
 
   const ID = props.item
   const [relatedItemDetails, updateRelatedItemDetails] = useState({})
-  const [relatedItemRating, updateRelatedItemRating] = useState(3.5)
-  const [featrueShow, toggleFeature] = useState (false)
+  const [relatedItemRating, updateRelatedItemRating] = useState(0)
+  const [featrueShow, toggleFeature] = useState (true)
   const [picLibrary, updatePicLibrary] = useState ([])
-  const [currentPic, updateCurPic] = useState("https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg")
+  const [currentPic, updateCurPic] = useState("")
   const [starShow, toggleStar] = useState("emptyStar.png")
 
-  useEffect (()=> {
-    getRating(ID)
-    getDetails(ID)
-    getImage(ID)
-    checkOutfit(ID, props.outfitList)
+  useEffect (async()=> {
+    await getRating(ID)
+    await getDetails(ID)
+    await getImage(ID)
+    await checkOutfit(ID, props.outfitList)
   }, [])
 
   const getDetails = async (id) => {
@@ -35,9 +36,14 @@ const RelatedCard = (props) => {
   const getImage = async (id) => {
   await Axios.get('http://localhost:3000/getFirstImage', {params:{id: id}})
     .then((response) => {
-      updatePicLibrary([response.data])
-      updateCurPic(response.data)
-      return response.data
+      if (response.data[0].thumbnail_url === null) {
+        updateCurPic({thumbnail_url: "https://lyrictheatreokc.com/wp-content/uploads/2021/11/Ciao-Ciao-Image-Coming-Soon-500px.jpg"})
+        return response.data
+      } else {
+        updatePicLibrary([response.data])
+        updateCurPic(response.data[0])
+        return response.data
+      }
     })
     // .then((picArr) => {
     //   updateCurPic(picArr[0])
@@ -53,7 +59,7 @@ const RelatedCard = (props) => {
     .then((response) => {
       updateRelatedItemRating(Number(response.data))
       // console.log('APIRate', response.data)
-      return (Number(response.data))
+      // return (Number(response.data))
     })
     .catch((err) => {
       console.error(err)
@@ -110,7 +116,7 @@ const RelatedCard = (props) => {
   // } else {
     return (
       <div className="carousel-box">
-          <div className="carousel-bg-img" style={{ backgroundImage: "url('" + currentPic + "')" }} ></div>
+          <div className="carousel-bg-img" style={{ backgroundImage: "url('" + currentPic.thumbnail_url + "')" }} ></div>
         <button className="star-btn" onClick= {()=>{props.toggleStar(ID, props.outfitList); switchStar(starShow)}}><img src={starShow}></img></button>
         <div className="category-box">
           <div className="category-title">{relatedItemDetails.category}</div>
@@ -120,10 +126,17 @@ const RelatedCard = (props) => {
               ${relatedItemDetails.default_price}
             </div>
             <div className="star-box">
+              {relatedItemRating}
               <Star rating={relatedItemRating}/>
             </div>
           </div>
         </div>
+        {
+        featrueShow ?
+        <ComparingChart toggleFeature = {toggleFeature} relatedFeatures = {relatedItemDetails} mainItemId = {props.mainItemId} relatedName = {relatedItemDetails.name}/>
+        :
+        <></>
+      }
       </div>
     )
   // }
