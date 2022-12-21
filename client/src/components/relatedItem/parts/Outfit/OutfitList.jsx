@@ -3,7 +3,8 @@ import OutfitCard from './OutfitCard.jsx';
 
 const OutfitList = (props) => {
   const mainItemID = props.mainItemId
-  const [outfitList, updateOutfitList] = useState([])
+  //removing
+  const [outfitList, updateOutfitList] = useState(props.outfitList)
 
   // var listArr = [];
   // if (props.outfit) {
@@ -11,6 +12,7 @@ const OutfitList = (props) => {
   // } else {
   //   listArr = props.relatedList
   // }
+
   useEffect(() => {
     updateOutfitList (props.outfitList)
   }, [])

@@ -710,9 +710,14 @@ main {
 
 .main-container {
   display: block;
-  width: 90%;
-  max-width: 880px;
+  width: 80%;
+  max-width: 840px;
   margin: 0 auto;
+}
+
+.carousel {
+  width: 100%;
+  overflow: hidden;
 }
 
 .carousel-style h5 {
@@ -722,6 +727,7 @@ main {
 
 .carousel-upper {
   margin: 0 0 35px 0;
+  position: relative;
   /* overflow: hidden; */
 }
 
@@ -779,6 +785,7 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  z-index: 2;
 }
 
 .category-title {
@@ -872,7 +879,7 @@ main {
   transform: translate(-50%, -50%);
 }
 
-/************Compare chart****************/
+/*Compare chart*/
 
 .modal-mask {
   position: fixed;
@@ -895,6 +902,80 @@ main {
   background: grey;
   z-index: 999;
 }
+
+/*hover photo library*/
+
+.sensor-box{
+  position: absolute;
+  display: inline-flex;
+  flex-direction: row;
+  /* align-items: end; */
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 120px;
+  left: 0;
+  top: 180px;
+  z-index: 0;
+  background-color: rgba(255, 255, 255, 0);
+  padding: 0 0 0 0px;
+  opacity: 100;
+  transform: translate(0, -60px);
+  transition-duration: 1s;
+  cursor: grab;
+}
+
+.hidden-box {
+  position: relative;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 60px;
+  left: 0;
+  top: 120px;
+  z-index: 1;
+  background-color: grey;
+  padding: 0 0 0 5px;
+  opacity: 100;
+  transform: translate(0, -60px);
+  transition-duration: 1s;
+  cursor: grab;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 1.5px;
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: blue;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: black;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: black;
+}
+
+.sensor-box:hover {
+  opacity: 100%;
+  transform: translate(0, -120px);
+}
+
+.small-box {
+  height: 50px;
+  width: 50px;
+  margin-right: 5px;
+  background-color: white;
+}
+
 
 
 /*****************Style for Q&A widget*****************************/

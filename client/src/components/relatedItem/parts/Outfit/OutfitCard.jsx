@@ -98,23 +98,35 @@ const OutfitCard = (props) => {
     // console.log(id, imageList[0].thumbnail_url)
     return (
       <div className="carousel-box">
-      <div className="carousel-bg-img" style={{ backgroundImage: "url('" + currentPic.thumbnail_url + "')" }} onClick= {() => {featureCompare()}} ></div>
-      {props.outfit && <button className="star-btn" onClick= {()=>{props.toggleStar(itemID, props.outfitList)}}>X</button>}
-      {!props.outfit && <button className="star-btn" onClick= {()=>{props.toggleStar(itemID, props.outfitList); switchStar(starShow)}}><img src={starShow}></img></button>}
-      <div className="category-box">
-        <div className="category-title">{detail.category}</div>
-        <div className="category-wrapper">
-          <p>{detail.name}</p>
-          <div className="price-box">
-            ${detail.default_price}
-          </div>
-          <div className="star-box">
-            <Star rating={rating}/>
+        <div className="carousel-bg-img" style={{ backgroundImage: "url('" + currentPic.thumbnail_url + "')" }} onClick= {() => {featureCompare()}} ></div>
+        {props.outfit && <button className="star-btn" onClick= {()=>{props.toggleStar(itemID, props.outfitList)}}>X</button>}
+        {!props.outfit && <button className="star-btn" onClick= {()=>{props.toggleStar(itemID, props.outfitList); switchStar(starShow)}}><img src={starShow}></img></button>}
+        <div className="sensor-box">
+          <div  className="hidden-box">
+            <div className="small-box"></div>
+            <div className="small-box"></div>
+            <div className="small-box"></div>
+            <div className="small-box"></div>
+            <div className="small-box"></div>
+            <div className="small-box"></div>
+            <div className="small-box"></div>
+            <div className="small-box"></div>
           </div>
         </div>
+        <div className="category-box">
+          <div className="category-title">{detail.category}</div>
+          <div className="category-wrapper">
+            <p>{detail.name}</p>
+            <div className="price-box">
+              ${detail.default_price}
+            </div>
+            <div className="star-box">
+              <Star rating={rating}/>
+            </div>
+          </div>
+        </div>
+        {fearetureShow && <ComparingChart toggleFeature = {toggleFeature} compareFeatureDetail = {setDetail} mainItemId = {itemID}/>}
       </div>
-      {fearetureShow && <ComparingChart toggleFeature = {toggleFeature} compareFeatureDetail = {setDetail} mainItemId = {itemID}/>}
-    </div>
     )
   }
 }
