@@ -3,9 +3,11 @@ import Star from './averageStar.jsx'
 import Recommendation from './recommendation.jsx'
 import RatingBreakdown from './ratingBreakdown.jsx'
 import helpers from '../helperFunctions/helper.js'
+import ProductBreakdown from "./productBreakdown.jsx"
 
-const ratingSummary = (props) => {
+const breakdown = (props) => {
   var ratingObj = props.metadata.ratings
+  var characteristicsObj = props.metadata.characteristics
   const [averageRating, setAverageRating] = useState(0)
   const [totalRatingAmount, setTotalRatigAmount] = useState(0)
   const [resetHighlighted, setResetHighlighted] = useState(false)
@@ -45,8 +47,8 @@ const ratingSummary = (props) => {
         <div className="row recommend-row"><Recommendation percentage={props.metadata.recommended} /></div>
         <div className="row starchart-row"><RatingBreakdown totalAmount={totalRatingAmount} ratingObj={ratingObj} hanleFilterClicked={props.hanleFilterClicked} filterClicked={props.filterClicked} resetHighlighted={resetHighlighted} /></div>
         {props.filterClicked ? <div className="remove-all-filter-btn"><button onClick={() => resetAllFilter()}>Remove all filters</button></div> : null}
-        <div className="row product-breakdown-row">product-breakdown</div>
-        <div className="row product-breakdown-row">product-breakdown</div>
+        <div className="row product-breakdown-row"><ProductBreakdown characteristicsObj={characteristicsObj} /></div>
+
 
 
       </div>
@@ -54,4 +56,4 @@ const ratingSummary = (props) => {
     </>
   )
 }
-export default ratingSummary
+export default breakdown

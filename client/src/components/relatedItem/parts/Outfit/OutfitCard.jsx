@@ -6,56 +6,56 @@ const OutfitCard = (props) => {
   const itemID = props.item
   const [detail, setDetail] = useState([]);
   const [rating, setRating] = useState(0);
-  const [featrueShow, toggleFeature] = useState (false)
-  const [picLibrary, updatePicLibrary] = useState ([])
+  const [featrueShow, toggleFeature] = useState(false)
+  const [picLibrary, updatePicLibrary] = useState([])
   const [currentPic, updateCurPic] = useState("")
 
   useEffect(() => {
     getDetails(itemID);
     getImage(itemID);
     getRating(itemID);
-    console.log(itemID)
-   }, [])
+    //console.log(itemID)
+  }, [])
 
-   const getDetails = async (id) => {
-    await Axios.get('http://localhost:3000/getItemDetails', {params:{id: id}})
-    .then((response) => {
-      setDetail(response.data)
-      // console.log("API detail", response.data)
-      return response.data
-    })
-    .catch((err) => {
-      console.error(err)
-    })
+  const getDetails = async (id) => {
+    await Axios.get('http://localhost:3000/getItemDetails', { params: { id: id } })
+      .then((response) => {
+        setDetail(response.data)
+        // console.log("API detail", response.data)
+        return response.data
+      })
+      .catch((err) => {
+        console.error(err)
+      })
   }
 
 
   const getImage = async (id) => {
-  await Axios.get('http://localhost:3000/getFirstImage', {params:{id: id}})
-    .then((response) => {
-      updatePicLibrary([response.data])
-      updateCurPic(response.data)
-      return response.data
-    })
-    // .then((picArr) => {
-    //   updateCurPic(picArr[0])
-    // })
-    .catch((err) => {
-      console.error(err)
-    })
+    await Axios.get('http://localhost:3000/getFirstImage', { params: { id: id } })
+      .then((response) => {
+        updatePicLibrary([response.data])
+        updateCurPic(response.data)
+        return response.data
+      })
+      // .then((picArr) => {
+      //   updateCurPic(picArr[0])
+      // })
+      .catch((err) => {
+        console.error(err)
+      })
   }
 
 
   const getRating = async (id) => {
-    await Axios.get('http://localhost:3000/getRating', {params:{id: id}})
-    .then((response) => {
-      setRating(Number(response.data))
-      // console.log('APIRate', response.data)
-      return (Number(response.data))
-    })
-    .catch((err) => {
-      console.error(err)
-    })
+    await Axios.get('http://localhost:3000/getRating', { params: { id: id } })
+      .then((response) => {
+        setRating(Number(response.data))
+        // console.log('APIRate', response.data)
+        return (Number(response.data))
+      })
+      .catch((err) => {
+        console.error(err)
+      })
   }
 
 
@@ -67,21 +67,21 @@ const OutfitCard = (props) => {
     // console.log(id, imageList[0].thumbnail_url)
     return (
       <div className="carousel-box">
-      <div className="carousel-bg-img" style={{ backgroundImage: "url('" + currentPic + "')" }} ></div>
-      <button className="star-btn" onClick= {()=>{props.toggleStar(itemID, props.outfitList)}}>X</button>
-      <div className="category-box">
-        <div className="category-title">{detail.category}</div>
-        <div className="category-wrapper">
-          <p>{detail.name}</p>
-          <div className="price-box">
-            ${detail.default_price}
-          </div>
-          <div className="star-box">
-            <Star rating={rating}/>
+        <div className="carousel-bg-img" style={{ backgroundImage: "url('" + currentPic + "')" }} ></div>
+        <button className="star-btn" onClick={() => { props.toggleStar(itemID, props.outfitList) }}>X</button>
+        <div className="category-box">
+          <div className="category-title">{detail.category}</div>
+          <div className="category-wrapper">
+            <p>{detail.name}</p>
+            <div className="price-box">
+              ${detail.default_price}
+            </div>
+            <div className="star-box">
+              <Star rating={rating} />
+            </div>
           </div>
         </div>
       </div>
-    </div>
     )
   }
 }

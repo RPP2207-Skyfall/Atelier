@@ -287,8 +287,6 @@ main {
   background-color: rgba(150, 150, 150, 0.36);
 }
 
-
-
 .rateAmount-bar {
   padding: 12px 0 1px 0
 }
@@ -299,6 +297,51 @@ main {
 
 .remove-all-filter-btn {
   margin: 10px 0 0 0
+}
+
+.product-breakdown-container {
+  margin: 20px 0 0 0;
+  width: 100%;
+  font-size: x-small;
+}
+
+.character-name {
+  padding: 5px 0 0 12px;
+}
+
+.indicator-row {
+  padding: 0 25px 0 12px;
+  height: 15px
+}
+
+.scale-background {
+  background-color: rgba(119, 119, 119, 0.527);
+  width: 100%;
+  height: 30%;
+
+}
+
+
+.scale-label {
+  font-size: xx-small;
+}
+
+.left-label {
+  text-align: left;
+  padding: 0 0 0 12px;
+}
+
+.middle-label {
+  text-align: center;
+}
+
+.right-label {
+  text-align: right;
+  padding: 0 25px 0 0;
+}
+
+.indicator {
+  padding: 0 0 10px 0
 }
 
 
@@ -739,7 +782,7 @@ main {
   width: 200px;
   margin-right: 20px;
   height: 300px;
-  background-color: rgb(190,190,190);
+  background-color: rgb(190, 190, 190);
   outline: 2px solid #bebebe;
   overflow: hidden;
 }
@@ -905,7 +948,11 @@ main {
   height: 100px;
 }
 
-.qaitem-question-helpful-count, .qaitem-add-answer, .answeritem-helpful-count, .answeritem-reported, .answeritem-report {
+.qaitem-question-helpful-count,
+.qaitem-add-answer,
+.answeritem-helpful-count,
+.answeritem-reported,
+.answeritem-report {
   text-decoration: underline;
 }
 

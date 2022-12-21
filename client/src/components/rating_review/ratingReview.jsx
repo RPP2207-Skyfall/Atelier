@@ -1,7 +1,7 @@
 import React from 'react';
 import ReviewList from './reviewList.jsx'
 import Axios from 'axios';
-import RatingSummary from './ratingSummary/ratingSummary.jsx'
+import Breakdown from './breakdown/breakdown.jsx'
 import helpers from './helperFunctions/helper.js'
 
 
@@ -141,7 +141,7 @@ class RatingReview extends React.Component {
         <h6>RATINGS & REVIEWS</h6>
         <div className="row">
           <div className="col-4">
-            <RatingSummary metadata={this.state.metadata} hanleFilterClicked={this.hanleFilterClicked.bind(this)} filterClicked={this.state.filterClicked} resetAllFilter={this.resetAllFilter.bind(this)} />
+            <Breakdown metadata={this.state.metadata} hanleFilterClicked={this.hanleFilterClicked.bind(this)} filterClicked={this.state.filterClicked} resetAllFilter={this.resetAllFilter.bind(this)} />
           </div>
           <div className="col-8">
             <ReviewList reviewData={this.state.reviewData} currentSortValue={this.state.currentSortValue} updateSortMethod={this.updateSortMethod.bind(this)} />
