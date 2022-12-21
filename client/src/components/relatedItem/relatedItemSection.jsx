@@ -10,17 +10,22 @@ const RelatedItem = (props) => {
   const mainItemId = props.CurrentItemID
   const [relatedList, updateRelatedList] = useState([])
   //current first index
-  const [pickIndex, setPickIndex] = useState(4);
+  const [pickIndex, setPickIndex] = useState(props.outfit ? props.outfitList.length : relatedList.length);
   //total card
   const [childLength, setChildLength] = useState(0);
   //starting point
-  const [offsetCarousel, seOffsetCarousel] = useState(0);
+  const [offsetCarousel, seOffsetCarousel] = useState(880);
   //one card width
   const [childWidth, setChildWidth] = useState(210);
+
+  const [rightArrShow, setRightArr] = useState(true);
+
+  const [leftArrShow, setLeftArr] = useState(false);
 
 
   useEffect (()=> {
     getRelatedID(mainItemId)
+    //use .length directly avoid state.
     setChildLength(relatedList.length);
   }, [])
 
@@ -67,12 +72,16 @@ const RelatedItem = (props) => {
       {/* arrw */}
       <span className="left-arrow" ></span>
       <span className="right-arrow"></span>
-      <OutfitList relatedList = {relatedList} outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId} outfit = {false}/>
+        <div className="carousel">
+          <OutfitList relatedList = {relatedList} outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId} outfit = {false}/>
+        </div>
       </section>
       <h5>YOUR OUTFIT</h5>
-      <p>{JSON.stringify(props.outfitList)}</p>
+        <p>{JSON.stringify(props.outfitList)}</p>
       <section className="carousel-upper">
-      <OutfitList outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId} outfit = {true}/>
+        <div className="carousel">
+        <OutfitList outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId} outfit = {true}/>
+        </div>
       </section>
     </div>
   )
