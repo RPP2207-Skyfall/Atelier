@@ -2,9 +2,9 @@ const Axios = require('axios');
 require("dotenv").config();
 
 
-exports.getFirstImage = (req,res) => {
+exports.getFirstImage = (req, res) => {
   var ID = req.query.id;
-  console.log(ID)
+  //console.log(ID)
   const url = process.env.REACT_APP_API_OVERVIEW_URL + `products/${ID}/styles`;
   var requestOption = {
     headers: {
@@ -12,9 +12,9 @@ exports.getFirstImage = (req,res) => {
       "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
     }
   }
-  Axios.get(url,requestOption)
+  Axios.get(url, requestOption)
     .then((response) => {
-      console.log('first image call', response.data.results[0].photos[0].thumbnail_url)
+      //console.log('first image call', response.data.results[0].photos[0].thumbnail_url)
       // only send back first style, first photo thumbnail
       let imageListLength = response.data.results
       var thumbnails = response.data.results[0].photos[0].thumbnail_url
