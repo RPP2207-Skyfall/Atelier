@@ -63,13 +63,13 @@ const OutfitCard = (props) => {
     })
   }
 
-  const switchStar = (starShow) => {
-    if (starShow === "FillStar.png") {
-      toggleStar("emptyStar.png")
-    } else {
-      toggleStar("FillStar.png")
-    }
-  }
+  // const switchStar = (starShow) => {
+  //   if (starShow === "FillStar.png") {
+  //     toggleStar("emptyStar.png")
+  //   } else {
+  //     toggleStar("FillStar.png")
+  //   }
+  // }
 
   const checkOutfit = (currentID, OutfitList)=>  {
     var index = OutfitList.indexOf(currentID)
@@ -100,9 +100,9 @@ const OutfitCard = (props) => {
     // console.log(id, imageList[0].thumbnail_url)
     return (
       <div className="carousel-box">
-        <div className="carousel-bg-img" style={{ backgroundImage: "url('" + currentPic.thumbnail_url + "')" }} onClick= {() => {featureCompare()}} ></div>
+        <div className="carousel-bg-img" style={{ backgroundImage: "url('" + currentPic.thumbnail_url + "')" }} ></div>
         {props.outfit && <button className="star-btn" onClick= {()=>{props.toggleStar(itemID)}}>X</button>}
-        {!props.outfit && <button className="star-btn" onClick= {()=>{props.toggleStar(itemID); switchStar(starShow)}}><img src={starShow}></img></button>}
+        {!props.outfit && <button className="star-btn" onClick= {() => {featureCompare()}}><img src="FillStar.png"></img></button>}
         <div className="sensor-box">
           <div  className="hidden-box">
           {picLibrary.map((item, index) =>
@@ -122,7 +122,7 @@ const OutfitCard = (props) => {
             </div>
           </div>
         </div>
-        {fearetureShow && <ComparingChart toggleFeature = {toggleFeature} compareFeatureDetail = {setDetail} mainItemId = {itemID}/>}
+        {fearetureShow && <ComparingChart toggleFeature = {toggleFeature} compareFeatureDetail = {detail} mainFeature = {props.mainFeature}/>}
       </div>
     )
   }

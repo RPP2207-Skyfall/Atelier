@@ -2,51 +2,96 @@ import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 
 const ComparingChart = (props) => {
-  const MainItemID = props.mainItemId;
-  const [featureList, updateFeatureList] = useState({})
+  const MainItemName = props.mainFeature.name;
+  const MainFeature = props.mainFeature.features;
+  const CompareItemName = props.compareFeatureDetail.name;
+  const CompareFeature = props.compareFeatureDetail.features;
+  var featureObj = {};
+  // const [featureObj, updateFeatureObj] = useState({})
 
-  useEffect(()=> {
-    getComparingObj(MainItemID)
-    // console.log(props)
-  }, [])
+  for (var index in MainFeature) {
+    var key = MainFeature[index].feature
+    if (featureObj[key] === undefined) {
+      featureObj[key] = [[1, MainFeature[index].value]]
+    } else {
+      featureObj[key].push([1, MainFeature[index].value])
+    }
+  }
+  for (var index in CompareFeature) {
+    var key = CompareFeature[index].feature
+    if (featureObj[key] === undefined) {
+      featureObj[key] = [[2, CompareFeature[index].value]]
+    } else {
+      featureObj[key].push([2, CompareFeature[index].value])
+    }
+  }
 
-  const getComparingObj = async (id) => {
-    await Axios.get('http://localhost:3000/getItemDetails', {params:{id: id}})
-    .then((response) => {
-      const mainFeatureList = response.data.features
-      var featureList = {};
-      for (var x = 0; x < mainFeatureList.length; x ++) {
-        featureList[mainFeatureList[x].feature] = [1, mainFeatureList[x].value]
-      }
-      return featureList
-    })
-    .then((featureList) => {
-      const relatedFeatures = props.relatedFeatures
-      // console.log(relatedFeatures)
-      for (var x = 0; x < relatedFeatures.length; x ++) {
-        if (featureList[relatedFeatures[x].feature] === undefined) {
-          featureList[relatedFeatures[x].feature] = [2, relatedFeatures[x].value]
+  // console.log(featureObj)
+
+
+  var tableChart = "<table>"
+  for (var key in featureObj) {
+    var first = "";
+    var second = key;
+    var third = "";
+    var featureArr = featureObj[key]
+    for (var x = 0; x < featureArr.length; x ++) {
+      if (featureArr[x][0] == 1) {
+        if (featureArr[x][1] === true) {
+          first = 'V'
+        } else if (featureArr[x][1] === false || featureArr[x][1] === null){
+          first = 'X'
         } else {
-          featureList[relatedFeatures[x].feature].push([2, relatedFeatures[x].value])
+          first = featureArr[x][1]
         }
       }
-      // console.log(featureList)
-      updateFeatureList(featureList)
-    })
-    .catch((err) => {
-      console.error(err)
-    })
+      if (featureArr[x][0] == 2) {
+        if (featureArr[x][1] === true) {
+          third = 'V'
+        } else if (featureArr[x][1] === false || featureArr[x][1] === null){
+          third = 'X'
+        } else {
+          third = featureArr[x][1]
+        }
+      }
+    }
+    var insert = `<tr>
+      <th><h6>${first}</h6></th>
+      <th><p>${second}</p></th>
+      <th><h6>${third}</h6></th>
+    </tr>`;
+    tableChart += insert
   }
+  tableChart += "</table>"
+
+
+
   const closeChart = () => {
     props.toggleFeature(false)
   }
 
   return (
     <div>
-          <div className="modal-mask" onClick= {() => {closeChart()}}></div>
-          <div className="modal-container"><p>chart here</p></div>
-        </div>
+      <div className="modal-mask" onClick= {() => {closeChart()}}></div>
+      <div className="modal-container"><h6>COMPARING</h6>
+        <span className= "modal-name">
+          <div>
+            <h5>{MainItemName}</h5>
+          </div>
+          <div>
+          <h5>{CompareItemName}</h5>
+          </div>
+        </span>
+        <div className="compare-table" dangerouslySetInnerHTML={{__html: tableChart}} />
+      </div>
+    </div>
   )
 }
 
 export default ComparingChart;
+
+/*
+  The comparison modal window will pull up and compare the characteristics present for each product.
+  The modal should be titled “Comparing”.  The characteristics to be compared are the same as those
+  which appear on the Overview module for each product separately.
+ */
