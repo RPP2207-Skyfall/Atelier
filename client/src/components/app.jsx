@@ -9,7 +9,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       OutfitList: [],
-      CurrentItemID: 71704
+      CurrentItemID: 71698
     }
     this.toggleStar = this.toggleStar.bind(this);
     this.updateCurrentItemID = this.updateCurrentItemID.bind(this);
@@ -17,12 +17,13 @@ class App extends React.Component {
 
 
   updateCurrentItemID(newID) {
+    console.log('update ID', newID)
     this.setState({CurrentItemID: newID})
   }
 
-  toggleStar(currentID, OutfitList) {
-    var index = OutfitList.indexOf(currentID)
-    var newList = OutfitList
+  toggleStar(currentID) {
+    var index = this.state.OutfitList.indexOf(currentID)
+    var newList = this.state.OutfitList
     if (index === -1) {
       newList.push(currentID)
       this.setState({OutfitList: newList})
@@ -37,7 +38,7 @@ class App extends React.Component {
       <>
         <h3>Ateiler</h3>
         <Overview />
-        <RelatedItem outfitList = {this.state.OutfitList} toggleStar = {this.toggleStar} CurrentItemID = {this.state.CurrentItemID}/>
+        <RelatedItem outfitList = {this.state.OutfitList} toggleStar = {this.toggleStar} CurrentItemID = {this.state.CurrentItemID} updateCurrentItemID = {this.updateCurrentItemID}/>
         <QandA product_name={'Camo Windblocker'}/>
         <RatingReview />
       </>

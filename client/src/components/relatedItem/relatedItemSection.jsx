@@ -11,7 +11,7 @@ const RelatedItem = (props) => {
   const [relatedList, updateRelatedList] = useState([])
   //current first index
   const [pickIndex, setPickIndex] = useState(props.outfit ? props.outfitList.length : relatedList.length);
-  //total card
+  //total card (can call by props.outfitList.length or relatedList.length)
   const [childLength, setChildLength] = useState(0);
   //starting point
   const [offsetCarousel, seOffsetCarousel] = useState(880);
@@ -41,28 +41,6 @@ const RelatedItem = (props) => {
     })
   };
 
-  // const prevSlide = () => {
-  //   seOffsetCarousel( offsetCarousel - childWidth);
-  //   const myCarousel = document.getElementById("carousel-container").current.style = 'transform: translateX(' + ( 0 - offsetCarousel ) + 'px' + ')';
-  //   setPickIndex(pickIndex - 1);
-  //   // console.log(pickIndex);
-  //   // console.log(childLength);
-  //   if(pickIndex  <= 0) {
-  //     console.log("END");
-  //   }
-  // }
-
-  // const nextSlide = () => {
-  //   seOffsetCarousel( offsetCarousel + childWidth);
-  //   const myCarousel = document.getElementById("carousel-container") = 'transform: translateX(' + ( 0 - offsetCarousel ) + 'px' + ')';
-  //   setPickIndex(pickIndex + 1);
-  //   console.log(pickIndex);
-  //   console.log(childLength);
-
-  //   if(pickIndex >= childLength) {
-  //     console.log("END");
-  //   }
-  // }
 
 
   return (
@@ -73,14 +51,14 @@ const RelatedItem = (props) => {
       <span className="left-arrow" ></span>
       <span className="right-arrow"></span>
         <div className="carousel">
-          <OutfitList relatedList = {relatedList} outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId} outfit = {false}/>
+          <OutfitList relatedList = {relatedList} outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId} outfit = {false} updateCurrentItemID = {props.updateCurrentItemID}/>
         </div>
       </section>
       <h5>YOUR OUTFIT</h5>
         <p>{JSON.stringify(props.outfitList)}</p>
       <section className="carousel-upper">
         <div className="carousel">
-        <OutfitList outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId} outfit = {true}/>
+        <OutfitList outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId} outfit = {true} updateCurrentItemID = {props.updateCurrentItemID}/>
         </div>
       </section>
     </div>

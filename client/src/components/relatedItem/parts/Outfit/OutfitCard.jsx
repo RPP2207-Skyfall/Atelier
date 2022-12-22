@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Axios from 'axios'
 import Star from './../Star/relateStarRating.jsx';
 import ComparingChart from './../PopUp/ComparingChart.jsx'
+import SmallPicBox from './../PopUp/HoverPhoto.jsx'
 
 const OutfitCard = (props) => {
   const itemID = props.item
@@ -39,14 +40,11 @@ const OutfitCard = (props) => {
         updateCurPic({thumbnail_url: "https://lyrictheatreokc.com/wp-content/uploads/2021/11/Ciao-Ciao-Image-Coming-Soon-500px.jpg"})
         return response.data
       } else {
-        updatePicLibrary([response.data])
+        updatePicLibrary(response.data)
         updateCurPic(response.data[0])
         return response.data
       }
     })
-    // .then((picArr) => {
-    //   updateCurPic(picArr[0])
-    // })
     .catch((err) => {
       console.error(err)
     })
@@ -88,6 +86,10 @@ const OutfitCard = (props) => {
     toggleFeature(!show)
   }
 
+  const setCurPhoto = (url) => {
+    updateCurPic({thumbnail_url: url})
+  }
+
 
 
   if (detail.length === 0 || rating === 0) {
@@ -99,23 +101,18 @@ const OutfitCard = (props) => {
     return (
       <div className="carousel-box">
         <div className="carousel-bg-img" style={{ backgroundImage: "url('" + currentPic.thumbnail_url + "')" }} onClick= {() => {featureCompare()}} ></div>
-        {props.outfit && <button className="star-btn" onClick= {()=>{props.toggleStar(itemID, props.outfitList)}}>X</button>}
-        {!props.outfit && <button className="star-btn" onClick= {()=>{props.toggleStar(itemID, props.outfitList); switchStar(starShow)}}><img src={starShow}></img></button>}
+        {props.outfit && <button className="star-btn" onClick= {()=>{props.toggleStar(itemID)}}>X</button>}
+        {!props.outfit && <button className="star-btn" onClick= {()=>{props.toggleStar(itemID); switchStar(starShow)}}><img src={starShow}></img></button>}
         <div className="sensor-box">
           <div  className="hidden-box">
-            <div className="small-box"></div>
-            <div className="small-box"></div>
-            <div className="small-box"></div>
-            <div className="small-box"></div>
-            <div className="small-box"></div>
-            <div className="small-box"></div>
-            <div className="small-box"></div>
-            <div className="small-box"></div>
+          {picLibrary.map((item, index) =>
+            <SmallPicBox item= {item} key= {index} setCurPhoto = {setCurPhoto}/>
+          )}
           </div>
         </div>
         <div className="category-box">
-          <div className="category-title">{detail.category}</div>
-          <div className="category-wrapper">
+          <div className="category-title" >{detail.category}</div>
+          <div className="category-wrapper" onClick= {()=>{props.updateCurrentItemID(itemID)}}>
             <p>{detail.name}</p>
             <div className="price-box">
               ${detail.default_price}

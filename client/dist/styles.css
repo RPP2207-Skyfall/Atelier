@@ -970,11 +970,18 @@ main {
 }
 
 .small-box {
+  position: relative;
+  display: inline-block;
   height: 50px;
   width: 50px;
   margin-right: 5px;
-  background-color: white;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+
 }
+
 
 
 
