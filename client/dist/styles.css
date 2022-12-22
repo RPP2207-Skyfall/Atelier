@@ -344,6 +344,38 @@ main {
   padding: 0 0 10px 0
 }
 
+.new-review-title {
+  color: rgb(24, 195, 180);
+  margin: 5px 7px 2px 10px;
+  font-size: 22px;
+}
+
+.new-review-subtitle {
+  margin: 0 7px 5px 12px;
+  font-size: 16px;
+}
+
+.new-review-content {
+  max-width: 700px;
+  min-height: 700px;
+  top: 50%
+}
+
+.review-modal-closeBtn {
+  margin: 0 10px 0 10px;
+  border-radius: 5px;
+}
+
+.review-modal-submitBtn {
+  margin: 0 10px 0 10px;
+  border-radius: 5px;
+}
+
+.button-section {
+  margin: 0 27% 0 32%;
+  padding: 0 10% 0 5%;
+  /* bottom: 2% */
+}
 
 */
 /**********************************************/

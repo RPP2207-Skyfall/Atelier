@@ -10,6 +10,7 @@ class RatingReview extends React.Component {
     super(props)
     this.state = {
       product_id: props.product_id || 71700,
+      product_name: props.product_name || "Slacker's Slacks",
       reviewData: [],
       originalReviewData: [],
       currentSortValue: 'relevant',
@@ -149,6 +150,7 @@ class RatingReview extends React.Component {
           <div className="col-8">
             <ReviewList
               reviewData={this.state.reviewData}
+              productName={this.state.product_name}
               currentSortValue={this.state.currentSortValue}
               updateSortMethod={this.updateSortMethod.bind(this)}
               addNewReview={this.addNewReview.bind(this)} />

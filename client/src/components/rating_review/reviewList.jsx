@@ -11,7 +11,7 @@ class reviewList extends React.Component {
       reviewDataCopy: [],
       displayReview: [],
       loadBtn: false,
-      newReviewModal: false
+      newReviewModal: true
 
 
     }
@@ -102,7 +102,9 @@ class reviewList extends React.Component {
         {this.state.loadBtn ?
           <button className="loadReviewBtn" data-testid="moreReviewBtn-testId" onClick={() => { this.handleMoreReviewClick() }}>MORE REVIEWS</button> : null}
         <button className="addReviewBtn" data-testid="addReviewBtn-testId" onClick={() => this.handleAddReviewClick()}>ADD A REVIEW +</button>
-        {this.state.newReviewModal ? <NewReviewModal handleCloseReviewModal={this.handleCloseReviewModal.bind(this)} /> : null}
+        {this.state.newReviewModal ?
+          <NewReviewModal handleCloseReviewModal={this.handleCloseReviewModal.bind(this)} productName={this.props.productName} /> :
+          null}
       </div>
 
 
