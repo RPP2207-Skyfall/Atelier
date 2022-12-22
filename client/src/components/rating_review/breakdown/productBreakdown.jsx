@@ -11,7 +11,7 @@ const productBreakdown = (props) => {
   useEffect(() => {
     (async () => {
       let characteristicsArr = await helpers.breakdownCharacteristicsObj(characteristicsObj)
-      console.log(characteristicsArr)
+      //console.log(characteristicsArr)
       setCharacteristicsArr(characteristicsArr)
     })()
   }, [characteristicsObj])

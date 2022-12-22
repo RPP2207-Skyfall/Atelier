@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ReviewItem from './reviewItem.jsx'
 import SortMenu from './sorting/sorting.jsx'
+import NewReviewModal from './newReview/newReviewModal.jsx'
 
 
 class reviewList extends React.Component {
@@ -9,7 +10,8 @@ class reviewList extends React.Component {
     this.state = {
       reviewDataCopy: [],
       displayReview: [],
-      loadBtn: false
+      loadBtn: false,
+      newReviewModal: false
 
 
     }
@@ -69,6 +71,18 @@ class reviewList extends React.Component {
 
   }
 
+  handleAddReviewClick() {
+    this.setState({
+      newReviewModal: true
+    })
+    this.props.addNewReview()
+  }
+
+  handleCloseReviewModal() {
+    this.setState({
+      newReviewModal: !this.state.newReviewModal
+    })
+  }
 
 
 
@@ -85,8 +99,10 @@ class reviewList extends React.Component {
             ) : null}
           </div>
         </div>
-        {this.state.loadBtn ? <button className="loadReviewBtn" data-testid="moreReviewBtn-testId" onClick={() => { this.handleMoreReviewClick() }}>MORE REVIEWS</button> : null} <button className="addReviewBtn" data-testid="addReviewBtn-testId">ADD A REVIEW +</button>
-        <></>
+        {this.state.loadBtn ?
+          <button className="loadReviewBtn" data-testid="moreReviewBtn-testId" onClick={() => { this.handleMoreReviewClick() }}>MORE REVIEWS</button> : null}
+        <button className="addReviewBtn" data-testid="addReviewBtn-testId" onClick={() => this.handleAddReviewClick()}>ADD A REVIEW +</button>
+        {this.state.newReviewModal ? <NewReviewModal handleCloseReviewModal={this.handleCloseReviewModal.bind(this)} /> : null}
       </div>
 
 

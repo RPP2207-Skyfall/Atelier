@@ -133,6 +133,9 @@ class RatingReview extends React.Component {
     })
   }
 
+  addNewReview() {
+    console.log('trigger')
+  }
 
 
   render() {
@@ -144,7 +147,11 @@ class RatingReview extends React.Component {
             <Breakdown metadata={this.state.metadata} hanleFilterClicked={this.hanleFilterClicked.bind(this)} filterClicked={this.state.filterClicked} resetAllFilter={this.resetAllFilter.bind(this)} />
           </div>
           <div className="col-8">
-            <ReviewList reviewData={this.state.reviewData} currentSortValue={this.state.currentSortValue} updateSortMethod={this.updateSortMethod.bind(this)} />
+            <ReviewList
+              reviewData={this.state.reviewData}
+              currentSortValue={this.state.currentSortValue}
+              updateSortMethod={this.updateSortMethod.bind(this)}
+              addNewReview={this.addNewReview.bind(this)} />
           </div>
         </div>
       </div>
