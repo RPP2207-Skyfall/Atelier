@@ -358,7 +358,7 @@ main {
 .new-review-content {
   max-width: 700px;
   min-height: 700px;
-  top: 50%
+  top: 30%
 }
 
 .content-container {
@@ -382,7 +382,7 @@ main {
 }
 
 .overall-rating-section {
-  margin: 5px 7px 5px 5px;
+  margin: 25px 7px 5px 5px;
 }
 
 .star-rating button {
@@ -399,6 +399,43 @@ main {
 .star-off {
   color: #ccc
 }
+
+.new-recommend-section {
+  margin: 5px 7px 5px 5px;
+  font-size: 16px;
+}
+
+.characteristic-table {
+  margin: 10px 7px 5px 5px;
+}
+
+.char-title {
+  margin: 15px 40% 5px 40%;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+.definition-name {
+  font-size: 14px;
+
+  display: inline-block;
+  zoom: 1;
+
+  width: 20%;
+  text-align: center;
+}
+
+
+
+.char-input>input {
+  display: inline-block;
+  zoom: 1;
+  width: 20%;
+  text-align: center;
+}
+
 
 */
 /**********************************************/

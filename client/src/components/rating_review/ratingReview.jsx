@@ -151,6 +151,7 @@ class RatingReview extends React.Component {
             <ReviewList
               reviewData={this.state.reviewData}
               productName={this.state.product_name}
+              characteristics={this.state.metadata.characteristics}
               currentSortValue={this.state.currentSortValue}
               updateSortMethod={this.updateSortMethod.bind(this)}
               addNewReview={this.addNewReview.bind(this)} />

@@ -181,9 +181,45 @@ const helpers = {
     }
     return characteristicsArr
 
-  }
+  },
+  generateCharacteristicTable: (characteristicsObj, definitionObj) => {
+
+    var characteristicTable = []
+
+    for (let key in characteristicsObj) {
+
+      characteristicTable.push(
+        <>
+
+          <div className="char-title" key={key}>{key}</div>
+
+          <div className="char-selection" key={'char-selection' + key} >
+
+            {definitionObj[key].map((definition, idx) => {
+
+              return (
+                <span className="definition-name" key={'definition-name' + key + idx}>{definition}</span>
+              )
+            })}
+          </div>
+          <div className="char-input" key={'char-input' + key}>
+            {definitionObj[key].map((definition, idx) => {
+
+              return (
+                <input key={'inputBtn' + key + idx} className="inputBtn" type="radio" name={`characteristic-select-${key}`} value={idx} />
+              )
+            })}
+          </div>
+        </>
+      )
+
+    }
+    return characteristicTable
+  },
+
 }
 
 
 
 export default helpers;
+

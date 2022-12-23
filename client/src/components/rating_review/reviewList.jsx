@@ -103,7 +103,7 @@ class reviewList extends React.Component {
           <button className="loadReviewBtn" data-testid="moreReviewBtn-testId" onClick={() => { this.handleMoreReviewClick() }}>MORE REVIEWS</button> : null}
         <button className="addReviewBtn" data-testid="addReviewBtn-testId" onClick={() => this.handleAddReviewClick()}>ADD A REVIEW +</button>
         {this.state.newReviewModal ?
-          <NewReviewModal handleCloseReviewModal={this.handleCloseReviewModal.bind(this)} productName={this.props.productName} /> :
+          <NewReviewModal handleCloseReviewModal={this.handleCloseReviewModal.bind(this)} productName={this.props.productName} characteristics={this.props.characteristics} /> :
           null}
       </div>
 
