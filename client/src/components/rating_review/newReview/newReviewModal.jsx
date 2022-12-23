@@ -6,6 +6,7 @@ const newReviewModal = (props) => {
   const [toggle, setToggle] = useState(-1)
   const [characterTable, setCharacterTable] = useState([])
   const characteristicsObj = props.characteristics
+  const characteristicSelection = {}
 
   const starMeaning = {
     "0star": "Poor",
@@ -24,13 +25,6 @@ const newReviewModal = (props) => {
     Fit: ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs loose']
   }
 
-  const handleCloseClick = () => {
-    props.handleCloseReviewModal()
-  }
-
-  const recommendSelect = (e) => {
-    console.log(e.target.value)
-  }
 
 
   useEffect(() => {
@@ -41,6 +35,26 @@ const newReviewModal = (props) => {
 
     })()
   }, [characteristicsObj])
+
+  const handleCloseClick = () => {
+    props.handleCloseReviewModal()
+  }
+
+  const recommendSelect = (e) => {
+    console.log(e.target.value)
+  }
+
+  const characteristicSelect = (e) => {
+    console.log(e.target.value)
+    var split = e.target.value.split(',')
+
+    // if(characteristicSelection[e.target.value[0]] === undefined){
+    characteristicSelection[split[0]] = split[2]
+    //}
+
+    console.log(characteristicSelection)
+
+  }
 
 
 
@@ -85,7 +99,7 @@ const newReviewModal = (props) => {
                 </div>
               </div>
 
-              <div className="characteristic-table">
+              <div className="characteristic-table" onChange={characteristicSelect}>
                 {characterTable}
               </div>
 
