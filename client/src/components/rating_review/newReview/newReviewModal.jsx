@@ -2,7 +2,16 @@ import React, { useState, useEffect } from 'react';
 
 const newReviewModal = (props) => {
 
-  const [toggle, setToggle] = useState(0)
+  const [toggle, setToggle] = useState(-1)
+
+  const starMeaning = {
+    "0star": "Poor",
+    "1star": "Fair",
+    "2star": "Average",
+    "3star": "Good",
+    "4star": "Great"
+
+  }
 
   const handleCloseClick = () => {
     props.handleCloseReviewModal()
@@ -28,12 +37,16 @@ const newReviewModal = (props) => {
                         type="button"
                         key={idx}
                         className={idx <= toggle ? "star-on" : "star-off"}
-                        onClick={() => setToggle(idx)}
+                        onClick={() =>
+                          setToggle(idx)
+
+                        }
                       >
                         <span className="star" key={idx}>&#9733;</span>
                       </button>
                     )
                   })}
+                  <span className="star-meaning">{starMeaning[toggle + 'star']}</span>
                 </div>
               </div>
               <div className="button-section">

@@ -383,7 +383,13 @@ main {
 
 .overall-rating-section {
   margin: 5px 7px 5px 5px;
+}
 
+.star-rating button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
 .star-on {
