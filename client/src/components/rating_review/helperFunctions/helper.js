@@ -189,7 +189,7 @@ const helpers = {
     for (let key in characteristicsObj) {
 
       characteristicTable.push(
-        <>
+        <div key={`${key}-row`}>
 
           <div className="char-title" key={key}>{key}</div>
 
@@ -210,7 +210,7 @@ const helpers = {
               )
             })}
           </div>
-        </>
+        </div>
       )
 
     }
