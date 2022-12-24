@@ -3,6 +3,7 @@ import helpers from '../helperFunctions/helper.js'
 import OverallStar from './overallStar.jsx'
 import NewSummary from './newSummary.jsx'
 import NewBody from './newBody.jsx'
+import UploadPhoto from './uploadPhoto.jsx'
 
 const newReviewModal = (props) => {
 
@@ -12,6 +13,7 @@ const newReviewModal = (props) => {
   const [characteristicSelection, setCharacteristicSelection] = useState({})
   const [summary, setSummary] = useState("")
   const [body, setbody] = useState("")
+  const [asteris, setAsteris] = useState(true)
 
   const characteristicsObj = props.characteristics
 
@@ -54,6 +56,9 @@ const newReviewModal = (props) => {
     var split = e.target.value.split(',')
     characteristicSelection[split[0]] = split[2]
     setCharacteristicSelection(characteristicSelection)
+    if (Object.keys(characteristicSelection).length === Object.keys(characteristicsObj).length) {
+      setAsteris(false)
+    }
   }
 
   const summaryInput = (summary) => {
@@ -92,7 +97,7 @@ const newReviewModal = (props) => {
               </div>
 
               <div className="characteristic-table" onChange={characteristicSelect}>
-                Characteristic:
+                Characteristic: {asteris ? <span className="asteris">*</span> : null}
                 {characterTable}
               </div>
 
@@ -104,9 +109,9 @@ const newReviewModal = (props) => {
                 <NewBody bodyInput={bodyInput} />
               </div>
 
-
-
-
+              <div className="photo-upload-section">
+                <UploadPhoto />
+              </div>
 
               <div className="button-section">
                 <button className="review-modal-closeBtn" data-testid={`close-`} onClick={() => { handleCloseClick() }} >Close</button>

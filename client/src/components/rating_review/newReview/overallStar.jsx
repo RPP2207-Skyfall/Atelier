@@ -3,7 +3,7 @@ import helpers from '../helperFunctions/helper.js'
 
 const overallStar = (props) => {
 
-  const [asteris, setAsterisk] = useState(true)
+  const [asteris, setAsteris] = useState(true)
   const [starSelected, setStarSelected] = useState(-1)
 
   const starMeaning = {
@@ -19,7 +19,7 @@ const overallStar = (props) => {
     (async () => {
       props.starSelection(starSelected)
       let checkRated = await helpers.checkReviewForm('overallStar', starSelected)
-      setAsterisk(checkRated)
+      setAsteris(checkRated)
     })()
   }, [starSelected])
 
@@ -51,7 +51,6 @@ const overallStar = (props) => {
               onClick={(e) => {
                 handleStarClick(e, idx)
               }
-
               }
             >
               <span className="star" key={idx}>&#9733;</span>

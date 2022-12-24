@@ -3,7 +3,7 @@ import helpers from '../helperFunctions/helper.js'
 
 const newBody = (props) => {
 
-  const [asteris, setAsterisk] = useState(true)
+  const [asteris, setAsteris] = useState(true)
   const placeholderText = 'Why did you like the product or not?'
   const [summaryLength, setSummaryLength] = useState(0)
   const [lengthRemaining, setLengthRemaining] = useState(0)
@@ -13,14 +13,13 @@ const newBody = (props) => {
   useEffect(() => {
     (async () => {
       let lengthCheckResults = await helpers.checkReviewForm('newBody', summaryLength)
-      setAsterisk(lengthCheckResults[0])
+      setAsteris(lengthCheckResults[0])
       setLengthRemaining(lengthCheckResults[1])
     })()
 
   }, [summaryLength])
 
   const handleTextareaChange = (e) => {
-    // setAsterisk(false)
     setSummaryLength(e.target.value.length)
     props.bodyInput(e.target.value)
   }
