@@ -7,12 +7,12 @@ const newBody = (props) => {
   const placeholderText = 'Why did you like the product or not?'
   const [summaryLength, setSummaryLength] = useState(0)
   const [lengthRemaining, setLengthRemaining] = useState(0)
-  //const
+
 
 
   useEffect(() => {
     (async () => {
-      let lengthCheckResults = await helpers.checkReviewBodyLength(summaryLength)
+      let lengthCheckResults = await helpers.checkReviewForm('newBody', summaryLength)
       setAsterisk(lengthCheckResults[0])
       setLengthRemaining(lengthCheckResults[1])
     })()

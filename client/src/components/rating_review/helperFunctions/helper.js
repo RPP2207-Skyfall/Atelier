@@ -216,15 +216,26 @@ const helpers = {
     }
     return characteristicTable
   },
-  checkReviewBodyLength: (summaryLength) => {
-    var requiredLength = 50
-    var lengthRemaining = requiredLength - summaryLength
-    if (summaryLength <= 50) {
-      return [true, lengthRemaining]
-    } else {
-      return [false, lengthRemaining]
+  checkReviewForm: (fromComponent, checkValue) => {
+
+    if (fromComponent === 'newBody') {
+      var requiredLength = 50
+      var lengthRemaining = requiredLength - checkValue
+      if (checkValue <= 50) {
+        return [true, lengthRemaining]
+      } else {
+        return [false, lengthRemaining]
+      }
+    }
+    else if (fromComponent === 'overallStar') {
+      if (checkValue < 0) {
+        return true
+      } else {
+        return false
+      }
     }
   }
+
 
 }
 
