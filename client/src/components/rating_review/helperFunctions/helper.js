@@ -216,6 +216,15 @@ const helpers = {
     }
     return characteristicTable
   },
+  checkReviewBodyLength: (summaryLength) => {
+    var requiredLength = 50
+    var lengthRemaining = requiredLength - summaryLength
+    if (summaryLength <= 50) {
+      return [true, lengthRemaining]
+    } else {
+      return [false, lengthRemaining]
+    }
+  }
 
 }
 

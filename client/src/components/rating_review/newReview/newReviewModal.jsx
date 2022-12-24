@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import helpers from '../helperFunctions/helper.js'
+import OverallStar from './overallStar.jsx'
+import NewSummary from './newSummary.jsx'
+import NewBody from './newBody.jsx'
 
 const newReviewModal = (props) => {
 
-  const [toggle, setToggle] = useState(-1)
   const [characterTable, setCharacterTable] = useState([])
-  const characteristicsObj = props.characteristics
-  const characteristicSelection = {}
+  const [star, setStar] = useState(0)
+  const [recommendSelection, setRecommendSelection] = useState(true)
+  const [characteristicSelection, setCharacteristicSelection] = useState({})
+  const [summary, setSummary] = useState("")
+  const [body, setbody] = useState("")
 
-  const starMeaning = {
-    "0star": "Poor",
-    "1star": "Fair",
-    "2star": "Average",
-    "3star": "Good",
-    "4star": "Great"
-  }
+  const characteristicsObj = props.characteristics
+
 
   const definitionObj = {
     Size: ['A size too small', '½ a size too small', 'Perfect', '½ a size too big', 'A size too wide'],
@@ -26,11 +26,10 @@ const newReviewModal = (props) => {
   }
 
 
-
   useEffect(() => {
     (async () => {
       let characterTable = await helpers.generateCharacteristicTable(characteristicsObj, definitionObj)
-      console.log(characterTable)
+      //console.log(characterTable)
       setCharacterTable(characterTable)
 
     })()
@@ -40,22 +39,33 @@ const newReviewModal = (props) => {
     props.handleCloseReviewModal()
   }
 
+  const starSelection = (idx) => {
+    //console.log(idx)
+    setStar(idx + 1)
+
+  }
+
   const recommendSelect = (e) => {
-    console.log(e.target.value)
+    //console.log(e.target.value)
+    setRecommendSelection(e.target.value)
   }
 
   const characteristicSelect = (e) => {
-    console.log(e.target.value)
     var split = e.target.value.split(',')
-
-    // if(characteristicSelection[e.target.value[0]] === undefined){
     characteristicSelection[split[0]] = split[2]
-    //}
-
-    console.log(characteristicSelection)
-
+    setCharacteristicSelection(characteristicSelection)
   }
 
+  const summaryInput = (summary) => {
+    setSummary(summary)
+  }
+  const bodyInput = (body) => {
+    setbody(body)
+  }
+
+  const handleSubmit = () => {
+    //props.addNewReview()
+  }
 
 
   return (
@@ -69,39 +79,34 @@ const newReviewModal = (props) => {
               <div className="new-review-subtitle">{`About the ${props.productName}`}</div>
 
               <div className="overall-rating-section">
-                Your Overall Rating
-                <div className="star-rating">
-                  {[...Array(5)].map((star, idx) => {
-                    return (
-                      <button
-                        type="button"
-                        key={idx}
-                        className={idx <= toggle ? "star-on" : "star-off"}
-                        onClick={() =>
-                          setToggle(idx)
-
-                        }
-                      >
-                        <span className="star" key={idx}>&#9733;</span>
-                      </button>
-                    )
-                  })}
-                  <span className="star-meaning">{starMeaning[toggle + 'star']}</span>
-                </div>
+                <OverallStar starSelection={starSelection} />
               </div>
               <div className="new-recommend-section" onChange={recommendSelect}>
                 <div>Do you recommend this product? </div>
-                <div>
+                <div className="input-radio">
                   <input type="radio" name="recommend-select" value="true" defaultChecked />  Yes
                 </div>
-                <div>
+                <div className="input-radio">
                   <input type="radio" name="recommend-select" value="false" />  No
                 </div>
               </div>
 
               <div className="characteristic-table" onChange={characteristicSelect}>
+                Characteristic:
                 {characterTable}
               </div>
+
+              <div className="review-summary-section">
+                <NewSummary summaryInput={summaryInput} />
+              </div>
+
+              <div className="review-body-section">
+                <NewBody bodyInput={bodyInput} />
+              </div>
+
+
+
+
 
               <div className="button-section">
                 <button className="review-modal-closeBtn" data-testid={`close-`} onClick={() => { handleCloseClick() }} >Close</button>
