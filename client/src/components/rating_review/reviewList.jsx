@@ -45,17 +45,26 @@ class reviewList extends React.Component {
 
   handleMoreReviewClick() {
     var currentReviewIdx = this.state.displayReview.length //2
-    //console.log(currentReviewIdx)
     var newDisplayReview = this.state.displayReview
-    if (this.state.reviewDataCopy.length > newDisplayReview.length) {
-      for (let i = 0; i < 2; i++) {
-        newDisplayReview.push(this.state.reviewDataCopy[currentReviewIdx])
-        currentReviewIdx++
-      }
+    console.log('lengths: ', this.state.reviewDataCopy.length, newDisplayReview.length)
 
-      this.setState({
-        displayReview: newDisplayReview
-      })
+    if (this.state.reviewDataCopy.length > newDisplayReview.length) {
+      if (this.state.reviewDataCopy.length - newDisplayReview.length >= 2) {
+
+
+        for (let i = 0; i < 2; i++) {
+          console.log(currentReviewIdx, ": ", this.state.reviewDataCopy[currentReviewIdx])
+          newDisplayReview.push(this.state.reviewDataCopy[currentReviewIdx])
+          currentReviewIdx++
+        }
+
+        this.setState({
+          displayReview: newDisplayReview
+        })
+      }
+      else {
+        newDisplayReview.push(this.state.reviewDataCopy[this.state.reviewDataCopy.length - 1])
+      }
     } else if (this.state.reviewDataCopy.length === newDisplayReview.length) {
       this.setState({
         loadBtn: false
