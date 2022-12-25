@@ -11,7 +11,7 @@ const newSummary = (props) => {
 
   return (
     <>
-      Review summary
+      Review summary <span className="errMsg">{props.summaryErrorMsg}</span>
       <textarea className="summary-textarea" maxLength="60" type="text" placeholder={placeholderText} onChange={handleTextareaChange} ></textarea>
     </>
   )

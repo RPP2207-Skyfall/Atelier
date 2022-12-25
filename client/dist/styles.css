@@ -358,7 +358,7 @@ main {
 .new-review-content {
   max-width: 700px;
   min-height: 700px;
-  top: 30%
+  top: 50%
 }
 
 .content-container {
@@ -459,8 +459,8 @@ main {
 
 .summary-textarea {
   width: 100%;
-  height: 32px;
-  padding: 2px 5px 2px 5px
+  height: 30px;
+  padding: 1px 5px 1px 5px
 }
 
 .review-body-section {
@@ -484,7 +484,7 @@ main {
 }
 
 .photo-upload-section {
-  margin: 10px 7px 0 5px;
+  margin: 5px 7px 0 5px;
 }
 
 .preview-container {
@@ -498,6 +498,32 @@ main {
   text-align: center;
   padding: 5px;
   text-decoration: none;
+}
+
+.user-info-section {
+  margin: 5px 7px 10px 5px;
+}
+
+.disclaimer {
+  font-size: 14px;
+  color: rgba(22, 22, 22, 0.619);
+}
+
+.nickname-textarea {
+  width: 60%;
+  height: 30px;
+  padding: 1px 5px 1px 5px
+}
+
+.email-textarea {
+  width: 60%;
+  height: 30px;
+  padding: 1px 5px 1px 5px
+}
+
+.errMsg {
+  font-size: 14px;
+  color: rgb(128, 9, 9);
 }
 
 */

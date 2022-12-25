@@ -40,7 +40,7 @@ const overallStar = (props) => {
 
   return (
     <>
-      Your Overall Rating  {asteris ? <span className="asteris">*</span> : null}
+      Your Overall Rating  {asteris ? <span className="asteris">*</span> : null} <span className="errMsg">{props.errorStarMsg}</span>
       <div className="star-rating">
         {[...Array(5)].map((star, idx) => {
           return (

@@ -4,18 +4,32 @@ import OverallStar from './overallStar.jsx'
 import NewSummary from './newSummary.jsx'
 import NewBody from './newBody.jsx'
 import UploadPhoto from './uploadPhoto.jsx'
+import UserInfo from './userInfo.jsx'
 
 const newReviewModal = (props) => {
 
   const [characterTable, setCharacterTable] = useState([])
-  const [star, setStar] = useState(0)
-  const [recommendSelection, setRecommendSelection] = useState(true)
-  const [characteristicSelection, setCharacteristicSelection] = useState({})
-  const [summary, setSummary] = useState("")
-  const [body, setbody] = useState("")
-  const [asteris, setAsteris] = useState(true)
+  const [star, setStar] = useState(0) // user input
+  const [recommendSelection, setRecommendSelection] = useState(true) // user input
+  const [characteristicSelection, setCharacteristicSelection] = useState({}) // user input
+  const [summary, setSummary] = useState("") // user input
+  const [body, setbody] = useState("") // user input
+  const [charAsteris, setCharAsteris] = useState(true)
+  const [nickname, setNickname] = useState("") // user input
+  const [email, setEmail] = useState("")// user input
+  const [errorStarMsg, setStarErrorMsg] = useState("")
+  const [charErrorMsg, setCharErrorMsg] = useState("")
+  const [summaryErrorMsg, setSummaryErrorMsg] = useState("")
+  const [bodyErrorMsg, setBodyErrorMsg] = useState("")
+  const [nicknameErrorMsg, setNicknameErrorMsg] = useState("")
+  const [emailErrorMsg, setEmailErrorMsg] = useState("")
+  const [UploadErrorMsg, setUploadErrorMsg] = useState("")
+
+
+
 
   const characteristicsObj = props.characteristics
+  let characterTableLength = 0
 
 
   const definitionObj = {
@@ -33,9 +47,29 @@ const newReviewModal = (props) => {
       let characterTable = await helpers.generateCharacteristicTable(characteristicsObj, definitionObj)
       //console.log(characterTable)
       setCharacterTable(characterTable)
+      characterTableLength = characterTable.length
 
     })()
   }, [characteristicsObj])
+
+  useEffect(() => {
+    setStarErrorMsg("")
+  }, [star])
+  useEffect(() => {
+    setCharErrorMsg("")
+  }, [characteristicSelection])
+  useEffect(() => {
+    setSummaryErrorMsg("")
+  }, [summary])
+  useEffect(() => {
+    setBodyErrorMsg("")
+  }, [body])
+  useEffect(() => {
+    setNicknameErrorMsg("")
+  }, [nickname])
+  useEffect(() => {
+    setEmailErrorMsg("")
+  }, [email])
 
   const handleCloseClick = () => {
     props.handleCloseReviewModal()
@@ -57,7 +91,7 @@ const newReviewModal = (props) => {
     characteristicSelection[split[0]] = split[2]
     setCharacteristicSelection(characteristicSelection)
     if (Object.keys(characteristicSelection).length === Object.keys(characteristicsObj).length) {
-      setAsteris(false)
+      setCharAsteris(false)
     }
   }
 
@@ -68,8 +102,42 @@ const newReviewModal = (props) => {
     setbody(body)
   }
 
+  const useInfo = (source, data) => {
+    switch (source) {
+      case "nickname":
+        setNickname(data)
+        break;
+      case "email":
+        setEmail(data)
+        break;
+    }
+  }
+
   const handleSubmit = () => {
     //props.addNewReview()
+    if (star === 0) {
+      setStarErrorMsg("You must enter the following:")
+    }
+    if (Object.keys(characteristicSelection).length === 0) {
+      setCharErrorMsg("You must enter the following:")
+    }
+    if (summary.length === 0) {
+      setSummaryErrorMsg("You must enter the following:")
+    }
+    if (body.length === 0) {
+      setBodyErrorMsg("You must enter the following:")
+    }
+    if (body.length < 50 && body.length !== 0) {
+      setBodyErrorMsg("The review body is less than 50 characters")
+    }
+    if (nickname.length === 0) {
+      setNicknameErrorMsg("You must enter the following:")
+    }
+    if (email.length === 0) {
+      setEmailErrorMsg("You must enter the following:")
+    }
+    // email validation and upload validation
+
   }
 
 
@@ -84,7 +152,7 @@ const newReviewModal = (props) => {
               <div className="new-review-subtitle">{`About the ${props.productName}`}</div>
 
               <div className="overall-rating-section">
-                <OverallStar starSelection={starSelection} />
+                <OverallStar starSelection={starSelection} errorStarMsg={errorStarMsg} />
               </div>
               <div className="new-recommend-section" onChange={recommendSelect}>
                 <div>Do you recommend this product? </div>
@@ -97,25 +165,29 @@ const newReviewModal = (props) => {
               </div>
 
               <div className="characteristic-table" onChange={characteristicSelect}>
-                Characteristic: {asteris ? <span className="asteris">*</span> : null}
+                Characteristic: {charAsteris ? <span className="asteris">*</span> : null} <span className="errMsg">{charErrorMsg}</span>
                 {characterTable}
               </div>
 
               <div className="review-summary-section">
-                <NewSummary summaryInput={summaryInput} />
+                <NewSummary summaryInput={summaryInput} summaryErrorMsg={summaryErrorMsg} />
               </div>
 
               <div className="review-body-section">
-                <NewBody bodyInput={bodyInput} />
+                <NewBody bodyInput={bodyInput} bodyErrorMsg={bodyErrorMsg} />
               </div>
 
               <div className="photo-upload-section">
-                <UploadPhoto />
+                <UploadPhoto UploadErrorMsg={UploadErrorMsg} />
+              </div>
+
+              <div className="user-info-section">
+                <UserInfo useInfo={useInfo} nicknameErrorMsg={nicknameErrorMsg} emailErrorMsg={emailErrorMsg} />
               </div>
 
               <div className="button-section">
                 <button className="review-modal-closeBtn" data-testid={`close-`} onClick={() => { handleCloseClick() }} >Close</button>
-                <button className="review-modal-submitBtn" data-testid={`submit-`} >Submit</button>
+                <button className="review-modal-submitBtn" data-testid={`submit-`} onClick={handleSubmit}>Submit</button>
               </div>
             </div>
           </div>

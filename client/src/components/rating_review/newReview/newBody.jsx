@@ -4,7 +4,7 @@ import helpers from '../helperFunctions/helper.js'
 const newBody = (props) => {
 
   const [asteris, setAsteris] = useState(true)
-  const placeholderText = 'Why did you like the product or not?'
+  const placeholderText = '“Why did you like the product or not?”'
   const [summaryLength, setSummaryLength] = useState(0)
   const [lengthRemaining, setLengthRemaining] = useState(0)
 
@@ -26,7 +26,7 @@ const newBody = (props) => {
 
   return (
     <>
-      Review body {asteris ? <span className="asteris">*</span> : null}
+      Review body {asteris ? <span className="asteris">*</span> : null} <span className="errMsg">{props.bodyErrorMsg}</span>
       <textarea className="body-textarea" maxLength="1000" type="text" placeholder={placeholderText} onChange={handleTextareaChange} ></textarea>
       {lengthRemaining > 0 ? <span className="minimum-Char">Minimum required characters left: {lengthRemaining}</span> : <span className="minimum-Char">Minimum reached</span>}
     </>
