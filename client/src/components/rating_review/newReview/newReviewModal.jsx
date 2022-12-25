@@ -12,6 +12,7 @@ const newReviewModal = (props) => {
   const [star, setStar] = useState(0) // user input
   const [recommendSelection, setRecommendSelection] = useState(true) // user input
   const [characteristicSelection, setCharacteristicSelection] = useState({}) // user input
+  const [charSelectionLength, setCharSelectionLength] = useState(0)
   const [summary, setSummary] = useState("") // user input
   const [body, setbody] = useState("") // user input
   const [charAsteris, setCharAsteris] = useState(true)
@@ -55,9 +56,7 @@ const newReviewModal = (props) => {
   useEffect(() => {
     setStarErrorMsg("")
   }, [star])
-  useEffect(() => {
-    setCharErrorMsg("")
-  }, [characteristicSelection])
+
   useEffect(() => {
     setSummaryErrorMsg("")
   }, [summary])
@@ -92,6 +91,7 @@ const newReviewModal = (props) => {
     setCharacteristicSelection(characteristicSelection)
     if (Object.keys(characteristicSelection).length === Object.keys(characteristicsObj).length) {
       setCharAsteris(false)
+      setCharErrorMsg("")
     }
   }
 
@@ -113,7 +113,7 @@ const newReviewModal = (props) => {
     }
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     //props.addNewReview()
     if (star === 0) {
       setStarErrorMsg("You must enter the following:")
@@ -137,6 +137,10 @@ const newReviewModal = (props) => {
       setEmailErrorMsg("You must enter the following:")
     }
     // email validation and upload validation
+    let validEmail = await helpers.emailValidation(email)
+    if (validEmail === false) {
+      setEmailErrorMsg("The email address provided is not in correct email format.")
+    }
 
   }
 

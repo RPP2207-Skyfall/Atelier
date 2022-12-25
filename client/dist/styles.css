@@ -507,6 +507,8 @@ main {
 .disclaimer {
   font-size: 14px;
   color: rgba(22, 22, 22, 0.619);
+  padding-left: 5px;
+  font-style: italic;
 }
 
 .nickname-textarea {

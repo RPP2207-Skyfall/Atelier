@@ -245,6 +245,18 @@ const helpers = {
 
     return currentStorage
 
+  },
+  emailValidation: (input) => {
+    //console.log(input.length)
+    if (input.length > 0) {
+      if (input.match(
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      )) {
+        return true
+      } else {
+        return false
+      }
+    }
   }
 }
 

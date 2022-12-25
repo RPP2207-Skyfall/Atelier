@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
+
 const userInfo = (props) => {
 
   const nicknamePlaceholderText = '“Example: jackson11!”'
   const emailPlaceholderText = "“Example: jackson11@email.com”"
   const [nameAsteris, setNameAsteris] = useState(true)
+
+
 
   const handleNicknameChange = (e) => {
     setNameAsteris(false)
@@ -13,12 +16,14 @@ const userInfo = (props) => {
     }
     props.useInfo('nickname', e.target.value)
   }
-  const handleEmailChange = (e) => {
+  const handleEmailChange = async (e) => {
     setNameAsteris(false)
     if (!e.target.value) {
       setNameAsteris(true)
     }
+
     props.useInfo('email', e.target.value)
+
   }
 
   return (
