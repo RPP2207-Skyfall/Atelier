@@ -87,11 +87,24 @@ main {
 
 .helpful-click {
   text-decoration: underline;
+  margin-left: 5px
 }
 
 .helpful-click:hover {
   font-weight: bold;
+  cursor: pointer;
 }
+
+.report-click {
+  text-decoration: underline;
+  margin-left: 10px
+}
+
+.report-click:hover {
+  font-weight: bold;
+  cursor: pointer;
+}
+
 
 .flex-column {
   padding: 2px 5px 15px 15px;
@@ -141,6 +154,7 @@ main {
 .addReviewBtn,
 .loadReviewBtn {
   background-color: #ffff;
+  margin: 0 5px 0 5px
 }
 
 .showMoreSpan {

@@ -11,7 +11,7 @@ class reviewList extends React.Component {
       reviewDataCopy: [],
       displayReview: [],
       loadBtn: false,
-      newReviewModal: true // set to true for development
+      newReviewModal: false // set to true for development
 
 
     }
@@ -104,7 +104,7 @@ class reviewList extends React.Component {
         <div className="reviewItemContaier">
           <div className="container-Content">
             {Array.isArray(this.state.displayReview) && datalength > 0 ? this.state.displayReview.map((item) =>
-              <ReviewItem reviewData={item} key={item.review_id} />
+              <ReviewItem reviewData={item} key={item.review_id} reportReview={this.props.reportReview} />
             ) : null}
           </div>
         </div>

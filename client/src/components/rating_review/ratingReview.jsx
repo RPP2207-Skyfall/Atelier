@@ -17,10 +17,9 @@ class RatingReview extends React.Component {
       metadata: {},
       filterValue: '',
       filterMap: { '1': false, '2': false, '3': false, '4': false, '5': false },
-      filterClicked: false
-
+      filterClicked: false,
+      reportReview: false
     }
-
   }
 
   componentDidMount() {
@@ -104,9 +103,7 @@ class RatingReview extends React.Component {
       }, () => {
         this.getProductReviews(this.state.product_id)
       })
-
     }
-
   }
 
   async hanleFilterClicked(filterValue, clicked) {
@@ -138,6 +135,12 @@ class RatingReview extends React.Component {
     console.log('trigger')
   }
 
+  reportReview() {
+    this.setState({
+      reportReview: true
+    })
+  }
+
 
   render() {
     return (
@@ -154,7 +157,10 @@ class RatingReview extends React.Component {
               characteristics={this.state.metadata.characteristics}
               currentSortValue={this.state.currentSortValue}
               updateSortMethod={this.updateSortMethod.bind(this)}
-              addNewReview={this.addNewReview.bind(this)} />
+              addNewReview={this.addNewReview.bind(this)}
+              reportReview={this.reportReview.bind(this)}
+            />
+
           </div>
         </div>
       </div>

@@ -20,6 +20,7 @@ const reviewItem = (props) => {
   const [partSummary, setPartSummary] = useState(null)
   const [partBody, setPartBody] = useState(null)
   const [showAll, setShowAll] = useState(false)
+  const [report, setReport] = useState("Report")
 
   useEffect(() => {
     if (props.reviewData.summary.length > summaryDisplayLimit) {
@@ -49,9 +50,11 @@ const reviewItem = (props) => {
     // STILL NEED TO UPDATE API
   }
 
-  // const reportReview = () => {
-  //   console.log('report')
-  // }
+  const reportReview = () => {
+
+    setReport('Reported')
+    props.reportReview()
+  }
 
 
   return (
@@ -84,7 +87,10 @@ const reviewItem = (props) => {
       </div>
 
       <div className="row flex-column">
-        <div className="helpfulCount" >Helpful? {<span className="helpful-click" data-testid="helpful-span" onClick={() => { helpfulVote() }}>Yes</span>} <span data-testid="helpful-count-span">{` (${helpfulCount})`} </span>  |  {<span onClick={() => { reportReview() }}>Report</span>}</div>
+        <div className="helpfulCount" >Helpful?
+          {<span className="helpful-click" data-testid="helpful-span" onClick={() => { helpfulVote() }}>Yes</span>}
+          <span data-testid="helpful-count-span">{` (${helpfulCount})`} </span>  |
+          {<span className="report-click" onClick={() => { reportReview() }}>{report}</span>}</div>
         <hr />
       </div>
     </div >
