@@ -460,7 +460,7 @@ main {
 .summary-textarea {
   width: 100%;
   height: 32px;
-  padding: 5px 0 0 5px
+  padding: 2px 5px 2px 5px
 }
 
 .review-body-section {
@@ -470,7 +470,7 @@ main {
 
 .body-textarea {
   width: 100%;
-  padding: 5px 0 0 5px;
+  padding: 2px 5px 2px 5px;
   height: 200px
 }
 
@@ -481,6 +481,23 @@ main {
 .minimum-Char {
   color: rgba(106, 105, 105, 0.809);
   font-size: 14px;
+}
+
+.photo-upload-section {
+  margin: 10px 7px 0 5px;
+}
+
+.preview-container {
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.preview-container div {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 5px;
+  text-decoration: none;
 }
 
 */
