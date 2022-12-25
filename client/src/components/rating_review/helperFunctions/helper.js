@@ -122,7 +122,7 @@ const helpers = {
 
   },
   filtering: (filterMap, originalReviewData, reviewData) => {
-    console.log('filterMap', filterMap)
+    //console.log('filterMap', filterMap)
 
     // if all filter are off
     if (Object.values(filterMap).every((value) => value === false)) {
@@ -134,13 +134,52 @@ const helpers = {
       var currentData = originalReviewData[i].rating.toString()
 
       if (filterMap[currentData]) {
-        console.log('pushing', originalReviewData[i])
+        //console.log('pushing', originalReviewData[i])
         filteredReviewArr.push(originalReviewData[i])
       }
     }
 
 
     return filteredReviewArr
+
+  },
+  breakdownCharacteristicsObj: (characteristicsObj) => {
+    //console.log('received charObj', characteristicsObj)
+    var definitionChart = {
+      Fit: ['Too tight', 'Perfect', 'Too loosey'],
+      Length: ['Too short', 'Perfect', 'Too long'],
+      Comfort: ['Uncomforable', 'OK', 'Perfect'],
+      Quality: ['Poor', 'What I expected', 'Great'],
+      Size: ['Too small', 'Perfect', 'Too big'],
+      Width: ['Too narrow', 'Perfect', 'Too wide']
+    }
+
+    // parseFloat(decimal.toFixed(1)) * 100
+
+    var characteristicsArr = []
+    for (let key in characteristicsObj) {
+      var indicatorPercentage = (parseFloat(characteristicsObj[key].value) * 10).toFixed(1)
+      var scaleLabelLeft = definitionChart[key][0]
+      var scaleLabelMiddle = definitionChart[key][1]
+      var scaleLabelRight = definitionChart[key][2]
+
+      characteristicsArr.push(
+        <div className="characteristic" key={characteristicsObj[key].id}>
+          <div className="row character-name">{key}</div>
+          <div className="row indicator-row">
+            <span className="scale-background">
+              <i className="indicator" style={{ "marginLeft": `${indicatorPercentage}%` }}>{'\u25B2'}</i>
+            </span>
+          </div>
+          <div className="row scale-label">
+            <span className="col-4 left-label">{scaleLabelLeft}</span>
+            <span className="col-4 middle-label">{scaleLabelMiddle}</span>
+            <span className="col-4 right-label">{scaleLabelRight}</span>
+          </div>
+        </div>
+      )
+    }
+    return characteristicsArr
 
   }
 }

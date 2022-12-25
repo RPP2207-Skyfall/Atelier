@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import OutfitList from './parts/Outfit/OutfitList.jsx';
 import RelatedList from './parts/RelatedItem/RelatedList.jsx';
 import Axios from 'axios';
@@ -7,96 +7,72 @@ import Axios from 'axios';
 
 
 const RelatedItem = (props) => {
+  const mainItemId = props.CurrentItemID
+  const [relatedList, updateRelatedList] = useState([71697,71698,71700,71701])
+  //current first index
+  const [pickIndex, setPickIndex] = useState(4);
+  //total card
+  const [childLength, setChildLength] = useState(0);
+  //starting point
+  const [offsetCarousel, seOffsetCarousel] = useState(0);
+  //one card width
+  const [childWidth, setChildWidth] = useState(210);
 
-  const [relatedList, updateRelatedList] = useState([])
-  const [relatedItemDetails, updateRelatedItemDetails] = useState([])
-  const [relatedItemImages, updateRelatedItemImages] = useState([])
-  const [relatedItemRating, updateRelatedItemRating] = useState([])
 
-
+  useEffect (()=> {
+    getRelatedID(mainItemId)
+    setChildLength(relatedList.length);
+  }, [])
 
   const getRelatedID = async (mainID) => {
-    try {
-      const list = await Axios.get('http://localhost:3000/relateItems', { params: { id: mainID } })
-      getRelatedDetails(list.data)
-      updateRelatedList(list.data)
-      getImage(list.data)
-      getRating(list.data)
-    } catch (err) {
-      console.log(err.message)
-    }
+    const promise = await Axios.get('http://localhost:3000/relateItemsID', { params: { id: mainID } })
+    Promise.resolve(promise)
+    .then((response => {
+      // console.log(response.data)
+      updateRelatedList(response.data)
+    }))
+    .catch ((err) => {
+    console.log(err.message)
+    })
   };
 
-  const getRelatedDetails = (relatedIDList) => {
-    const promiseArr = relatedIDList.map((id)=>{
-      return Axios.get('http://localhost:3000/details', {params:{id: id}})
-      .then((response) => {
-        return response.data
-      })
-      .catch((err) => {
-        console.error(err)
-      })
-    })
-    Promise.all(promiseArr)
-    .then((array) => {
-      updateRelatedItemDetails(array)
-      console.log('DetailArray', array.slice())
-    })
-  }
+  // const prevSlide = () => {
+  //   seOffsetCarousel( offsetCarousel - childWidth);
+  //   const myCarousel = document.getElementById("carousel-container").current.style = 'transform: translateX(' + ( 0 - offsetCarousel ) + 'px' + ')';
+  //   setPickIndex(pickIndex - 1);
+  //   // console.log(pickIndex);
+  //   // console.log(childLength);
+  //   if(pickIndex  <= 0) {
+  //     console.log("END");
+  //   }
+  // }
 
-  const getImage = (relatedIDList) => {
-    const promiseArr = relatedIDList.map((id)=>{
-      return Axios.get('http://localhost:3000/images', {params:{id: id}})
-      .then((response) => {
-        //need to retun a promise
-        return response.data
-      })
-      .catch((err) => {
-        console.error(err)
-      })
-    })
-    Promise.all(promiseArr)
-    .then((array) => {
-      updateRelatedItemImages(array)
-      console.log('ImageArray', array.slice())
-    })
-  }
+  // const nextSlide = () => {
+  //   seOffsetCarousel( offsetCarousel + childWidth);
+  //   const myCarousel = document.getElementById("carousel-container") = 'transform: translateX(' + ( 0 - offsetCarousel ) + 'px' + ')';
+  //   setPickIndex(pickIndex + 1);
+  //   console.log(pickIndex);
+  //   console.log(childLength);
 
-  const getRating = (relatedIDList) => {
-    const promiseArr = relatedIDList.map((id)=>{
-      return Axios.get('http://localhost:3000/rating', {params:{id: id}})
-      .then((response) => {
-        return (Number(response.data))
-      })
-      .catch((err) => {
-        console.error(err)
-      })
-    })
-    Promise.all(promiseArr)
-    .then((array) => {
-      updateRelatedItemImages(array)
-      console.log('RatingArr', array.slice())
-    })
-  }
-
-
-  // useEffect (()=> {
-  //   getRelatedID(71698)
-  //   console.log('use effect running')
-
-  // }, [])
-
+  //   if(pickIndex >= childLength) {
+  //     console.log("END");
+  //   }
+  // }
 
 
   return (
     <div className="main-container carousel-style">
-      <section className="carousel-upper">
       <h5>RELATED PRODUCTS</h5>
-      {/* <RelatedList itemDetails = {relatedItemDestils} itemImages = {relatedItemImages} itemRating = {relatedItemRating}/> */}
+      <section className="carousel-upper">
+      {/* arrw */}
+      <span className="left-arrow" ></span>
+      <span className="right-arrow"></span>
+      <RelatedList relatedList = {relatedList} outfitList = {props.outfitList} toggleStar = {props.toggleStar}/>
       </section>
       <h5>YOUR OUTFIT</h5>
+      <p>{JSON.stringify(props.outfitList)}</p>
       <section className="carousel-upper">
-      {/* <OutfitList/> */}
+      <OutfitList outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId}/>
       </section>
     </div>
   )

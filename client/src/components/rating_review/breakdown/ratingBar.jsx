@@ -8,6 +8,7 @@ const bar = (props) => {
   const star = props.star
   const [fill, setFill] = useState(0)
   const [clicked, setClicked] = useState(props.filterClicked)
+  const [highlighted, setHighlighted] = useState(false)
 
   useEffect(() => {
     (async () => {
@@ -16,11 +17,19 @@ const bar = (props) => {
     })()
   }, [totalAmount])
 
+  useEffect(() => {
+    setHighlighted(false)
+  }, [props.resetHighlighted])
+
+
+
   const hanleFilterClicked = (selectedStar, click) => {
     setClicked(click)
-    //console.log(selectedStar, click)
+    setHighlighted(!highlighted)
+
     props.hanleFilterClicked(selectedStar, click)
   }
+
 
 
 
@@ -28,7 +37,7 @@ const bar = (props) => {
 
     <div className="row bar-chart">
       <span className="col-2 starname-bar">
-        <span className={clicked ? 'star-name-selected' : 'star-name'} onClick={() => { hanleFilterClicked(star, !clicked) }}>{`${star} Star`}</span>
+        <span className={highlighted ? 'star-name-selected' : 'star-name'} onClick={() => { hanleFilterClicked(star, !clicked) }}>{`${star} Star`}</span>
       </span>
       <div className="col-8 bar-section">
         <div className="bar-container" style={{ "backgroundColor": "grey", "width": "150px" }}>
@@ -45,6 +54,3 @@ const bar = (props) => {
 
 export default bar
 
-// "width": "100%"
-
-// style = {{ "height": '10px', "backgroundColor": "grey" }}
