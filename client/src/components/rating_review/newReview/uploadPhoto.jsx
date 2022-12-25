@@ -63,9 +63,11 @@ const uploadPhoto = (props) => {
         uploadBtn ?
           <>
             <div>
-              <label htmlFor="upload-btn">
-                Upload image
-              </label>
+              <button type="button" className="upload-btn">
+                <label htmlFor="upload-btn">
+                  Upload image
+                </label>
+              </button>
               <input type="file" accept="image/*" id="upload-btn" name="review-image" multiple hidden
                 onChange={handleUploadClick} /> <span>{`(${currentAmount}/${maximum})`}</span>
             </div>

@@ -487,6 +487,10 @@ main {
   margin: 5px 7px 0 5px;
 }
 
+.upload-btn label {
+  margin: 0
+}
+
 .preview-container {
   overflow: auto;
   white-space: nowrap;
