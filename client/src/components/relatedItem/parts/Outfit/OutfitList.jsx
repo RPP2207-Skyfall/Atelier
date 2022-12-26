@@ -23,7 +23,7 @@ const OutfitList = (props) => {
   if (props.outfitList.length === 0 && props.outfit) {
     return (
       <div className="carousel-container">
-      {props.outfit && <div className="carousel-box" onClick= {()=>{props.toggleStar(mainItemID, props.outfitList)}}></div>}
+      {props.outfit && <div className="carousel-box" onClick= {()=>{props.toggleStar(mainItemID, props.outfitList)}}><div><h1>+</h1></div><div>Add Current Item</div></div>}
     </div>
     )
   } else {

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios'
 import Star from './../Star/relateStarRating.jsx';
-import ComparingChart from './../PopUp/ComparingChart.jsx'
-import SmallPicBox from './../PopUp/HoverPhoto.jsx'
+import ComparingChart from './../PopUp/ComparingChart.jsx';
+import SmallPicBox from './../PopUp/HoverPhoto.jsx';
 
 const OutfitCard = (props) => {
   const itemID = props.item
@@ -12,12 +12,14 @@ const OutfitCard = (props) => {
   const [picLibrary, updatePicLibrary] = useState ([])
   const [currentPic, updateCurPic] = useState("")
   const [starShow, toggleStar] = useState("emptyStar.png")
+  const [price, setPrice] = useState([])
+  const [sale, setSale] = useState(false)
 
   useEffect(() => {
     getDetails(itemID);
-    getImage(itemID);
+    getImageAndPrice(itemID);
     getRating(itemID);
-    checkOutfit(itemID, props.outfitList)
+    // checkOutfit(itemID, props.outfitList)
    }, [])
 
    const getDetails = async (id) => {
@@ -33,15 +35,20 @@ const OutfitCard = (props) => {
   }
 
 
-  const getImage = async (id) => {
-  await Axios.get('http://localhost:3000/getFirstImage', {params:{id: id}})
+  const getImageAndPrice = async (id) => {
+  await Axios.get('http://localhost:3000/getImageAndPrice', {params:{id: id}})
     .then((response) => {
-      if (response.data[0].thumbnail_url === null) {
+      if (response.data[0][0].thumbnail_url === null) {
         updateCurPic({thumbnail_url: "https://lyrictheatreokc.com/wp-content/uploads/2021/11/Ciao-Ciao-Image-Coming-Soon-500px.jpg"})
         return response.data
       } else {
-        updatePicLibrary(response.data)
-        updateCurPic(response.data[0])
+        updatePicLibrary(response.data[0])
+        updateCurPic(response.data[0][0])
+        setPrice([response.data[1], response.data[2]])
+        // console.log(response.data[2])
+        if (response.data[2] !== null) {
+        setSale(true)
+        }
         return response.data
       }
     })
@@ -71,15 +78,15 @@ const OutfitCard = (props) => {
   //   }
   // }
 
-  const checkOutfit = (currentID, OutfitList)=>  {
-    var index = OutfitList.indexOf(currentID)
-    var newList = OutfitList
-    if (index === -1) {
-      toggleStar("emptyStar.png")
-    } else {
-      toggleStar("FillStar.png")
-    }
-  }
+  // const checkOutfit = (currentID, OutfitList)=>  {
+  //   var index = OutfitList.indexOf(currentID)
+  //   var newList = OutfitList
+  //   if (index === -1) {
+  //     toggleStar("emptyStar.png")
+  //   } else {
+  //     toggleStar("FillStar.png")
+  //   }
+  // }
 
   const featureCompare = () => {
     var show = fearetureShow
@@ -89,6 +96,7 @@ const OutfitCard = (props) => {
   const setCurPhoto = (url) => {
     updateCurPic({thumbnail_url: url})
   }
+
 
 
 
@@ -114,9 +122,12 @@ const OutfitCard = (props) => {
           <div className="category-title" >{detail.category}</div>
           <div className="category-wrapper" onClick= {()=>{props.updateCurrentItemID(itemID)}}>
             <p>{detail.name}</p>
-            <div className="price-box">
+            {/* <div className="price-box">
               ${detail.default_price}
-            </div>
+            </div> */}
+              {sale && <span className="price-box"><div><s>${price[0]}</s></div> <div style={{color: 'red'}}>${price[1]}</div></span>}
+              {!sale && <div className="price-box">${detail.default_price}</div>}
+
             <div className="star-box">
               <Star rating={rating}/>
             </div>

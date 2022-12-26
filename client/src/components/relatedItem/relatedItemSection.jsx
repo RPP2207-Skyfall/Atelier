@@ -55,7 +55,7 @@ const RelatedItem = (props) => {
         </div>
       </section>
       <h5>YOUR OUTFIT</h5>
-        <p>{JSON.stringify(props.outfitList)}</p>
+        {/* <p>{JSON.stringify(props.outfitList)}</p> */}
       <section className="carousel-upper">
         <div className="carousel">
         <OutfitList outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId} outfit = {true} updateCurrentItemID = {props.updateCurrentItemID}/>

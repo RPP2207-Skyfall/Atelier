@@ -29,7 +29,7 @@ const ComparingChart = (props) => {
   // console.log(featureObj)
 
 
-  var tableChart = "<table>"
+  var tableChart = `<table>`
   for (var key in featureObj) {
     var first = "";
     var second = key;
@@ -76,10 +76,10 @@ const ComparingChart = (props) => {
       <div className="modal-container"><h6>COMPARING</h6>
         <span className= "modal-name">
           <div>
-            <h5>{MainItemName}</h5>
+            <h5><b>{MainItemName}</b></h5>
           </div>
           <div>
-          <h5>{CompareItemName}</h5>
+            <h5><b>{CompareItemName}</b></h5>
           </div>
         </span>
         <div className="compare-table" dangerouslySetInnerHTML={{__html: tableChart}} />

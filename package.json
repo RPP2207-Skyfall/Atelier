@@ -59,7 +59,8 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-jss": "^10.9.2",
-    "react-modal": "^3.16.1"
+    "react-modal": "^3.16.1",
+    "react-native-web": "^0.18.10"
   },
   "jest --config": {
     "testEnvironment": "jsdom",

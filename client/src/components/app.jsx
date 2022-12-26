@@ -9,11 +9,13 @@ class App extends React.Component {
     super(props);
     this.state = {
       OutfitList: [],
-      CurrentItemID: 71698
+      CurrentItemID: 71703
     }
     this.toggleStar = this.toggleStar.bind(this);
     this.updateCurrentItemID = this.updateCurrentItemID.bind(this);
   }
+
+
 
 
   updateCurrentItemID(newID) {
