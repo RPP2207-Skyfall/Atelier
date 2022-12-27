@@ -36,34 +36,31 @@ class RatingReview extends React.Component {
 
 
 
-  getProductReviews(product_id) {
-    var url = process.env.REACT_APP_API_REVIEW_URL
+  async getProductReviews(product_id) {
+    var url = `${process.env.REACT_APP_API_REVIEW_LOCALHOST}reviews`
     //console.log(url)
     var requestOption = {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY
-      },
-      params: {
-        product_id: product_id,
-        count: 15,
-        sort: this.state.currentSortValue
+      product_id: product_id,
+      count: 15,
+      sort: this.state.currentSortValue
+    }
+    console.log(url, requestOption)
+    try {
+      let getReviewData = await Axios.post('/reviews', requestOption)
+      // console.log(getReviewData)
+      if (getReviewData.data.results.length === 0) {
+        throw new Error('No data found')
+      } else {
+        this.setState({
+          reviewData: getReviewData.data.results,
+          originalReviewData: getReviewData.data.results
+        })
       }
     }
-    Axios.get(url, requestOption)
-      .then(res => {
-        if (res.data.results.length === 0) {
-          throw new Error('No data found')
-        } else {
-          this.setState({
-            reviewData: res.data.results,
-            originalReviewData: res.data.results
-          })
-        }
-      })
-      .catch(err => {
-        console.log("getProductReviews Err: ", err)
-      })
+    catch (err) {
+      console.log("getProductReviews Err: ", err)
+    }
+
   }
 
   getReviewMetadata = async (product_id) => {

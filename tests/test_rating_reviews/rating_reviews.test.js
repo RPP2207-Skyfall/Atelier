@@ -7,8 +7,8 @@ import ReviewWidget from "../../client/src/components/rating_review/ratingReview
 import ReviewList from "../../client/src/components/rating_review/reviewList.jsx"
 import ReviewItem from '../../client/src/components/rating_review/reviewItem.jsx'
 import SortMenu from '../../client/src/components/rating_review/sorting/sorting.jsx'
-import helperFn from '../../client/src/components/rating_review/starRating/helper.js'
-import RatingSummary from '../../client/src/components/rating_review/ratingSummary/ratingSummary.jsx'
+import helperFn from '../../client/src/components/rating_review/helperFunctions/helper.js'
+// import RatingSummary from '../../client/src/components/rating_review/ratingSummary/ratingSummary.jsx'
 import PhotoItem from '../../client/src/components/rating_review/reviewPhoto/photoItem.jsx'
 import { render, screen, waitFor, fireEvent, cleanup } from "@testing-library/react"
 import { act } from 'react-dom/test-utils'
