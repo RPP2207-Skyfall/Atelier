@@ -43,7 +43,7 @@ class ImageGallery extends React.Component {
 
       if (index === 0) {
         return (
-          <div className="default-image-gallery">
+          <div className="default-image-gallery" data-testid="image-gallery-test">
 
             <DefaultView  mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand}/>
             <Thumbnail

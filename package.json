@@ -11,7 +11,8 @@
     "client-dev": "npx webpack --watch",
     "build": "npx webpack",
     "start": "node server/index.js",
-    "test-related": "jest -- coverage relatedItem.test.js"
+    "test-related": "jest -- coverage relatedItem.test.js",
+    "test-overview": "jest --coverage Overview.test.js"
   },
   "repository": {
     "type": "git",
@@ -58,7 +59,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
-    "react-jss": "^10.9.2"
+    "react-jss": "^10.9.2",
+    "react-modal": "^3.16.1"
   },
   "jest --config": {
     "testEnvironment": "jsdom",

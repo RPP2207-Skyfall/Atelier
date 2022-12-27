@@ -423,7 +423,7 @@ class Overview extends React.Component {
   render() {
 
     if (this.state.done) {
-      // console.log(this.state)
+      // console.log('overview state', this.state)
       if (this.state.expanded) {
         return (
           <div className="overview-container-expanded">

@@ -8,25 +8,17 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import AddIcon from '@mui/icons-material/Add';
 
-
-
-//Receive product_id and get request
-//Pass down to QA List
-
-
 class QandA extends React.Component {
   constructor(props) {
     super(props);
     this.state={
       QA : [],
-      QA_searched : [],
       QA_shown: [],
       product_id: 71698,
-      isQueryOn: false,
+      isQAEmpty: true,
       isQModalOpen: false,
       isAModalOpen: false,
       isLastQuestion: false,
-      searchQuery:''
     };
     this.handleQModalOpen = this.handleQModalOpen.bind(this);
     this.handleQModalClose = this.handleQModalClose.bind(this);
@@ -43,6 +35,7 @@ class QandA extends React.Component {
 
   getProductQA(product_id) {
     var url = process.env.REACT_APP_API_QA_URL;
+    var sortedQA = [];
     var requestOption = {
       headers: {
         "Content-Type": "application/json",
@@ -55,13 +48,23 @@ class QandA extends React.Component {
     }
     Axios.get(url, requestOption)
       .then(res => {
-        this.setState({
-          QA: res.data.results,
-          QA_shown: [res.data.results[0], res.data.results[1]]
-        })
+        if (res.data.results.length > 0) {
+          sortedQA = res.data.results.sort(function(a,b) {
+            return b['question_helpfulness'] - a['question_helpfulness'];
+          });
+          this.setState({
+            QA: sortedQA,
+            QA_shown: [sortedQA[0], sortedQA[1]],
+            isQAEmpty: false
+          })
+        } else {
+          this.setState({
+            isQAEmpty: true
+          })
+        }
       })
       .catch(err => {
-        // console.log("Err: ", err)
+        console.log("Err: ", err)
       })
   };
 
@@ -90,28 +93,16 @@ class QandA extends React.Component {
   };
 
   handleSearch(query) {
-    this.setState({
-      searchQuery: query
-    });
-    if (this.state.searchQuery.length >= 3) {
+    var query = query.toLowerCase();
+    var questionList = this.state.QA;
+    var result = questionList.filter(item => item.question_body.toLowerCase().includes(query));
+    if (query.length >= 3) {
       this.setState({
-        isQueryOn: true
+        QA_shown: result
       })
     } else {
       this.setState({
-        isQueryOn: false
-      })
-    }
-
-    if (this.state.isQueryOn) {
-      var questionList = this.state.QA;
-      var result = questionList.filter(item => item.question_body.includes(this.state.searchQuery));
-      this.setState({
-        QA_searched: result
-      })
-    } else {
-      this.setState({
-        QA_searched: []
+        QA_shown: this.state.QA
       })
     }
   };
@@ -132,19 +123,29 @@ class QandA extends React.Component {
         isLastQuestion: true
       })
     }
-  }
+  };
 
   render() {
-    console.log(this.state.QA_shown.length, this.state.QA.length);
+
     return (
       <div className='question-and-answer-main' data-testid='question-and-answer-main'>
         <h4>QUESTIONS & ANSWERS</h4>
-        <Search handleSearch={this.handleSearch}/>
-        <QAList list={this.state.isQueryOn ? this.state.QA_searched : this.state.QA_shown} handleAModalOpen={this.handleAModalOpen} isAModalOpen={this.state.isAModalOpen} handleAModalClose={this.handleAModalClose} product_name={this.props.product_name}/>
-        <Stack spacing={1} direction={{ xs: 'column', xs: 'row' }}>
-          {this.state.isLastQuestion ? null: <Button variant='outlined' size='medium' className='question-and-answer-more-question-btn' onClick={this.loadMoreAnsweredQs}>MORE ANSWERED QUESTIONS</Button>}
-          <Button variant='outlined' size='medium' onClick={this.handleQModalOpen} className='question-and-answer-add-question-btn'>ADD A QUESTION <AddIcon/></Button>
-        </Stack>
+        {this.state.isQAEmpty ?
+          <React.Fragment>
+            <p>Seems like there is no question posted for this product...</p>
+            <Button variant='outlined' size='medium' onClick={this.handleQModalOpen} className='question-and-answer-add-question-btn'>ADD A QUESTION <AddIcon/></Button>
+          </React.Fragment> :
+          <div className='question-and-answer-main-components'>
+            <Search handleSearch={this.handleSearch}/>
+            <div className='question-and-answer-main-components-scrollable'>
+            <QAList list={this.state.QA_shown} handleAModalOpen={this.handleAModalOpen} isAModalOpen={this.state.isAModalOpen} handleAModalClose={this.handleAModalClose} product_name={this.props.product_name}/>
+            </div>
+            <Stack spacing={1} direction={{ xs: 'column', xs: 'row' }}>
+              {this.state.isLastQuestion ? null: <Button variant='outlined' size='medium' className='question-and-answer-more-question-btn' onClick={this.loadMoreAnsweredQs}>MORE ANSWERED QUESTIONS</Button>}
+              <Button variant='outlined' size='medium' onClick={this.handleQModalOpen} className='question-and-answer-add-question-btn'>ADD A QUESTION <AddIcon/></Button>
+            </Stack>
+          </div>
+        }
         <QuestionModal isQModalOpen={this.state.isQModalOpen} handleQModalClose={this.handleQModalClose} product_name={this.props.product_name}/>
       </div>
     )
