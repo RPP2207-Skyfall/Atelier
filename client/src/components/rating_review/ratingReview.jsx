@@ -18,7 +18,8 @@ class RatingReview extends React.Component {
       filterValue: '',
       filterMap: { '1': false, '2': false, '3': false, '4': false, '5': false },
       filterClicked: false,
-      reportReview: false
+      isHelpfulReviewId: '',
+      reportReview: ''
     }
   }
 
@@ -123,9 +124,15 @@ class RatingReview extends React.Component {
     console.log('trigger')
   }
 
-  reportReview() {
+  updateIsHelpful(review_id) {
     this.setState({
-      reportReview: true
+      isHelpfulReviewId: review_id
+    })
+  }
+
+  reportReview(review_id) {
+    this.setState({
+      reportReview: review_id
     })
   }
 
@@ -147,6 +154,7 @@ class RatingReview extends React.Component {
               updateSortMethod={this.updateSortMethod.bind(this)}
               addNewReview={this.addNewReview.bind(this)}
               reportReview={this.reportReview.bind(this)}
+              updateIsHelpful={this.updateIsHelpful.bind(this)}
             />
 
           </div>

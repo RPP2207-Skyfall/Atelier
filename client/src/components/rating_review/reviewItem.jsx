@@ -6,6 +6,7 @@ const reviewItem = (props) => {
   var summaryDisplayLimit = 60
   var bodyDisplayLimit = 250
   var helpfulnessCount = props.reviewData.helpfulness || 0
+  var review_id = props.reviewData.review_id
   var dateOption = {
     day: "numeric",
     month: "long",
@@ -17,6 +18,7 @@ const reviewItem = (props) => {
 
   const [createDateTime, setCreateDateTime] = useState(dateTime)
   const [helpfulCount, setHelpfulCount] = useState(helpfulnessCount)
+  const [isHelpful, setIsHelpful] = useState(false)
   const [partSummary, setPartSummary] = useState(null)
   const [partBody, setPartBody] = useState(null)
   const [showAll, setShowAll] = useState(false)
@@ -47,13 +49,16 @@ const reviewItem = (props) => {
     } else {
       setHelpfulCount(helpfulCount + 1)
     }
-    // STILL NEED TO UPDATE API
+    setIsHelpful(!isHelpful)
+    if (isHelpful) {
+      props.updateIsHelpful(review_id)
+    }
   }
 
   const reportReview = () => {
 
     setReport('Reported')
-    props.reportReview()
+    props.reportReview(review_id)
   }
 
 
