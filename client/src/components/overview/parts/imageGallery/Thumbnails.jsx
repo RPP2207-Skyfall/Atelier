@@ -38,6 +38,8 @@ class Thumbnail extends React.Component {
 
   render() {
 
+    // console.log('props in thumbnauk', this.props)
+
     if (!this.props.images || this.props.images.length === 0 || !this.props.currentThumbnails) {
       console.log('error is thumbnails')
       return (
@@ -55,7 +57,7 @@ class Thumbnail extends React.Component {
       // console.log('currentSection', currentSection)
 
       return (
-        <div className="thumbnail-container">
+        <div className="thumbnail-container" data-testid='thumbnail-test'>
           {
             currentSection.map((image, i) => {
 

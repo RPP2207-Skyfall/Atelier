@@ -436,7 +436,7 @@ class Overview extends React.Component {
         )
       }
       return (
-        <div className="overview-container">
+        <div className="overview-container" data-testid="overview-test">
           <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} />
           <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle} />
           <AddToCart

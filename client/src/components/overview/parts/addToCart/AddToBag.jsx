@@ -50,7 +50,7 @@ function AddToBag(props) {
 
   if (!props.selected) {
     return (
-      <div className="add-to-bag-container">
+      <div className="add-to-bag-container" data-testid="add-to-bag-unselected-test">
         <div className="add-to-bag-button" onClick={() => forceSelection()}>
           <p>ADD TO BAG</p>
           <div className="add-to-bag-plus">+</div>
@@ -60,7 +60,7 @@ function AddToBag(props) {
     )
   } else {
     return (
-      <div className="add-to-bag-container">
+      <div className="add-to-bag-container" data-testid="add-to-bag-selected-test">
         <div className="add-to-bag-button" onClick={() => updateCart(bag)}>
           <p>ADD TO BAG</p>
           <div className="add-to-bag-plus">+</div>

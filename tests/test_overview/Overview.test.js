@@ -6,6 +6,10 @@ import AddToCart from "../../client/src/components/overview/parts/addToCart/AddT
 import ImageGallery from "../../client/src/components/overview/parts/imageGallery/ImageGallery.jsx";
 import StyleSelector from "../../client/src/components/overview/parts/styleSelector/StyleSelector.jsx";
 import Overview from "../../client/src/components/overview/Overview.jsx";
+import AddToBag from '../../client/src/components/overview/parts/addToCart/AddToBag.jsx'
+import Thumbnail from "../../client/src/components/overview/parts/imageGallery/Thumbnails.jsx";
+import DefaultView from "../../client/src/components/overview/parts/imageGallery/views/DefaultView.jsx";
+import ZoomBox from "../../client/src/components/overview/parts/imageGallery/views/ZoomBox.jsx";
 import helperFunctions from './overview_functions.js';
 import { render, screen, waitFor, fireEvent, container, cleanup } from "@testing-library/react";
 import '@testing-library/jest-dom';
@@ -3335,6 +3339,78 @@ const helpers = {
   }
 }
 
+const addToBag = {
+  "selectedQuant": 0,
+  "selected": null,
+  "quant": 0,
+  "style": {
+      "style_id": 444218,
+      "name": "Forest Green & Black",
+      "original_price": "140.00",
+      "sale_price": null,
+      "default?": true,
+      "photos": [
+          {
+              "thumbnail_url": "https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
+              "url": "https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80",
+              "index": 0
+          },
+          {
+              "thumbnail_url": "https://images.unsplash.com/photo-1534011546717-407bced4d25c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
+              "url": "https://images.unsplash.com/photo-1534011546717-407bced4d25c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80",
+              "index": 1
+          },
+          {
+              "thumbnail_url": "https://images.unsplash.com/photo-1549831243-a69a0b3d39e0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
+              "url": "https://images.unsplash.com/photo-1549831243-a69a0b3d39e0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2775&q=80",
+              "index": 2
+          },
+          {
+              "thumbnail_url": "https://images.unsplash.com/photo-1527522883525-97119bfce82d?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
+              "url": "https://images.unsplash.com/photo-1527522883525-97119bfce82d?ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80",
+              "index": 3
+          },
+          {
+              "thumbnail_url": "https://images.unsplash.com/photo-1556648202-80e751c133da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
+              "url": "https://images.unsplash.com/photo-1556648202-80e751c133da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80",
+              "index": 4
+          },
+          {
+              "thumbnail_url": "https://images.unsplash.com/photo-1532543491484-63e29b3c1f5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
+              "url": "https://images.unsplash.com/photo-1532543491484-63e29b3c1f5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80",
+              "index": 5
+          }
+      ],
+      "skus": {
+          "2580526": {
+              "quantity": 8,
+              "size": "XS"
+          },
+          "2580527": {
+              "quantity": 16,
+              "size": "S"
+          },
+          "2580528": {
+              "quantity": 17,
+              "size": "M"
+          },
+          "2580529": {
+              "quantity": 10,
+              "size": "L"
+          },
+          "2580530": {
+              "quantity": 15,
+              "size": "XL"
+          },
+          "2580531": {
+              "quantity": 4,
+              "size": "XL"
+          }
+      }
+  },
+  "skuToBuy": null
+}
+
 
 describe("Jest default test", () => {
   test('use jsdom in this test file', () => {
@@ -3377,7 +3453,33 @@ describe("Image Gallery", () => {
     expect(ImageGalleryBetweenTest).toBeInTheDocument();
   });
 
+  test("should render the thumbnails", async () => {
+    render(
+      <Thumbnail
+      info={state} currentThumbnails={state.currentThumbnails} index={0}
+      images={state.currentStyle.photos} section={state.thumbnailSection}
+      thumbnailSection={state.thumbnailSection}
+    />
+    )
+    var ThumbnailTest = screen.getByTestId('thumbnail-test');
+    expect(ThumbnailTest).toBeInTheDocument();
+  });
 
+  test("should render the default view", async () => {
+    render(
+      <DefaultView  mainPic={"https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"} />
+    )
+    var DefaultViewTest = screen.getByTestId('default-view-test');
+    expect(DefaultViewTest).toBeInTheDocument();
+  });
+
+  test("should render the Zoom Box view", async () => {
+    render(
+      <ZoomBox mainPic={"https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"} />
+    )
+    var ZoomBoxTest = screen.getByTestId('zoom-box-test');
+    expect(ZoomBoxTest).toBeInTheDocument();
+  });
 
 
 
@@ -3449,6 +3551,27 @@ describe("Add To Cart", () => {
     expect(AddToCartOutOfStock).toBeInTheDocument();
   });
 
+  test("add to bag should have force selection if nothing is selected", async () => {
+    // render add to cart
+    render(<AddToBag selectedQuant={addToBag.selectedQuant} selectQuant={addToBag.selectQuant}
+      selected={addToBag.selected} quant={addToBag.sizeQuantity} style={addToBag.currentStyle} skuToBuy={addToBag.skuToBuy}
+      likeOutfit={addToBag.likeOutfit}/>
+    )
+
+    var AddToBagUnselected = screen.getByTestId("add-to-bag-unselected-test");
+    expect(AddToBagUnselected).toBeInTheDocument();
+  });
+
+  test("add to bag should have add to bag functionality", async () => {
+    // render add to cart
+    render(<AddToBag selectedQuant={addToBag.selectedQuant} selectQuant={addToBag.selectQuant}
+      selected={"S"} quant={addToBag.sizeQuantity} style={addToBag.currentStyle} skuToBuy={addToBag.skuToBuy}
+      likeOutfit={addToBag.likeOutfit}/>
+    )
+    var AddToBagSelected = screen.getByTestId("add-to-bag-selected-test");
+    expect(AddToBagSelected).toBeInTheDocument();
+  });
+
 
 })
 
@@ -3496,6 +3619,16 @@ describe("Product Info", () => {
   });
 
 })
+
+// describe("Overview", () => {
+//   test("should render Overview component", async () => {
+//     // render add to cart
+//     render(<Overview/>)
+
+//     var Overview = screen.getByTestId('overview-test');
+//     expect(Overview).toBeInTheDocument();
+//   });
+// })
 
 
 

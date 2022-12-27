@@ -76,7 +76,7 @@ function ZoomBox(props) {
 //   clearInterval(interval)
 // })
 
-  console.log('props in ZOOM', props)
+  // console.log('props in ZOOM', props)
 
   // useEffect(() => {
   //   // Update the document title using the browser API
@@ -84,29 +84,29 @@ function ZoomBox(props) {
   // });
 
   const getCursorPos = (img) =>{
-      var a, x = 0, y = 0;
-      let e = window.event;
-      /* Get the x and y positions of the image: */
-      a = img.getBoundingClientRect();
-      /* Calculate the cursor's x and y coordinates, relative to the image: */
-      x = e.pageX - a.left;
-      y = e.pageY - a.top;
-      /* Consider any page scrolling: */
-      x = x - window.pageXOffset;
-      y = y - window.pageYOffset;
-      // console.log({x : x, y : y})
-      return {x : x, y : y};
+      // var a, x = 0, y = 0;
+      // let e = window.event;
+      // /* Get the x and y positions of the image: */
+      // a = img.getBoundingClientRect();
+      // /* Calculate the cursor's x and y coordinates, relative to the image: */
+      // x = e.pageX - a.left;
+      // y = e.pageY - a.top;
+      // /* Consider any page scrolling: */
+      // x = x - window.pageXOffset;
+      // y = y - window.pageYOffset;
+      // // console.log({x : x, y : y})
+      // return {x : x, y : y};
   }
 
     function moveMagnifier(img) {
-      var pos, x, y;
-      var e = window.event;
+      // var pos, x, y;
+      // var e = window.event;
       /* Prevent any other actions that may occur when moving over the image */
-      e.preventDefault();
+      // e.preventDefault();
       /* Get the cursor's x and y positions: */
-      pos = getCursorPos(img);
+      // pos = getCursorPos(img);
 
-      console.log(pos);
+      // console.log(pos);
 
       // x = pos.x;
       // y = pos.y;
@@ -148,7 +148,7 @@ function ZoomBox(props) {
   })
 
   return (
-    <div className="zoom-box-container">
+    <div className="zoom-box-container" data-testid='zoom-box-test'>
       <img  className='zoom-box-img' id="myimage" src={props.mainPic} alt="style"/>
     </div>
   )
