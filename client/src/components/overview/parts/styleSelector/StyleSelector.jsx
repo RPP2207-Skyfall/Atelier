@@ -9,7 +9,7 @@ function StyleSelector(props) {
   if (props.styles.results) {
 
     return (
-      <div className="style-container">
+      <div className="style-container" data-testid="style-selector-test">
 
         <div className="style-name">Style > {props.currentStyle.name}</div>
 
@@ -41,7 +41,13 @@ function StyleSelector(props) {
     )
 
   } else {
-    return null;
+    return (
+      <div data-testid='style-selector-sad-test'>
+        Please check back later
+      </div>
+    )
+
+    // return null;
   }
 }
 

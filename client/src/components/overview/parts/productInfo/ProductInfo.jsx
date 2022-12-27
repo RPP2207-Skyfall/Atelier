@@ -14,11 +14,11 @@ function ProductInfo(props) {
     });
   }
 
-  let reviewNum = props.info.reviewData.length;
+
 
   if (props.info.data === undefined) {
     return (
-      <div className="product-info">
+      <div className="product-info" data-testid="product-info-no-data">
         <div className="product-info-stars">Stars TEST</div>
         <div className="product-info-reviews">read all # reviews</div>
         <div className="product-info-category">category</div>
@@ -29,9 +29,10 @@ function ProductInfo(props) {
   } else if (props.info.data.length !== 0 && props.style && props.rating && !props.style.sale_price) {
 
     // console.log('product infor porps', props)
+    let reviewNum = props.info.reviewData.length;
 
     return (
-      <div className="product-info" data-testid="product-info-loaded">
+      <div className="product-info" data-testid="product-info-loaded-test">
         <h3>Product Info</h3>
 
         {/* <div className="product-info-stars">Stars</div> */}
@@ -45,6 +46,7 @@ function ProductInfo(props) {
       </div>
     )
   } else if (props.style.sale_price) {
+    let reviewNum = props.info.reviewData.length;
     return (
       <div className="product-info" data-testid="product-info-loaded">
         <h3>Product Info</h3>

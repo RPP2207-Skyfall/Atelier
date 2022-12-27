@@ -62,7 +62,7 @@ class ImageGallery extends React.Component {
         )
       } else if (index === this.props.info.amount - 1) {
         return (
-          <div className="default-image-gallery">
+          <div className="default-image-gallery" data-testid="image-gallery-end-index">
 
             <DefaultView  mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand}/>
             <Thumbnail
@@ -81,7 +81,7 @@ class ImageGallery extends React.Component {
         )
       } else {
         return (
-          <div className="default-image-gallery">
+          <div className="default-image-gallery" data-testid="image-gallery-between-index">
 
             <DefaultView  mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand}/>
             <Thumbnail
@@ -105,7 +105,7 @@ class ImageGallery extends React.Component {
       // console.log('expanede')
 
       return (
-        <div className="expanded-image-gallery">
+        <div className="expanded-image-gallery" data-testid='image-gallery-expanded-test'>
           <ExpandedView mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand}/>
           <Thumbnail
             info={this.props.info} index={index} updateMainPic={this.props.updateMainPic}
@@ -123,6 +123,9 @@ class ImageGallery extends React.Component {
       )
     }
     else {
+      <div data-testid="image-gallery-sad-path">
+        Please Try Again Later
+      </div>
 
       return null;
     }

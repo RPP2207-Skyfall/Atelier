@@ -7,6 +7,14 @@ function AddToCart(props) {
 
   const [open, setOpen] = useState(false);
   const [noSelection, forceSelection] = useState(false);
+  const [select, makeSelection] = useState(false);
+
+  const selectSize = (size, quant, sku) => {
+    makeSelection(!select);
+    props.selectSize(size, quant, sku);
+
+
+  }
 
   const handleNoSelection = () => {
     forceSelection(!noSelection);
@@ -21,7 +29,7 @@ function AddToCart(props) {
 
   if (props.currentStyle && Object.keys(props.currentStyle.skus).length === 0) {
     return (
-      <div>
+      <div data-testid="add-to-cart-out-of-stock">
         OUT OF STOCK
       </div>
     )
@@ -31,10 +39,10 @@ function AddToCart(props) {
   // console.log('props in add to cart', props)
 
   if (open && props.currentStyle && !noSelection) {
-    // console.log('Add to Cart', props.currentStyle.skus);
+    console.log('Add to Cart open', props);
     let skus = props.currentStyle.skus
     return (
-      <div className="add-to-cart-dropdown-open" onClick={handleOpen}>
+      <div className="add-to-cart-dropdown-open" data-testid='add-to-cart-open-test' onClick={handleOpen}>
 
         {
           Object.keys(props.currentStyle.skus).map((sku, i) => {
@@ -42,7 +50,8 @@ function AddToCart(props) {
 
             if (skus[currentSku].quantity > 0) {
               return (
-                <div className="size-option" onClick={() => props.selectSize(skus[currentSku].size, skus[currentSku].quantity, sku)} key={i} >
+                // <div className="size-option" onClick={() => props.selectSize(skus[currentSku].size, skus[currentSku].quantity, sku)} key={i} >
+                <div className="size-option" onClick={() => selectSize(skus[currentSku].size, skus[currentSku].quantity, sku)} key={i} >
                   <p>{skus[currentSku].size}</p>
                 </div>
               )
@@ -81,8 +90,9 @@ function AddToCart(props) {
       </div>
     )
   } else if (props.selected) {
+    console.log('im here')
     return (
-      <div className="add-to-cart-container">
+      <div className="add-to-cart-container" data-testid='add-to-cart-selected'>
         <div className="upper-section-add-to-cart-selected">
           <div className="add-to-cart-dropdown-selected" onClick={handleOpen}>
             <h1 >{props.selected}</h1>
@@ -98,7 +108,7 @@ function AddToCart(props) {
     )
   } else {
     return (
-      <div className="add-to-cart-container">
+      <div className="add-to-cart-container" data-testid="add-to-cart-selectSize-test">
         <div className="upper-section-add-to-cart">
           <div className="add-to-cart-dropdown-closed" onClick={handleOpen}>
             <h3>SELECT SIZE</h3>
