@@ -37,14 +37,12 @@ class RatingReview extends React.Component {
 
 
   async getProductReviews(product_id) {
-    var url = `${process.env.REACT_APP_API_REVIEW_LOCALHOST}reviews`
-    //console.log(url)
     var requestOption = {
       product_id: product_id,
       count: 15,
       sort: this.state.currentSortValue
     }
-    console.log(url, requestOption)
+
     try {
       let getReviewData = await Axios.post('/reviews', requestOption)
       // console.log(getReviewData)
@@ -64,24 +62,17 @@ class RatingReview extends React.Component {
   }
 
   getReviewMetadata = async (product_id) => {
-    var url = process.env.REACT_APP_API_REVIEW_METADATA_URL
-    //console.log(url)
+
     var requestOption = {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY
-      },
-      params: {
-        product_id: product_id
-      }
+      product_id: product_id
     }
     try {
-      let res = await Axios.get(url, requestOption)
-      //console.log('gg', res)
-      if (!res.data) {
+      let getMetadat = await Axios.post('/metadata', requestOption)
+      //console.log('gg', getMetadat)
+      if (!getMetadat.data) {
         throw new Error('No data found')
       } else {
-        this.setState({ metadata: res.data })
+        this.setState({ metadata: getMetadat.data })
       }
     } catch (err) {
       console.log("getReviewMetadata Err: ", err)
