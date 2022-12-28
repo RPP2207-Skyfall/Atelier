@@ -8,7 +8,7 @@ const controller = require('./controllers/')
 // router.get('/metadata', controller.review.get_metadata)
 router.get('/relateItemsID', controller.relatedID.getRelatedItemsID)
 router.get('/getRating', controller.rating.getRating)
-router.get('/getFirstImage', controller.image.getFirstImage)
+router.get('/getImageAndPrice', controller.image.getImageAndPrice)
 router.get('/getItemDetails', controller.itemDetails.getItemDetails)
 
 

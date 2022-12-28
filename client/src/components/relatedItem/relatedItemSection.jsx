@@ -1,27 +1,28 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import OutfitList from './parts/Outfit/OutfitList.jsx';
-import RelatedList from './parts/RelatedItem/RelatedList.jsx';
+// import RelatedList from './parts/RelatedItem/RelatedList.jsx';
 import Axios from 'axios';
 
-
+let pickIndex = 0;
+let offsetCarousel = 0;
+let childWidth = 0;
+let childLength = 0;
+let cardToShow = 4;
 
 const RelatedItem = (props) => {
   const mainItemId = props.CurrentItemID
-  const [relatedList, updateRelatedList] = useState([71697,71698,71700,71701])
-  //current first index
-  const [pickIndex, setPickIndex] = useState(4);
-  //total card
-  const [childLength, setChildLength] = useState(0);
-  //starting point
-  const [offsetCarousel, seOffsetCarousel] = useState(0);
-  //one card width
-  const [childWidth, setChildWidth] = useState(210);
+  const [relatedList, updateRelatedList] = useState([])
+
+  //arrow show
+  const [leftArr, setLeftArr] = useState(false);
+  const [rightArr, setRightArr] = useState(true);
 
 
   useEffect (()=> {
+    // console.log('rerender secection')
     getRelatedID(mainItemId)
-    setChildLength(relatedList.length);
+    //use .length directly avoid state.
   }, [])
 
   const getRelatedID = async (mainID) => {
@@ -36,28 +37,46 @@ const RelatedItem = (props) => {
     })
   };
 
-  // const prevSlide = () => {
-  //   seOffsetCarousel( offsetCarousel - childWidth);
-  //   const myCarousel = document.getElementById("carousel-container").current.style = 'transform: translateX(' + ( 0 - offsetCarousel ) + 'px' + ')';
-  //   setPickIndex(pickIndex - 1);
-  //   // console.log(pickIndex);
-  //   // console.log(childLength);
-  //   if(pickIndex  <= 0) {
-  //     console.log("END");
-  //   }
-  // }
+  //arrow func
+  const myCarousel = useRef(null);
+  const carouselOutbox = useRef(null);
 
-  // const nextSlide = () => {
-  //   seOffsetCarousel( offsetCarousel + childWidth);
-  //   const myCarousel = document.getElementById("carousel-container") = 'transform: translateX(' + ( 0 - offsetCarousel ) + 'px' + ')';
-  //   setPickIndex(pickIndex + 1);
-  //   console.log(pickIndex);
-  //   console.log(childLength);
+  const prevSlide = () => {
+    // console.log(pickIndex);
+    if(pickIndex > 0) {
+      pickIndex = pickIndex - 1;
+      offsetCarousel = offsetCarousel - childWidth;
+      myCarousel.current.style = 'transform: translateX(' + ( 0 - offsetCarousel ) + 'px' + ')';
+      setRightArr(true)
 
-  //   if(pickIndex >= childLength) {
-  //     console.log("END");
-  //   }
-  // }
+      if(pickIndex > 0) {
+        setLeftArr(true)
+      } else {
+        setLeftArr(false)
+      }
+    }
+  }
+
+  const nextSlide = () => {
+    childLength = myCarousel.current.childNodes.length; // 用來計算終點
+    childWidth = carouselOutbox.current.offsetWidth / cardToShow;
+    // console.log('childLength', childLength)
+    // console.log('childWidth', childWidth)
+    // （選取的的Card Index + 預設顯示數) 小於 Carousel 終點
+    if((pickIndex + cardToShow) < (childLength)) { // 正式的時候把 +1 拿掉
+      pickIndex = pickIndex + 1;
+      offsetCarousel = offsetCarousel + childWidth;
+      myCarousel.current.style = 'transform: translateX(' + ( 0 - offsetCarousel ) + 'px' + ')';
+      setLeftArr(true);
+
+      if((pickIndex + cardToShow) === (childLength )) {
+        setRightArr(false)
+      } else {
+        setRightArr(true)
+      }
+    }
+  }
+
 
 
   return (
@@ -65,14 +84,18 @@ const RelatedItem = (props) => {
       <h5>RELATED PRODUCTS</h5>
       <section className="carousel-upper">
       {/* arrw */}
-      <span className="left-arrow" ></span>
-      <span className="right-arrow"></span>
-      <RelatedList relatedList = {relatedList} outfitList = {props.outfitList} toggleStar = {props.toggleStar}/>
+      { leftArr ? <span className="left-arrow" onClick={() => prevSlide()}></span> : <></> }
+      { rightArr ? <span className="right-arrow" onClick={() => nextSlide()}></span> : <></> }
+        <div className="carousel" ref = { carouselOutbox }>
+          <OutfitList ref = { myCarousel } relatedList = {relatedList} outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId} outfit = {false} updateCurrentItemID = {props.updateCurrentItemID}/>
+        </div>
       </section>
       <h5>YOUR OUTFIT</h5>
-      <p>{JSON.stringify(props.outfitList)}</p>
+        {/* <p>{JSON.stringify(props.outfitList)}</p> */}
       <section className="carousel-upper">
-      <OutfitList outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId}/>
+        <div className="carousel">
+        <OutfitList outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId} outfit = {true} updateCurrentItemID = {props.updateCurrentItemID}/>
+        </div>
       </section>
     </div>
   )

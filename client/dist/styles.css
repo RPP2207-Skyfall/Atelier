@@ -49,6 +49,7 @@ main {
   max-width: 840px;
   padding: 16px;
   margin: auto;
+  box-sizing: content-box;
 }
 
 #root {
@@ -954,9 +955,13 @@ main {
 
 .main-container {
   display: block;
-  width: 90%;
-  max-width: 880px;
+  width: 880px;
   margin: 0 auto;
+}
+
+.carousel {
+  width: 100%;
+  overflow: hidden;
 }
 
 .carousel-style h5 {
@@ -966,6 +971,7 @@ main {
 
 .carousel-upper {
   margin: 0 0 35px 0;
+  position: relative;
   /* overflow: hidden; */
 }
 
@@ -993,6 +999,19 @@ main {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+
+}
+
+.carousel-center {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .image-box {
@@ -1023,6 +1042,7 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  z-index: 2;
 }
 
 .category-title {
@@ -1046,6 +1066,7 @@ main {
 }
 
 .price-box {
+  display: flex;
   margin: 0;
   font-size: 0.6rem;
   text-align: left;
@@ -1082,6 +1103,7 @@ main {
   position: absolute;
   left: -2.5%;
   top: 50%;
+  text-align: left;
   transform: translate(0%, -50%);
   z-index: 2;
   width: 25px;
@@ -1101,6 +1123,7 @@ main {
   position: absolute;
   right: -2.5%;
   top: 50%;
+  text-align: right;
   transform: translate(0%, -50%);
   z-index: 2;
   width: 25px;
@@ -1114,6 +1137,125 @@ main {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+
+/*Compare chart*/
+
+.modal-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(255, 255, 255, 0.30);
+  z-index: 998;
+}
+
+.modal-container {
+  position: fixed;
+  cursor: pointer;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: auto;
+  width: auto;
+  background: rgb(255, 255, 255);
+  border-style: solid;
+  border-width: 1px;
+  z-index: 999;
+  padding: 20px;
+}
+.modal-name {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+}
+
+table {
+  table-layout: fixed;
+  width: 600px
+}
+
+
+th,
+td {
+  padding: 5px;
+  text-align: center;
+}
+
+/*hover photo library*/
+
+.sensor-box{
+  position: absolute;
+  /* display: inline-flex; */
+  /* flex-direction: row; */
+  /* align-items: end; */
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 120px;
+  left: 0;
+  top: 180px;
+  width: 100%;
+  overflow-x: scroll;
+  z-index: 0;
+  background-color: rgba(255, 255, 255, 0);
+  padding: 0 0 0 0px;
+  opacity: 100;
+  transform: translate(0, -60px);
+  transition-duration: 1s;
+  cursor: grab;
+}
+
+.hidden-box {
+  position: relative;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 60px;
+  left: 0;
+  top: 120px;
+  z-index: 1;
+  background-color: grey;
+  padding: 0 0 0 5px;
+  opacity: 100;
+  transform: translate(0, -60px);
+  transition-duration: 1s;
+  cursor: grab;
+}
+
+
+.sensor-box:hover {
+  opacity: 100%;
+  transform: translate(0, -120px);
+}
+
+.small-box {
+  position: relative;
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+  margin-right: 5px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+
+}
+
+.add-outfit {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
