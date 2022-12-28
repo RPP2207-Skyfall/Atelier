@@ -87,7 +87,8 @@ const newReviewModal = (props) => {
 
   const characteristicSelect = (e) => {
     var split = e.target.value.split(',')
-    characteristicSelection[split[0]] = split[2]
+    //console.log(split)
+    characteristicSelection[split[0]] = parseInt(split[1])
     setCharacteristicSelection(characteristicSelection)
     if (Object.keys(characteristicSelection).length === Object.keys(characteristicsObj).length) {
       setCharAsteris(false)

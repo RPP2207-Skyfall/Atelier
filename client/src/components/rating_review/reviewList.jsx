@@ -11,7 +11,7 @@ class reviewList extends React.Component {
       reviewDataCopy: [],
       displayReview: [],
       loadBtn: false,
-      newReviewModal: false // set to true for development
+      newReviewModal: true // set to true for development
 
 
     }
