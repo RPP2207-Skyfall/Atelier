@@ -49,6 +49,7 @@ main {
   max-width: 840px;
   padding: 16px;
   margin: auto;
+  box-sizing: content-box;
 }
 
 #root {
@@ -753,8 +754,7 @@ main {
 
 .main-container {
   display: block;
-  width: 80%;
-  max-width: 840px;
+  width: 880px;
   margin: 0 auto;
 }
 
@@ -798,6 +798,19 @@ main {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+
+}
+
+.carousel-center {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .image-box {
@@ -889,6 +902,7 @@ main {
   position: absolute;
   left: -2.5%;
   top: 50%;
+  text-align: left;
   transform: translate(0%, -50%);
   z-index: 2;
   width: 25px;
@@ -908,6 +922,7 @@ main {
   position: absolute;
   right: -2.5%;
   top: 50%;
+  text-align: right;
   transform: translate(0%, -50%);
   z-index: 2;
   width: 25px;
@@ -922,6 +937,7 @@ main {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 
 /*Compare chart*/
 
