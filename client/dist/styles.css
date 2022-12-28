@@ -87,11 +87,24 @@ main {
 
 .helpful-click {
   text-decoration: underline;
+  margin-left: 5px
 }
 
 .helpful-click:hover {
   font-weight: bold;
+  cursor: pointer;
 }
+
+.report-click {
+  text-decoration: underline;
+  margin-left: 10px
+}
+
+.report-click:hover {
+  font-weight: bold;
+  cursor: pointer;
+}
+
 
 .flex-column {
   padding: 2px 5px 15px 15px;
@@ -141,6 +154,7 @@ main {
 .addReviewBtn,
 .loadReviewBtn {
   background-color: #ffff;
+  margin: 0 5px 0 5px
 }
 
 .showMoreSpan {
@@ -344,6 +358,193 @@ main {
   padding: 0 0 10px 0
 }
 
+.new-review-title {
+  color: rgb(24, 195, 180);
+  margin: 5px 7px 2px 0px;
+  font-size: 22px;
+}
+
+.new-review-subtitle {
+  margin: 0 7px 5px 5px;
+  font-size: 16px;
+}
+
+.new-review-content {
+  max-width: 700px;
+  min-height: 700px;
+  top: 50%
+}
+
+.content-container {
+  padding: 20px 15px 15px 15px
+}
+
+.review-modal-closeBtn {
+  margin: 0 10px 0 10px;
+  border-radius: 5px;
+}
+
+.review-modal-submitBtn {
+  margin: 0 10px 0 10px;
+  border-radius: 5px;
+}
+
+.button-section {
+  margin: 0 27% 0 32%;
+  padding: 0 10% 0 5%;
+  /* bottom: 2% */
+}
+
+.overall-rating-section {
+  margin: 25px 7px 5px 5px;
+}
+
+.star-rating button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.star-on {
+  color: #000
+}
+
+.star-off {
+  color: #ccc
+}
+
+.new-recommend-section {
+  margin: 5px 7px 5px 5px;
+  font-size: 16px;
+}
+
+.new-recommend-section .input-radio {
+  display: inline-block;
+}
+
+.input-radio {
+  margin: 0 5px 0 5px;
+}
+
+.characteristic-table {
+  margin: 10px 7px 5px 5px;
+}
+
+.char-title {
+  margin: 15px 40% 5px 40%;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+.definition-name {
+  font-size: 14px;
+
+  display: inline-block;
+  zoom: 1;
+
+  width: 20%;
+  text-align: center;
+}
+
+.char-input>input {
+  display: inline-block;
+  zoom: 1;
+  width: 20%;
+  text-align: center;
+}
+
+.review-summary-section {
+  margin: 5px 7px 5px 5px;
+  font-size: 16px;
+}
+
+.review-body-section {
+  margin: 5px 7px 5px 5px;
+  font-size: 16px;
+}
+
+.review-summary-section {
+  margin: 20px 7px 5px 5px;
+  font-size: 16px;
+}
+
+.summary-textarea {
+  width: 100%;
+  height: 30px;
+  padding: 1px 5px 1px 5px
+}
+
+.review-body-section {
+  margin: 10px 7px 0 5px;
+  font-size: 16px;
+}
+
+.body-textarea {
+  width: 100%;
+  padding: 2px 5px 2px 5px;
+  height: 200px
+}
+
+.asteris {
+  color: rgb(128, 9, 9);
+}
+
+.minimum-Char {
+  color: rgba(106, 105, 105, 0.809);
+  font-size: 14px;
+}
+
+.photo-upload-section {
+  margin: 5px 7px 0 5px;
+}
+
+.upload-btn label {
+  margin: 0
+}
+
+.preview-container {
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.preview-container div {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.user-info-section {
+  margin: 5px 7px 10px 5px;
+}
+
+.disclaimer {
+  font-size: 14px;
+  color: rgba(22, 22, 22, 0.619);
+  padding-left: 5px;
+  font-style: italic;
+}
+
+.nickname-textarea {
+  width: 60%;
+  height: 30px;
+  padding: 1px 5px 1px 5px
+}
+
+.email-textarea {
+  width: 60%;
+  height: 30px;
+  padding: 1px 5px 1px 5px
+}
+
+.errMsg {
+  font-size: 14px;
+  color: rgb(128, 9, 9);
+}
 
 */
 /**********************************************/

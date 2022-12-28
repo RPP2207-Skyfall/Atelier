@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ReviewItem from './reviewItem.jsx'
 import SortMenu from './sorting/sorting.jsx'
+import NewReviewModal from './newReview/newReviewModal.jsx'
 
 
 class reviewList extends React.Component {
@@ -9,7 +10,8 @@ class reviewList extends React.Component {
     this.state = {
       reviewDataCopy: [],
       displayReview: [],
-      loadBtn: false
+      loadBtn: false,
+      newReviewModal: false // set to true for development
 
 
     }
@@ -43,17 +45,26 @@ class reviewList extends React.Component {
 
   handleMoreReviewClick() {
     var currentReviewIdx = this.state.displayReview.length //2
-    //console.log(currentReviewIdx)
     var newDisplayReview = this.state.displayReview
-    if (this.state.reviewDataCopy.length > newDisplayReview.length) {
-      for (let i = 0; i < 2; i++) {
-        newDisplayReview.push(this.state.reviewDataCopy[currentReviewIdx])
-        currentReviewIdx++
-      }
+    console.log('lengths: ', this.state.reviewDataCopy.length, newDisplayReview.length)
 
-      this.setState({
-        displayReview: newDisplayReview
-      })
+    if (this.state.reviewDataCopy.length > newDisplayReview.length) {
+      if (this.state.reviewDataCopy.length - newDisplayReview.length >= 2) {
+
+
+        for (let i = 0; i < 2; i++) {
+          console.log(currentReviewIdx, ": ", this.state.reviewDataCopy[currentReviewIdx])
+          newDisplayReview.push(this.state.reviewDataCopy[currentReviewIdx])
+          currentReviewIdx++
+        }
+
+        this.setState({
+          displayReview: newDisplayReview
+        })
+      }
+      else {
+        newDisplayReview.push(this.state.reviewDataCopy[this.state.reviewDataCopy.length - 1])
+      }
     } else if (this.state.reviewDataCopy.length === newDisplayReview.length) {
       this.setState({
         loadBtn: false
@@ -69,6 +80,18 @@ class reviewList extends React.Component {
 
   }
 
+  handleAddReviewClick() {
+    this.setState({
+      newReviewModal: true
+    })
+    // this.props.addNewReview()
+  }
+
+  handleCloseReviewModal() {
+    this.setState({
+      newReviewModal: !this.state.newReviewModal
+    })
+  }
 
 
 
@@ -81,12 +104,16 @@ class reviewList extends React.Component {
         <div className="reviewItemContaier">
           <div className="container-Content">
             {Array.isArray(this.state.displayReview) && datalength > 0 ? this.state.displayReview.map((item) =>
-              <ReviewItem reviewData={item} key={item.review_id} />
+              <ReviewItem reviewData={item} key={item.review_id} reportReview={this.props.reportReview} />
             ) : null}
           </div>
         </div>
-        {this.state.loadBtn ? <button className="loadReviewBtn" data-testid="moreReviewBtn-testId" onClick={() => { this.handleMoreReviewClick() }}>MORE REVIEWS</button> : null} <button className="addReviewBtn" data-testid="addReviewBtn-testId">ADD A REVIEW +</button>
-        <></>
+        {this.state.loadBtn ?
+          <button className="loadReviewBtn" data-testid="moreReviewBtn-testId" onClick={() => { this.handleMoreReviewClick() }}>MORE REVIEWS</button> : null}
+        <button className="addReviewBtn" data-testid="addReviewBtn-testId" onClick={() => this.handleAddReviewClick()}>ADD A REVIEW +</button>
+        {this.state.newReviewModal ?
+          <NewReviewModal addNewReview={this.props.addNewReview} handleCloseReviewModal={this.handleCloseReviewModal.bind(this)} productName={this.props.productName} characteristics={this.props.characteristics} /> :
+          null}
       </div>
 
 
