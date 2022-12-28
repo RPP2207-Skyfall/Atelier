@@ -19,7 +19,7 @@ module.exports = {
       }
     }
 
-    Axios(url, requestOption)
+    Axios.get(url, requestOption)
       .then((result) => {
         //console.log(result.data)
         res.send(result.data)
@@ -43,7 +43,7 @@ module.exports = {
       }
     }
 
-    Axios(url, requestOption)
+    Axios.get(url, requestOption)
       .then((result) => {
         //console.log(result.data)
         res.send(result.data)
@@ -57,7 +57,23 @@ module.exports = {
 
   },
   mark_helpful: (req, res) => {
+    //console.log(req.bod.review_id)
+    var url = `${process.env.REACT_APP_API_REVIEW_HELPFUL}/${req.body.review_id}/helpful`
+    var requestOption = {
+      headers: {
 
+        "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY
+      }
+    }
+    Axios.put(url, requestOption)
+      .then((result) => {
+        console.log('here', result)
+        //res.send()
+      })
+      .catch((err) => {
+        console.log('mark helpful error: ', err)
+        res.send(err)
+      })
   },
   report_review: (req, res) => {
 

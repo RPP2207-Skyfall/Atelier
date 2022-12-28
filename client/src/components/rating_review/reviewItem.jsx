@@ -50,9 +50,9 @@ const reviewItem = (props) => {
       setHelpfulCount(helpfulCount + 1)
     }
     setIsHelpful(!isHelpful)
-    if (isHelpful) {
-      props.updateIsHelpful(review_id)
-    }
+
+    props.updateIsHelpful(review_id)
+
   }
 
   const reportReview = () => {

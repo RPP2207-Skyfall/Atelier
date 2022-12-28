@@ -74,19 +74,25 @@ class RatingReview extends React.Component {
   }
 
 
-  updateSortMethod(sortMethod) {
-    console.log(sortMethod)
-    if (sortMethod === 'relevance') {
-      sortMethod = 'relevant'
-    }
-    if (sortMethod !== this.state.currentSortValue) {
-      this.setState({
-        currentSortValue: sortMethod
-      }, () => {
-        this.getProductReviews(this.state.product_id)
-      })
-    }
+  addNewReview() {
+
   }
+
+  async updateIsHelpful(review_id) {
+    //console.log(review_id)
+    var requestOption = {
+      review_id: review_id
+    }
+    let markHelpful = await Axios.put('/helpful', requestOption)
+    console.log('helpful', markHelpful)
+  }
+
+  reportReview(review_id) {
+
+  }
+  /**connect to express server**/
+  /***************************************/
+
 
   async hanleFilterClicked(filterValue, clicked) {
     //console.log(filterValue, 'new value')
@@ -106,20 +112,19 @@ class RatingReview extends React.Component {
 
   }
 
-  addNewReview() {
-
+  updateSortMethod(sortMethod) {
+    console.log(sortMethod)
+    if (sortMethod === 'relevance') {
+      sortMethod = 'relevant'
+    }
+    if (sortMethod !== this.state.currentSortValue) {
+      this.setState({
+        currentSortValue: sortMethod
+      }, () => {
+        this.getProductReviews(this.state.product_id)
+      })
+    }
   }
-
-  updateIsHelpful(review_id) {
-
-  }
-
-  reportReview(review_id) {
-
-  }
-  /**connect to express server**/
-  /***************************************/
-
 
   resetAllFilter() {
     this.setState({
