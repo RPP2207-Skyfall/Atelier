@@ -19,7 +19,7 @@ class App extends React.Component {
   updateCurrentItemID(newID) {
     console.log('update ID', newID)
     this.setState({CurrentItemID: newID})
-    console.log(this.state.CurrentItemID)
+    // console.log(this.state.CurrentItemID)
   }
 
   toggleStar(currentID) {
