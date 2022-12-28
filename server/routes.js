@@ -11,7 +11,7 @@ router.put('/helpful', controller.review.mark_helpful)
 router.put('/report', controller.review.report_review)
 router.get('/relateItemsID', controller.relatedID.getRelatedItemsID)
 router.get('/getRating', controller.rating.getRating)
-router.get('/getFirstImage', controller.image.getFirstImage)
+router.get('/getImageAndPrice', controller.image.getImageAndPrice)
 router.get('/getItemDetails', controller.itemDetails.getItemDetails)
 
 
