@@ -18,7 +18,7 @@ const reviewItem = (props) => {
 
   const [createDateTime, setCreateDateTime] = useState(dateTime)
   const [helpfulCount, setHelpfulCount] = useState(helpfulnessCount)
-  const [isHelpful, setIsHelpful] = useState(false)
+  //const [isHelpful, setIsHelpful] = useState(false)
   const [partSummary, setPartSummary] = useState(null)
   const [partBody, setPartBody] = useState(null)
   const [showAll, setShowAll] = useState(false)
@@ -44,19 +44,18 @@ const reviewItem = (props) => {
   }
 
   const helpfulVote = () => {
-    if (helpfulCount > helpfulnessCount) {
-      setHelpfulCount(helpfulCount - 1)
-    } else {
-      setHelpfulCount(helpfulCount + 1)
-    }
-    setIsHelpful(!isHelpful)
+    // if (helpfulCount > helpfulnessCount) {
+    //   setHelpfulCount(helpfulCount - 1)
+    // } else {
+    setHelpfulCount(helpfulCount + 1)
+    //}
+    //setIsHelpful(!isHelpful)
 
     props.updateIsHelpful(review_id)
 
   }
 
   const reportReview = () => {
-
     setReport('Reported')
     props.reportReview(review_id)
   }

@@ -75,7 +75,7 @@ class RatingReview extends React.Component {
 
 
   addNewReview() {
-
+    console.log('trigger')
   }
 
   async updateIsHelpful(review_id) {
@@ -83,12 +83,30 @@ class RatingReview extends React.Component {
     var requestOption = {
       review_id: review_id
     }
-    let markHelpful = await Axios.put('/helpful', requestOption)
-    console.log('helpful', markHelpful)
+    try {
+      let markHelpful = await Axios.put('/helpful', requestOption)
+      //console.log('helpful', markHelpful)
+      if (markHelpful.status === 204) {
+        console.log('marked helpful')
+      }
+    } catch (err) {
+      console.log('mark helpful error: ', err)
+    }
+
   }
 
-  reportReview(review_id) {
-
+  async reportReview(review_id) {
+    var requestOption = {
+      review_id: review_id
+    }
+    try {
+      let reportReview = await Axios.put('/report', requestOption)
+      if (reportReview.status === 204) {
+        console.log('reported')
+      }
+    } catch (err) {
+      console.log('report review error: ', err)
+    }
   }
   /**connect to express server**/
   /***************************************/
@@ -133,9 +151,7 @@ class RatingReview extends React.Component {
     })
   }
 
-  addNewReview() {
-    console.log('trigger')
-  }
+
 
 
 

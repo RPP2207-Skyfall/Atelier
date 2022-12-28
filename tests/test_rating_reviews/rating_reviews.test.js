@@ -180,17 +180,17 @@ describe("ReviewItem Component", () => {
     expect(await screen.getByTestId('helpful-count-span').textContent).toEqual(' (19) ')
 
   })
-  test("Should Helpfulness count decremented by 1 when Yes is clicked the second time  ", async () => {
-    // const { container } = render(<ReviewItem reviewData={testData.reviewData_sample1} />);
-    await act(async () => {
-      render(<ReviewItem reviewData={testData.reviewData_sample1} />)
-    })
-    const spanToClick = screen.getByTestId('helpful-span')
-    fireEvent.click(spanToClick)
-    fireEvent.click(spanToClick)
-    expect(await screen.getByTestId('helpful-count-span').textContent).toEqual(' (18) ')
+  // test("Should Helpfulness count decremented by 1 when Yes is clicked the second time  ", async () => {
+  //   // const { container } = render(<ReviewItem reviewData={testData.reviewData_sample1} />);
+  //   await act(async () => {
+  //     render(<ReviewItem reviewData={testData.reviewData_sample1} />)
+  //   })
+  //   const spanToClick = screen.getByTestId('helpful-span')
+  //   fireEvent.click(spanToClick)
+  //   fireEvent.click(spanToClick)
+  //   expect(await screen.getByTestId('helpful-count-span').textContent).toEqual(' (18) ')
 
-  })
+  // })
 
   test("Should render 0 if helpfulness count is not found", async () => {
     // const { container } = render(<ReviewItem reviewData={testData.reviewData_sample1} />);

@@ -57,18 +57,14 @@ module.exports = {
 
   },
   mark_helpful: (req, res) => {
-    //console.log(req.bod.review_id)
+    // console.log(req.body.review_id)
+    Axios.defaults.headers.common['Authorization'] = process.env.REACT_APP_API_REVIEW_RATING_KEY
     var url = `${process.env.REACT_APP_API_REVIEW_HELPFUL}/${req.body.review_id}/helpful`
-    var requestOption = {
-      headers: {
 
-        "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY
-      }
-    }
-    Axios.put(url, requestOption)
+    Axios.put(url)
       .then((result) => {
-        console.log('here', result)
-        //res.send()
+        //console.log('here', result)
+        res.sendStatus(204)
       })
       .catch((err) => {
         console.log('mark helpful error: ', err)
@@ -76,7 +72,18 @@ module.exports = {
       })
   },
   report_review: (req, res) => {
-
+    console.log(req.body.review_id)
+    Axios.defaults.headers.common['Authorization'] = process.env.REACT_APP_API_REVIEW_RATING_KEY
+    var url = `${process.env.REACT_APP_API_REVIEW_HELPFUL}/${req.body.review_id}/report`
+    Axios.put(url)
+      .then((result) => {
+        //console.log('here', result)
+        res.sendStatus(204)
+      })
+      .catch((err) => {
+        console.log('report review error: ', err)
+        res.send(err)
+      })
   },
 
 }
