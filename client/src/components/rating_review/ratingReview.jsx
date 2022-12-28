@@ -17,9 +17,7 @@ class RatingReview extends React.Component {
       metadata: {},
       filterValue: '',
       filterMap: { '1': false, '2': false, '3': false, '4': false, '5': false },
-      filterClicked: false,
-      isHelpfulReviewId: '',
-      reportReview: ''
+      filterClicked: false
     }
   }
 
@@ -27,15 +25,10 @@ class RatingReview extends React.Component {
     this.getProductReviews(this.state.product_id)
     this.getReviewMetadata(this.state.product_id)
   }
-  // componentDidUpdate(prevProps, prevState) {
-  //   //console.log('line 30', prevState.filterClicked, this.state.filterClicked)
-  //   console.log('???', this.state.filterClicked)
-  //   // if (prevState.filterClicked !== this.state.filterClicked) {
-  //   //   this.updateFilterMap(this.state.filterValue, this.state.reviewData)
-  //   // }
-  // }
 
 
+  /***************************************/
+  /**connect to express server**/
 
   async getProductReviews(product_id) {
     var requestOption = {
@@ -113,6 +106,21 @@ class RatingReview extends React.Component {
 
   }
 
+  addNewReview() {
+
+  }
+
+  updateIsHelpful(review_id) {
+
+  }
+
+  reportReview(review_id) {
+
+  }
+  /**connect to express server**/
+  /***************************************/
+
+
   resetAllFilter() {
     this.setState({
       filterMap: { '1': false, '2': false, '3': false, '4': false, '5': false },
@@ -124,17 +132,6 @@ class RatingReview extends React.Component {
     console.log('trigger')
   }
 
-  updateIsHelpful(review_id) {
-    this.setState({
-      isHelpfulReviewId: review_id
-    })
-  }
-
-  reportReview(review_id) {
-    this.setState({
-      reportReview: review_id
-    })
-  }
 
 
   render() {

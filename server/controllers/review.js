@@ -52,6 +52,15 @@ module.exports = {
         console.log('get metadata error: ', err)
         res.send(err)
       })
-  }
+  },
+  add_new_review: (req, res) => {
+
+  },
+  mark_helpful: (req, res) => {
+
+  },
+  report_review: (req, res) => {
+
+  },
 
 }
