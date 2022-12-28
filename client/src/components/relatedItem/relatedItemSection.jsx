@@ -42,7 +42,7 @@ const RelatedItem = (props) => {
   const carouselOutbox = useRef(null);
 
   const prevSlide = () => {
-    console.log(pickIndex);
+    // console.log(pickIndex);
     if(pickIndex > 0) {
       pickIndex = pickIndex - 1;
       offsetCarousel = offsetCarousel - childWidth;
@@ -60,8 +60,8 @@ const RelatedItem = (props) => {
   const nextSlide = () => {
     childLength = myCarousel.current.childNodes.length; // 用來計算終點
     childWidth = carouselOutbox.current.offsetWidth / cardToShow;
-    console.log('childLength', childLength)
-    console.log('childWidth', childWidth)
+    // console.log('childLength', childLength)
+    // console.log('childWidth', childWidth)
     // （選取的的Card Index + 預設顯示數) 小於 Carousel 終點
     if((pickIndex + cardToShow) < (childLength)) { // 正式的時候把 +1 拿掉
       pickIndex = pickIndex + 1;
