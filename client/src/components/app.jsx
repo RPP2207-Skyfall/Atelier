@@ -17,7 +17,7 @@ class App extends React.Component {
 
 
   updateCurrentItemID(newID) {
-    console.log('update ID', newID)
+    console.log('ID from user clicking', newID)
     this.setState({ CurrentItemID: newID })
     // console.log(this.state.CurrentItemID)
   }
@@ -38,10 +38,10 @@ class App extends React.Component {
     return (
       <>
         <h3>Ateiler</h3>
-        {/* <Overview />
+        <Overview />
         <RelatedItem outfitList={this.state.OutfitList} toggleStar={this.toggleStar} CurrentItemID={this.state.CurrentItemID} updateCurrentItemID={this.updateCurrentItemID} />
-        <QandA product_name={'Camo Windblocker'} /> */}
-        <RatingReview />
+        <QandA product_name={'Camo Windblocker'} />
+        <RatingReview product_id={this.state.CurrentItemID} />
       </>
     )
   }

@@ -9,8 +9,8 @@ class RatingReview extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      product_id: props.product_id || 71700,
-      product_name: props.product_name || "Slacker's Slacks",
+      product_id: props.product_id || 71703,
+      product_name: props.product_name || "Blues Suede Shoes",
       reviewData: [],
       originalReviewData: [],
       currentSortValue: 'relevant',
@@ -18,7 +18,8 @@ class RatingReview extends React.Component {
       filterValue: '',
       filterMap: { '1': false, '2': false, '3': false, '4': false, '5': false },
       filterClicked: false,
-      newReviewPosted: false
+      newReviewPosted: false,
+      forceRender: []
     }
   }
 
@@ -35,6 +36,14 @@ class RatingReview extends React.Component {
         newReviewPosted: false
       })
     }
+    if (prevProps.product_id !== this.props.product_id) {
+      //console.log('there is a new product_id', prevProps.product_id, 'vs', this.props.product_id)
+      this.setState({
+        product_id: this.props.product_id
+      })
+      this.getProductReviews(this.props.product_id)
+      this.getReviewMetadata(this.props.product_id)
+    }
 
   }
 
@@ -42,11 +51,11 @@ class RatingReview extends React.Component {
   /**connect to express server**/
 
   async getProductReviews(product_id) {
-    console.log("getting new data1")
     var requestOption = {
       product_id: product_id,
       sort: this.state.currentSortValue
     }
+    console.log(requestOption)
 
     try {
       let getReviewData = await Axios.post('/reviews', requestOption)
@@ -67,7 +76,6 @@ class RatingReview extends React.Component {
   }
 
   getReviewMetadata = async (product_id) => {
-    console.log("getting new data2")
     var requestOption = {
       product_id: product_id
     }
