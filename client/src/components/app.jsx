@@ -17,7 +17,7 @@ class App extends React.Component {
 
 
   updateCurrentItemID(newID) {
-    console.log('ID from user clicking', newID)
+    //console.log('ID from user clicking', newID)
     this.setState({ CurrentItemID: newID })
     // console.log(this.state.CurrentItemID)
   }

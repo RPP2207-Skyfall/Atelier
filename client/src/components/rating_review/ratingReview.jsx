@@ -18,8 +18,7 @@ class RatingReview extends React.Component {
       filterValue: '',
       filterMap: { '1': false, '2': false, '3': false, '4': false, '5': false },
       filterClicked: false,
-      newReviewPosted: false,
-      forceRender: []
+      newReviewPosted: false
     }
   }
 
@@ -55,7 +54,7 @@ class RatingReview extends React.Component {
       product_id: product_id,
       sort: this.state.currentSortValue
     }
-    console.log(requestOption)
+    //console.log(requestOption)
 
     try {
       let getReviewData = await Axios.post('/reviews', requestOption)
