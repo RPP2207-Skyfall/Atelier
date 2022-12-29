@@ -5,7 +5,7 @@ function ZoomBox(props) {
   const [isPanning, setPanning] = useState(false);
   const [image, setImage] = useState();
   const [position, setPosition] = useState({
-    oldX: 500,
+    oldX: 700,
     oldY: 500,
     x: 0,
     y: 0,
@@ -55,7 +55,7 @@ function ZoomBox(props) {
 
     const rect = containerRef.current.getBoundingClientRect();
 
-    console.log('rect', rect)
+    // console.log('rect', rect)
 
 
     const mousemove = (event) => {

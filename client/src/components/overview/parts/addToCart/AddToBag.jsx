@@ -41,7 +41,7 @@ function AddToBag(props) {
 
   // console.log(props)
 
-  console.log('props in addtobag', props)
+  // console.log('props in addtobag', props)
 
   let bag = {
     sku: props.skuToBuy,
