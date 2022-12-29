@@ -18,6 +18,9 @@ const newReviewModal = (props) => {
   const [charAsteris, setCharAsteris] = useState(true)
   const [nickname, setNickname] = useState("") // user input
   const [email, setEmail] = useState("")// user input
+  const [photoArr, setPhotoArr] = useState([]) // user input
+
+  // error
   const [errorStarMsg, setStarErrorMsg] = useState("")
   const [charErrorMsg, setCharErrorMsg] = useState("")
   const [summaryErrorMsg, setSummaryErrorMsg] = useState("")
@@ -88,7 +91,7 @@ const newReviewModal = (props) => {
   const characteristicSelect = (e) => {
     var split = e.target.value.split(',')
     //console.log(split)
-    characteristicSelection[split[0]] = parseInt(split[1])
+    characteristicSelection[`${split[0]}`] = parseInt(split[1])
     setCharacteristicSelection(characteristicSelection)
     if (Object.keys(characteristicSelection).length === Object.keys(characteristicsObj).length) {
       setCharAsteris(false)
@@ -115,7 +118,6 @@ const newReviewModal = (props) => {
   }
 
   const handleSubmit = async () => {
-    //props.addNewReview()
     if (star === 0) {
       setStarErrorMsg("You must enter the following:")
     }
@@ -141,6 +143,31 @@ const newReviewModal = (props) => {
     let validEmail = await helpers.emailValidation(email)
     if (validEmail === false) {
       setEmailErrorMsg("The email address provided is not in correct email format.")
+    }
+
+    else {
+      var newReviewData = {
+        "rating": star,
+        "summary": summary,
+        "body": body,
+        "recommend": recommendSelection,
+        "name": nickname,
+        "email": email,
+        "photos": photoArr,
+        "characteristics": characteristicSelection
+      }
+
+      // var testData = {
+      //   "rating": 5,
+      //   "summary": "test summary",
+      //   "body": "60characters-60characters-60characters-60characters-60characters-60characters-60characters",
+      //   "recommend": true,
+      //   "name": "jktest",
+      //   "email": "jktest@gmail.com",
+      //   "photos": [],
+      //   "characteristics": { "240591": 1, "240592": 2, "240593": 3, "240594": 5 }
+      // }
+      props.addNewReview(testData)
     }
 
   }

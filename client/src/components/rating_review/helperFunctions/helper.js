@@ -184,9 +184,6 @@ const helpers = {
   },
   generateCharacteristicTable: (characteristicsObj, definitionObj) => {
 
-    console.log(characteristicsObj)
-
-
     var characteristicTable = []
 
     for (let key in characteristicsObj) {

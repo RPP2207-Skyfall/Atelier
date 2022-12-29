@@ -74,8 +74,24 @@ class RatingReview extends React.Component {
   }
 
 
-  addNewReview() {
-    console.log('trigger')
+  async addNewReview(inputData) {
+
+    if (inputData !== undefined) {
+      inputData["product_id"] = this.state.product_id
+      //console.log('added productID: ', inputData)
+
+      try {
+        let addNewReview = await Axios.post('/addReview', inputData)
+        //console.log(addNewReview)
+        if (addNewReview.data === 'Created') {
+          console.log('review created')
+        }
+
+      } catch (err) {
+        console.log("add new review Err: ", err)
+      }
+    }
+
   }
 
   async updateIsHelpful(review_id) {

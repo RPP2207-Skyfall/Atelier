@@ -54,12 +54,38 @@ module.exports = {
       })
   },
   add_new_review: (req, res) => {
+    //console.log(req.body)
+    Axios.defaults.headers.common['Authorization'] = process.env.REACT_APP_API_REVIEW_RATING_KEY
+    var url = process.env.REACT_APP_API_REVIEW
+
+    var requestData = {
+      product_id: req.body.product_id,
+      rating: req.body.rating,
+      summary: req.body.summary,
+      body: req.body.body,
+      recommend: req.body.recommend,
+      name: req.body.name,
+      email: req.body.email,
+      photos: req.body.photos,
+      characteristics: req.body.characteristics,
+    }
+
+    //console.log(requestData)
+    Axios.post(url, requestData)
+      .then((result) => {
+        //console.log(result)
+        res.send(result.statusText)
+      })
+      .catch((err) => {
+        console.log('Add review error: ', err)
+        res.send(err)
+      })
 
   },
   mark_helpful: (req, res) => {
     // console.log(req.body.review_id)
     Axios.defaults.headers.common['Authorization'] = process.env.REACT_APP_API_REVIEW_RATING_KEY
-    var url = `${process.env.REACT_APP_API_REVIEW_HELPFUL}/${req.body.review_id}/helpful`
+    var url = `${process.env.REACT_APP_API_REVIEW}/${req.body.review_id}/helpful`
 
     Axios.put(url)
       .then((result) => {
@@ -74,7 +100,7 @@ module.exports = {
   report_review: (req, res) => {
     console.log(req.body.review_id)
     Axios.defaults.headers.common['Authorization'] = process.env.REACT_APP_API_REVIEW_RATING_KEY
-    var url = `${process.env.REACT_APP_API_REVIEW_HELPFUL}/${req.body.review_id}/report`
+    var url = `${process.env.REACT_APP_API_REVIEW}/${req.body.review_id}/report`
     Axios.put(url)
       .then((result) => {
         //console.log('here', result)
