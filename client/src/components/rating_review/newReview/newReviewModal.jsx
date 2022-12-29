@@ -156,7 +156,9 @@ const newReviewModal = (props) => {
         "photos": photoArr,
         "characteristics": characteristicSelection
       }
+      props.addNewReview(newReviewData)
 
+      ///////Testing
       // var testData = {
       //   "rating": 5,
       //   "summary": "test summary",
@@ -167,7 +169,7 @@ const newReviewModal = (props) => {
       //   "photos": [],
       //   "characteristics": { "240591": 1, "240592": 2, "240593": 3, "240594": 5 }
       // }
-      props.addNewReview(testData)
+      // props.addNewReview(testData)
     }
 
   }

@@ -17,7 +17,8 @@ class RatingReview extends React.Component {
       metadata: {},
       filterValue: '',
       filterMap: { '1': false, '2': false, '3': false, '4': false, '5': false },
-      filterClicked: false
+      filterClicked: false,
+      newReviewPosted: false
     }
   }
 
@@ -26,14 +27,24 @@ class RatingReview extends React.Component {
     this.getReviewMetadata(this.state.product_id)
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.newReviewPosted !== prevState.newReviewPosted) {
+      this.getProductReviews(this.state.product_id)
+      this.getReviewMetadata(this.state.product_id)
+      this.setState({
+        newReviewPosted: false
+      })
+    }
+
+  }
 
   /***************************************/
   /**connect to express server**/
 
   async getProductReviews(product_id) {
+    console.log("getting new data1")
     var requestOption = {
       product_id: product_id,
-      count: 15,
       sort: this.state.currentSortValue
     }
 
@@ -56,7 +67,7 @@ class RatingReview extends React.Component {
   }
 
   getReviewMetadata = async (product_id) => {
-
+    console.log("getting new data2")
     var requestOption = {
       product_id: product_id
     }
@@ -84,7 +95,10 @@ class RatingReview extends React.Component {
         let addNewReview = await Axios.post('/addReview', inputData)
         //console.log(addNewReview)
         if (addNewReview.data === 'Created') {
-          console.log('review created')
+          //console.log('review created')
+          this.setState({
+            newReviewPosted: true
+          })
         }
 
       } catch (err) {
