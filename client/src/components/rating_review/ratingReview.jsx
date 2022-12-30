@@ -9,7 +9,7 @@ class RatingReview extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      product_id: props.product_id || 71703,
+      product_id: props.product_id || 71700,
       product_name: props.product_name || "Blues Suede Shoes",
       reviewData: [],
       originalReviewData: [],

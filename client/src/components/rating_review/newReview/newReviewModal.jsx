@@ -18,6 +18,7 @@ const newReviewModal = (props) => {
   const [charAsteris, setCharAsteris] = useState(true)
   const [nickname, setNickname] = useState("") // user input
   const [email, setEmail] = useState("")// user input
+  const [uploadReady, setUploadReady] = useState(false)
   const [photoArr, setPhotoArr] = useState([]) // user input
 
   // error
@@ -73,6 +74,12 @@ const newReviewModal = (props) => {
     setEmailErrorMsg("")
   }, [email])
 
+  // useEffect(() => {
+  //   console.log('trigger')
+  //   setUploadReady(true)
+  //   setPhotoArr(photoArr)
+  // }, [photoArr])
+
   const handleCloseClick = () => {
     props.handleCloseReviewModal()
   }
@@ -115,6 +122,12 @@ const newReviewModal = (props) => {
         setEmail(data)
         break;
     }
+  }
+
+  const addToPhotoArr = (photoArr) => {
+    console.log('hi', photoArr)
+    setUploadReady(true)
+    setPhotoArr(photoArr)
   }
 
   const handleSubmit = async () => {
@@ -212,7 +225,7 @@ const newReviewModal = (props) => {
               </div>
 
               <div className="photo-upload-section">
-                <UploadPhoto UploadErrorMsg={UploadErrorMsg} />
+                <UploadPhoto UploadErrorMsg={UploadErrorMsg} addToPhotoArr={addToPhotoArr} />
               </div>
 
               <div className="user-info-section">

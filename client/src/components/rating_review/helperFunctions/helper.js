@@ -238,7 +238,7 @@ const helpers = {
   storeImage: (currentStorage, files) => {
 
     for (let i = 0; i < files.length; i++) {
-      console.log(files[i])
+      //console.log(files[i])
       var imageObj = { preview: URL.createObjectURL(files[i]), raw: files[i] }
       currentStorage.push(imageObj)
     }

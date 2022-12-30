@@ -20,9 +20,9 @@ const uploadPhoto = (props) => {
 
       setImageStorage(newStorage)
       setCurrentAmount(newStorage.length)
-
-
-
+      if (newStorage.length !== 0) {
+        props.addToPhotoArr(newStorage)
+      }
       if (imageStorage.length === 5) {
         setUploadBtn(false)
       }
@@ -32,6 +32,7 @@ const uploadPhoto = (props) => {
 
 
   const handleUploadClick = async (e) => {
+    // console.log(e.target.files)
     setShowLimit(false)
     // console.log(e.target.files.length, imageStorage.length)
     if (e.target.files.length > 5) {
