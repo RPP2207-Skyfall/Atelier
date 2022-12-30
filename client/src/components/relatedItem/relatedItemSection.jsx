@@ -28,8 +28,8 @@ const RelatedItem = (props) => {
   const [OutfitLeftArr, setOutfitLeftArr] = useState(false);
   const [OutfitRightArr, setOutfitRightArr] = useState(false);
 
-//first render
   useEffect (()=> {
+    // console.log('rerender secection')
     getRelatedID(mainItemId)
     if (props.outfitList.length > 4) {
       setOutfitRightArr(true)
@@ -80,13 +80,13 @@ const RelatedItem = (props) => {
 
   const prevSlide = () => {
     // console.log(pickIndex);
-    if(pickIndex > 0) {
+    if (pickIndex > 0) {
       pickIndex = pickIndex - 1;
       offsetCarousel = offsetCarousel - childWidth;
-      myCarousel.current.style = 'transform: translateX(' + ( 0 - offsetCarousel ) + 'px' + ')';
+      myCarousel.current.style = 'transform: translateX(' + (0 - offsetCarousel) + 'px' + ')';
       setRightArr(true)
 
-      if(pickIndex > 0) {
+      if (pickIndex > 0) {
         setLeftArr(true)
       } else {
         setLeftArr(false)
@@ -100,13 +100,13 @@ const RelatedItem = (props) => {
     // console.log('childLength', childLength)
     // console.log('childWidth', childWidth)
     // （選取的的Card Index + 預設顯示數) 小於 Carousel 終點
-    if((pickIndex + cardToShow) < (childLength)) { // 正式的時候把 +1 拿掉
+    if ((pickIndex + cardToShow) < (childLength)) { // 正式的時候把 +1 拿掉
       pickIndex = pickIndex + 1;
       offsetCarousel = offsetCarousel + childWidth;
-      myCarousel.current.style = 'transform: translateX(' + ( 0 - offsetCarousel ) + 'px' + ')';
+      myCarousel.current.style = 'transform: translateX(' + (0 - offsetCarousel) + 'px' + ')';
       setLeftArr(true);
 
-      if((pickIndex + cardToShow) === (childLength )) {
+      if ((pickIndex + cardToShow) === (childLength)) {
         setRightArr(false)
       } else {
         setRightArr(true)
@@ -160,16 +160,15 @@ const RelatedItem = (props) => {
     <div className="main-container carousel-style">
       <h5>RELATED PRODUCTS</h5>
       <section className="carousel-upper">
-      {/* arrw */}
-      { leftArr ? <span className="left-arrow" onClick={() => prevSlide()}></span> : <></> }
-      { rightArr ? <span className="right-arrow" onClick={() => nextSlide()}></span> : <></> }
-        <div className="carousel" ref = { carouselOutbox }>
-          {JSON.stringify({relatedList})}
-          <OutfitList ref = { myCarousel } relatedList = {relatedList} outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId} outfit = {false} updateCurrentItem = {props.updateCurrentItem}/>
+        {/* arrw */}
+        {leftArr ? <span className="left-arrow" onClick={() => prevSlide()}></span> : <></>}
+        {rightArr ? <span className="right-arrow" onClick={() => nextSlide()}></span> : <></>}
+        <div className="carousel" ref={carouselOutbox}>
+          <OutfitList ref={myCarousel} relatedList={relatedList} outfitList={props.outfitList} toggleStar={props.toggleStar} mainItemId={mainItemId} outfit={false} updateCurrentItem={props.updateCurrentItem} />
         </div>
       </section>
       <h5>YOUR OUTFIT</h5>
-        {/* <p>{JSON.stringify(props.outfitList)}</p> */}
+      {/* <p>{JSON.stringify(props.outfitList)}</p> */}
       <section className="carousel-upper">
       { OutfitLeftArr ? <span className="left-arrow" onClick={() => outfitPrevSlide()}></span> : <></> }
       { OutfitRightArr ? <span className="right-arrow" onClick={() => outfitNextSlide()}></span> : <></> }

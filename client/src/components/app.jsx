@@ -29,10 +29,10 @@ class App extends React.Component {
     var newList = this.state.OutfitList
     if (index === -1) {
       newList.push(currentID)
-      this.setState({OutfitList: newList})
+      this.setState({ OutfitList: newList })
     } else {
       newList.splice(index, 1)
-      this.setState({OutfitList: newList})
+      this.setState({ OutfitList: newList })
     }
   }
 

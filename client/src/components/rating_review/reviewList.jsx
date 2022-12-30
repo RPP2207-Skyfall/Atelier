@@ -100,11 +100,11 @@ class reviewList extends React.Component {
     const datalength = this.props.reviewData.length
     return (
       <div className="reviewBreakdown">
-        <div className="review-sort-bar" data-testid='review-amount'>{`${datalength} reviews, sorted by `}{datalength > 0 ? <SortMenu currentSortValue={this.props.currentSortValue} updateSortMethod={this.updateSortMethod.bind(this)} /> : null}</div>
+        <div className="review-sort-bar" data-testid='review-amount'>{`${datalength} reviews`}{datalength > 0 ? <> sorted by <SortMenu currentSortValue={this.props.currentSortValue} updateSortMethod={this.updateSortMethod.bind(this)} /></> : null}</div>
         <div className="reviewItemContaier">
           <div className="container-Content">
             {Array.isArray(this.state.displayReview) && datalength > 0 ? this.state.displayReview.map((item) =>
-              <ReviewItem reviewData={item} key={item.review_id} reportReview={this.props.reportReview} />
+              <ReviewItem reviewData={item} key={item.review_id} reportReview={this.props.reportReview} updateIsHelpful={this.props.updateIsHelpful} />
             ) : null}
           </div>
         </div>

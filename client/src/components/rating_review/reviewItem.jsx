@@ -6,6 +6,7 @@ const reviewItem = (props) => {
   var summaryDisplayLimit = 60
   var bodyDisplayLimit = 250
   var helpfulnessCount = props.reviewData.helpfulness || 0
+  var review_id = props.reviewData.review_id
   var dateOption = {
     day: "numeric",
     month: "long",
@@ -17,6 +18,7 @@ const reviewItem = (props) => {
 
   const [createDateTime, setCreateDateTime] = useState(dateTime)
   const [helpfulCount, setHelpfulCount] = useState(helpfulnessCount)
+  //const [isHelpful, setIsHelpful] = useState(false)
   const [partSummary, setPartSummary] = useState(null)
   const [partBody, setPartBody] = useState(null)
   const [showAll, setShowAll] = useState(false)
@@ -28,7 +30,7 @@ const reviewItem = (props) => {
     }
 
     if (props.reviewData.body.length > bodyDisplayLimit) {
-      console.log(props.reviewData.body.length, bodyDisplayLimit)
+      //console.log(props.reviewData.body.length, bodyDisplayLimit)
       setPartBody(props.reviewData.body.substring(0, bodyDisplayLimit) + "...")
     }
 
@@ -42,18 +44,20 @@ const reviewItem = (props) => {
   }
 
   const helpfulVote = () => {
-    if (helpfulCount > helpfulnessCount) {
-      setHelpfulCount(helpfulCount - 1)
-    } else {
-      setHelpfulCount(helpfulCount + 1)
-    }
-    // STILL NEED TO UPDATE API
+    // if (helpfulCount > helpfulnessCount) {
+    //   setHelpfulCount(helpfulCount - 1)
+    // } else {
+    setHelpfulCount(helpfulCount + 1)
+    //}
+    //setIsHelpful(!isHelpful)
+
+    props.updateIsHelpful(review_id)
+
   }
 
   const reportReview = () => {
-
     setReport('Reported')
-    props.reportReview()
+    props.reportReview(review_id)
   }
 
 
@@ -90,7 +94,8 @@ const reviewItem = (props) => {
         <div className="helpfulCount" >Helpful?
           {<span className="helpful-click" data-testid="helpful-span" onClick={() => { helpfulVote() }}>Yes</span>}
           <span data-testid="helpful-count-span">{` (${helpfulCount})`} </span>  |
-          {<span className="report-click" onClick={() => { reportReview() }}>{report}</span>}</div>
+          {<span className="report-click" onClick={() => { reportReview() }}>{report}</span>}
+        </div>
         <hr />
       </div>
     </div >

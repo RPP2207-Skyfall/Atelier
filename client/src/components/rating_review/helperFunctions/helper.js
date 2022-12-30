@@ -206,7 +206,7 @@ const helpers = {
             {definitionObj[key].map((definition, idx) => {
 
               return (
-                <input key={'inputBtn' + key + idx} className="inputBtn" type="radio" name={`characteristic-select-${key}`} value={[key, idx + 1, definition]} />
+                <input key={'inputBtn' + key + idx} className="inputBtn" type="radio" name={`characteristic-select-${key}`} value={[characteristicsObj[key].id, idx + 1, definition]} />
               )
             })}
           </div>
