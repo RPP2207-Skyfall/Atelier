@@ -20,7 +20,7 @@ class App extends React.Component {
   updateCurrentItem(newID, newName) {
     console.log('update ID', newID , newName)
     this.setState({CurrentItemID: newID})
-    this.setState({CurrentItemNema: newName})
+    this.setState({CurrentItemName: newName})
     // console.log(this.state.CurrentItemID)
   }
 
