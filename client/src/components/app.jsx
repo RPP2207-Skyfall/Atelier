@@ -9,16 +9,18 @@ class App extends React.Component {
     super(props);
     this.state = {
       OutfitList: [],
-      CurrentItemID: 71703
+      CurrentItemID: 71703,
+      CurrentItemName: ""
     }
     this.toggleStar = this.toggleStar.bind(this);
-    this.updateCurrentItemID = this.updateCurrentItemID.bind(this);
+    this.updateCurrentItem = this.updateCurrentItem.bind(this);
   }
 
 
-  updateCurrentItemID(newID) {
-    console.log('update ID', newID)
+  updateCurrentItem(newID, newName) {
+    console.log('update ID', newID , newName)
     this.setState({CurrentItemID: newID})
+    this.setState({CurrentItemNema: newName})
     // console.log(this.state.CurrentItemID)
   }
 
@@ -39,7 +41,7 @@ class App extends React.Component {
       <>
         <h3>Ateiler</h3>
         <Overview />
-        <RelatedItem outfitList = {this.state.OutfitList} toggleStar = {this.toggleStar} CurrentItemID = {this.state.CurrentItemID} updateCurrentItemID = {this.updateCurrentItemID}/>
+        <RelatedItem outfitList = {this.state.OutfitList} toggleStar = {this.toggleStar} CurrentItemID = {this.state.CurrentItemID} updateCurrentItem = {this.updateCurrentItem}/>
         <QandA product_name={'Camo Windblocker'}/>
         <RatingReview />
       </>

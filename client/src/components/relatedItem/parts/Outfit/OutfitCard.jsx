@@ -121,7 +121,7 @@ const OutfitCard = (props) => {
         </div>
         <div className="category-box">
           <div className="category-title" >{detail.category}</div>
-          <div className="category-wrapper" onClick= {()=>{props.updateCurrentItemID(itemID)}}>
+          <div className="category-wrapper" onClick= {()=>{props.updateCurrentItem(itemID, detail.name)}}>
             <p>{detail.name}</p>
             {/* <div className="price-box">
               ${detail.default_price}

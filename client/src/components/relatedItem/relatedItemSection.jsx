@@ -148,7 +148,7 @@ const RelatedItem = (props) => {
       { leftArr ? <span className="left-arrow" onClick={() => prevSlide()}></span> : <></> }
       { rightArr ? <span className="right-arrow" onClick={() => nextSlide()}></span> : <></> }
         <div className="carousel" ref = { carouselOutbox }>
-          <OutfitList ref = { myCarousel } relatedList = {relatedList} outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId} outfit = {false} updateCurrentItemID = {props.updateCurrentItemID}/>
+          <OutfitList ref = { myCarousel } relatedList = {relatedList} outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId} outfit = {false} updateCurrentItem = {props.updateCurrentItem}/>
         </div>
       </section>
       <h5>YOUR OUTFIT</h5>
@@ -157,7 +157,7 @@ const RelatedItem = (props) => {
       { OutfitLeftArr ? <span className="left-arrow" onClick={() => outfitPrevSlide()}></span> : <></> }
       { OutfitRightArr ? <span className="right-arrow" onClick={() => outfitNextSlide()}></span> : <></> }
         <div className="carousel" ref = { outfitCarouselOutbox }>
-        <OutfitList ref = { outfitCarousel } outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId} outfit = {true} updateCurrentItemID = {props.updateCurrentItemID}/>
+        <OutfitList ref = { outfitCarousel } outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId} outfit = {true} updateCurrentItem = {props.updateCurrentItem}/>
         </div>
       </section>
     </div>
