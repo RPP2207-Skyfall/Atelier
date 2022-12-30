@@ -18,7 +18,9 @@ const newReviewModal = (props) => {
   const [charAsteris, setCharAsteris] = useState(true)
   const [nickname, setNickname] = useState("") // user input
   const [email, setEmail] = useState("")// user input
+  const [uploadReady, setUploadReady] = useState(false)
   const [photoArr, setPhotoArr] = useState([]) // user input
+  const [submitReady, setSubmitReady] = useState(false)
 
   // error
   const [errorStarMsg, setStarErrorMsg] = useState("")
@@ -73,6 +75,13 @@ const newReviewModal = (props) => {
     setEmailErrorMsg("")
   }, [email])
 
+  // useEffect(() => {
+  //   if (errorStarMsg.length === 0 && charErrorMsg.length === 0 && summaryErrorMsg.length === 0 && bodyErrorMsg.length === 0 && nicknameErrorMsg.length === 0 && emailErrorMsg.length === 0) {
+  //     setSubmitReady(true)
+  //   }
+
+  // }, [errorStarMsg, charErrorMsg, summaryErrorMsg, bodyErrorMsg, nicknameErrorMsg, emailErrorMsg])
+
   const handleCloseClick = () => {
     props.handleCloseReviewModal()
   }
@@ -117,60 +126,82 @@ const newReviewModal = (props) => {
     }
   }
 
+  const addToPhotoArr = async (photoObjArr) => {
+    // console.log('hi', photoObjArr)
+    let photoArr = await helpers.cleanImageForUpload(photoObjArr)
+    // console.log('bye', photoArr)
+    setUploadReady(true)
+    setPhotoArr(photoArr)
+  }
+
   const handleSubmit = async () => {
     if (star === 0) {
       setStarErrorMsg("You must enter the following:")
+      setSubmitReady(false)
     }
     if (Object.keys(characteristicSelection).length === 0) {
       setCharErrorMsg("You must enter the following:")
+      setSubmitReady(false)
     }
     if (summary.length === 0) {
       setSummaryErrorMsg("You must enter the following:")
+      setSubmitReady(false)
     }
     if (body.length === 0) {
       setBodyErrorMsg("You must enter the following:")
+      setSubmitReady(false)
     }
     if (body.length < 50 && body.length !== 0) {
       setBodyErrorMsg("The review body is less than 50 characters")
+      setSubmitReady(false)
     }
     if (nickname.length === 0) {
       setNicknameErrorMsg("You must enter the following:")
+      setSubmitReady(false)
     }
     if (email.length === 0) {
       setEmailErrorMsg("You must enter the following:")
+      setSubmitReady(false)
     }
     // email validation and upload validation
     let validEmail = await helpers.emailValidation(email)
     if (validEmail === false) {
       setEmailErrorMsg("The email address provided is not in correct email format.")
+      setSubmitReady(false)
     }
 
-    else {
-      var newReviewData = {
-        "rating": star,
-        "summary": summary,
-        "body": body,
-        "recommend": recommendSelection,
-        "name": nickname,
-        "email": email,
-        "photos": photoArr,
-        "characteristics": characteristicSelection
-      }
+    if (errorStarMsg.length === 0 && charErrorMsg.length === 0 && summaryErrorMsg.length === 0 && bodyErrorMsg.length === 0 && nicknameErrorMsg.length === 0 && emailErrorMsg.length === 0) {
+      setSubmitReady(true)
+    }
+    var newReviewData = {
+      "rating": star,
+      "summary": summary,
+      "body": body,
+      "recommend": recommendSelection,
+      "name": nickname,
+      "email": email,
+      "photos": photoArr,
+      "characteristics": characteristicSelection
+    }
+
+    if (errorStarMsg.length === 0 && charErrorMsg.length === 0 && summaryErrorMsg.length === 0 && bodyErrorMsg.length === 0 && nicknameErrorMsg.length === 0 && emailErrorMsg.length === 0 && submitReady === true) {
       props.addNewReview(newReviewData)
-
-      ///////Testing
-      // var testData = {
-      //   "rating": 5,
-      //   "summary": "test summary",
-      //   "body": "60characters-60characters-60characters-60characters-60characters-60characters-60characters",
-      //   "recommend": true,
-      //   "name": "jktest",
-      //   "email": "jktest@gmail.com",
-      //   "photos": [],
-      //   "characteristics": { "240591": 1, "240592": 2, "240593": 3, "240594": 5 }
-      // }
-      // props.addNewReview(testData)
     }
+
+
+    /////Testing
+    // var testData = {
+    //   "rating": 5,
+    //   "summary": "test summary",
+    //   "body": "60characters-60characters-60characters-60characters-60characters-60characters-60characters",
+    //   "recommend": true,
+    //   "name": "jktest",
+    //   "email": "jktest@gmail.com",
+    //   "photos": ["blob:http://localhost:3000/61c56739-d85e-4749-b37e-9425ba56dbca"],
+    //   "characteristics": { "240591": 1, "240592": 2, "240593": 3, "240594": 5 }
+    // }
+    // props.addNewReview(testData)
+    //}
 
   }
 
@@ -212,7 +243,7 @@ const newReviewModal = (props) => {
               </div>
 
               <div className="photo-upload-section">
-                <UploadPhoto UploadErrorMsg={UploadErrorMsg} />
+                <UploadPhoto UploadErrorMsg={UploadErrorMsg} addToPhotoArr={addToPhotoArr} />
               </div>
 
               <div className="user-info-section">

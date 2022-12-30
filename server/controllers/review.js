@@ -54,7 +54,7 @@ module.exports = {
       })
   },
   add_new_review: (req, res) => {
-    //console.log(req.body)
+    console.log(req.body)
     Axios.defaults.headers.common['Authorization'] = process.env.REACT_APP_API_REVIEW_RATING_KEY
     var url = process.env.REACT_APP_API_REVIEW
 

@@ -238,8 +238,9 @@ const helpers = {
   storeImage: (currentStorage, files) => {
 
     for (let i = 0; i < files.length; i++) {
-      console.log(files[i])
-      var imageObj = { preview: URL.createObjectURL(files[i]), raw: files[i] }
+      //console.log(files[i])
+      var imageObj = { preview: URL.createObjectURL(files[i]) }
+      //var imageObj = { preview: URL.createObjectURL(files[i]), raw: files[i] }
       currentStorage.push(imageObj)
     }
 
@@ -257,6 +258,15 @@ const helpers = {
         return false
       }
     }
+  },
+  cleanImageForUpload: (photoObjArr) => {
+    var photoArr = []
+
+    for (let i = 0; i < photoObjArr.length; i++) {
+      photoArr.push(photoObjArr[i].preview)
+    }
+
+    return photoArr
   }
 }
 

@@ -9,7 +9,7 @@ class RatingReview extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      product_id: props.product_id || 71703,
+      product_id: props.product_id || 71700,
       product_name: props.product_name || "Blues Suede Shoes",
       reviewData: [],
       originalReviewData: [],
@@ -18,7 +18,7 @@ class RatingReview extends React.Component {
       filterValue: '',
       filterMap: { '1': false, '2': false, '3': false, '4': false, '5': false },
       filterClicked: false,
-      newReviewPosted: false
+      newReviewModalOpen: false
     }
   }
 
@@ -104,7 +104,7 @@ class RatingReview extends React.Component {
         if (addNewReview.data === 'Created') {
           //console.log('review created')
           this.setState({
-            newReviewPosted: true
+            newReviewModalOpen: !this.state.newReviewModalOpen
           })
         }
 
@@ -188,6 +188,12 @@ class RatingReview extends React.Component {
     })
   }
 
+  updateNewReviewModal() {
+    this.setState({
+      newReviewModalOpen: !this.state.newReviewModalOpen
+    })
+  }
+
 
 
 
@@ -206,10 +212,12 @@ class RatingReview extends React.Component {
               productName={this.state.product_name}
               characteristics={this.state.metadata.characteristics}
               currentSortValue={this.state.currentSortValue}
+              newReviewModalOpen={this.state.newReviewModalOpen}
               updateSortMethod={this.updateSortMethod.bind(this)}
               addNewReview={this.addNewReview.bind(this)}
               reportReview={this.reportReview.bind(this)}
               updateIsHelpful={this.updateIsHelpful.bind(this)}
+              updateNewReviewModal={this.updateNewReviewModal.bind(this)}
             />
 
           </div>
