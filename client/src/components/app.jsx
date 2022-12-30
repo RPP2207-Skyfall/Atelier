@@ -18,9 +18,9 @@ class App extends React.Component {
 
 
   updateCurrentItem(newID, newName) {
-    console.log('update ID', newID , newName)
-    this.setState({CurrentItemID: newID})
-    this.setState({CurrentItemName: newName})
+    console.log('update ID', newID, newName)
+    this.setState({ CurrentItemID: newID })
+    this.setState({ CurrentItemName: newName })
     // console.log(this.state.CurrentItemID)
   }
 
@@ -41,9 +41,9 @@ class App extends React.Component {
       <>
         <h3>Ateiler</h3>
         <Overview />
-        <RelatedItem outfitList = {this.state.OutfitList} toggleStar = {this.toggleStar} CurrentItemID = {this.state.CurrentItemID} updateCurrentItem = {this.updateCurrentItem}/>
-        <QandA product_name={this.state.CurrentItemName} product_id = {this.state.CurrentItemID}/>
-        <RatingReview />
+        <RelatedItem outfitList={this.state.OutfitList} toggleStar={this.toggleStar} CurrentItemID={this.state.CurrentItemID} updateCurrentItem={this.updateCurrentItem} />
+         <QandA product_name={this.state.CurrentItemName} product_id = {this.state.CurrentItemID}/>
+        <RatingReview product_id={this.state.CurrentItemID} product_name={this.state.CurrentItemName} />
       </>
     )
   }
