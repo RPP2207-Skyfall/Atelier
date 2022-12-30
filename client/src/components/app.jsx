@@ -17,8 +17,8 @@ class App extends React.Component {
 
 
   updateCurrentItemID(newID) {
-    console.log('update ID', newID)
-    this.setState({CurrentItemID: newID})
+    //console.log('ID from user clicking', newID)
+    this.setState({ CurrentItemID: newID })
     // console.log(this.state.CurrentItemID)
   }
 
@@ -27,10 +27,10 @@ class App extends React.Component {
     var newList = this.state.OutfitList
     if (index === -1) {
       newList.push(currentID)
-      this.setState({OutfitList: newList})
+      this.setState({ OutfitList: newList })
     } else {
       newList.splice(index, 1)
-      this.setState({OutfitList: newList})
+      this.setState({ OutfitList: newList })
     }
   }
 
@@ -39,9 +39,9 @@ class App extends React.Component {
       <>
         <h3>Ateiler</h3>
         <Overview />
-        <RelatedItem outfitList = {this.state.OutfitList} toggleStar = {this.toggleStar} CurrentItemID = {this.state.CurrentItemID} updateCurrentItemID = {this.updateCurrentItemID}/>
-        <QandA product_name={'Camo Windblocker'}/>
-        <RatingReview />
+        <RelatedItem outfitList={this.state.OutfitList} toggleStar={this.toggleStar} CurrentItemID={this.state.CurrentItemID} updateCurrentItemID={this.updateCurrentItemID} />
+        <QandA product_name={'Camo Windblocker'} />
+        <RatingReview product_id={this.state.CurrentItemID} />
       </>
     )
   }
