@@ -18,6 +18,7 @@ let OutfitChildLength = 0;
 
 const RelatedItem = (props) => {
   const mainItemId = props.CurrentItemID
+  const [oldID, setOldID] = useState(props.CurrentItemID)
   const [relatedList, updateRelatedList] = useState([])
 
   //arrow show
@@ -27,21 +28,36 @@ const RelatedItem = (props) => {
   const [OutfitLeftArr, setOutfitLeftArr] = useState(false);
   const [OutfitRightArr, setOutfitRightArr] = useState(false);
 
-
+//first render
   useEffect (()=> {
-    console.log(mainItemId)
     getRelatedID(mainItemId)
-    if (props.outfitList.length > 3) {
+    if (props.outfitList.length > 4) {
       setOutfitRightArr(true)
     }
     //use .length directly avoid state.
   }, [])
 
-  // useEffect (()=> {
-  //   if(
-  //   getRelatedID(mainItemId)
+// update ID render
+  useEffect (()=> {
+    if (mainItemId !== oldID) {
+      console.log('update ID useEffect')
+      getRelatedID(mainItemId)
+      setOldID(mainItemId)
+      while(pickIndex >= -1) {
+        prevSlide()
+        pickIndex -= 1
+      }
+      if (props.outfitList.length > 4) {
+        setOutfitRightArr(true)
+        setOutfitLeftArr(false)
+      } else {
+        setOutfitRightArr(false)
+        setOutfitLeftArr(false)
+      }
+    }
+    getRelatedID(mainItemId)
 
-  // }, [mainItemId])
+  }, [mainItemId])
 
   const getRelatedID = async (mainID) => {
     const promise = await Axios.get('http://localhost:3000/relateItemsID', { params: { id: mainID } })
@@ -148,6 +164,7 @@ const RelatedItem = (props) => {
       { leftArr ? <span className="left-arrow" onClick={() => prevSlide()}></span> : <></> }
       { rightArr ? <span className="right-arrow" onClick={() => nextSlide()}></span> : <></> }
         <div className="carousel" ref = { carouselOutbox }>
+          {JSON.stringify({relatedList})}
           <OutfitList ref = { myCarousel } relatedList = {relatedList} outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId} outfit = {false} updateCurrentItem = {props.updateCurrentItem}/>
         </div>
       </section>
