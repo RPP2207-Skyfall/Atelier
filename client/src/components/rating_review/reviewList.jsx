@@ -11,7 +11,7 @@ class reviewList extends React.Component {
       reviewDataCopy: [],
       displayReview: [],
       loadBtn: false,
-      newReviewModal: false // set to true for development
+      newReviewModalOpen: this.props.newReviewModalOpen//false // set to true for development
 
 
     }
@@ -37,6 +37,12 @@ class reviewList extends React.Component {
           reviewDataCopy: this.props.reviewData,
           displayReview: [this.props.reviewData[0], this.props.reviewData[1]]
         })
+      })
+    }
+
+    if (prevProps.newReviewModalOpen !== this.props.newReviewModalOpen) {
+      this.setState({
+        newReviewModalOpen: this.props.newReviewModalOpen
       })
     }
 
@@ -81,16 +87,17 @@ class reviewList extends React.Component {
   }
 
   handleAddReviewClick() {
-    this.setState({
-      newReviewModal: true
-    })
-    // this.props.addNewReview()
+    // this.setState({
+    //   newReviewModal: true
+    // })
+    this.props.updateNewReviewModal()
   }
 
   handleCloseReviewModal() {
-    this.setState({
-      newReviewModal: !this.state.newReviewModal
-    })
+    // this.setState({
+    //   newReviewModal: !this.state.newReviewModal
+    // })
+    this.props.updateNewReviewModal()
   }
 
 
@@ -111,7 +118,7 @@ class reviewList extends React.Component {
         {this.state.loadBtn ?
           <button className="loadReviewBtn" data-testid="moreReviewBtn-testId" onClick={() => { this.handleMoreReviewClick() }}>MORE REVIEWS</button> : null}
         <button className="addReviewBtn" data-testid="addReviewBtn-testId" onClick={() => this.handleAddReviewClick()}>ADD A REVIEW +</button>
-        {this.state.newReviewModal ?
+        {this.state.newReviewModalOpen ?
           <NewReviewModal addNewReview={this.props.addNewReview} handleCloseReviewModal={this.handleCloseReviewModal.bind(this)} productName={this.props.productName} characteristics={this.props.characteristics} /> :
           null}
       </div>
