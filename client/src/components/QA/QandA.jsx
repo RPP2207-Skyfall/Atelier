@@ -14,7 +14,8 @@ class QandA extends React.Component {
     this.state={
       QA : [],
       QA_shown: [],
-      product_id: 71698,
+      product_id: this.props.product_id || 71700,
+      product_name: this.props.product_name || 'default',
       isQAEmpty: true,
       isQModalOpen: false,
       isAModalOpen: false,
@@ -114,6 +115,9 @@ class QandA extends React.Component {
     for (var i = 0; i < 2; i++) {
       newQA_shown.push(this.state.QA[currentShownIdx]);
       currentShownIdx++;
+      if (currentShownIdx === this.state.QA.length) {
+        break;
+      }
     }
     this.setState({
       QA_shown: newQA_shown
@@ -146,7 +150,7 @@ class QandA extends React.Component {
             </Stack>
           </div>
         }
-        <QuestionModal isQModalOpen={this.state.isQModalOpen} handleQModalClose={this.handleQModalClose} product_name={this.props.product_name}/>
+        <QuestionModal isQModalOpen={this.state.isQModalOpen} handleQModalClose={this.handleQModalClose} product_name={this.state.product_name}/>
       </div>
     )
   }
