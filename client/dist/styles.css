@@ -1316,4 +1316,11 @@ td {
   overflow-x: hidden;
 }
 
+.question-and-answer-qaitem {
+  width: 100%;
+  max-height: 40vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 /**********************************************/
