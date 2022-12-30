@@ -43,10 +43,10 @@ const OutfitList = forwardRef((props, carouselRef) => {
           </div>
         </div>}
       {props.outfit && props.outfitList.map((item, index) =>
-        <OutfitCard item= {item} key= {index} outfitList = {props.outfitList} toggleStar = {props.toggleStar} outfit = {props.outfit} updateCurrentItemID = {props.updateCurrentItemID} mainFeature = {mainFeature}/>
+        <OutfitCard item= {item} key= {index} outfitList = {props.outfitList} toggleStar = {props.toggleStar} outfit = {props.outfit} updateCurrentItem = {props.updateCurrentItem} mainFeature = {mainFeature}/>
       )}
       {!props.outfit && props.relatedList.map((item, index) =>
-        <OutfitCard item= {item} key= {index} outfitList = {props.outfitList} toggleStar = {props.toggleStar} outfit = {props.outfit} updateCurrentItemID = {props.updateCurrentItemID} mainFeature = {mainFeature}/>
+        <OutfitCard item= {item} key= {index} outfitList = {props.outfitList} toggleStar = {props.toggleStar} outfit = {props.outfit} updateCurrentItem = {props.updateCurrentItem} mainFeature = {mainFeature}/>
       )}
     </div>
     )
