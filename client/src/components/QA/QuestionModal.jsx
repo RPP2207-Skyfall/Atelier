@@ -26,13 +26,84 @@ class QuestionModal extends React.Component {
       email:'',
       questionError: '',
       nicknameError: '',
-      emailError: ''
+      emailError: '',
+      questionPass: false,
+      nicknamePass: false,
+      emailPass: false
     };
     this.handleSubmitError = this.handleSubmitError.bind(this);
+    this.handleInput = this.handleInput.bind(this);
+  };
+
+  handleInput(e) {
+    var type = e.target.id;
+    var value = e.target.value;
+    if (type === 'Email') {
+      this.setState({
+        email: value
+      })
+    } else if (type === 'Question') {
+      this.setState({
+        question: value
+      })
+    } else if (type === 'Nickname') {
+      this.setState({
+        nickname: value
+      })
+    }
+
+    if (this.state.email !== '' && this.state.email.includes('@') === true) {
+      this.setState({
+        emailPass: true
+      })
+    } else {
+      this.setState({
+        emailPass: false
+      })
+    }
+
+    if (this.state.question !== '') {
+      this.setState({
+        questionPass: true
+      })
+    } else {
+      this.setState({
+        questionPass: false
+      })
+    }
+
+    if (this.state.nickname !== '') {
+      this.setState({
+        nicknamePass: true
+      })
+    } else {
+      this.setState({
+        nicknamePass: false
+      })
+    }
   };
 
   handleSubmitError(e) {
     e.preventDefault();
+    if (this.state.emailPass && this.state.nicknamePass && this.state.questionPass) {
+      //do a post request
+
+      //return to default
+      this.setState({
+        question:'',
+        nickname:'',
+        email:'',
+        questionError: '',
+        nicknameError: '',
+        emailError: '',
+        questionPass: false,
+        nicknamePass: false,
+        emailPass: false
+      });
+
+      this.props.handleQModalClose();
+    }
+
     if (this.state.email === '') {
       this.setState({
         emailError: 'You must enter the following: Email'
@@ -67,9 +138,6 @@ class QuestionModal extends React.Component {
       })
     }
 
-    if (this.state.email && this.state.nickname && this.state.question) {
-      this.props.handleQModalClose();
-    }
   }
 
   render() {
@@ -86,6 +154,7 @@ class QuestionModal extends React.Component {
             <h3 id='question-modal-subtitle'>About {this.props.product_name}</h3>
             <Stack direction='row' spacing={2}>
               <TextField
+                id='Question'
                 label='Question'
                 data-testid='QModal-Question'
                 multiline
@@ -96,13 +165,14 @@ class QuestionModal extends React.Component {
                 value={this.state.question}
                 error={!!this.state.questionError}
                 helperText={this.state.questionError}
-                onChange={e => this.setState({question: e.target.value})}
+                onChange={this.handleInput}
                 required>
               </TextField>
             </Stack>
             <br></br>
             <Stack spacing={1}>
               <TextField
+                id='Email'
                 label='Email'
                 data-testid='QModal-Email'
                 placeholder="example@atelier.com"
@@ -111,7 +181,7 @@ class QuestionModal extends React.Component {
                 value={this.state.email}
                 error={!!this.state.emailError}
                 helperText={this.state.emailError}
-                onChange={e => this.setState({email: e.target.value})}
+                onChange={this.handleInput}
                 required>
               </TextField>
               <p className='QModal-Email-Disclaimer'>For authentication reasons, you will not be emailed</p>
@@ -119,6 +189,7 @@ class QuestionModal extends React.Component {
             <br></br>
             <Stack spacing={1}>
               <TextField
+                id='Nickname'
                 label='Nickname'
                 data-testid='QModal-Nickname'
                 placeholder="Howard878"
@@ -126,7 +197,7 @@ class QuestionModal extends React.Component {
                 value={this.state.nickname}
                 error={!!this.state.nicknameError}
                 helperText={this.state.nicknameError}
-                onChange={e => this.setState({nickname: e.target.value})}
+                onChange={this.handleInput}
                 required>
               </TextField>
               <p className='QModal-Nickname-Disclaimer'>For privacy reasons, do not use your full name or email address</p>

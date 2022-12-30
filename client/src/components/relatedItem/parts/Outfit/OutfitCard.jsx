@@ -1,146 +1,142 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios'
 import Star from './../Star/relateStarRating.jsx';
+import ComparingChart from './../PopUp/ComparingChart.jsx';
+import SmallPicBox from './../PopUp/HoverPhoto.jsx';
+import RelatedAPI from './../../RelatedAPI.js'
 
 const OutfitCard = (props) => {
-  const id = props.item
-  const [detail, setDetail] = useState([]);
-  const [imageList, setImage] = useState([]);
+  const itemID = props.item
+  const [detail, setDetail] = useState({});
   const [rating, setRating] = useState(0);
-
+  const [fearetureShow, toggleFeature] = useState (false)
+  const [picLibrary, updatePicLibrary] = useState ([])
+  const [currentPic, updateCurPic] = useState("")
+  const [starShow, toggleStar] = useState("emptyStar.png")
+  const [price, setPrice] = useState([])
+  const [sale, setSale] = useState(false)
 
   useEffect(() => {
-    getRelatedDetails(id);
-    getImages(id);
-    getRating(id);
+    getDetails(itemID);
+    getImageAndPrice(itemID);
+    getRating(itemID);
+    // checkOutfit(itemID, props.outfitList)
    }, [])
 
-  const getRelatedDetails = (ID) => {
-    var requestOption = {
-      headers: {
-        "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
-      }
-      // params: {
-      //   product_id: IDList[x],
-      // }
-    }
-    Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${ID}`, requestOption)
-    .then(res => {
-      // console.log(res.data)
-      setDetail(res.data)
-    })
-    .catch(err => {
-      console.log("Err: ", err)
-    })
-  }
-
-  const getImages = (ID) =>  {
-    const url = process.env.REACT_APP_API_OVERVIEW_URL + `products/${ID}/styles`;
-    fetch(url,
-      {
-        method: "GET",
-        headers:
-        {
-          "Content-Type": "application/json",
-          "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
-        }
-      }
-    )
-      .then(res => res.json())
-      .then((data) => {
-        // console.log(data.results[0].photos);
-
-        let thumbnails = data.results[0].photos;
-
-
-        setImage(thumbnails[0].thumbnail_url)
-
+  const getDetails = async (id) => {
+    await Axios.get('http://localhost:3000/getItemDetails', { params: { id: id } })
+      .then((response) => {
+        setDetail(response.data)
+        // console.log("API detail", response.data)
+        return response.data
       })
       .catch((err) => {
-        console.error(err);
+        console.error(err)
       })
   }
 
-  const getRating = (ID) => {
-    var requestOption = {
-      headers: {
-        "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
-      },
-      // params: {
-      //   product_id: ID,
-      // }
-    }
-    Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${ID}`, requestOption)
-    .then(res => {
-      // console.log('meta', res)
-      const rateObj = res.data.ratings;
-      var numOfRate = 0;
-      var points = 0;
-      for (var key in rateObj) {
-        points += (key * rateObj[key]);
-        numOfRate += Number(rateObj[key]);
+
+  const getImageAndPrice = async (id) => {
+  await Axios.get('http://localhost:3000/getImageAndPrice', {params:{id: id}})
+    .then((response) => {
+      if (response.data[0][0].thumbnail_url === null) {
+        updateCurPic({thumbnail_url: "https://lyrictheatreokc.com/wp-content/uploads/2021/11/Ciao-Ciao-Image-Coming-Soon-500px.jpg"})
+        return response.data
+      } else {
+        updatePicLibrary(response.data[0])
+        updateCurPic(response.data[0][0])
+        setPrice([response.data[1], response.data[2]])
+        // console.log(response.data[2])
+        if (response.data[2] !== null) {
+        setSale(true)
+        }
+        return response.data
       }
-      var averageRate = Math.round(points / numOfRate * 10) / 10;
-      // console.log('aveRating', averageRate)
-      setRating (averageRate)
-      return averageRate;
     })
-    .then(averageRate => {
-      $(document).ready(function() {
-        // Gets the span width of the filled-ratings span
-        // this will be the same for each rating
-        var star_rating_width = $('.fill-ratings span').width();
-        // Sets the container of the ratings to span width
-        // thus the percentages in mobile will never be wrong
-        $('.star-ratings').width(averageRate / 100);
-      });
-    })
-    .catch(err => {
-      console.log("Err: ", err)
+    .catch((err) => {
+      console.error(err)
     })
   }
 
-  // const toggleID = () => {
-  //   console.log('check outfitList', props.outfit)
-  //     var index = props.outfit.indexOf(id)
-  //     if (index === -1) {
-  //       var newList = props.outfit
-  //       newList.push(id)
-  //       console.log('after add', newList)
-  //       props.toggleOutfit(newList)
-  //     } else {
-  //       var newList = props.outfit
-  //       newList.splice(index, 1)
-  //       console.log('after remove', newList)
-  //       props.toggleOutfit(newList)
-  //     }
+
+  const getRating = async (id) => {
+    await Axios.get('http://localhost:3000/getRating', {params:{id: id}})
+    .then((response) => {
+      setRating(Number(response.data))
+      // console.log('APIRate', response.data)
+      // return (Number(response.data))
+    })
+    .catch((err) => {
+      console.error(err)
+    })
+  }
+
+  // const switchStar = (starShow) => {
+  //   if (starShow === "FillStar.png") {
+  //     toggleStar("emptyStar.png")
+  //   } else {
+  //     toggleStar("FillStar.png")
   //   }
+  // }
+
+  // const checkOutfit = (currentID, OutfitList)=>  {
+  //   var index = OutfitList.indexOf(currentID)
+  //   var newList = OutfitList
+  //   if (index === -1) {
+  //     toggleStar("emptyStar.png")
+  //   } else {
+  //     toggleStar("FillStar.png")
+  //   }
+  // }
+
+  const featureCompare = () => {
+    var show = fearetureShow
+    toggleFeature(!show)
+  }
+
+  const setCurPhoto = (url) => {
+    updateCurPic({thumbnail_url: url})
+  }
 
 
 
-  const content = (
-    <div className="carousel-box">
-     <img className = "image-box" src={imageList} alt="style" />
-      <button className="star-btn" onClick= {()=>{toggleID(id)}}>X</button>
-      <div className="category-box">
-        <div className="category-title">{detail.category}</div>
-        <div className="category-wrapper">
-          <p>{detail.name}</p>
-          <div className="price-box">
-            ${detail.default_price}
-          </div>
-          <div className="star-box">
-           <Star rating={rating}/>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-  if (imageList.length === 0 || detail.length === 0 || rating === 0) {
-    return
+
+  if (detail.length === 0 || rating === 0) {
+    return (
+      <p>Rendering</p>
+    )
   } else {
     // console.log(id, imageList[0].thumbnail_url)
-    return content
+    return (
+      <div className="carousel-box">
+        <div className="carousel-bg-img" style={{ backgroundImage: "url('" + currentPic.thumbnail_url + "')" }} ></div>
+        {props.outfit && <button className="star-btn" onClick= {()=>{props.toggleStar(itemID)}}>X</button>}
+        {!props.outfit && <button className="star-btn" onClick= {() => {featureCompare()}}><img src="FillStar.png"></img></button>}
+        <div className="sensor-box">
+          <div  className="hidden-box">
+          {picLibrary.map((item, index) =>
+            <SmallPicBox item= {item} key= {index} setCurPhoto = {setCurPhoto}/>
+          )}
+          </div>
+        </div>
+        <div className="category-box">
+          <div className="category-title" >{detail.category}</div>
+          <div className="category-wrapper" onClick= {()=>{props.updateCurrentItem(itemID, detail.name)}}>
+            <p>{detail.name}</p>
+            {/* <div className="price-box">
+              ${detail.default_price}
+            </div> */}
+              {sale && <span className="price-box"><div><s>${price[0]}</s></div> <div style={{color: 'red'}}>${price[1]}</div></span>}
+              {!sale && <div className="price-box">${detail.default_price}</div>}
+
+            <div className="star-box">
+              <Star rating={rating}/>
+            </div>
+          </div>
+        </div>
+        {fearetureShow && <ComparingChart toggleFeature = {toggleFeature} compareFeatureDetail = {detail} mainFeature = {props.mainFeature}/>}
+      </div>
+    )
   }
 }
 

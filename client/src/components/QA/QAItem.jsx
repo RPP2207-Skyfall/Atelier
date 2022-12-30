@@ -31,6 +31,13 @@ class QAItem extends React.Component {
   };
 
   componentDidMount() {
+    var sortedAList = this.state.A_List.sort(function(a,b) {
+      return b['helpfulness'] - a['helpfulness'];
+    });
+    this.setState({
+      A_List: sortedAList
+    });
+
     if (this.state.A_List.length > 2) {
       this.setState({
         A_List_Shown: [this.state.A_List[0], this.state.A_List[1]],
@@ -49,6 +56,7 @@ class QAItem extends React.Component {
     var new_A_List_Shown = this.state.A_List_Shown;
     this.setState({
       A_List_Shown: this.state.A_List,
+      isExpanded: true,
       moreAnswerBtn: false
     });
   };
@@ -74,9 +82,19 @@ class QAItem extends React.Component {
   };
 
   handleCollapseExpand() {
-    this.setState({
-      isExpanded: !this.state.isExpanded
-    })
+    if (this.state.A_List.length > 2) {
+      this.setState({
+        A_List_Shown: [this.state.A_List[0], this.state.A_List[1]],
+        moreAnswerBtn: true,
+        isExpanded: false
+      })
+    } else {
+      this.setState({
+        A_List_Shown: this.state.A_List,
+        moreAnswerBtn: false,
+        isExpanded: false
+      })
+    }
   };
 
   render() {
@@ -100,7 +118,7 @@ class QAItem extends React.Component {
                 <AnswerList list={this.state.A_List_Shown} />
               </div>
           </Grid>
-          {this.state.moreAnswerBtn ? <Button className='qaitem-more-answers-btn' data-testid='qaitem-more-answers-btn' onClick={this.handleMoreAnswer}>See more answers</Button> : <Button className='qaitem-collapse-answers-btn'>Collapse answers</Button>}
+          {this.state.moreAnswerBtn ? <Button className='qaitem-more-answers-btn' data-testid='qaitem-more-answers-btn' onClick={this.handleMoreAnswer}>See more answers</Button> : <Button className='qaitem-collapse-answers-btn' onClick={this.handleCollapseExpand}>Collapse answers</Button>}
         <AnswerModal isAModalOpen={this.props.isAModalOpen} handleAModalClose={this.props.handleAModalClose} question={this.state.Q.question_body} product_name={this.props.product_name} />
       </div>
     )

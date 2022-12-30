@@ -55,7 +55,7 @@ class AnswerModal extends React.Component {
       })
     }
 
-    if (this.state.email !== '') {
+    if (this.state.email !== '' && this.state.email.includes('@') === true) {
       this.setState({
         emailPass: true
       })
@@ -84,11 +84,30 @@ class AnswerModal extends React.Component {
         nicknamePass: false
       })
     }
-
-  }
+  };
 
   handleSubmitError(e) {
     e.preventDefault();
+    if (this.state.emailPass && this.state.nicknamePass && this.state.answerPass) {
+      //do post request
+
+      //wipe out the field - returning to default state
+      this.setState({
+        answer:'',
+        nickname:'',
+        email:'',
+        answerError: '',
+        nicknameError: '',
+        emailError: '',
+        answerPass: false,
+        nicknamePass: false,
+        emailPass: false,
+        images:[],
+        uploadImgBtn: true
+      });
+      this.props.handleAModalClose();
+    }
+
     if (this.state.email === '') {
       this.setState({
         emailError: 'You must enter the following: Email'
@@ -122,9 +141,7 @@ class AnswerModal extends React.Component {
         answerError: ''
       })
     }
-    if (this.state.emailPass && this.state.nicknamePass && this.state.answerPass) {
-      this.props.handleAModalClose();
-    }
+
   };
 
   handleImageUpload(e) {
@@ -204,7 +221,7 @@ class AnswerModal extends React.Component {
             </Stack>
             <br></br>
             <Stack direction='row' spacing={1}>
-              {this.state.images.map((image, index) => <img id='thumbnail' src={image}></img>)}
+              {this.state.images.map((image, index) => <img className='thumbnail-photo' key = {index} src={image}></img>)}
             </Stack>
             <br></br>
             <Stack spacing={1}>

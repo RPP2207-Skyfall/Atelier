@@ -19,7 +19,7 @@ exports.getRating = (req, res) => {
         numOfRate += Number(rateObj[key]);
       }
       var averageRate = Math.round(points / numOfRate * 10) / 10;
-      console.log('aveRating', averageRate)
+      // console.log('aveRating', averageRate)
       //notice the returning data is String
       return res.status(200).send(String(averageRate))
     })

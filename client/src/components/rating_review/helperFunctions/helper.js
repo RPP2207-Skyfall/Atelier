@@ -1,6 +1,6 @@
 const helpers = {
   generateStars: async (rating, totalRating) => {
-
+    // console.log("rating", rating)
     if (typeof rating !== 'number' || typeof totalRating !== 'number') {
       return []
     }
@@ -122,7 +122,7 @@ const helpers = {
 
   },
   filtering: (filterMap, originalReviewData, reviewData) => {
-    console.log('filterMap', filterMap)
+    //console.log('filterMap', filterMap)
 
     // if all filter are off
     if (Object.values(filterMap).every((value) => value === false)) {
@@ -134,7 +134,7 @@ const helpers = {
       var currentData = originalReviewData[i].rating.toString()
 
       if (filterMap[currentData]) {
-        console.log('pushing', originalReviewData[i])
+        //console.log('pushing', originalReviewData[i])
         filteredReviewArr.push(originalReviewData[i])
       }
     }
@@ -142,9 +142,135 @@ const helpers = {
 
     return filteredReviewArr
 
+  },
+  breakdownCharacteristicsObj: (characteristicsObj) => {
+    //console.log('received charObj', characteristicsObj)
+    var definitionChart = {
+      Fit: ['Too tight', 'Perfect', 'Too loosey'],
+      Length: ['Too short', 'Perfect', 'Too long'],
+      Comfort: ['Uncomforable', 'OK', 'Perfect'],
+      Quality: ['Poor', 'What I expected', 'Great'],
+      Size: ['Too small', 'Perfect', 'Too big'],
+      Width: ['Too narrow', 'Perfect', 'Too wide']
+    }
+
+    // parseFloat(decimal.toFixed(1)) * 100
+
+    var characteristicsArr = []
+    for (let key in characteristicsObj) {
+      var indicatorPercentage = (parseFloat(characteristicsObj[key].value) * 10).toFixed(1)
+      var scaleLabelLeft = definitionChart[key][0]
+      var scaleLabelMiddle = definitionChart[key][1]
+      var scaleLabelRight = definitionChart[key][2]
+
+      characteristicsArr.push(
+        <div className="characteristic" key={characteristicsObj[key].id}>
+          <div className="row character-name">{key}</div>
+          <div className="row indicator-row">
+            <span className="scale-background">
+              <i className="indicator" style={{ "marginLeft": `${indicatorPercentage}%` }}>{'\u25B2'}</i>
+            </span>
+          </div>
+          <div className="row scale-label">
+            <span className="col-4 left-label">{scaleLabelLeft}</span>
+            <span className="col-4 middle-label">{scaleLabelMiddle}</span>
+            <span className="col-4 right-label">{scaleLabelRight}</span>
+          </div>
+        </div>
+      )
+    }
+    return characteristicsArr
+
+  },
+  generateCharacteristicTable: (characteristicsObj, definitionObj) => {
+
+    var characteristicTable = []
+
+    for (let key in characteristicsObj) {
+
+      characteristicTable.push(
+        <div key={`${key}-row`}>
+
+          <div className="char-title" key={key}>{key}</div>
+
+          <div className="char-selection" key={'char-selection' + key} >
+
+            {definitionObj[key].map((definition, idx) => {
+
+              return (
+                <span className="definition-name" key={'definition-name' + key + idx}>{definition}</span>
+              )
+            })}
+          </div>
+          <div className="char-input" key={'char-input' + key}>
+            {definitionObj[key].map((definition, idx) => {
+
+              return (
+                <input key={'inputBtn' + key + idx} className="inputBtn" type="radio" name={`characteristic-select-${key}`} value={[characteristicsObj[key].id, idx + 1, definition]} />
+              )
+            })}
+          </div>
+        </div>
+      )
+
+    }
+    return characteristicTable
+  },
+  checkReviewForm: (fromComponent, checkValue) => {
+
+    if (fromComponent === 'newBody') {
+      var requiredLength = 50
+      var lengthRemaining = requiredLength - checkValue
+      if (checkValue <= 50) {
+        return [true, lengthRemaining]
+      } else {
+        return [false, lengthRemaining]
+      }
+    }
+    else if (fromComponent === 'overallStar') {
+      if (checkValue < 0) {
+        return true
+      } else {
+        return false
+      }
+    }
+  },
+  storeImage: (currentStorage, files) => {
+
+    for (let i = 0; i < files.length; i++) {
+      //console.log(files[i])
+      var imageObj = { preview: URL.createObjectURL(files[i]) }
+      //var imageObj = { preview: URL.createObjectURL(files[i]), raw: files[i] }
+      currentStorage.push(imageObj)
+    }
+
+    return currentStorage
+
+  },
+  emailValidation: (input) => {
+    //console.log(input.length)
+    if (input.length > 0) {
+      if (input.match(
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      )) {
+        return true
+      } else {
+        return false
+      }
+    }
+  },
+  cleanImageForUpload: (photoObjArr) => {
+    var photoArr = []
+
+    for (let i = 0; i < photoObjArr.length; i++) {
+      photoArr.push(photoObjArr[i].preview)
+    }
+
+    return photoArr
   }
 }
 
 
 
 export default helpers;
+
