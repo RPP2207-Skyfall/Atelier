@@ -1,0 +1,25 @@
+# update/refresh the list of available packages
+sudo apt update
+
+# install git to pull repo from github
+sudo apt install git
+
+# install node 16.x
+cd ~
+curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh
+sudo bash /tmp/nodesource_setup.sh
+sudo apt install nodejs
+
+# install nginx as reverse proxy & web server
+sudo apt install -y nginx
+
+# nginx should've started, this is optional
+sudo systemctl start nginx
+
+# to check nginx running
+service nginx status
+
+#port-forwarding
+sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 3000
+
+https://towardsdev.com/deploying-a-react-node-mysql-app-to-aws-ec2-2022-1dfc98496acf

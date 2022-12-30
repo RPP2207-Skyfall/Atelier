@@ -84,8 +84,7 @@ class AnswerModal extends React.Component {
         nicknamePass: false
       })
     }
-
-  }
+  };
 
   handleSubmitError(e) {
     e.preventDefault();
@@ -222,7 +221,7 @@ class AnswerModal extends React.Component {
             </Stack>
             <br></br>
             <Stack direction='row' spacing={1}>
-              {this.state.images.map((image, index) => <img id='thumbnail' src={image}></img>)}
+              {this.state.images.map((image, index) => <img className='thumbnail-photo' key = {index} src={image}></img>)}
             </Stack>
             <br></br>
             <Stack spacing={1}>
