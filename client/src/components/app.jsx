@@ -43,7 +43,7 @@ class App extends React.Component {
         <Overview />
         <RelatedItem outfitList={this.state.OutfitList} toggleStar={this.toggleStar} CurrentItemID={this.state.CurrentItemID} updateCurrentItem={this.updateCurrentItem} />
         <QandA product_name={'Camo Windblocker'} />
-        <RatingReview />
+        <RatingReview product_id={this.state.CurrentItemID} product_name={this.state.CurrentItemName} />
       </>
     )
   }
