@@ -60,7 +60,7 @@ const RelatedItem = (props) => {
   }, [mainItemId])
 
   const getRelatedID = async (mainID) => {
-    const promise = await Axios.get('http://localhost:3000/relateItemsID', { params: { id: mainID } })
+    const promise = await Axios.get('/relateItemsID', { params: { id: mainID } })
     Promise.resolve(promise)
       .then((response => {
         // console.log(response.data)

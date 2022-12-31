@@ -24,7 +24,7 @@ const OutfitCard = (props) => {
   }, [])
 
   const getDetails = async (id) => {
-    await Axios.get('http://localhost:3000/getItemDetails', { params: { id: id } })
+    await Axios.get('/getItemDetails', { params: { id: id } })
       .then((response) => {
         setDetail(response.data)
         // console.log("API detail", response.data)
@@ -37,7 +37,7 @@ const OutfitCard = (props) => {
 
 
   const getImageAndPrice = async (id) => {
-    await Axios.get('http://localhost:3000/getImageAndPrice', { params: { id: id } })
+    await Axios.get('/getImageAndPrice', { params: { id: id } })
       .then((response) => {
         if (response.data[0][0].thumbnail_url === null) {
           updateCurPic({ thumbnail_url: "https://lyrictheatreokc.com/wp-content/uploads/2021/11/Ciao-Ciao-Image-Coming-Soon-500px.jpg" })
@@ -60,7 +60,7 @@ const OutfitCard = (props) => {
 
 
   const getRating = async (id) => {
-    await Axios.get('http://localhost:3000/getRating', { params: { id: id } })
+    await Axios.get('/getRating', { params: { id: id } })
       .then((response) => {
         setRating(Number(response.data))
         // console.log('APIRate', response.data)

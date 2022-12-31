@@ -12,7 +12,11 @@ module.exports = {
         "Content-Type": "application/json",
         "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY,
         "Accept-Encoding": 'gzip',
-        "Content-Encoding": 'gzip'
+        "Content-Encoding": 'gzip',
+        'access-control-allow-origin': '*',
+        'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'access-control-allow-headers': 'content-type, accept, authorization',
+        'access-control-max-age': 10 // Seconds.
       },
       params: {
         product_id: req.body.product_id,
@@ -40,7 +44,11 @@ module.exports = {
         "Content-Type": "application/json",
         "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY,
         "Accept-Encoding": 'gzip',
-        "Content-Encoding": 'gzip'
+        "Content-Encoding": 'gzip',
+        'access-control-allow-origin': '*',
+        'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'access-control-allow-headers': 'content-type, accept, authorization',
+        'access-control-max-age': 10 // Seconds.
       },
       params: {
         product_id: req.body.product_id

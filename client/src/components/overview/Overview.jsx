@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ProductInfo from './parts/productInfo/ProductInfo.jsx';
 import StyleSelector from './parts/styleSelector/StyleSelector.jsx';
 import AddToCart from './parts/addToCart/AddToCart.jsx';
-import ImageGallery from './parts/ImageGallery/ImageGallery.jsx';
+import ImageGallery from './parts/imageGallery/ImageGallery.jsx';
 import Axios from 'axios';
 
 class Overview extends React.Component {
@@ -177,32 +177,32 @@ class Overview extends React.Component {
 
   getData() {
     this.getGeneralProducts()
-        .then((data) => {
-          return this.getStyles(data.SKU)
-        })
-        .then((state) => {
-          // console.log('state', state)
-          return this.getReviews(state.styles.product_id);
-        })
-        .then((reviews) => {
-          // console.log('reviews', reviews);
-          return this.getAverageRating(reviews.reviewData)
-        })
-        .then((averageReview) => {
-          return this.setAverageRating(averageReview);
-        })
-        .then((done) => {
+      .then((data) => {
+        return this.getStyles(data.SKU)
+      })
+      .then((state) => {
+        // console.log('state', state)
+        return this.getReviews(state.styles.product_id);
+      })
+      .then((reviews) => {
+        // console.log('reviews', reviews);
+        return this.getAverageRating(reviews.reviewData)
+      })
+      .then((averageReview) => {
+        return this.setAverageRating(averageReview);
+      })
+      .then((done) => {
 
-          this.setState({
-            done: true
-          })
-          // console.log('done', done)
+        this.setState({
+          done: true
+        })
+        // console.log('done', done)
 
-          // make a state with done where it is verified that all api calls are done
-        })
-        .catch((err) => {
-          console.log('ERR', err)
-        })
+        // make a state with done where it is verified that all api calls are done
+      })
+      .catch((err) => {
+        console.log('ERR', err)
+      })
 
   }
 
@@ -277,26 +277,26 @@ class Overview extends React.Component {
           }
         }
       )
-          .then(res => res.json())
-          .then((data) => {
+        .then(res => res.json())
+        .then((data) => {
 
-            // console.log('data in styles', data)
+          // console.log('data in styles', data)
 
-             let holder = this.makeThumbnailBoxes(data.results[0].photos)
+          let holder = this.makeThumbnailBoxes(data.results[0].photos)
 
-            this.setState({
-              styles: data,
-              current: data.results[0].photos[this.state.mainIndex],
-              amount: data.results[0].photos.length,
-              currentThumbnails: holder,
-              currentStyle: data.results[0]
-            }, () => {
-              resolve(this.state)
-            })
+          this.setState({
+            styles: data,
+            current: data.results[0].photos[this.state.mainIndex],
+            amount: data.results[0].photos.length,
+            currentThumbnails: holder,
+            currentStyle: data.results[0]
+          }, () => {
+            resolve(this.state)
           })
-          .catch((err) => {
-            reject(err)
-          })
+        })
+        .catch((err) => {
+          reject(err)
+        })
     })
   }
 
@@ -440,9 +440,9 @@ class Overview extends React.Component {
           <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} />
           <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle} />
           <AddToCart
-          currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
-          sizeQuantity={this.state.sizeQuant} selectedQuant={this.state.selectedQuant} selectQuant={this.selectQuant} skuToBuy={this.state.skuToBuy}
-          likeOutfit={this.likeOutfit}/>
+            currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
+            sizeQuantity={this.state.sizeQuant} selectedQuant={this.state.selectedQuant} selectQuant={this.selectQuant} skuToBuy={this.state.skuToBuy}
+            likeOutfit={this.likeOutfit} />
           <ImageGallery
             info={this.state} currentThumbnails={this.state.currentThumbnails} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
             handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
