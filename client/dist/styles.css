@@ -294,6 +294,7 @@ main {
 }
 
 
+
 .star-name:hover {
   background-color: rgba(150, 150, 150, 0.36);
 }
@@ -547,7 +548,7 @@ main {
   color: rgb(128, 9, 9);
 }
 
-*/
+
 /**********************************************/
 /****** Style for Overview widget****/
 
@@ -691,6 +692,32 @@ main {
   max-height: 100%;
 }
 
+/* --------ICONS--------- */
+
+.selected-icon {
+  display: flex;
+  flex-direction: row;
+  /* flex: 1 1 0; */
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  border: 2px solid rgb(125, 125, 188);
+  /* box-sizing: border-box; */
+
+}
+
+.icon {
+  display: flex;
+  /* flex: 1 1 0; */
+  height: 20px;
+  width: 20px;
+  border: 1px solid black;
+  /* box-sizing: border-box; */
+  border-radius: 50%;
+}
+
+/* --------------- */
+
 .expanded-again-image-gallery {
   position: relative;
   height: 100%;
@@ -699,6 +726,7 @@ main {
 
 .zoom-btn {
   position: relative;
+
 }
 
 .zoom-box-container {
@@ -757,6 +785,12 @@ main {
 .current-style-selected {
   flex: 1 0 21%;
   margin: 3px;
+}
+
+.selected-style-icon {
+  height: 10px;
+  width: 10px;
+
 }
 
 .style-image-selected {
