@@ -10,11 +10,13 @@ module.exports = {
     var requestOption = {
       headers: {
         "Content-Type": "application/json",
-        "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY
+        "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY,
+        "Accept-Encoding": 'gzip',
+        "Content-Encoding": 'gzip'
       },
       params: {
         product_id: req.body.product_id,
-        count: 5,
+        count: 30,
         sort: req.body.sort
       }
     }
@@ -36,7 +38,9 @@ module.exports = {
     var requestOption = {
       headers: {
         "Content-Type": "application/json",
-        "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY
+        "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY,
+        "Accept-Encoding": 'gzip',
+        "Content-Encoding": 'gzip'
       },
       params: {
         product_id: req.body.product_id

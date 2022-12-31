@@ -5,7 +5,9 @@ exports.getRating = (req, res) => {
   var ID = req.query.id
   var requestOption = {
     headers: {
-      "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
+      "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN,
+      "Accept-Encoding": 'gzip',
+      "Content-Encoding": 'gzip'
     }
   }
   Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${ID}`, requestOption)

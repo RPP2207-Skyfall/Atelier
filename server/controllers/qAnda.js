@@ -7,7 +7,9 @@ exports.getProductQA = (req, res) => {
   var requestOption = {
     headers: {
       "Content-Type": "application/json",
-      "Authorization": process.env.REACT_APP_API_QA_KEY
+      "Authorization": process.env.REACT_APP_API_QA_KEY,
+      "Accept-Encoding": 'gzip',
+      "Content-Encoding": 'gzip'
     },
     params: {
       product_id: product_id
@@ -16,7 +18,7 @@ exports.getProductQA = (req, res) => {
   Axios.get(url, requestOption)
     .then(res => {
       if (res.data.results.length > 0) {
-        sortedQA = res.data.results.sort(function(a,b) {
+        sortedQA = res.data.results.sort(function (a, b) {
           return (b['question_helpfulness'] - a['question_helpfulness']);
         }
         res.send(sortedQA));
