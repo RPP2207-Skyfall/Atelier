@@ -5,7 +5,8 @@
   "main": "server/index.js",
   "scripts": {
     "test": "jest --coverage",
-    "test-coverage-report": "jest --coverage rating_reviews.test.js",
+    "test-review": "jest rating_reviews.test.js",
+    "test-review-coverage-report": "jest --coverage rating_reviews.test.js",
     "testQA": "jest --coverage q&a.test.js",
     "server-dev": "npx nodemon --watch server/index.js",
     "client-dev": "npx webpack --watch",

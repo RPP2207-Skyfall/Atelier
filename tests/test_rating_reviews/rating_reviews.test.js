@@ -10,6 +10,7 @@ import SortMenu from '../../client/src/components/rating_review/sorting/sorting.
 import helperFn from '../../client/src/components/rating_review/helperFunctions/helper.js'
 // import RatingSummary from '../../client/src/components/rating_review/ratingSummary/ratingSummary.jsx'
 import PhotoItem from '../../client/src/components/rating_review/reviewPhoto/photoItem.jsx'
+import RatingBreakdown from '../../client/src/components/rating_review/breakdown/ratingBreakdown.jsx'
 import { render, screen, waitFor, fireEvent, cleanup } from "@testing-library/react"
 import { act } from 'react-dom/test-utils'
 import testData from './test_data.js'
@@ -56,7 +57,7 @@ describe("ReviewList Component", () => {
     render(<ReviewList reviewData={reviewDataArr} />)
     const reviewListElement = screen.getByTestId("review-amount")
     expect(reviewListElement).toBeInTheDocument();
-    expect(reviewListElement).toHaveTextContent('3 reviews, sorted by ')
+    expect(reviewListElement).toHaveTextContent('3 reviews, sorted by relevancehelpfulnewestrelevance')
 
   })
   test("should not render the more review button when there is less than 2 reviews", async () => {
@@ -171,26 +172,15 @@ describe("Sorting Component", () => {
 
 describe("ReviewItem Component", () => {
   test("Should Helpfulness count incremented by 1 when Yes is clicked  ", async () => {
-    // const { container } = render(<ReviewItem reviewData={testData.reviewData_sample1} />);
+    const updateIsHelpful = jest.fn()
     await act(async () => {
-      render(<ReviewItem reviewData={testData.reviewData_sample1} />)
+      render(<ReviewItem reviewData={testData.reviewData_sample1} updateIsHelpful={updateIsHelpful} />)
     })
     const spanToClick = screen.getByTestId('helpful-span')
     fireEvent.click(spanToClick)
     expect(await screen.getByTestId('helpful-count-span').textContent).toEqual(' (19) ')
 
   })
-  // test("Should Helpfulness count decremented by 1 when Yes is clicked the second time  ", async () => {
-  //   // const { container } = render(<ReviewItem reviewData={testData.reviewData_sample1} />);
-  //   await act(async () => {
-  //     render(<ReviewItem reviewData={testData.reviewData_sample1} />)
-  //   })
-  //   const spanToClick = screen.getByTestId('helpful-span')
-  //   fireEvent.click(spanToClick)
-  //   fireEvent.click(spanToClick)
-  //   expect(await screen.getByTestId('helpful-count-span').textContent).toEqual(' (18) ')
-
-  // })
 
   test("Should render 0 if helpfulness count is not found", async () => {
     // const { container } = render(<ReviewItem reviewData={testData.reviewData_sample1} />);
@@ -316,6 +306,19 @@ describe("ReviewItem Component", () => {
 
   })
 
+  test("Report button should be displayed as Reported when it is clicked.", async () => {
+    const reportReview = jest.fn()
+    await act(async () => {
+      render(<ReviewItem reviewData={testData.reviewData_sample1} reportReview={reportReview} />)
+    })
+    expect(await screen.getByTestId('report-text').textContent).toEqual('Report')
+    const spanToClick = screen.getByTestId('report-text')
+    fireEvent.click(spanToClick)
+    fireEvent.click(spanToClick)
+    expect(await screen.getByTestId('report-text').textContent).toEqual('Reported')
+
+  })
+
 
 
 })
@@ -366,6 +369,41 @@ describe("PhotoItem Component", () => {
     expect(closeBtn).not.toBeInTheDocument()
 
   })
+
+})
+
+describe("RatingBreakdown Component", () => {
+
+  test('Should render rating bar chart', async () => {
+    const ratingObj = { 1: "7", 2: "3", 3: "32", 4: "24", 5: "82" }
+    const totalAmount = 148
+    const reactUseState = react.useState
+    const individualRating = [['1', '7'], ["2", "3"], ["2", "3"], ["2", "3"], ["5", "82"]]
+    jest
+      .spyOn(react, 'useState')
+      .mockImplementationOnce(() => reactUseState(individualRating))
+
+    await act(async () => {
+      render(<RatingBreakdown ratingObj={ratingObj} totalAmount={totalAmount} />)
+    })
+    expect(await screen.getByTestId('bar-chart-0')).toBeInTheDocument()
+  })
+  test('Should not render rating bar chart if individualRating is undefined', async () => {
+    const ratingObj = undefined
+    const totalAmount = undefined
+    const reactUseState = react.useState
+    const individualRating = [['1', '7'], ["2", "3"], ["2", "3"], ["2", "3"], ["5", "82"]]
+    jest
+      .spyOn(react, 'useState')
+      .mockImplementationOnce(() => reactUseState(individualRating))
+
+    await act(async () => {
+      render(<RatingBreakdown ratingObj={ratingObj} totalAmount={totalAmount} />)
+    })
+
+    expect(await screen.queryByText('1 Star')).not.toBeInTheDocument()
+  })
+
 
 })
 
