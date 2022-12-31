@@ -94,7 +94,7 @@ const reviewItem = (props) => {
         <div className="helpfulCount" >Helpful?
           {<span className="helpful-click" data-testid="helpful-span" onClick={() => { helpfulVote() }}>Yes</span>}
           <span data-testid="helpful-count-span">{` (${helpfulCount})`} </span>  |
-          {<span className="report-click" onClick={() => { reportReview() }}>{report}</span>}
+          {<span className="report-click" data-testid='report-text' onClick={() => { reportReview() }}>{report}</span>}
         </div>
         <hr />
       </div>

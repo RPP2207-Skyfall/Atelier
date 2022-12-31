@@ -35,7 +35,7 @@ const bar = (props) => {
 
   return (
 
-    <div className="row bar-chart">
+    <div className="row bar-chart" data-testid={`bar-chart-${props.idx}`}>
       <span className="col-2 starname-bar">
         <span className={highlighted ? 'star-name-selected' : 'star-name'} onClick={() => { hanleFilterClicked(star, !clicked) }}>{`${star} Star`}</span>
       </span>

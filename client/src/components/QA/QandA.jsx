@@ -11,8 +11,8 @@ import AddIcon from '@mui/icons-material/Add';
 class QandA extends React.Component {
   constructor(props) {
     super(props);
-    this.state={
-      QA : [],
+    this.state = {
+      QA: [],
       QA_shown: [],
       product_id: props.product_id || 71700,
       product_name: props.product_name || 'default',
@@ -145,24 +145,24 @@ class QandA extends React.Component {
 
     return (
       <div className='question-and-answer-main' data-testid='question-and-answer-main'>
-        <h4>QUESTIONS & ANSWERS</h4>
+        <h5>QUESTIONS & ANSWERS</h5>
         {this.state.isQAEmpty ?
           <React.Fragment>
             <p>Seems like there is no question posted for this product...</p>
-            <Button variant='outlined' size='medium' onClick={this.handleQModalOpen} className='question-and-answer-add-question-btn'>ADD A QUESTION <AddIcon/></Button>
+            <Button variant='outlined' size='medium' onClick={this.handleQModalOpen} className='question-and-answer-add-question-btn'>ADD A QUESTION <AddIcon /></Button>
           </React.Fragment> :
           <div className='question-and-answer-main-components'>
-            <Search handleSearch={this.handleSearch}/>
+            <Search handleSearch={this.handleSearch} />
             <div className='question-and-answer-main-components-scrollable'>
-            <QAList list={this.state.QA_shown} handleAModalOpen={this.handleAModalOpen} isAModalOpen={this.state.isAModalOpen} handleAModalClose={this.handleAModalClose} product_name={this.state.product_name}/>
+              <QAList list={this.state.QA_shown} handleAModalOpen={this.handleAModalOpen} isAModalOpen={this.state.isAModalOpen} handleAModalClose={this.handleAModalClose} product_name={this.state.product_name}/>
             </div>
             <Stack spacing={1} direction={{ xs: 'column', xs: 'row' }}>
-              {this.state.isLastQuestion ? null: <Button variant='outlined' size='medium' className='question-and-answer-more-question-btn' onClick={this.loadMoreAnsweredQs}>MORE ANSWERED QUESTIONS</Button>}
-              <Button variant='outlined' size='medium' onClick={this.handleQModalOpen} className='question-and-answer-add-question-btn'>ADD A QUESTION <AddIcon/></Button>
+              {this.state.isLastQuestion ? null : <Button variant='outlined' size='medium' className='question-and-answer-more-question-btn' onClick={this.loadMoreAnsweredQs}>MORE ANSWERED QUESTIONS</Button>}
+              <Button variant='outlined' size='medium' onClick={this.handleQModalOpen} className='question-and-answer-add-question-btn'>ADD A QUESTION <AddIcon /></Button>
             </Stack>
           </div>
         }
-        <QuestionModal isQModalOpen={this.state.isQModalOpen} handleQModalClose={this.handleQModalClose} product_name={this.state.product_name}/>
+        <QuestionModal isQModalOpen={this.state.isQModalOpen} handleQModalClose={this.handleQModalClose} product_name={this.state.product_name} />
       </div>
     )
   }
