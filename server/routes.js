@@ -13,6 +13,7 @@ router.get('/relateItemsID', controller.relatedID.getRelatedItemsID)
 router.get('/getRating', controller.rating.getRating)
 router.get('/getImageAndPrice', controller.image.getImageAndPrice)
 router.get('/getItemDetails', controller.itemDetails.getItemDetails)
+router.get('/relatedMetaData', controller.itemDetails.getRelatedMetaData)
 
 
 
