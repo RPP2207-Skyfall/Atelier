@@ -14,7 +14,7 @@ module.exports = {
       },
       params: {
         product_id: req.body.product_id,
-        count: 15,
+        count: 5,
         sort: req.body.sort
       }
     }
