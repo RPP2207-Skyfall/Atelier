@@ -3,7 +3,6 @@ import Axios from 'axios'
 import Star from './../Star/relateStarRating.jsx';
 import ComparingChart from './../PopUp/ComparingChart.jsx';
 import SmallPicBox from './../PopUp/HoverPhoto.jsx';
-import RelatedAPI from './../../RelatedAPI.js'
 
 const OutfitCard = (props) => {
   const itemID = props.item

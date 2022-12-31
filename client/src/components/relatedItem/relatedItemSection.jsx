@@ -19,6 +19,7 @@ let OutfitChildLength = 0;
 const RelatedItem = (props) => {
   const mainItemId = props.CurrentItemID
   const [oldID, setOldID] = useState(props.CurrentItemID)
+  const [metaData, setMeta] = useState([])
   const [relatedList, updateRelatedList] = useState([])
 
   //arrow show
