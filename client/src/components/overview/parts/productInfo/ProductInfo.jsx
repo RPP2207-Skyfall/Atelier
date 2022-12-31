@@ -4,11 +4,21 @@ import OverviewStars from './OverviewStars.jsx';
 function ProductInfo(props) {
 
 
-  // console.log('product info', props)
+  // console.log('product info', props.info.reviewData.length)
+
+  const handleScroll = () => {
+    window.scroll({
+      top: document.body.offsetHeight,
+      left: 0,
+      behavior: 'smooth',
+    });
+  }
+
+
 
   if (props.info.data === undefined) {
     return (
-      <div className="product-info">
+      <div className="product-info" data-testid="product-info-no-data">
         <div className="product-info-stars">Stars TEST</div>
         <div className="product-info-reviews">read all # reviews</div>
         <div className="product-info-category">category</div>
@@ -19,15 +29,16 @@ function ProductInfo(props) {
   } else if (props.info.data.length !== 0 && props.style && props.rating && !props.style.sale_price) {
 
     // console.log('product infor porps', props)
+    let reviewNum = props.info.reviewData.length;
 
     return (
-      <div className="product-info" data-testid="product-info-loaded">
+      <div className="product-info" data-testid="product-info-loaded-test">
         <h3>Product Info</h3>
 
         {/* <div className="product-info-stars">Stars</div> */}
         <OverviewStars rating={props.rating}/>
 
-        <div className="product-info-reviews">read all # reviews</div>
+        <div className="product-info-reviews" onClick={() => handleScroll()}>read all {reviewNum} reviews</div>
         <div className="product-info-category">{props.info.data[0].category}</div>
         <h2 className="product-info-title">{props.style.name}</h2>
         <div id="product-info-price">{props.style.original_price}</div>
@@ -35,6 +46,7 @@ function ProductInfo(props) {
       </div>
     )
   } else if (props.style.sale_price) {
+    let reviewNum = props.info.reviewData.length;
     return (
       <div className="product-info" data-testid="product-info-loaded">
         <h3>Product Info</h3>
@@ -42,7 +54,7 @@ function ProductInfo(props) {
         {/* <div className="product-info-stars">Stars</div> */}
         <OverviewStars rating={props.rating}/>
 
-        <div className="product-info-reviews">read all # reviews</div>
+        <div className="product-info-reviews">read all {reviewNum} reviews</div>
         <div className="product-info-category">{props.info.data[0].category}</div>
         <h2 className="product-info-title">{props.style.name}</h2>
         <s id="product-info-price" style={{color: 'red' }}>{props.style.original_price} </s>

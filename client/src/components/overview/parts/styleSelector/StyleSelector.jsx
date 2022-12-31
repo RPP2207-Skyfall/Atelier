@@ -9,7 +9,7 @@ function StyleSelector(props) {
   if (props.styles.results) {
 
     return (
-      <div className="style-container">
+      <div className="style-container" data-testid="style-selector-test">
 
         <div className="style-name">Style > {props.currentStyle.name}</div>
 
@@ -21,6 +21,8 @@ function StyleSelector(props) {
                   if (style.style_id === props.currentStyle.style_id) {
                     return (
                       <div key={i} className="current-style-selected" onClick={() => props.updateStyle(style)}>
+                        {/* <FontAwesomeIcon icon="fa-thin fa-circle-check" /> */}
+                        <img className="selected-style-icon" src="checkmark.png"></img>
                         <img className="style-image-selected" src={style.photos[0].thumbnail_url} key={i} />
                       </div>
                     )
@@ -39,7 +41,13 @@ function StyleSelector(props) {
     )
 
   } else {
-    return null;
+    return (
+      <div data-testid='style-selector-sad-test'>
+        Please check back later
+      </div>
+    )
+
+    // return null;
   }
 }
 
