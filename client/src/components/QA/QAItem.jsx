@@ -22,7 +22,8 @@ class QAItem extends React.Component {
       A_List_Shown: [],
       QhelpfulCount: this.props.item.question_helpfulness || 0,
       QhelpfulClicked: false,
-      moreAnswerBtn: false
+      moreAnswerBtn: false,
+      isLastAnswer: false
     };
     this.isQHelpful = this.isQHelpful.bind(this);
     this.handleAModalOpen = this.handleAModalOpen.bind(this);
@@ -46,22 +47,21 @@ class QAItem extends React.Component {
     } else {
       this.setState({
         A_List_Shown: this.state.A_List,
-        moreAnswerBtn: false
+        moreAnswerBtn: false,
+        isLastAnswer: true
       })
     }
   };
 
   handleMoreAnswer() {
-    var A_List_Idx = this.state.A_List_Shown.length;
-    var new_A_List_Shown = this.state.A_List_Shown;
+    // var A_List_Idx = this.state.A_List_Shown.length;
+    // var new_A_List_Shown = this.state.A_List_Shown;
     this.setState({
       A_List_Shown: this.state.A_List,
       isExpanded: true,
       moreAnswerBtn: false
     });
   };
-
-
 
   isQHelpful() {
     if (this.state.QhelpfulClicked === false) {
@@ -86,19 +86,20 @@ class QAItem extends React.Component {
       this.setState({
         A_List_Shown: [this.state.A_List[0], this.state.A_List[1]],
         moreAnswerBtn: true,
-        isExpanded: false
+        isExpanded: false,
+        isLastAnswer: false
       })
     } else {
       this.setState({
         A_List_Shown: this.state.A_List,
         moreAnswerBtn: false,
-        isExpanded: false
+        isExpanded: false,
+        isLastAnswer: true
       })
     }
   };
 
   render() {
-    let div_expandable_class = this.state.isExpanded ? 'qaitem-alist-scrollable-collapsed':'qaitem-alist-scrollable-expanded';
 
     return (
       <div className='question-and-answer-qaitem' data-testid='question-and-answer-qaitem'>
@@ -118,7 +119,7 @@ class QAItem extends React.Component {
                 <AnswerList list={this.state.A_List_Shown} />
               </div>
           </Grid>
-          {this.state.moreAnswerBtn ? <Button className='qaitem-more-answers-btn' data-testid='qaitem-more-answers-btn' onClick={this.handleMoreAnswer}>See more answers</Button> : <Button className='qaitem-collapse-answers-btn' onClick={this.handleCollapseExpand}>Collapse answers</Button>}
+          {this.state.moreAnswerBtn ? <Button className='qaitem-more-answers-btn' data-testid='qaitem-more-answers-btn' onClick={this.handleMoreAnswer}>See more answers</Button> : <>{this.state.isLastAnswer ? null : <Button className='qaitem-collapse-answers-btn' onClick={this.handleCollapseExpand}>Collapse answers</Button>}</>}
         <AnswerModal isAModalOpen={this.props.isAModalOpen} handleAModalClose={this.props.handleAModalClose} question={this.state.Q.question_body} product_name={this.props.product_name} />
       </div>
     )
