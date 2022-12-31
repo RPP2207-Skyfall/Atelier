@@ -44,21 +44,13 @@ class QandA extends React.Component {
     }
   }
 
-  async getProductQA(product_id) {
-    var url = process.env.REACT_APP_API_QA_URL;
-    var sortedQA = [];
+  getProductQA = async (product_id) => {
     var requestOption = {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": process.env.REACT_APP_API_QA_KEY
-      },
-      params: {
-        product_id: product_id,
-        count: 10
-      }
-    }
+      product_id: product_id
+    };
+    var sortedQA = [];
     try {
-      var productQA = await Axios.get(url, requestOption);
+      var productQA = await Axios.get('/getProductQA', {params: requestOption});
       if (productQA.data.results.length === 0) {
         throw new Error('No data found');
         this.setState({
