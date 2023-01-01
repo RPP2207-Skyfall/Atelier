@@ -40,9 +40,9 @@ class App extends React.Component {
     return (
       <>
         <h3>Ateiler</h3>
-        <Overview />
+        {/* <Overview />
         <RelatedItem outfitList={this.state.OutfitList} toggleStar={this.toggleStar} CurrentItemID={this.state.CurrentItemID} updateCurrentItem={this.updateCurrentItem} />
-        <QandA product_name={this.state.CurrentItemName} product_id={this.state.CurrentItemID} />
+        <QandA product_name={this.state.CurrentItemName} product_id={this.state.CurrentItemID} /> */}
         <RatingReview product_id={this.state.CurrentItemID} product_name={this.state.CurrentItemName} />
       </>
     )

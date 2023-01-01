@@ -11,6 +11,7 @@ import helperFn from '../../client/src/components/rating_review/helperFunctions/
 // import RatingSummary from '../../client/src/components/rating_review/ratingSummary/ratingSummary.jsx'
 import PhotoItem from '../../client/src/components/rating_review/reviewPhoto/photoItem.jsx'
 import RatingBreakdown from '../../client/src/components/rating_review/breakdown/ratingBreakdown.jsx'
+import Recommendation from '../../client/src/components/rating_review/breakdown/recommendation.jsx'
 import { render, screen, waitFor, fireEvent, cleanup } from "@testing-library/react"
 import { act } from 'react-dom/test-utils'
 import testData from './test_data.js'
@@ -82,16 +83,17 @@ describe("ReviewList Component", () => {
     const updateSortMethod = () => {
       console.log('updateSortMethod dummy function')
     }
-    var reviewDataArr = [testData.reviewData_sample1, testData.reviewData_sample2, testData.reviewData_sample3]
+
+    var reviewDataArr = [testData.reviewData_sample1, testData.reviewData_sample2, testData.reviewData_sample3, testData.reviewData_sample4, testData.reviewData_sample6]
     //console.log(reviewDataArr)
 
-    //  render(<ReviewList reviewData={reviewDataArr} currentSortValue={currentSortValue} updateSortMethod={updateSortMethod()} />
-    // );
-    const { findByText } = render(<ReviewList reviewData={reviewDataArr} />)
-    // screen.debug()
-    const moreReviewBtn = await findByText('moreReviewBtn-testId')
-    await waitFor(() => expect(moreReviewBtn).toBeInTheDocument())
+    // const wrapper = shallow(<ReviewList reviewData={reviewDataArr} />) as any
+    // wrapper.setProps({ reviewDataArr })
 
+    // expect(wrapper.instance().props.reviewData).toBeCalled()
+    render(<ReviewList reviewData={reviewDataArr} />)
+    // screen.debug()
+    expect(await screen.getByTestId('moreReviewBtn-testId')).toBeInTheDocument()
 
 
   })
@@ -405,6 +407,25 @@ describe("RatingBreakdown Component", () => {
   })
 
 
+})
+
+describe("Recommendation Component", () => {
+  test('Should render the precentage if precentage is not undefined', async () => {
+    const recommendObj = { false: "27", true: "121" }
+    await act(async () => {
+      render(<Recommendation percentage={recommendObj} />)
+    })
+    expect(await screen.getByTestId('recommend-precent')).toBeInTheDocument()
+    expect(await screen.getByTestId('recommend-precent').textContent).toEqual('81.8% of reviews recommend this product')
+  })
+  test('Should still render 0% if precentage is undefined', async () => {
+    const recommendObj = undefined
+    await act(async () => {
+      render(<Recommendation percentage={recommendObj} />)
+    })
+    expect(await screen.getByTestId('recommend-precent')).toBeInTheDocument()
+    expect(await screen.getByTestId('recommend-precent').textContent).toEqual('0% of reviews recommend this product')
+  })
 })
 
 describe("Helper functions", () => {

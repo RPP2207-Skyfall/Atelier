@@ -115,30 +115,32 @@ const helpers = {
   },
   addToFilterArr: (filterValue, filterMap) => {
     // toggle
-    //console.log(filterValue, 'before ', filterMap)
+    // console.log(filterValue, 'before ', filterMap)
     filterMap[filterValue] = !filterMap[filterValue]
-    //console.log(filterValue, 'now: ', filterMap)
+    // console.log(filterValue, 'now: ', filterMap)
     return filterMap
 
   },
   filtering: (filterMap, originalReviewData, reviewData) => {
-    //console.log('filterMap', filterMap)
+    console.log('filterMap', filterMap)
 
     // if all filter are off
     if (Object.values(filterMap).every((value) => value === false)) {
+      //console.log('all filter off', originalReviewData)
       return originalReviewData
     }
     var filteredReviewArr = []
 
     for (let i = 0; i < originalReviewData.length; i++) {
       var currentData = originalReviewData[i].rating.toString()
-
+      //console.log(currentData)
       if (filterMap[currentData]) {
+        // console.log(currentData, filterMap[currentData])
         //console.log('pushing', originalReviewData[i])
         filteredReviewArr.push(originalReviewData[i])
       }
     }
-
+    //console.log(filteredReviewArr)
 
     return filteredReviewArr
 
