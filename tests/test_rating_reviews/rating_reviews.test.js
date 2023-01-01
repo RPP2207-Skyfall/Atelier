@@ -12,6 +12,7 @@ import helperFn from '../../client/src/components/rating_review/helperFunctions/
 import PhotoItem from '../../client/src/components/rating_review/reviewPhoto/photoItem.jsx'
 import RatingBreakdown from '../../client/src/components/rating_review/breakdown/ratingBreakdown.jsx'
 import Recommendation from '../../client/src/components/rating_review/breakdown/recommendation.jsx'
+import Breakdown from '../../client/src/components/rating_review/breakdown/breakdown.jsx'
 import { render, screen, waitFor, fireEvent, cleanup } from "@testing-library/react"
 import { act } from 'react-dom/test-utils'
 import testData from './test_data.js'
@@ -425,6 +426,56 @@ describe("Recommendation Component", () => {
     })
     expect(await screen.getByTestId('recommend-precent')).toBeInTheDocument()
     expect(await screen.getByTestId('recommend-precent').textContent).toEqual('0% of reviews recommend this product')
+  })
+})
+
+describe("Breakdown Component", () => {
+  test('Should change classname to star-name-selected when any filter is clicked', async () => {
+    const resetAllFilter = jest.fn()
+    const hanleFilterClicked = jest.fn()
+    await act(async () => {
+      render(<Breakdown resetAllFilter={resetAllFilter} hanleFilterClicked={hanleFilterClicked} metadata={testData.metadata} />)
+    })
+    const filterBtn = screen.getByTestId("star-btn-3")
+    fireEvent.click(filterBtn)
+    expect(filterBtn.className).toBe('star-name-selected')
+    fireEvent.click(filterBtn)
+
+  })
+  test('Should render Remove all filters button if any filter is on', async () => {
+    const resetAllFilter = jest.fn(() => {
+      console.log('triggered')
+    })
+    const hanleFilterClicked = jest.fn()
+    const filterClicked = true
+    await act(async () => {
+      render(<Breakdown resetAllFilter={resetAllFilter} hanleFilterClicked={hanleFilterClicked} filterClicked={filterClicked} metadata={testData.metadata} />)
+    })
+
+    const clearFilterBtn = screen.getByTestId("remove-filter-btn")
+    expect(await screen.getByTestId('remove-filter-btn')).toBeInTheDocument()
+    fireEvent.click(clearFilterBtn)
+    const breakdownContainer = screen.getByTestId("breakdown-container")
+    expect(breakdownContainer).toHaveTextContent('Remove all filters')
+
+
+  })
+  test('Should not render Remove all filters button if all filter is off', async () => {
+    const resetAllFilter = jest.fn(() => {
+      console.log('triggered')
+    })
+    const hanleFilterClicked = jest.fn()
+    const filterClicked = false
+    await act(async () => {
+      render(<Breakdown resetAllFilter={resetAllFilter} hanleFilterClicked={hanleFilterClicked} filterClicked={filterClicked} metadata={testData.metadata} />)
+    })
+
+    const breakdownContainer = screen.getByTestId("breakdown-container")
+    expect(breakdownContainer).not.toHaveTextContent('Remove all filters')
+
+
+
+
   })
 })
 

@@ -122,7 +122,7 @@ class reviewList extends React.Component {
 
 
   render() {
-    console.log('reviewlist received: ', this.props.reviewData, this.state.displayReview)
+    //console.log('reviewlist received: ', this.props.reviewData, this.state.displayReview)
     const datalength = this.props.reviewData.length
     return (
       <div className="reviewBreakdown">

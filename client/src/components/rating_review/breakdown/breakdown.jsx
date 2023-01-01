@@ -34,7 +34,7 @@ const breakdown = (props) => {
 
   return (
     <>
-      <div className="breakdown-container">
+      <div className="breakdown-container" data-testid="breakdown-container">
         <div className="row average-row">
           <div className="col-4 average-number-col">
             <div className="averageNumber" data-testid="averageRating">{averageRating}</div>

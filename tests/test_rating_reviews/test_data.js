@@ -81,6 +81,37 @@ const testData = {
     "date": "2019-03-12T00:00:00.000Z",
     "reviewer_name": "fashionperson",
     "photos": []
+  },
+  metadata: {
+    "product_id": "71703",
+    "ratings": {
+      "1": "3",
+      "2": "1",
+      "4": "2",
+      "5": "6"
+    },
+    "recommended": {
+      "false": "2",
+      "true": "10"
+    },
+    "characteristics": {
+      "Size": {
+        "id": 240603,
+        "value": "2.4545454545454545"
+      },
+      "Width": {
+        "id": 240604,
+        "value": "2.7272727272727273"
+      },
+      "Comfort": {
+        "id": 240605,
+        "value": "2.8181818181818182"
+      },
+      "Quality": {
+        "id": 240606,
+        "value": "2.8181818181818182"
+      }
+    }
   }
 }
 

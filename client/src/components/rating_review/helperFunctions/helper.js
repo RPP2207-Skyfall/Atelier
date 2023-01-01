@@ -122,7 +122,7 @@ const helpers = {
 
   },
   filtering: (filterMap, originalReviewData, reviewData) => {
-    console.log('filterMap', filterMap)
+    // console.log('filterMap', filterMap)
 
     // if all filter are off
     if (Object.values(filterMap).every((value) => value === false)) {
