@@ -13,7 +13,7 @@ const uploadPhoto = (props) => {
   useEffect(() => {
     (async () => {
       // setShowLimit(false)
-      //console.log(uploadFiles.length)
+      console.log(uploadFiles)
 
       var currentStorage = imageStorage
       let newStorage = await helpers.storeImage(currentStorage, uploadFiles)

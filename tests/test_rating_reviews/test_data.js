@@ -26,7 +26,7 @@ const testData = {
   },
   reviewData_sample2: {
     "review_id": 1254282,
-    "rating": 4,
+    "rating": 3,
     "summary": "I am liking these glasses",
     "recommend": true,
     "response": "Glad you're enjoying the product!",
@@ -38,7 +38,7 @@ const testData = {
   },
   reviewData_sample3: {
     "review_id": 1254283,
-    "rating": 4,
+    "rating": 5,
     "summary": "They look good on me",
     "recommend": true,
     "response": "",
@@ -50,7 +50,7 @@ const testData = {
   },
   reviewData_sample4: {
     "review_id": 1254283,
-    "rating": 4,
+    "rating": 5,
     "summary": "They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me",
     "recommend": true,
     "response": "",
@@ -62,7 +62,7 @@ const testData = {
   },
   reviewData_sample5: {
     "review_id": 1254283,
-    "rating": 4,
+    "rating": 5,
     "summary": "They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me",
     "recommend": true,
     "response": "",
@@ -73,7 +73,7 @@ const testData = {
   },
   reviewData_sample6: {
     "review_id": 1254283,
-    "rating": 4,
+    "rating": 5,
     "summary": "They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me, They look good on me",
     "recommend": true,
     "response": null,
@@ -110,6 +110,38 @@ const testData = {
       "Quality": {
         "id": 240606,
         "value": "2.8181818181818182"
+      }
+    }
+  },
+  metadata2: {
+    "product_id": "71700",
+    "ratings": {
+      "1": "7",
+      "2": "3",
+      "3": "32",
+      "4": "24",
+      "5": "82"
+    },
+    "recommended": {
+      "false": "27",
+      "true": "121"
+    },
+    "characteristics": {
+      "Fit": {
+        "id": 240591,
+        "value": "2.1386138613861386"
+      },
+      "Length": {
+        "id": 240592,
+        "value": "2.6800000000000000"
+      },
+      "Comfort": {
+        "id": 240593,
+        "value": "3.0515463917525773"
+      },
+      "Quality": {
+        "id": 240594,
+        "value": "3.9500000000000000"
       }
     }
   }

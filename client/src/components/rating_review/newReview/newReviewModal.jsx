@@ -31,26 +31,13 @@ const newReviewModal = (props) => {
   const [emailErrorMsg, setEmailErrorMsg] = useState("")
   const [UploadErrorMsg, setUploadErrorMsg] = useState("")
 
-
-
-
   const characteristicsObj = props.characteristics
   let characterTableLength = 0
 
 
-  const definitionObj = {
-    Size: ['A size too small', '½ a size too small', 'Perfect', '½ a size too big', 'A size too wide'],
-    Width: ['Too narrow', 'Slightly narrow', 'Perfect', 'Slightly wide', 'Too wide'],
-    Comfort: ['Uncomfortable', 'Slightly uncomfortable', 'Ok', 'Comfortable', 'Perfect'],
-    Quality: ['Poor', 'Below average', 'What I expected', 'Pretty great', 'Perfect'],
-    Length: ['Runs short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'],
-    Fit: ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs loose']
-  }
-
-
   useEffect(() => {
     (async () => {
-      let characterTable = await helpers.generateCharacteristicTable(characteristicsObj, definitionObj)
+      let characterTable = await helpers.generateCharacteristicTable(characteristicsObj)
       //console.log(characterTable)
       setCharacterTable(characterTable)
       characterTableLength = characterTable.length
@@ -127,7 +114,7 @@ const newReviewModal = (props) => {
   }
 
   const addToPhotoArr = async (photoObjArr) => {
-    // console.log('hi', photoObjArr)
+    console.log('hi', photoObjArr)
     let photoArr = await helpers.cleanImageForUpload(photoObjArr)
     // console.log('bye', photoArr)
     setUploadReady(true)

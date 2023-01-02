@@ -440,12 +440,11 @@ describe("Breakdown Component", () => {
     fireEvent.click(filterBtn)
     expect(filterBtn.className).toBe('star-name-selected')
     fireEvent.click(filterBtn)
+    expect(filterBtn.className).toBe('star-name')
 
   })
   test('Should render Remove all filters button if any filter is on', async () => {
-    const resetAllFilter = jest.fn(() => {
-      console.log('triggered')
-    })
+    const resetAllFilter = jest.fn()
     const hanleFilterClicked = jest.fn()
     const filterClicked = true
     await act(async () => {
@@ -455,15 +454,10 @@ describe("Breakdown Component", () => {
     const clearFilterBtn = screen.getByTestId("remove-filter-btn")
     expect(await screen.getByTestId('remove-filter-btn')).toBeInTheDocument()
     fireEvent.click(clearFilterBtn)
-    const breakdownContainer = screen.getByTestId("breakdown-container")
-    expect(breakdownContainer).toHaveTextContent('Remove all filters')
-
 
   })
   test('Should not render Remove all filters button if all filter is off', async () => {
-    const resetAllFilter = jest.fn(() => {
-      console.log('triggered')
-    })
+    const resetAllFilter = jest.fn()
     const hanleFilterClicked = jest.fn()
     const filterClicked = false
     await act(async () => {
@@ -473,28 +467,53 @@ describe("Breakdown Component", () => {
     const breakdownContainer = screen.getByTestId("breakdown-container")
     expect(breakdownContainer).not.toHaveTextContent('Remove all filters')
 
+  })
+  test('Test if resetAllFilter functio from props is being called', () => {
+    const resetAllFilter = jest.fn()
+    const hanleFilterClicked = jest.fn()
+    const filterClicked = true
 
+    render(<Breakdown resetAllFilter={resetAllFilter} hanleFilterClicked={hanleFilterClicked} filterClicked={filterClicked} metadata={testData.metadata} />)
 
+    const clearFilterBtn = screen.getByTestId("remove-filter-btn")
+    fireEvent.click(clearFilterBtn)
+    expect(resetAllFilter).toHaveBeenCalled()
 
   })
 })
 
+
+
+
+
+
+
 describe("Helper functions", () => {
-  test('generateStars should generate an array of fill amount of each star', async () => {
+  //generateStars
+  test('should generate an array of fill amount of each star', async () => {
     const result = await helperFn.generateStars(3.4, 5)
     const expected = [100, 100, 100, 40, 0]
     expect(result).toEqual(expected)
 
   })
-  test('generateStars should generate an empty array if rating is not a number.', async () => {
+  //generateStars
+  test('should generate an empty array if rating is not a number.', async () => {
 
     const result = await helperFn.generateStars('3.4', 5)
     const expected = []
     expect(result).toEqual(expected)
 
   })
+  //generateStars
+  test('should generate an empty array if totalRating is not a number.', async () => {
 
-  test("Should calculate average rating and the amount of rating and return them as an object", async () => {
+    const result = await helperFn.generateStars(3.4, '5')
+    const expected = []
+    expect(result).toEqual(expected)
+
+  })
+  //calculateAverageRating
+  test("should calculate average rating and the amount of rating and return them as an object", async () => {
 
     const ratingObj = {
       "1": "3",
@@ -509,13 +528,189 @@ describe("Helper functions", () => {
     expect(result).toEqual(expected)
 
   })
-  test("Should return both average and totalRatingAmount as 0 if input is NaN", async () => {
+  //calculateAverageRating
+  test("should return both average and totalRatingAmount as 0 if input is NaN", async () => {
 
     const ratingObj = { 'undefined': 'undefined' }
-
     const result = await helperFn.calculateAverageRating(ratingObj)
     const expected = { 'average': 0, 'totalRatingAmount': 0 }
     expect(result).toEqual(expected)
 
   })
+  //populateIndividualRating
+  test("should populate individual rating", async () => {
+
+    const ratingObj = {
+      "1": "7",
+      "2": "3",
+      "3": "32",
+      "4": "24",
+      "5": "82"
+    }
+    const result = await helperFn.populateIndividualRating(ratingObj)
+    const expected = [["1", "7"], ["2", "3"], ["3", "32"], ["4", "24"], ["5", "82"]]
+    expect(result).toEqual(expected)
+  })
+  //calculateBarFillPercentage
+  test("should return 0 if totalAmount cannot be converted to a number", async () => {
+
+    const totalAmount = 'one-four-eight'
+    const ratingAmount = "7"
+    const result = await helperFn.calculateBarFillPercentage(totalAmount, ratingAmount)
+    const expected = 0
+    expect(result).toEqual(expected)
+  })
+  //calculateBarFillPercentage
+  test("should return 0 if ratingAmount cannot be converted to a number", async () => {
+
+    const totalAmount = '148'
+    const ratingAmount = "seven"
+    const result = await helperFn.calculateBarFillPercentage(totalAmount, ratingAmount)
+    const expected = 0
+    expect(result).toEqual(expected)
+  })
+  //calculateBarFillPercentage
+  test("should calculate fill percentage for star rating if both totalAmount and ratingAmount can be converted to numbers", async () => {
+    const totalAmount = 148
+    const ratingAmount = "7"
+    const result = await helperFn.calculateBarFillPercentage(totalAmount, ratingAmount)
+    const expected = 4.7
+    expect(result).toEqual(expected)
+  })
+  //addToFilterArr
+  test("should toggle the boolean value of given rating in the filter map", async () => {
+    const filterValue = 5
+    const filterMap = { 1: false, 2: false, 3: false, 4: false, 5: false }
+    const result = await helperFn.addToFilterArr(filterValue, filterMap)
+    const expected = { 1: false, 2: false, 3: false, 4: false, 5: true }
+    expect(result).toEqual(expected)
+  })
+  //filtering
+  test("should show the original review data if all value in the filterMap are false", async () => {
+    const filterMap = { 1: false, 2: false, 3: false, 4: false, 5: false }
+    const originalReviewData = [testData.reviewData_sample1, testData.reviewData_sample2, testData.reviewData_sample3, testData.reviewData_sample4, testData.reviewData_sample5, testData.reviewData_sample6]
+    const reviewData = [testData.reviewData_sample1, testData.reviewData_sample2, testData.reviewData_sample3, testData.reviewData_sample4, testData.reviewData_sample5, testData.reviewData_sample6]
+
+    const result = await helperFn.filtering(filterMap, originalReviewData, reviewData)
+    const expected = originalReviewData
+    expect(result).toEqual(expected)
+  })
+  //filtering
+  test("should only show review data that has rating that has a true value in the filterMap", async () => {
+    const filterMap = { 1: false, 2: false, 3: false, 4: false, 5: true }
+    const originalReviewData = [testData.reviewData_sample1, testData.reviewData_sample2, testData.reviewData_sample3, testData.reviewData_sample4, testData.reviewData_sample5, testData.reviewData_sample6]
+    const reviewData = [testData.reviewData_sample1, testData.reviewData_sample2, testData.reviewData_sample3, testData.reviewData_sample4, testData.reviewData_sample5, testData.reviewData_sample6]
+
+    const result = await helperFn.filtering(filterMap, originalReviewData, reviewData)
+    const expected = [testData.reviewData_sample3, testData.reviewData_sample4, testData.reviewData_sample5, testData.reviewData_sample6]
+    expect(result).toEqual(expected)
+  })
+  //breakdownCharacteristicsObj
+  test("should generate an array of HTML elements that contains each characteristic id ", async () => {
+    const characteristicsObj = testData.metadata2.characteristics
+    const result = await helperFn.breakdownCharacteristicsObj(characteristicsObj)
+    //console.log(result)
+    const resultKeyArr = []
+    for (let i = 0; i < result.length; i++) {
+      resultKeyArr.push(result[i].key)
+    }
+    const expected = ['240591', '240592', '240593', '240594']
+    expect(resultKeyArr).toEqual(expected)
+  })
+  //generateCharacteristicTable
+  test("should generate an array of HTML elements that contains each characteristic name", async () => {
+    const characteristicsObj = testData.metadata2.characteristics
+    const result = await helperFn.generateCharacteristicTable(characteristicsObj)
+    //console.log(result)
+    const resultKeyArr = []
+    for (let i = 0; i < result.length; i++) {
+      resultKeyArr.push(result[i].key)
+    }
+    const expected = ['Fit-row', 'Length-row', 'Comfort-row', 'Quality-row']
+    expect(resultKeyArr).toEqual(expected)
+  })
+  //checkReviewForm
+  test("should return an array with boolean value true and the subtrahend of 50 minus summaryLength for newBody component", async () => {
+    const fromComponent = 'newBody'
+    const summaryLength = 47
+    const result = await helperFn.checkReviewForm(fromComponent, summaryLength)
+    const expected = [true, 3]
+    expect(result).toEqual(expected)
+  })
+  // checkReviewForm
+  test("should return an array with boolean value false and the subtrahend of 50 minus summaryLength for newBody component", async () => {
+    const fromComponent = 'newBody'
+    const summaryLength = 57
+    const result = await helperFn.checkReviewForm(fromComponent, summaryLength)
+    const expected = [false, -7]
+    expect(result).toEqual(expected)
+  })
+  // checkReviewForm
+  test("Should return true when checkValue is a negative number", async () => {
+    const fromComponent = 'overallStar'
+    const checkValue = -1
+    const result = await helperFn.checkReviewForm(fromComponent, checkValue)
+    const expected = true
+    expect(result).toEqual(expected)
+  })
+  // checkReviewForm
+  test("Should return false when checkValue is a positive number", async () => {
+    const fromComponent = 'overallStar'
+    const checkValue = 3
+    const result = await helperFn.checkReviewForm(fromComponent, checkValue)
+    const expected = false
+    expect(result).toEqual(expected)
+  })
+  //storeImage
+  global.URL.createObjectURL = jest.fn(() => {
+    return 'blob:hello.png'
+  })
+  test("Should store new image blob data into the storage array", async () => {
+    const currentStorage = []
+    const file = new File(["hello"], "hello.png", { type: "image/png" })
+    const files = [file];
+    //console.log(files)
+    const result = await helperFn.storeImage(currentStorage, files)
+    //console.log(result)
+    const expected = [{ preview: 'blob:hello.png' }]
+    expect(result).toEqual(expected)
+  })
+  //emailValidation
+  test("should return true if email match the format", async () => {
+    const email = 'testemail@gmail.com'
+    const result = await helperFn.emailValidation(email)
+    const expected = true
+    expect(result).toEqual(expected)
+  })
+  //emailValidation
+  test("should return false if email does not match the format", async () => {
+
+    const email = 'email'
+    const result = await helperFn.emailValidation(email)
+    const expected = false
+    expect(result).toEqual(expected)
+  })
+  //emailValidation
+  test("should return false if email length is 0", async () => {
+
+    const email = ''
+    const result = await helperFn.emailValidation(email)
+    const expected = false
+    expect(result).toEqual(expected)
+  })
+  //cleanImageForUpload
+  test("Should only add all the values in photoObjArr into photoArr", async () => {
+    const photoObjArr = [{ preview: "blob:http://localhost:3000/9ef6ff8b-23ff-4dca-b41f-3366b12722ea" }, { preview: "blob:http://localhost:3000/9ef6ff8b-23ff-4dca-b41f-3366b12722ea" }]
+    const photoArr = ["blob:http://localhost:3000/9ef6ff8b-23ff-4dca-b41f-3366b12722ea", "blob:http://localhost:3000/9ef6ff8b-23ff-4dca-b41f-3366b12722ea"]
+    const result = await helperFn.cleanImageForUpload(photoObjArr)
+    const expected = photoArr
+    expect(result).toEqual(expected)
+  })
+  // test("", async () => {
+
+  //   const result = await helperFn.()
+  //   const expected =
+  //   expect(result).toEqual(expected)
+  // })
 })
+
