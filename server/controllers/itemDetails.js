@@ -86,3 +86,56 @@ exports.getRelatedMetaData = async (req,res) => {
 }
 
 
+exports.getOutfitMetaData = async (req,res) => {
+  var idArr = JSON.parse(req.body.idArr);
+  console.log(typeof(idArr))
+  var requestOption = {
+    headers: {
+      "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
+    }
+  }
+  var itemDetails = [];
+  for (var x = 0; x < idArr.length; x ++) {
+    var id = idArr[x]
+    await Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}`, requestOption)
+    .then(result => {
+      var detail = result.data;
+      return detail
+    })
+    .then(async (detail) => {
+      var id = detail.id
+      await Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}/styles`, requestOption)
+      .then(response => {
+        var thumbnails = response.data.results[0].photos
+        var originalPrice = response.data.results[0].original_price
+        var salePrice = response.data.results[0].sale_price
+        detail.thumbnails = thumbnails
+        detail.originalPrice = originalPrice
+        detail.salePrice = salePrice
+      })
+      return detail
+    })
+    .then(async(detail) => {
+      var id = detail.id
+      await Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${id}`, requestOption)
+      .then(rating => {
+        const rateObj = rating.data.ratings;
+        var numOfRate = 0;
+        var points = 0;
+        for (var key in rateObj) {
+          points += (key * rateObj[key]);
+          numOfRate += Number(rateObj[key]);
+        }
+        var averageRate = Math.round(points / numOfRate * 10) / 10;
+        detail.rating = averageRate
+      })
+      itemDetails.push(detail)
+    })
+  }
+  res.status(200).send(itemDetails)
+
+  .catch(err => {
+    console.log("Err: ", err)
+  })
+}
+
