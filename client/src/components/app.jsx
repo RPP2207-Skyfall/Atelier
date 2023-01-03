@@ -8,7 +8,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      OutfitList: [71698],
+      OutfitList: [71700],
       CurrentItemID: 71698,
       CurrentItemName: "Blues Suede Shoes"
     }
