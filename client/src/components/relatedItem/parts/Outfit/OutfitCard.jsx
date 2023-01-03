@@ -6,12 +6,16 @@ import SmallPicBox from './../PopUp/HoverPhoto.jsx';
 
 const OutfitCard = (props) => {
   const itemDetail = props.item
-  const picLibrary = props.item.thumbnails
+  const [picLibrary, updatePicLibrary] = useState (props.item.thumbnails)
   const [currentPic, updateCurPic] = useState ({thumbnail_url: props.item.thumbnails[0].thumbnail_url})
   const [fearetureShow, toggleFeature] = useState (false)
   const originalPrice = props.item.originalPrice
   const salePrice = props.item.salePrice
   const sale = salePrice !== null
+
+  useEffect(()=> {
+    checkPicURL(itemDetail.thumbnails[0].thumbnail_url)
+  }, [])
 
 
   const featureCompare = () => {
@@ -23,8 +27,12 @@ const OutfitCard = (props) => {
     updateCurPic({thumbnail_url: url})
   }
 
-
-
+  const checkPicURL = (itemURL) => {
+    if (itemURL === null) {
+      updateCurPic({thumbnail_url: "https://lyrictheatreokc.com/wp-content/uploads/2021/11/Ciao-Ciao-Image-Coming-Soon-500px.jpg"})
+      updatePicLibrary([])
+    }
+  }
 
   if (itemDetail.length === 0 || itemDetail.rating === 0) {
     return (

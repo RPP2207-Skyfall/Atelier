@@ -5,12 +5,13 @@ import Axios from 'axios';
 const OutfitList = forwardRef((props, carouselRef) => {
   const mainItemDetail = props.mainItemDetail
 
+
   // outfit empty
   if (props.metaData.length === 0 && props.outfit) {
     return (
       <div className="carousel-container" ref={ carouselRef }>
       {props.outfit &&
-        <div className="carousel-box" onClick= {()=>{props.toggleStar(mainItemDetail.id, props.outfitList)}}>
+        <div className="carousel-box" onClick= {()=>{props.toggleStar(mainItemDetail.id)}}>
           <div className = "carousel-center">
             <div><h1>+</h1></div>
             <div>Add Current Item</div>
@@ -33,7 +34,7 @@ const OutfitList = forwardRef((props, carouselRef) => {
     return (
     <div className="carousel-container" ref={ carouselRef }>
      {props.outfit &&
-        <div className="carousel-box" onClick= {()=>{props.toggleStar(mainItemDetail.id, props.outfitList)}}>
+        <div className="carousel-box" onClick= {()=>{props.toggleStar(mainItemDetail.id)}}>
           <div className = "carousel-center">
             <div><h1>+</h1></div>
             <div>Add Current Item</div>
