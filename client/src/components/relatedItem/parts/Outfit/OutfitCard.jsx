@@ -5,88 +5,14 @@ import ComparingChart from './../PopUp/ComparingChart.jsx';
 import SmallPicBox from './../PopUp/HoverPhoto.jsx';
 
 const OutfitCard = (props) => {
-  const itemID = props.item
-  const [detail, setDetail] = useState({});
-  const [rating, setRating] = useState(0);
+  const itemDetail = props.item
+  const picLibrary = props.item.thumbnails
+  const [currentPic, updateCurPic] = useState ({thumbnail_url: props.item.thumbnails[0]})
   const [fearetureShow, toggleFeature] = useState (false)
-  const [picLibrary, updatePicLibrary] = useState ([])
-  const [currentPic, updateCurPic] = useState("")
-  const [starShow, toggleStar] = useState("emptyStar.png")
-  const [price, setPrice] = useState([])
+  const originalPrice = props.item.originalPrice
+  const salePrice = props.item.salePrice
   const [sale, setSale] = useState(false)
 
-  useEffect(() => {
-    getDetails(itemID);
-    getImageAndPrice(itemID);
-    getRating(itemID);
-    // checkOutfit(itemID, props.outfitList)
-   }, [])
-
-  const getDetails = async (id) => {
-    await Axios.get('http://localhost:3000/getItemDetails', { params: { id: id } })
-      .then((response) => {
-        setDetail(response.data)
-        // console.log("API detail", response.data)
-        return response.data
-      })
-      .catch((err) => {
-        console.error(err)
-      })
-  }
-
-
-  const getImageAndPrice = async (id) => {
-  await Axios.get('http://localhost:3000/getImageAndPrice', {params:{id: id}})
-    .then((response) => {
-      if (response.data[0][0].thumbnail_url === null) {
-        updateCurPic({thumbnail_url: "https://lyrictheatreokc.com/wp-content/uploads/2021/11/Ciao-Ciao-Image-Coming-Soon-500px.jpg"})
-        return response.data
-      } else {
-        updatePicLibrary(response.data[0])
-        updateCurPic(response.data[0][0])
-        setPrice([response.data[1], response.data[2]])
-        // console.log(response.data[2])
-        if (response.data[2] !== null) {
-        setSale(true)
-        }
-        return response.data
-      }
-    })
-    .catch((err) => {
-      console.error(err)
-    })
-  }
-
-
-  const getRating = async (id) => {
-    await Axios.get('http://localhost:3000/getRating', {params:{id: id}})
-    .then((response) => {
-      setRating(Number(response.data))
-      // console.log('APIRate', response.data)
-      // return (Number(response.data))
-    })
-    .catch((err) => {
-      console.error(err)
-    })
-  }
-
-  // const switchStar = (starShow) => {
-  //   if (starShow === "FillStar.png") {
-  //     toggleStar("emptyStar.png")
-  //   } else {
-  //     toggleStar("FillStar.png")
-  //   }
-  // }
-
-  // const checkOutfit = (currentID, OutfitList)=>  {
-  //   var index = OutfitList.indexOf(currentID)
-  //   var newList = OutfitList
-  //   if (index === -1) {
-  //     toggleStar("emptyStar.png")
-  //   } else {
-  //     toggleStar("FillStar.png")
-  //   }
-  // }
 
   const featureCompare = () => {
     var show = fearetureShow
@@ -119,21 +45,21 @@ const OutfitCard = (props) => {
           </div>
         </div>
         <div className="category-box">
-          <div className="category-title" >{detail.category}</div>
-          <div className="category-wrapper" onClick= {()=>{props.updateCurrentItem(itemID, detail.name)}}>
-            <p>{detail.name}</p>
+          <div className="category-title" >{itemDetail.category}</div>
+          <div className="category-wrapper" onClick= {()=>{props.updateCurrentItem(itemDetail.id, itemDetail.name)}}>
+            <p>{itemDetail.name}</p>
             {/* <div className="price-box">
               ${detail.default_price}
             </div> */}
-              {sale && <span className="price-box"><div><s>${price[0]}</s></div> <div style={{color: 'red'}}>${price[1]}</div></span>}
-              {!sale && <div className="price-box">${detail.default_price}</div>}
+              {sale && <span className="price-box"><div><s>${originalPrice}</s></div> <div style={{color: 'red'}}>${salePrice}</div></span>}
+              {!sale && <div className="price-box">${itemDetail.default_price}</div>}
 
             <div className="star-box">
-              <Star rating={rating}/>
+              <Star rating={itemDetail.rating}/>
             </div>
           </div>
         </div>
-        {fearetureShow && <ComparingChart toggleFeature = {toggleFeature} compareFeatureDetail = {detail} mainFeature = {props.mainFeature}/>}
+        {fearetureShow && <ComparingChart toggleFeature = {toggleFeature} compareFeatureDetail = {detail} mainItemDetail = {props.mainItemDetail}/>}
       </div>
     )
   }

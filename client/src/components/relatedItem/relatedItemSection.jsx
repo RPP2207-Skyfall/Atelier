@@ -22,6 +22,7 @@ const RelatedItem = (props) => {
   const outfitList = props.outfitList;
   const [oldOutfitList, setOldOutfitList] = useState(props.outfitList)
   const [relatedMetaData, setRelatedMetaData] = useState([])
+  const [mainItemDetail, setMainIdtemDetail] = useState({})
   const [outfitMetaData, setOutfitMetaData] = useState([])
 
 
@@ -70,14 +71,23 @@ const RelatedItem = (props) => {
     await Axios.get('/relatedMetaData', { params: { id: mainID } })
     .then((response => {
       // console.log(response.data)
-      if (response.data.length > 4) {
+      var data = response.data
+      if (data.length > 5) {
         setRightArr(true)
         setLeftArr(false)
       } else {
         setRightArr(false)
         setLeftArr(false)
       }
-      setRelatedMetaData(response.data)
+      //seperate the main item detail
+      for (var x = 0; x < data.length; x ++) {
+        if (data[x].id == mainItemId) {
+          setMainIdtemDetail(data[x])
+          data.splice(x, 1)
+          break
+        }
+      }
+      setRelatedMetaData(data)
       pickIndex = 0;
       offsetCarousel = 0;
       childWidth = 0;
@@ -204,7 +214,7 @@ const RelatedItem = (props) => {
         {leftArr ? <span className="left-arrow" onClick={() => prevSlide()}></span> : <></>}
         {rightArr ? <span className="right-arrow" onClick={() => nextSlide()}></span> : <></>}
         <div className="carousel" ref={carouselOutbox}>
-          <OutfitList ref={myCarousel} relatedMetaData= {relatedMetaData} toggleStar={props.toggleStar} mainItemId={mainItemId} outfit={false} updateCurrentItem={props.updateCurrentItem} />
+          <OutfitList ref={myCarousel} metaData= {relatedMetaData} toggleStar={props.toggleStar} mainItemDetail={mainItemDetail} outfit={false} updateCurrentItem={props.updateCurrentItem} />
         </div>
       </section>
       <h5>YOUR OUTFIT</h5>
@@ -213,7 +223,7 @@ const RelatedItem = (props) => {
       { OutfitLeftArr ? <span className="left-arrow" onClick={() => outfitPrevSlide()}></span> : <></> }
       { OutfitRightArr ? <span className="right-arrow" onClick={() => outfitNextSlide()}></span> : <></> }
         <div className="carousel" ref = { outfitCarouselOutbox }>
-        <OutfitList ref = { outfitCarousel } outfitMetaData = {outfitMetaData} toggleStar = {props.toggleStar} mainItemId = {mainItemId} outfit = {true} updateCurrentItem = {props.updateCurrentItem}/>
+        <OutfitList ref = { outfitCarousel } metaData = {outfitMetaData} toggleStar = {props.toggleStar} mainItemDetail = {mainItemDetail} outfit = {true} updateCurrentItem = {props.updateCurrentItem}/>
         </div>
       </section>
     </div>

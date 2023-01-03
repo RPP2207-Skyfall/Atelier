@@ -3,23 +3,9 @@ import OutfitCard from './OutfitCard.jsx';
 import Axios from 'axios';
 
 const OutfitList = forwardRef((props, carouselRef) => {
-  const mainItemID = props.mainItemId
-  const [mainFeature, updateMainFeature] = useState([])
+  const mainItemDetail = props.mainItemDetail
 
-  useEffect(()=> {
-    getMainFeature(mainItemID)
-    // console.log(props)
-  }, [])
-
-  const getMainFeature = async (id) => {
-    await Axios.get('http://localhost:3000/getItemDetails', {params:{id: id}})
-    .then((response) => {
-      updateMainFeature(response.data)
-      // console.log(response.data)
-    })
-  }
-
-  // console.log('Outfitlist', props.outfitList)
+  // outfit empty
   if (props.outfitList.length === 0 && props.outfit) {
     return (
       <div className="carousel-container" ref={ carouselRef }>
@@ -32,6 +18,17 @@ const OutfitList = forwardRef((props, carouselRef) => {
         </div>}
       </div>
     )
+  // related empty
+  } else if (props.outfitList.length === 0 && !props.outfit){
+    return (
+      <div className="carousel-container" ref={ carouselRef }>
+        <div className="carousel-box">
+          <div className = "carousel-center">
+            <div>No Related Item</div>
+          </div>
+        </div>
+      </div>
+    )
   } else {
     return (
     <div className="carousel-container" ref={ carouselRef }>
@@ -42,11 +39,11 @@ const OutfitList = forwardRef((props, carouselRef) => {
             <div>Add Current Item</div>
           </div>
         </div>}
-      {props.outfit && props.outfitList.map((item, index) =>
-        <OutfitCard item= {item} key= {index} outfitList = {props.outfitList} toggleStar = {props.toggleStar} outfit = {props.outfit} updateCurrentItem = {props.updateCurrentItem} mainFeature = {mainFeature}/>
+      {props.outfit && props.metaData.map((item, index) =>
+        <OutfitCard item= {item} key= {index} toggleStar = {props.toggleStar} updateCurrentItem = {props.updateCurrentItem} mainItemDetail = {props.mainItemDetail}/>
       )}
-      {!props.outfit && props.relatedList.map((item, index) =>
-        <OutfitCard item= {item} key= {index} outfitList = {props.outfitList} toggleStar = {props.toggleStar} outfit = {props.outfit} updateCurrentItem = {props.updateCurrentItem} mainFeature = {mainFeature}/>
+      {!props.outfit && props.metaData.map((item, index) =>
+        <OutfitCard item= {item} key= {index} toggleStar = {props.toggleStar} updateCurrentItem = {props.updateCurrentItem} mainItemDetail = {props.mainItemDetail}/>
       )}
     </div>
     )
