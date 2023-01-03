@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import ProductInfo from './parts/productInfo/ProductInfo.jsx';
 import StyleSelector from './parts/styleSelector/StyleSelector.jsx';
 import AddToCart from './parts/addToCart/AddToCart.jsx';
-import ImageGallery from './parts/ImageGallery/ImageGallery.jsx';
+import ImageGallery from './parts/imageGallery/ImageGallery.jsx';
 import Axios from 'axios';
+import helpers from './overviewHelpers.js';
 
 class Overview extends React.Component {
   constructor(props) {
@@ -49,9 +50,9 @@ class Overview extends React.Component {
 
     this.getGeneralProducts = this.getGeneralProducts.bind(this);
     this.getStyles = this.getStyles.bind(this);
-    this.makeThumbnailBoxes = this.makeThumbnailBoxes.bind(this);
+    // this.makeThumbnailBoxes = this.makeThumbnailBoxes.bind(this);
     this.getReviews = this.getReviews.bind(this);
-    this.getAverageRating = this.getAverageRating.bind(this);
+    // this.getAverageRating = this.getAverageRating.bind(this);
     this.setAverageRating = this.setAverageRating.bind(this);
   }
 
@@ -60,6 +61,9 @@ class Overview extends React.Component {
   likeOutfit(outfit) {
 
     let likedOutfit = outfit.style;
+    this.props.updateCurrentItem(likedOutfit.style_id, likedOutfit.name)
+
+    // newID, newName
     console.log('liked outfit', likedOutfit);
   }
 
@@ -81,8 +85,10 @@ class Overview extends React.Component {
   // for Styles + thumbnail interaction:
 
   updateStyle(style) {
+    // old
+    // let newThumbnails = this.makeThumbnailBoxes(style.photos);
 
-    let newThumbnails = this.makeThumbnailBoxes(style.photos);
+    let newThumbnails = helpers.makeThumbnailBoxes(style.photos);
 
     this.setState({
       currentStyle: style,
@@ -178,15 +184,16 @@ class Overview extends React.Component {
   getData() {
     this.getGeneralProducts()
         .then((data) => {
+          // console.log('data after first call', data);
           return this.getStyles(data.SKU)
         })
         .then((state) => {
-          // console.log('state', state)
+          console.log('state', state)
           return this.getReviews(state.styles.product_id);
         })
         .then((reviews) => {
           // console.log('reviews', reviews);
-          return this.getAverageRating(reviews.reviewData)
+          return helpers.getAverageRating(reviews.reviewData)
         })
         .then((averageReview) => {
           return this.setAverageRating(averageReview);
@@ -209,44 +216,44 @@ class Overview extends React.Component {
 
   // Helper functions for API calls:
 
-  makeThumbnailBoxes(thumbnails) {
+  // makeThumbnailBoxes(thumbnails) {
 
 
-    // let thumbnails = data.results[0].photos;
+  //   // let thumbnails = data.results[0].photos;
 
-    let holder = [];
-    let box = [];
+  //   let holder = [];
+  //   let box = [];
 
-    for (var i = 0; i < thumbnails.length; i++) {
+  //   for (var i = 0; i < thumbnails.length; i++) {
 
-      thumbnails[i].index = i;
-      box.push(thumbnails[i]);
+  //     thumbnails[i].index = i;
+  //     box.push(thumbnails[i]);
 
-      if (box.length === 7) {
-        holder.push(box);
-        box = [];
-      }
+  //     if (box.length === 7) {
+  //       holder.push(box);
+  //       box = [];
+  //     }
 
-      if (i >= thumbnails.length - 1) {
-        holder.push(box);
-        box = [];
-      }
-      // console.log('box', box)
-    }
+  //     if (i >= thumbnails.length - 1) {
+  //       holder.push(box);
+  //       box = [];
+  //     }
+  //     // console.log('box', box)
+  //   }
 
-    return holder;
-  }
+  //   return holder;
+  // }
 
-  getAverageRating(ratings) {
+  // getAverageRating(ratings) {
 
-    let result = 0;
+  //   let result = 0;
 
-    for (let i = 0; i < ratings.length; i++) {
-      result += ratings[i].rating;
-    }
+  //   for (let i = 0; i < ratings.length; i++) {
+  //     result += ratings[i].rating;
+  //   }
 
-    return result / ratings.length;
-  }
+  //   return result / ratings.length;
+  // }
 
   setAverageRating(rating) {
     return new Promise((resolve, reject) => {
@@ -282,7 +289,11 @@ class Overview extends React.Component {
 
             // console.log('data in styles', data)
 
-             let holder = this.makeThumbnailBoxes(data.results[0].photos)
+            //old
+            //  let holder = this.makeThumbnailBoxes(data.results[0].photos)
+
+            // new
+             let holder = helpers.makeThumbnailBoxes(data.results[0].photos)
 
             this.setState({
               styles: data,
@@ -417,6 +428,7 @@ class Overview extends React.Component {
 
 
   componentDidMount() {
+    console.log('props in component did moutn Onvervieww', this.props)
     this.getData()
   }
 

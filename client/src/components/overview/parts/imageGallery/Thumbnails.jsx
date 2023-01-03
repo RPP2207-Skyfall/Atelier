@@ -51,7 +51,7 @@ class Thumbnail extends React.Component {
     }
 
     let currentSection = this.props.info.currentThumbnails[this.props.thumbnailSection]
-    console.log('thumbnails', this.props)
+    // console.log('thumbnails', this.props)
 
     if (this.props.info.expanded) {
       return (
