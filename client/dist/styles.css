@@ -839,9 +839,17 @@ main {
 }
 
 .styles-holder {
-  display: flex;
+  /* display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: wrap; */
+
+/* new */
+  display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* margin: 10px; */
+    position: relative;
+    z-index: 1;
 
 }
 
@@ -924,6 +932,9 @@ main {
   position: relative;
   left: 56%;
   top: -17%;
+
+
+  margin-top: 2rem;
 }
 
 .add-to-cart-dropdown-closed {
@@ -936,7 +947,7 @@ main {
 }
 
 .add-to-cart-dropdown-open {
-  border: 1px solid black;
+  /* border: 1px solid black;
   position: relative;
   left: 60%;
   top: -25%;
@@ -945,7 +956,22 @@ main {
   text-align: center;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow-y: auto; */
+
+  /* new ----- */
+
+  border: 1px solid black;
+    position: relative;
+    left: 60%;
+    top: -25%;
+    width: 25vw;
+    height: 20%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    margin-top: 2rem;
+
 }
 
 .add-to-cart-dropdown-selected {
