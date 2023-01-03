@@ -54,6 +54,16 @@ class Overview extends React.Component {
     this.getReviews = this.getReviews.bind(this);
     // this.getAverageRating = this.getAverageRating.bind(this);
     this.setAverageRating = this.setAverageRating.bind(this);
+
+    // tracking clicks
+
+    this.clickTracker = this.clickTracker.bind(this)
+  }
+
+  // tracking clicks
+
+  clickTracker(clickData) {
+    console.log('click tracker', clickData);
   }
 
   // Add outfit to carousel
@@ -75,7 +85,8 @@ class Overview extends React.Component {
     })
   }
 
-  handleExpand() {
+  handleExpand(clickData) {
+    this.clickTracker(clickData);
     this.setState({
       expanded: !this.state.expanded
     })
@@ -84,9 +95,11 @@ class Overview extends React.Component {
 
   // for Styles + thumbnail interaction:
 
-  updateStyle(style) {
+  updateStyle(style, clickData) {
     // old
     // let newThumbnails = this.makeThumbnailBoxes(style.photos);
+
+    this.clickTracker(clickData);
 
     let newThumbnails = helpers.makeThumbnailBoxes(style.photos);
 
@@ -442,14 +455,14 @@ class Overview extends React.Component {
             <ImageGallery
               info={this.state} currentThumbnails={this.state.currentThumbnails} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
               handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
-              checkThumbnailSection={this.checkThumbnailSection} zoomBox={this.state.zoomBox} zoom={this.zoom}
+              checkThumbnailSection={this.checkThumbnailSection} zoomBox={this.state.zoomBox} zoom={this.zoom} clickTracker={this.clickTracker}
             />
           </div>
         )
       }
       return (
         <div className="overview-container" data-testid="overview-test">
-          <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} />
+          <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} clickTracker={this.clickTracker}/>
           <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle} />
           <AddToCart
           currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
@@ -458,7 +471,7 @@ class Overview extends React.Component {
           <ImageGallery
             info={this.state} currentThumbnails={this.state.currentThumbnails} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
             handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
-            checkThumbnailSection={this.checkThumbnailSection}
+            checkThumbnailSection={this.checkThumbnailSection} clickTracker={this.clickTracker}
           />
         </div>
       )
