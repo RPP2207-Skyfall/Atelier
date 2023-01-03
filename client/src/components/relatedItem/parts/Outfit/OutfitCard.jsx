@@ -7,11 +7,11 @@ import SmallPicBox from './../PopUp/HoverPhoto.jsx';
 const OutfitCard = (props) => {
   const itemDetail = props.item
   const picLibrary = props.item.thumbnails
-  const [currentPic, updateCurPic] = useState ({thumbnail_url: props.item.thumbnails[0]})
+  const [currentPic, updateCurPic] = useState ({thumbnail_url: props.item.thumbnails[0].thumbnail_url})
   const [fearetureShow, toggleFeature] = useState (false)
   const originalPrice = props.item.originalPrice
   const salePrice = props.item.salePrice
-  const [sale, setSale] = useState(false)
+  const sale = salePrice !== null
 
 
   const featureCompare = () => {
@@ -26,7 +26,7 @@ const OutfitCard = (props) => {
 
 
 
-  if (detail.length === 0 || rating === 0) {
+  if (itemDetail.length === 0 || itemDetail.rating === 0) {
     return (
       <p>Rendering</p>
     )
@@ -35,7 +35,7 @@ const OutfitCard = (props) => {
     return (
       <div className="carousel-box">
         <div className="carousel-bg-img" style={{ backgroundImage: "url('" + currentPic.thumbnail_url + "')" }} ></div>
-        {props.outfit && <button className="star-btn" onClick= {()=>{props.toggleStar(itemID)}}>X</button>}
+        {props.outfit && <button className="star-btn" onClick= {()=>{props.toggleStar(itemDetail.id)}}>X</button>}
         {!props.outfit && <button className="star-btn" onClick= {() => {featureCompare()}}><img src="FillStar.png"></img></button>}
         <div className="sensor-box">
           <div  className="hidden-box">
@@ -59,7 +59,7 @@ const OutfitCard = (props) => {
             </div>
           </div>
         </div>
-        {fearetureShow && <ComparingChart toggleFeature = {toggleFeature} compareFeatureDetail = {detail} mainItemDetail = {props.mainItemDetail}/>}
+        {fearetureShow && <ComparingChart toggleFeature = {toggleFeature} compareFeatureDetail = {itemDetail} mainItemDetail = {props.mainItemDetail}/>}
       </div>
     )
   }

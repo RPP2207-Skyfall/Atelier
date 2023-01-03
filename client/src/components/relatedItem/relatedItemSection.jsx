@@ -20,7 +20,7 @@ const RelatedItem = (props) => {
   const mainItemId = props.CurrentItemID
   const [oldID, setOldID] = useState(props.CurrentItemID)
   const outfitList = props.outfitList;
-  const [oldOutfitList, setOldOutfitList] = useState(props.outfitList)
+  const [oldOutfitList, setOldOutfitList] = useState([])
   const [relatedMetaData, setRelatedMetaData] = useState([])
   const [mainItemDetail, setMainIdtemDetail] = useState({})
   const [outfitMetaData, setOutfitMetaData] = useState([])
@@ -42,26 +42,16 @@ const RelatedItem = (props) => {
 // When main ID update triger state change
   useEffect (()=> {
     if (mainItemId !== oldID) {
+      console.log('related update')
       getRelatedMetaData(mainItemId)
       setOldID(mainItemId)
-      // while(pickIndex >= -1) {
-      //   prevSlide()
-      //   pickIndex -= 1
-      // }
-      // if (props.outfitList.length > 4) {
-      //   setOutfitRightArr(true)
-      //   setOutfitLeftArr(false)
-      // } else {
-      //   setOutfitRightArr(false)
-      //   setOutfitLeftArr(false)
-      // }
     }
-    // getRelatedID(mainItemId)
   }, [mainItemId])
 
   // update outfit list render
   useEffect (()=> {
     if (outfitList !== oldOutfitList) {
+      console.log('outfitlist update')
       getOutfitMetaData(outfitList)
       setOldOutfitList(outfitList)
     }
@@ -100,29 +90,32 @@ const RelatedItem = (props) => {
   };
 
   const getOutfitMetaData = async (outfitList) => {
-    await Axios.get('/outfitMetaData', {
-      headers: {
-        'idArr': `${outfitList}`
-      }
-    })
-    .then((response => {
-      if (response.data.length > 4) {
-        setOutfitRightArr(true)
-        setOutfitLeftArr(false)
-      } else {
-        setOutfitRightArr(false)
-        setOutfitLeftArr(false)
-      }
-      setOutfitMetaData(response.data)
-      OutfitPickIndex = 1;
-      OutfitOffsetCarousel = 0;
-      OutfitChildWidth = 0;
-      OutfitChildLength = 0;
-    }))
-    .catch ((err) => {
-    console.log(err.message)
-    })
-  };
+    if (outfitList.length === 0) {
+      setOutfitMetaData([])
+      console.log('0 outfit')
+    } else {
+      await Axios.get('/outfitMetaData', { params: { idArr: outfitList } })
+      .then((response => {
+        if (response.data.length > 4) {
+          setOutfitRightArr(true)
+          setOutfitLeftArr(false)
+        } else {
+          setOutfitRightArr(false)
+          setOutfitLeftArr(false)
+        }
+        setOutfitMetaData(response.data)
+        OutfitPickIndex = 1;
+        OutfitOffsetCarousel = 0;
+        OutfitChildWidth = 0;
+        OutfitChildLength = 0;
+      }))
+      .catch ((err) => {
+      console.log(err.message)
+      })
+    };
+  }
+    // const prams = JSON.stringify({idArr: outfitList})
+
 
   //related arrow func
   const myCarousel = useRef(null);
@@ -223,6 +216,7 @@ const RelatedItem = (props) => {
       { OutfitLeftArr ? <span className="left-arrow" onClick={() => outfitPrevSlide()}></span> : <></> }
       { OutfitRightArr ? <span className="right-arrow" onClick={() => outfitNextSlide()}></span> : <></> }
         <div className="carousel" ref = { outfitCarouselOutbox }>
+          {outfitList, oldOutfitList}
         <OutfitList ref = { outfitCarousel } metaData = {outfitMetaData} toggleStar = {props.toggleStar} mainItemDetail = {mainItemDetail} outfit = {true} updateCurrentItem = {props.updateCurrentItem}/>
         </div>
       </section>

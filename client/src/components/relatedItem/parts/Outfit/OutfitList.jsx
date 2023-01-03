@@ -6,11 +6,11 @@ const OutfitList = forwardRef((props, carouselRef) => {
   const mainItemDetail = props.mainItemDetail
 
   // outfit empty
-  if (props.outfitList.length === 0 && props.outfit) {
+  if (props.metaData.length === 0 && props.outfit) {
     return (
       <div className="carousel-container" ref={ carouselRef }>
       {props.outfit &&
-        <div className="carousel-box" onClick= {()=>{props.toggleStar(mainItemID, props.outfitList)}}>
+        <div className="carousel-box" onClick= {()=>{props.toggleStar(mainItemDetail.id, props.outfitList)}}>
           <div className = "carousel-center">
             <div><h1>+</h1></div>
             <div>Add Current Item</div>
@@ -19,7 +19,7 @@ const OutfitList = forwardRef((props, carouselRef) => {
       </div>
     )
   // related empty
-  } else if (props.outfitList.length === 0 && !props.outfit){
+  } else if (props.metaData.length === 0 && !props.outfit){
     return (
       <div className="carousel-container" ref={ carouselRef }>
         <div className="carousel-box">
@@ -33,17 +33,17 @@ const OutfitList = forwardRef((props, carouselRef) => {
     return (
     <div className="carousel-container" ref={ carouselRef }>
      {props.outfit &&
-        <div className="carousel-box" onClick= {()=>{props.toggleStar(mainItemID, props.outfitList)}}>
+        <div className="carousel-box" onClick= {()=>{props.toggleStar(mainItemDetail.id, props.outfitList)}}>
           <div className = "carousel-center">
             <div><h1>+</h1></div>
             <div>Add Current Item</div>
           </div>
         </div>}
       {props.outfit && props.metaData.map((item, index) =>
-        <OutfitCard item= {item} key= {index} toggleStar = {props.toggleStar} updateCurrentItem = {props.updateCurrentItem} mainItemDetail = {props.mainItemDetail}/>
+        <OutfitCard item= {item} key= {index} toggleStar = {props.toggleStar} updateCurrentItem = {props.updateCurrentItem} mainItemDetail = {props.mainItemDetail} outfit = {props.outfit}/>
       )}
       {!props.outfit && props.metaData.map((item, index) =>
-        <OutfitCard item= {item} key= {index} toggleStar = {props.toggleStar} updateCurrentItem = {props.updateCurrentItem} mainItemDetail = {props.mainItemDetail}/>
+        <OutfitCard item= {item} key= {index} toggleStar = {props.toggleStar} updateCurrentItem = {props.updateCurrentItem} mainItemDetail = {props.mainItemDetail} outfit = {props.outfit}/>
       )}
     </div>
     )

@@ -21,6 +21,7 @@ exports.getItemDetails = (req,res) => {
 
 exports.getRelatedMetaData = async (req,res) => {
   var ID = req.query.id;
+  // console.log('ID', ID)
   var requestOption = {
     headers: {
       "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
@@ -86,9 +87,9 @@ exports.getRelatedMetaData = async (req,res) => {
 }
 
 
-exports.getOutfitMetaData = async (req,res) => {
-  var idArr = JSON.parse(req.body.idArr);
-  console.log(typeof(idArr))
+exports.getOutfitMetaData = async (req, res) => {
+  var idArr = req.query["idArr"]
+  console.log(req.query);
   var requestOption = {
     headers: {
       "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
@@ -131,11 +132,10 @@ exports.getOutfitMetaData = async (req,res) => {
       })
       itemDetails.push(detail)
     })
+    .catch(err => {
+      console.log("Err: ", err)
+    })
   }
-  res.status(200).send(itemDetails)
-
-  .catch(err => {
-    console.log("Err: ", err)
-  })
+  res.send(itemDetails)
 }
 
