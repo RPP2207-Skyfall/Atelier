@@ -36,7 +36,9 @@ const newReviewModal = (props) => {
 
 
   useEffect(() => {
+
     (async () => {
+
       let characterTable = await helpers.generateCharacteristicTable(characteristicsObj)
       //console.log(characterTable)
       setCharacterTable(characterTable)

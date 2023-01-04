@@ -3,6 +3,7 @@ import RatingReview from './rating_review/ratingReview.jsx'
 import Overview from './overview/Overview.jsx';
 import RelatedItem from './relatedItem/relatedItemSection.jsx';
 import QandA from './QA/QandA.jsx';
+import Tracker from './tracker.js'
 
 class App extends React.Component {
   constructor(props) {
@@ -40,13 +41,11 @@ class App extends React.Component {
     return (
       <>
         <h3>Ateiler</h3>
+        <button onClick={() => Tracker.userInteraction("button", "app")} >test</button>
         <Overview outfitList={this.state.OutfitList} toggleStar={this.toggleStar} CurrentItemID={this.state.CurrentItemID} updateCurrentItem={this.updateCurrentItem} />
-
-        <Overview outfitList={this.state.OutfitList} toggleStar={this.toggleStar} CurrentItemID={this.state.CurrentItemID} updateCurrentItem={this.updateCurrentItem} />
-
         <RelatedItem outfitList={this.state.OutfitList} toggleStar={this.toggleStar} CurrentItemID={this.state.CurrentItemID} updateCurrentItem={this.updateCurrentItem} />
         <QandA product_name={this.state.CurrentItemName} product_id={this.state.CurrentItemID} />
-        <RatingReview product_id={this.state.CurrentItemID} product_name={this.state.CurrentItemName} />
+        <RatingReview tracker={Tracker.userInteraction} product_id={this.state.CurrentItemID} product_name={this.state.CurrentItemName} />
       </>
     )
   }
