@@ -1,1 +1,0 @@
-ssh -i "skyfall-security.pem" ubuntu@ec2-3-86-98-204.compute-1.amazonaws.com

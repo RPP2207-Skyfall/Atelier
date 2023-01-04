@@ -253,50 +253,32 @@ afterEach(cleanup);
 
 //----------QandA----------//
 describe("Q&A Widget", () => {
-  test("should render Questions and Answer Widget", () => {
-    render(<QandA product_name={'test'}/>);
-    var QandAElement = screen.getByTestId('question-and-answer-main');
-    expect(QandAElement).toBeInTheDocument();
+  test("should render Questions and Answer Widget", async () => {
+    render(<QandA/>);
+    await waitFor(() => {
+      var QandAElement = screen.getByTestId('question-and-answer-main');
+      expect(QandAElement).toBeInTheDocument();
+    });
   });
 
   test("should render widget title when DOM is loaded", async () => {
-    render(<QandA list={mockData}/>);
-    await waitFor(() => {
-      var title = screen.getByText("QUESTIONS & ANSWERS");
-      expect(title).toBeInTheDocument();
-    })
+    render(<QandA/>);
+    var title = screen.getByText("QUESTIONS & ANSWERS");
+    expect(title).toBeInTheDocument();
   });
 
-  test("should render Search bar when DOM is loaded", async() => {
-    var {container} = render(<QandA list={mockData}/>);
+  test("should render 'Seems like there is no question posted for this product...' when DOM is loaded", async () => {
+    render(<QandA/>);
     await waitFor(() => {
-      var searchBar = container.getElementsByClassName("question-and-answer-search-bar").length;
-      expect(searchBar).toEqual(1);
-    })
-  });
+      var errMsg = screen.getByText('Seems like there is no question posted for this product...');
+      expect(errMsg).toBeInTheDocument();
+    });
+  })
 
-  test("should render List of Questions and Answers when DOM is loaded", async() => {
-    var {container} = render(<QandA list={mockData}/>);
-    await waitFor(() => {
-      var qalist = container.getElementsByClassName("question-and-answer-qalist").length;
-      expect(qalist).toEqual(1);
-    })
-  });
-
-  test("should render a button labelled 'MORE ANSWERED QUESTIONS' when DOM is loaded", async() => {
-    var {container} = render(<QandA list={mockData}/>);
-    await waitFor(() => {
-      var moreQBtn = container.getElementsByClassName("question-and-answer-more-question-btn").length;
-      expect(moreQBtn).toEqual(1);
-    })
-  });
-
-  test("should render a button labelled 'ADD A QUESTION' when DOM is loaded", async() => {
-    var {container} = render(<QandA list={mockData}/>);
-    await waitFor(() => {
-      var addQBtn = container.getElementsByClassName("question-and-answer-add-question-btn").length;
-      expect(addQBtn).toEqual(1);
-    })
+  test("should render a button labelled 'ADD A QUESTION' when DOM is loaded without any question or answer", async () => {
+    render(<QandA/>);
+    var addQBtn = screen.getByTestId("question-and-answer-add-question-btn");
+    expect(addQBtn).toBeInTheDocument();
   });
 
 });
@@ -319,13 +301,13 @@ describe("QA Item", () => {
   });
 
   test("should include the followings: question, helpful count, 'Add Answer' event handler, and a button to load more answered questions", () => {
-    render(<QAItem item={mockData.results[0]} isAModalOpen={false}/>);
+    render(<QAItem item={mockData.results[0]} key={mockData.results[0].question_id} isAModalOpen={false}/>);
     var heading = screen.getByTestId('qaitem-question-body').textContent;
     var helpfulCount = screen.getByTestId('qaitem-question-helpful-count').textContent;
     var addAnswer = screen.getByTestId('qaitem-add-answer').textContent;
     var moreAnswers = screen.getByTestId('qaitem-more-answers-btn').textContent;
     expect(heading).toEqual(`Q: ${mockData.results[0].question_body}`);
-    expect(helpfulCount).toEqual(`Yes(${mockData.results[0].question_helpfulness})`);
+    expect(helpfulCount).toEqual(`(${mockData.results[0].question_helpfulness})`);
     expect(addAnswer).toEqual('Add Answer');
     expect(moreAnswers).toEqual('See more answers');
   });
@@ -341,7 +323,6 @@ describe("QA Item", () => {
 });
 
 //----------AnswerList----------//
-
 describe("AnswerList", () => {
   test("should render AnswerList from the props", () => {
     render(<AnswerList list={Object.values(mockData.results[0].answers)}/>);
@@ -356,7 +337,25 @@ describe("AnswerItem", () => {
     render(<AnswerItem item={Object.values(mockData.results[0].answers)[0]}/>);
     var AnswerItemElement = screen.getByTestId('question-and-answer-answeritem');
     expect(AnswerItemElement).toBeInTheDocument();
-  })
+  });
+
+  test("should render correct answer body", async () => {
+    render(<AnswerItem item={Object.values(mockData.results[0].answers)[0]}/>);
+    var AnswerBody = screen.getByTestId('question-and-answer-answer-body').textContent;
+    expect(AnswerBody).toEqual(Object.values(mockData.results[0].answers)[0].body);
+  });
+
+  test("should render correct answerer name", async () => {
+    render(<AnswerItem item={Object.values(mockData.results[0].answers)[0]}/>);
+    var AnswererName = screen.getByTestId('question-and-answer-answer-answerer').textContent;
+    expect(AnswererName).toEqual(`by ${Object.values(mockData.results[0].answers)[0].answerer_name},`);
+  });
+
+  test("should render correct helpfulness count", async () => {
+    render(<AnswerItem item={Object.values(mockData.results[0].answers)[0]}/>);
+    var helpfulCount = screen.getByTestId('answeritem-helpful-count').textContent;
+    expect(helpfulCount).toEqual(`(${Object.values(mockData.results[0].answers)[0].helpfulness})`);
+  });
 });
 
 //----------AnswerModal----------//
@@ -365,7 +364,14 @@ describe("Answer Modal", () => {
     render(<AnswerModal isAModalOpen={true} question={'question_test'} product_name={'test'}/>);
     var AnswerModalElement = screen.getByTestId('answer-modal');
     expect(AnswerModalElement).toBeInTheDocument();
-  })
+  });
+
+  test("should render correct question and product name from the props", async () => {
+    render(<AnswerModal isAModalOpen={true} question={'question_test'} product_name={'test'}/>);
+    var subtitle = screen.getByTestId('answer-modal-subtitle').textContent;
+    expect(subtitle).toEqual('test:question_test');
+  });
+
   test("should render three text inputs: Answer, Nickname & Email", () => {
     render(<AnswerModal isAModalOpen={true} question={'question_test'} product_name={'test'}/>);
     var answerInput = screen.getByTestId('AModal-Answer');
@@ -374,7 +380,22 @@ describe("Answer Modal", () => {
     expect(answerInput).toBeInTheDocument();
     expect(emailInput).toBeInTheDocument();
     expect(nicknameInput).toBeInTheDocument();
-  })
+  });
+
+  test("should throw error message when the input field is not filled", async () => {
+    render(<AnswerModal isAModalOpen={true} question={'question_test'} product_name={'test'}/>);
+    var submitBtn = screen.getByTestId('AModal-Submit-Btn');
+    fireEvent.click(submitBtn);
+    expect(await screen.findByText('You must enter the following: Answer')).toBeInTheDocument();
+    expect(await screen.findByText('You must enter the following: Nickname')).toBeInTheDocument();
+    expect(await screen.findByText('You must enter the following: Email')).toBeInTheDocument();
+  });
+
+  test("should have UPLOAD IMAGE button for users to upload images", async () => {
+    render(<AnswerModal isAModalOpen={true} question={'question_test'} product_name={'test'}/>);
+    var imageBtn = screen.getByTestId('AModal-Upload-Btn');
+    expect(imageBtn).toBeInTheDocument();
+  });
 });
 
 //----------QuestionModal----------//
@@ -383,7 +404,8 @@ describe("Question Modal", () => {
     render(<QuestionModal isQModalOpen={true}/>);
     var QuestionModalElement = screen.getByTestId('question-modal');
     expect(QuestionModalElement).toBeInTheDocument();
-  })
+  });
+
   test("should render three text inputs: Question, Nickname & Email", () => {
     render(<QuestionModal isQModalOpen={true}/>);
     var questionInput = screen.getByTestId('QModal-Question');
@@ -393,6 +415,15 @@ describe("Question Modal", () => {
     expect(emailInput).toBeInTheDocument();
     expect(nicknameInput).toBeInTheDocument();
   });
+
+  test("should throw error message when the input field is not filled", async () => {
+    render(<QuestionModal isQModalOpen={true} />);
+    var submitBtn = screen.getByTestId('QModal-Submit-Btn');
+    fireEvent.click(submitBtn)
+    expect(await screen.findByText('You must enter the following: Question')).toBeInTheDocument();
+    expect(await screen.findByText('You must enter the following: Nickname')).toBeInTheDocument();
+    expect(await screen.findByText('You must enter the following: Email')).toBeInTheDocument();
+  })
 });
 
 //----------Search----------//
