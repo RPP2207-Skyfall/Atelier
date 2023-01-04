@@ -211,6 +211,11 @@ class RatingReview extends React.Component {
 
 
   render() {
+    //Error Boundary --- Customize it as you go
+    if (this.state.product_id === undefined) {
+      throw new Error ('no product_id detected');
+    }
+
     return (
       <div className="container ratingReview">
         <h5 >RATINGS & REVIEWS</h5>

@@ -20,6 +20,7 @@ class QandA extends React.Component {
       isQModalOpen: false,
       isAModalOpen: false,
       isLastQuestion: false,
+      testy: props.testy
     };
     this.handleQModalOpen = this.handleQModalOpen.bind(this);
     this.handleQModalClose = this.handleQModalClose.bind(this);
@@ -137,6 +138,9 @@ class QandA extends React.Component {
   };
 
   render() {
+    if (this.state.product_id === undefined) {
+      throw new Error ('no product_id detected');
+    }
 
     return (
       <div className='question-and-answer-main' data-testid='question-and-answer-main'>
