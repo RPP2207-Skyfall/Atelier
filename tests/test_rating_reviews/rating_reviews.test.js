@@ -11,7 +11,16 @@ import helperFn from '../../client/src/components/rating_review/helperFunctions/
 // import RatingSummary from '../../client/src/components/rating_review/ratingSummary/ratingSummary.jsx'
 import PhotoItem from '../../client/src/components/rating_review/reviewPhoto/photoItem.jsx'
 import RatingBreakdown from '../../client/src/components/rating_review/breakdown/ratingBreakdown.jsx'
+import Recommendation from '../../client/src/components/rating_review/breakdown/recommendation.jsx'
+import Breakdown from '../../client/src/components/rating_review/breakdown/breakdown.jsx'
+import NewBody from '../../client/src/components/rating_review/newReview/newBody.jsx'
+import NewReviewModal from '../../client/src/components/rating_review/newReview/newReviewModal.jsx'
+import NewSummary from '../../client/src/components/rating_review/newReview/newSummary.jsx'
+import OverallStar from '../../client/src/components/rating_review/newReview/overallStar.jsx'
+import UploadPhoto from '../../client/src/components/rating_review/newReview/uploadPhoto.jsx'
+import UserInfo from '../../client/src/components/rating_review/newReview/userInfo.jsx'
 import { render, screen, waitFor, fireEvent, cleanup } from "@testing-library/react"
+import ShallowRenderer from 'react-test-renderer/shallow';
 import { act } from 'react-dom/test-utils'
 import testData from './test_data.js'
 import '@testing-library/jest-dom';
@@ -82,16 +91,17 @@ describe("ReviewList Component", () => {
     const updateSortMethod = () => {
       console.log('updateSortMethod dummy function')
     }
-    var reviewDataArr = [testData.reviewData_sample1, testData.reviewData_sample2, testData.reviewData_sample3]
+
+    var reviewDataArr = [testData.reviewData_sample1, testData.reviewData_sample2, testData.reviewData_sample3, testData.reviewData_sample4, testData.reviewData_sample6]
     //console.log(reviewDataArr)
 
-    //  render(<ReviewList reviewData={reviewDataArr} currentSortValue={currentSortValue} updateSortMethod={updateSortMethod()} />
-    // );
-    const { findByText } = render(<ReviewList reviewData={reviewDataArr} />)
-    // screen.debug()
-    const moreReviewBtn = await findByText('moreReviewBtn-testId')
-    await waitFor(() => expect(moreReviewBtn).toBeInTheDocument())
+    // const wrapper = shallow(<ReviewList reviewData={reviewDataArr} />) as any
+    // wrapper.setProps({ reviewDataArr })
 
+    // expect(wrapper.instance().props.reviewData).toBeCalled()
+    render(<ReviewList reviewData={reviewDataArr} />)
+    // screen.debug()
+    expect(await screen.getByTestId('moreReviewBtn-testId')).toBeInTheDocument()
 
 
   })
@@ -407,22 +417,363 @@ describe("RatingBreakdown Component", () => {
 
 })
 
+describe("Recommendation Component", () => {
+  test('Should render the precentage if precentage is not undefined', async () => {
+    const recommendObj = { false: "27", true: "121" }
+    await act(async () => {
+      render(<Recommendation percentage={recommendObj} />)
+    })
+    expect(await screen.getByTestId('recommend-precent')).toBeInTheDocument()
+    expect(await screen.getByTestId('recommend-precent').textContent).toEqual('81.8% of reviews recommend this product')
+  })
+  test('Should still render 0% if precentage is undefined', async () => {
+    const recommendObj = undefined
+    await act(async () => {
+      render(<Recommendation percentage={recommendObj} />)
+    })
+    expect(await screen.getByTestId('recommend-precent')).toBeInTheDocument()
+    expect(await screen.getByTestId('recommend-precent').textContent).toEqual('0% of reviews recommend this product')
+  })
+})
+
+describe("Breakdown Component", () => {
+  test('Should change classname to star-name-selected when any filter is clicked', async () => {
+    const resetAllFilter = jest.fn()
+    const hanleFilterClicked = jest.fn()
+    await act(async () => {
+      render(<Breakdown resetAllFilter={resetAllFilter} hanleFilterClicked={hanleFilterClicked} metadata={testData.metadata} />)
+    })
+    const filterBtn = screen.getByTestId("star-btn-3")
+    fireEvent.click(filterBtn)
+    expect(filterBtn.className).toBe('star-name-selected')
+    fireEvent.click(filterBtn)
+    expect(filterBtn.className).toBe('star-name')
+
+  })
+  test('Should render Remove all filters button if any filter is on', async () => {
+    const resetAllFilter = jest.fn()
+    const hanleFilterClicked = jest.fn()
+    const filterClicked = true
+    await act(async () => {
+      render(<Breakdown resetAllFilter={resetAllFilter} hanleFilterClicked={hanleFilterClicked} filterClicked={filterClicked} metadata={testData.metadata} />)
+    })
+
+    const clearFilterBtn = screen.getByTestId("remove-filter-btn")
+    expect(await screen.getByTestId('remove-filter-btn')).toBeInTheDocument()
+    fireEvent.click(clearFilterBtn)
+
+  })
+  test('Should not render Remove all filters button if all filter is off', async () => {
+    const resetAllFilter = jest.fn()
+    const hanleFilterClicked = jest.fn()
+    const filterClicked = false
+    await act(async () => {
+      render(<Breakdown resetAllFilter={resetAllFilter} hanleFilterClicked={hanleFilterClicked} filterClicked={filterClicked} metadata={testData.metadata} />)
+    })
+
+    const breakdownContainer = screen.getByTestId("breakdown-container")
+    expect(breakdownContainer).not.toHaveTextContent('Remove all filters')
+
+  })
+  test('Test if resetAllFilter functio from props is being called', () => {
+    const resetAllFilter = jest.fn()
+    const hanleFilterClicked = jest.fn()
+    const filterClicked = true
+
+    render(<Breakdown resetAllFilter={resetAllFilter} hanleFilterClicked={hanleFilterClicked} filterClicked={filterClicked} metadata={testData.metadata} />)
+
+    const clearFilterBtn = screen.getByTestId("remove-filter-btn")
+    fireEvent.click(clearFilterBtn)
+    expect(resetAllFilter).toHaveBeenCalled()
+
+  })
+})
+
+describe("NewBody Component", () => {
+  test("Should execute bodyInput function when body textarea has any changes", () => {
+    const bodyInput = jest.fn()
+    act(() => {
+      render(<NewBody bodyInput={bodyInput} />)
+    })
+    const bodyTextarea = screen.getByTestId("body-textarea")
+    act(() => {
+      fireEvent.change(bodyTextarea, { target: { value: "test" } })
+    })
+    expect(bodyInput).toHaveBeenCalled()
+  })
+
+  test("Should show asteris if asteris is true", () => {
+    // const bodyInput = jest.fn()
+    const asteris = true
+    render(<NewBody asteris={asteris} />)
+    const asterisSpan = screen.getByTestId("asteris")
+    expect(asterisSpan).toBeInTheDocument()
+  })
+  test("Should render an asteris if there is no text in the textarea", () => {
+    const bodyInput = jest.fn()
+    render(<NewBody bodyInput={bodyInput} />)
+    const bodyTextarea = screen.getByTestId("body-textarea")
+    fireEvent.change(bodyTextarea, { target: { value: "" } })
+    const asterisSpan = screen.getByTestId("asteris")
+    expect(asterisSpan).toBeInTheDocument()
+  })
+  test("Should not render asteris if there is text in the textarea", async () => {
+    const bodyInput = jest.fn()
+    render(<NewBody bodyInput={bodyInput} />)
+    const bodyTextarea = screen.getByTestId("body-textarea")
+    fireEvent.change(bodyTextarea, { target: { value: "test" } })
+    //const asterisSpan = screen.getByTestId("asteris")
+    const asterisSpan = await screen.queryByText('*');
+    expect(asterisSpan).not.toBeInTheDocument
+  })
+
+  test("Should render how many required characters left message if lengthRemaining is greater than zero", async () => {
+    const bodyInput = jest.fn()
+    render(<NewBody bodyInput={bodyInput} />)
+    const bodyTextarea = screen.getByTestId("body-textarea")
+    fireEvent.change(bodyTextarea, { target: { value: "test" } })
+    const message = await screen.findByText('Minimum required characters left: 46');
+    //console.log(message)
+    expect(message).toBeVisible()
+
+  })
+
+  test("Should render minimum characters reached message if lengthRemaining is equal to zero ", async () => {
+    const bodyInput = jest.fn()
+    render(<NewBody bodyInput={bodyInput} />)
+    const bodyTextarea = screen.getByTestId("body-textarea")
+    fireEvent.change(bodyTextarea, { target: { value: testData.fiftyOneCharBody } })
+    const reachedMessage = await screen.findByText('Minimum reached');
+    expect(reachedMessage).toBeVisible()
+
+  })
+  test("Should render error message if it is not empty string", async () => {
+    const bodyInput = jest.fn()
+    const bodyErrorMsg = "test error message"
+    render(<NewBody bodyInput={bodyInput} bodyErrorMsg={bodyErrorMsg} />)
+    // const bodyTextarea = screen.getByTestId("body-textarea")
+    // fireEvent.change(bodyTextarea, { target: { value: testData.fiftyOneCharBody } })
+    const errorMessage = await screen.findByText('test error message');
+    expect(errorMessage).toBeVisible()
+
+  })
+  test("Should ot render error message if it is an empty string", async () => {
+    const bodyInput = jest.fn()
+    const bodyErrorMsg = ""
+    render(<NewBody bodyInput={bodyInput} bodyErrorMsg={bodyErrorMsg} />)
+    // const bodyTextarea = screen.getByTestId("body-textarea")
+    // fireEvent.change(bodyTextarea, { target: { value: testData.fiftyOneCharBody } })
+    const errorMessage = await screen.getByTestId('errMsg');
+    expect(errorMessage.textContent).toEqual('')
+
+  })
+
+})
+
+
+describe("UserInfo Component", () => {
+  const handleNicknameChange = jest.fn()
+  const handleEmailChange = jest.fn()
+  const useInfo = jest.fn()
+  test("userInfo function should be triggered when user is typing on the nickname field", () => {
+
+    act(() => {
+      render(<UserInfo useInfo={useInfo} handleEmailChange={handleEmailChange} handleNicknameChange={handleNicknameChange} />)
+    })
+    const nicknameArea = screen.getByTestId("nickname-area")
+    act(() => {
+      fireEvent.change(nicknameArea, { target: { value: "test" } })
+    })
+    expect(useInfo).toHaveBeenCalled()
+  })
+  test("userInfo function should be triggered when user is typing on the email field", () => {
+
+    act(() => {
+      render(<UserInfo useInfo={useInfo} handleEmailChange={handleEmailChange} handleNicknameChange={handleNicknameChange} />)
+    })
+    const emailArea = screen.getByTestId("email-area")
+    act(() => {
+      fireEvent.change(emailArea, { target: { value: "test" } })
+    })
+    expect(useInfo).toHaveBeenCalled()
+  })
+  test("should not render asteris if user typed in the nickname field", async () => {
+
+    act(() => {
+      render(<UserInfo useInfo={useInfo} handleEmailChange={handleEmailChange} handleNicknameChange={handleNicknameChange} />)
+    })
+    const nicknameArea = screen.getByTestId("nickname-area")
+    act(() => {
+      fireEvent.change(nicknameArea, { target: { value: "test" } })
+    })
+    const nicknameDiv = await screen.getByTestId('nickname-div');
+    expect(nicknameDiv.textContent).toEqual('What is your nickname? For privacy reasons, do not use your full name or email address')
+
+  })
+  test("should render asteris if user did not type in the nickname field", async () => {
+
+    act(() => {
+      render(<UserInfo useInfo={useInfo} handleEmailChange={handleEmailChange} handleNicknameChange={handleNicknameChange} />)
+    })
+    const nicknameArea = screen.getByTestId("nickname-area")
+    act(() => {
+      fireEvent.change(nicknameArea, { target: { value: "" } })
+    })
+    const nicknameDiv = await screen.getByTestId('nickname-div');
+    expect(nicknameDiv.textContent).toEqual('What is your nickname? *For privacy reasons, do not use your full name or email address')
+
+  })
+
+  test("should not render asteris if user typed in the email field", async () => {
+
+    act(() => {
+      render(<UserInfo useInfo={useInfo} handleEmailChange={handleEmailChange} handleNicknameChange={handleNicknameChange} />)
+    })
+    const emailArea = screen.getByTestId("email-area")
+    act(() => {
+      fireEvent.change(emailArea, { target: { value: "test" } })
+    })
+    const nicknameDiv = await screen.getByTestId('email-div');
+    expect(nicknameDiv.textContent).toEqual('Your Email? For authentication reasons, you will not be emailed')
+
+  })
+  test("should render asteris if user did not type in the email field", async () => {
+
+    act(() => {
+      render(<UserInfo useInfo={useInfo} handleEmailChange={handleEmailChange} handleNicknameChange={handleNicknameChange} />)
+    })
+    const emailArea = screen.getByTestId("email-area")
+    act(() => {
+      fireEvent.change(emailArea, { target: { value: "" } })
+    })
+    const nicknameDiv = await screen.getByTestId('email-div');
+    expect(nicknameDiv.textContent).toEqual('Your Email? *For authentication reasons, you will not be emailed')
+
+  })
+
+})
+
+
+
+describe("overallStar Component", () => {
+  const starSelection = jest.fn()
+  const handleStarClick = jest.fn()
+  test('starSelection functio should be triggered if any star is clicked', async () => {
+    act(() => {
+      render(<OverallStar starSelection={starSelection} handleStarClick={handleStarClick} />)
+    })
+
+    const overallStarBtn = await screen.getByTestId("overallStar-btn1")
+    fireEvent.click(overallStarBtn)
+    expect(starSelection).toHaveBeenCalled()
+  })
+})
+
+describe("newSummary Component", () => {
+  const summaryInput = jest.fn()
+  test('summaryInput function should be triggered if user typed on summary textarea', async () => {
+    act(() => {
+      render(<NewSummary summaryInput={summaryInput} />)
+    })
+
+    const summaryArea = screen.getByTestId("summary-area")
+    act(() => {
+      fireEvent.change(summaryArea, { target: { value: "test" } })
+    })
+    expect(summaryInput).toHaveBeenCalled()
+  })
+})
+
+describe("newReviewModal Component", () => {
+  const handleCloseReviewModal = jest.fn()
+  const productName = 'Blues Suede Shoes'
+  const addNewReview = jest.fn()
+  const characteristics = testData.metadata2.characteristics
+  test('handleCloseReviewModal function should be triggered if user clicked the close button on the add new review form', async () => {
+    act(() => {
+      render(<NewReviewModal handleCloseReviewModal={handleCloseReviewModal} />)
+    })
+    const closeClick = await screen.getByTestId("close-click")
+    act(() => {
+      fireEvent.click(closeClick)
+    })
+    expect(handleCloseReviewModal).toHaveBeenCalled()
+  })
+
+  test('Add new review form should display the product name', async () => {
+    act(() => {
+      render(<NewReviewModal productName={productName} />)
+    })
+    const productTitle = await screen.queryByText(`About the ${productName}`)
+    expect(productTitle).toBeInTheDocument()
+  })
+
+  // test.only('', async () => {
+  //   console.log(characteristics)
+  //   act(async () => {
+  //     await render(<NewReviewModal addNewReview={addNewReview} characteristics={characteristics} />)
+  //   })
+  //   const overallStarBtn = await screen.getByTestId("overallStar-btn1")
+  //   fireEvent.click(overallStarBtn)
+  //   const inputBtnFit0 = await screen.getByTestId("inputBtnFit0")
+  //   fireEvent.click(inputBtnFit0)
+  //   const inputBtnLength0 = await screen.getByTestId("inputBtnLength0")
+  //   fireEvent.click(inputBtnLength0)
+  //   const inputBtnComfort0 = await screen.getByTestId("inputBtnComfort0")
+  //   fireEvent.click(inputBtnComfort0)
+  //   const inputBtnQuality0 = await screen.getByTestId("inputBtnQuality0")
+  //   fireEvent.click(inputBtnQuality0)
+
+  //   const bodyTextarea = screen.getByTestId("body-textarea")
+  //   fireEvent.change(bodyTextarea, { target: { value: testData.fiftyOneCharBody } })
+
+  //   const emailArea = screen.getByTestId("email-area")
+  //   fireEvent.change(emailArea, { target: { value: "test" } })
+  //   const nicknameArea = screen.getByTestId("nickname-area")
+  //   fireEvent.change(nicknameArea, { target: { value: "test" } })
+
+  //   const submitBtn = screen.getByTestId("submit-click")
+
+  //   expect(addNewReview).toHaveBeenCalled()
+
+
+
+
+
+
+
+})
+})
+
+
+//data-testid
+
 describe("Helper functions", () => {
-  test('generateStars should generate an array of fill amount of each star', async () => {
+  //generateStars
+  test('should generate an array of fill amount of each star', async () => {
     const result = await helperFn.generateStars(3.4, 5)
     const expected = [100, 100, 100, 40, 0]
     expect(result).toEqual(expected)
 
   })
-  test('generateStars should generate an empty array if rating is not a number.', async () => {
+  //generateStars
+  test('should generate an empty array if rating is not a number.', async () => {
 
     const result = await helperFn.generateStars('3.4', 5)
     const expected = []
     expect(result).toEqual(expected)
 
   })
+  //generateStars
+  test('should generate an empty array if totalRating is not a number.', async () => {
 
-  test("Should calculate average rating and the amount of rating and return them as an object", async () => {
+    const result = await helperFn.generateStars(3.4, '5')
+    const expected = []
+    expect(result).toEqual(expected)
+
+  })
+  //calculateAverageRating
+  test("should calculate average rating and the amount of rating and return them as an object", async () => {
 
     const ratingObj = {
       "1": "3",
@@ -437,13 +788,184 @@ describe("Helper functions", () => {
     expect(result).toEqual(expected)
 
   })
-  test("Should return both average and totalRatingAmount as 0 if input is NaN", async () => {
+  //calculateAverageRating
+  test("should return both average and totalRatingAmount as 0 if input is NaN", async () => {
 
     const ratingObj = { 'undefined': 'undefined' }
-
     const result = await helperFn.calculateAverageRating(ratingObj)
     const expected = { 'average': 0, 'totalRatingAmount': 0 }
     expect(result).toEqual(expected)
 
   })
+  //populateIndividualRating
+  test("should populate individual rating", async () => {
+
+    const ratingObj = {
+      "1": "7",
+      "2": "3",
+      "3": "32",
+      "4": "24",
+      "5": "82"
+    }
+    const result = await helperFn.populateIndividualRating(ratingObj)
+    const expected = [["1", "7"], ["2", "3"], ["3", "32"], ["4", "24"], ["5", "82"]]
+    expect(result).toEqual(expected)
+  })
+  //calculateBarFillPercentage
+  test("should return 0 if totalAmount cannot be converted to a number", async () => {
+
+    const totalAmount = 'one-four-eight'
+    const ratingAmount = "7"
+    const result = await helperFn.calculateBarFillPercentage(totalAmount, ratingAmount)
+    const expected = 0
+    expect(result).toEqual(expected)
+  })
+  //calculateBarFillPercentage
+  test("should return 0 if ratingAmount cannot be converted to a number", async () => {
+
+    const totalAmount = '148'
+    const ratingAmount = "seven"
+    const result = await helperFn.calculateBarFillPercentage(totalAmount, ratingAmount)
+    const expected = 0
+    expect(result).toEqual(expected)
+  })
+  //calculateBarFillPercentage
+  test("should calculate fill percentage for star rating if both totalAmount and ratingAmount can be converted to numbers", async () => {
+    const totalAmount = 148
+    const ratingAmount = "7"
+    const result = await helperFn.calculateBarFillPercentage(totalAmount, ratingAmount)
+    const expected = 4.7
+    expect(result).toEqual(expected)
+  })
+  //addToFilterArr
+  test("should toggle the boolean value of given rating in the filter map", async () => {
+    const filterValue = 5
+    const filterMap = { 1: false, 2: false, 3: false, 4: false, 5: false }
+    const result = await helperFn.addToFilterArr(filterValue, filterMap)
+    const expected = { 1: false, 2: false, 3: false, 4: false, 5: true }
+    expect(result).toEqual(expected)
+  })
+  //filtering
+  test("should show the original review data if all value in the filterMap are false", async () => {
+    const filterMap = { 1: false, 2: false, 3: false, 4: false, 5: false }
+    const originalReviewData = [testData.reviewData_sample1, testData.reviewData_sample2, testData.reviewData_sample3, testData.reviewData_sample4, testData.reviewData_sample5, testData.reviewData_sample6]
+    const reviewData = [testData.reviewData_sample1, testData.reviewData_sample2, testData.reviewData_sample3, testData.reviewData_sample4, testData.reviewData_sample5, testData.reviewData_sample6]
+
+    const result = await helperFn.filtering(filterMap, originalReviewData, reviewData)
+    const expected = originalReviewData
+    expect(result).toEqual(expected)
+  })
+  //filtering
+  test("should only show review data that has rating that has a true value in the filterMap", async () => {
+    const filterMap = { 1: false, 2: false, 3: false, 4: false, 5: true }
+    const originalReviewData = [testData.reviewData_sample1, testData.reviewData_sample2, testData.reviewData_sample3, testData.reviewData_sample4, testData.reviewData_sample5, testData.reviewData_sample6]
+    const reviewData = [testData.reviewData_sample1, testData.reviewData_sample2, testData.reviewData_sample3, testData.reviewData_sample4, testData.reviewData_sample5, testData.reviewData_sample6]
+
+    const result = await helperFn.filtering(filterMap, originalReviewData, reviewData)
+    const expected = [testData.reviewData_sample3, testData.reviewData_sample4, testData.reviewData_sample5, testData.reviewData_sample6]
+    expect(result).toEqual(expected)
+  })
+  //breakdownCharacteristicsObj
+  test("should generate an array of HTML elements that contains each characteristic id ", async () => {
+    const characteristicsObj = testData.metadata2.characteristics
+    const result = await helperFn.breakdownCharacteristicsObj(characteristicsObj)
+    //console.log(result)
+    const resultKeyArr = []
+    for (let i = 0; i < result.length; i++) {
+      resultKeyArr.push(result[i].key)
+    }
+    const expected = ['240591', '240592', '240593', '240594']
+    expect(resultKeyArr).toEqual(expected)
+  })
+  //generateCharacteristicTable
+  test("should generate an array of HTML elements that contains each characteristic name", async () => {
+    const characteristicsObj = testData.metadata2.characteristics
+    const result = await helperFn.generateCharacteristicTable(characteristicsObj)
+    //console.log(result)
+    const resultKeyArr = []
+    for (let i = 0; i < result.length; i++) {
+      resultKeyArr.push(result[i].key)
+    }
+    const expected = ['Fit-row', 'Length-row', 'Comfort-row', 'Quality-row']
+    expect(resultKeyArr).toEqual(expected)
+  })
+  //checkReviewForm
+  test("should return an array with boolean value true and the subtrahend of 50 minus summaryLength for newBody component", async () => {
+    const fromComponent = 'newBody'
+    const summaryLength = 47
+    const result = await helperFn.checkReviewForm(fromComponent, summaryLength)
+    const expected = [true, 3]
+    expect(result).toEqual(expected)
+  })
+  // checkReviewForm
+  test("should return an array with boolean value false and the subtrahend of 50 minus summaryLength for newBody component", async () => {
+    const fromComponent = 'newBody'
+    const summaryLength = 57
+    const result = await helperFn.checkReviewForm(fromComponent, summaryLength)
+    const expected = [false, -7]
+    expect(result).toEqual(expected)
+  })
+  // checkReviewForm
+  test("Should return true when checkValue is a negative number", async () => {
+    const fromComponent = 'overallStar'
+    const checkValue = -1
+    const result = await helperFn.checkReviewForm(fromComponent, checkValue)
+    const expected = true
+    expect(result).toEqual(expected)
+  })
+  // checkReviewForm
+  test("Should return false when checkValue is a positive number", async () => {
+    const fromComponent = 'overallStar'
+    const checkValue = 3
+    const result = await helperFn.checkReviewForm(fromComponent, checkValue)
+    const expected = false
+    expect(result).toEqual(expected)
+  })
+  //storeImage
+  global.URL.createObjectURL = jest.fn(() => {
+    return 'blob:hello.png'
+  })
+  test("Should store new image blob data into the storage array", async () => {
+    const currentStorage = []
+    const file = new File(["hello"], "hello.png", { type: "image/png" })
+    const files = [file];
+    //console.log(files)
+    const result = await helperFn.storeImage(currentStorage, files)
+    //console.log(result)
+    const expected = [{ preview: 'blob:hello.png' }]
+    expect(result).toEqual(expected)
+  })
+  //emailValidation
+  test("should return true if email match the format", async () => {
+    const email = 'testemail@gmail.com'
+    const result = await helperFn.emailValidation(email)
+    const expected = true
+    expect(result).toEqual(expected)
+  })
+  //emailValidation
+  test("should return false if email does not match the format", async () => {
+
+    const email = 'email'
+    const result = await helperFn.emailValidation(email)
+    const expected = false
+    expect(result).toEqual(expected)
+  })
+  //emailValidation
+  test("should return false if email length is 0", async () => {
+
+    const email = ''
+    const result = await helperFn.emailValidation(email)
+    const expected = false
+    expect(result).toEqual(expected)
+  })
+  //cleanImageForUpload
+  test("Should only add all the values in photoObjArr into photoArr", async () => {
+    const photoObjArr = [{ preview: "blob:http://localhost:3000/9ef6ff8b-23ff-4dca-b41f-3366b12722ea" }, { preview: "blob:http://localhost:3000/9ef6ff8b-23ff-4dca-b41f-3366b12722ea" }]
+    const photoArr = ["blob:http://localhost:3000/9ef6ff8b-23ff-4dca-b41f-3366b12722ea", "blob:http://localhost:3000/9ef6ff8b-23ff-4dca-b41f-3366b12722ea"]
+    const result = await helperFn.cleanImageForUpload(photoObjArr)
+    const expected = photoArr
+    expect(result).toEqual(expected)
+  })
+
 })
+

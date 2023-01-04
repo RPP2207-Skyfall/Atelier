@@ -119,6 +119,7 @@ class ImageGallery extends React.Component {
               thumbnailSection={this.props.thumbnailSection}
             />
             <div className="expanded-slider">
+
               <button className="expanded-backward" onClick={() => this.props.mainSlide(-1, {elem: 'expanded-backward', time: Date.now()})}>back</button>
               <button className="expanded-forward" onClick={() => this.props.mainSlide(1, {elem: 'expanded-forward', time: Date.now()})}>forward</button>
             </div>
@@ -127,6 +128,7 @@ class ImageGallery extends React.Component {
             <div className="main-slider">
               {/* <button className="main-backward" onClick={() => this.handleClick(-1)}>←</button> */}
               <button className="main-forward" onClick={() => this.handleClick(1, {elem: 'main-forward', time: Date.now()})}>→</button>
+
             </div>
           </div>
         )
@@ -141,6 +143,7 @@ class ImageGallery extends React.Component {
               thumbnailSection={this.props.thumbnailSection}
             />
             <div className="expanded-slider">
+
               <button className="expanded-backward" onClick={() => this.props.mainSlide(-1, {elem: 'expanded-backward', time: Date.now()})}>back</button>
               <button className="expanded-forward" onClick={() => this.props.mainSlide(1, {elem: 'expanded-forward', time: Date.now()})}>forward</button>
             </div>
@@ -148,6 +151,7 @@ class ImageGallery extends React.Component {
             <button className="zoom-btn" onClick={() => this.props.zoom()}>ZOOM</button>
             <div className="main-slider">
               <button className="main-backward" onClick={() => this.handleClick(-1, {elem: 'main-backward', time: Date.now()})}>←</button>
+
               {/* <button className="main-forward" onClick={() => this.handleClick(1)}>→</button> */}
             </div>
           </div>
@@ -163,6 +167,7 @@ class ImageGallery extends React.Component {
               thumbnailSection={this.props.thumbnailSection}
             />
             <div className="expanded-slider">
+
               <button className="expanded-backward" onClick={() => this.props.mainSlide(-1, {elem: 'expanded-backward', time: Date.now()})}>back</button>
               <button className="expanded-forward" onClick={() => this.props.mainSlide(1, {elem: 'expanded-forward', time: Date.now()})}>forward</button>
             </div>
@@ -171,6 +176,7 @@ class ImageGallery extends React.Component {
             <div className="main-slider">
               <button className="main-backward" onClick={() => this.handleClick(-1, {elem: 'main-backward', time: Date.now()})}>←</button>
               <button className="main-forward" onClick={() => this.handleClick(1, {elem: 'main-forward', time: Date.now()})}>→</button>
+
             </div>
           </div>
         )

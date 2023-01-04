@@ -20,7 +20,7 @@ const recommendation = (props) => {
 
   return (
 
-    <div className="recommend-precent">{`${percentage !== undefined ? (percentage) : (null)}% of reviews recommend this product`}</div>
+    <div className="recommend-precent" data-testid="recommend-precent">{`${percentage !== undefined ? (percentage) : (0)}% of reviews recommend this product`}</div>
 
   )
 

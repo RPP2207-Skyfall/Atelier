@@ -62,6 +62,7 @@ class Overview extends React.Component {
     this.clickTracker = this.clickTracker.bind(this)
   }
 
+
   // tracking clicks
 
   clickTracker(clickData) {
@@ -79,7 +80,26 @@ class Overview extends React.Component {
     console.log('liked outfit', likedOutfit);
   }
 
+
   // for expanded view:
+
+  zoom() {
+    this.setState({
+      zoomBox: !this.state.zoomBox
+    })
+  }
+
+  handleExpand() {
+    this.setState({
+      expanded: !this.state.expanded
+    })
+  }
+
+
+  // for Styles + thumbnail interaction:
+
+  updateStyle(style) {
+
 
   zoom() {
     this.setState({
@@ -198,77 +218,37 @@ class Overview extends React.Component {
 
   getData() {
     this.getGeneralProducts()
-      .then((data) => {
+        .then((data) => {
           // console.log('data after first call', data);
-        return this.getStyles(data.SKU)
-      })
-      .then((state) => {
-        console.log('state', state)
-        return this.getReviews(state.styles.product_id);
-      })
-      .then((reviews) => {
-        // console.log('reviews', reviews);
-        return helpers.getAverageRating(reviews.reviewData)
-      })
-      .then((averageReview) => {
-        return this.setAverageRating(averageReview);
-      })
-      .then((done) => {
-
-        this.setState({
-          done: true
+          return this.getStyles(data.SKU)
         })
-        // console.log('done', done)
+        .then((state) => {
+          console.log('state', state)
+          return this.getReviews(state.styles.product_id);
+        })
+        .then((reviews) => {
+          // console.log('reviews', reviews);
+          return helpers.getAverageRating(reviews.reviewData)
+        })
+        .then((averageReview) => {
+          return this.setAverageRating(averageReview);
+        })
+        .then((done) => {
 
-        // make a state with done where it is verified that all api calls are done
-      })
-      .catch((err) => {
-        console.log('ERR', err)
-      })
+          this.setState({
+            done: true
+          })
+          // console.log('done', done)
+
+          // make a state with done where it is verified that all api calls are done
+        })
+        .catch((err) => {
+          console.log('ERR', err)
+        })
 
   }
 
 
-  // Helper functions for API calls:
-
-  // makeThumbnailBoxes(thumbnails) {
-
-
-  //   // let thumbnails = data.results[0].photos;
-
-  //   let holder = [];
-  //   let box = [];
-
-  //   for (var i = 0; i < thumbnails.length; i++) {
-
-  //     thumbnails[i].index = i;
-  //     box.push(thumbnails[i]);
-
-  //     if (box.length === 7) {
-  //       holder.push(box);
-  //       box = [];
-  //     }
-
-  //     if (i >= thumbnails.length - 1) {
-  //       holder.push(box);
-  //       box = [];
-  //     }
-  //     // console.log('box', box)
-  //   }
-
-  //   return holder;
-  // }
-
-  // getAverageRating(ratings) {
-
-  //   let result = 0;
-
-  //   for (let i = 0; i < ratings.length; i++) {
-  //     result += ratings[i].rating;
-  //   }
-
-  //   return result / ratings.length;
-  // }
 
   setAverageRating(rating) {
     return new Promise((resolve, reject) => {
@@ -299,10 +279,10 @@ class Overview extends React.Component {
           }
         }
       )
-        .then(res => res.json())
-        .then((data) => {
+          .then(res => res.json())
+          .then((data) => {
 
-          // console.log('data in styles', data)
+            // console.log('data in styles', data)
 
             //old
             //  let holder = this.makeThumbnailBoxes(data.results[0].photos)
@@ -310,19 +290,19 @@ class Overview extends React.Component {
             // new
              let holder = helpers.makeThumbnailBoxes(data.results[0].photos)
 
-          this.setState({
-            styles: data,
-            current: data.results[0].photos[this.state.mainIndex],
-            amount: data.results[0].photos.length,
-            currentThumbnails: holder,
-            currentStyle: data.results[0]
-          }, () => {
-            resolve(this.state)
+            this.setState({
+              styles: data,
+              current: data.results[0].photos[this.state.mainIndex],
+              amount: data.results[0].photos.length,
+              currentThumbnails: holder,
+              currentStyle: data.results[0]
+            }, () => {
+              resolve(this.state)
+            })
           })
-        })
-        .catch((err) => {
-          reject(err)
-        })
+          .catch((err) => {
+            reject(err)
+          })
     })
   }
 
@@ -364,6 +344,7 @@ class Overview extends React.Component {
   getGeneralProducts() {
     // console.log('something in general product')
     const generalUrl = process.env.REACT_APP_API_OVERVIEW_URL + `products`;
+
 
     return new Promise((resolve, reject) => {
       fetch(generalUrl,
@@ -464,12 +445,15 @@ class Overview extends React.Component {
       }
       return (
         <div className="overview-container" data-testid="overview-test">
+
           <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} clickTracker={this.clickTracker}/>
           <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle} />
           <AddToCart
-            currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
-            sizeQuantity={this.state.sizeQuant} selectedQuant={this.state.selectedQuant} selectQuant={this.selectQuant} skuToBuy={this.state.skuToBuy}
-            likeOutfit={this.likeOutfit} />
+          currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
+          sizeQuantity={this.state.sizeQuant} selectedQuant={this.state.selectedQuant} selectQuant={this.selectQuant} skuToBuy={this.state.skuToBuy}
+          likeOutfit={this.likeOutfit}/>
+
+
           <ImageGallery
             info={this.state} currentThumbnails={this.state.currentThumbnails} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
             handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
