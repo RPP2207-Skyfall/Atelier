@@ -5,6 +5,7 @@ import Breakdown from './breakdown/breakdown.jsx'
 import helpers from './helperFunctions/helper.js'
 
 
+
 class RatingReview extends React.Component {
   constructor(props) {
     super(props)
@@ -18,7 +19,8 @@ class RatingReview extends React.Component {
       filterValue: '',
       filterMap: { '1': false, '2': false, '3': false, '4': false, '5': false },
       filterClicked: false,
-      newReviewModalOpen: false
+      newReviewModalOpen: false,
+      filteredReviewData: []
     }
   }
 
@@ -42,6 +44,11 @@ class RatingReview extends React.Component {
       })
       this.getProductReviews(this.props.product_id)
       this.getReviewMetadata(this.props.product_id)
+    }
+    if (prevState.filteredReviewData !== this.state.filteredReviewData) {
+      this.setState({
+        reviewData: this.state.filteredReviewData
+      })
     }
 
   }
@@ -159,10 +166,11 @@ class RatingReview extends React.Component {
       let originalReviewData = this.state.originalReviewData
       let reviewData = this.state.reviewData
       let filtered = await helpers.filtering(filterMap, originalReviewData, reviewData)
-      //console.log('before set to state: ', filtered)
+      //console.log('filtered', filtered)
       this.setState({
-        reviewData: filtered
+        filteredReviewData: filtered
       })
+
     })
 
   }
@@ -194,6 +202,10 @@ class RatingReview extends React.Component {
     })
   }
 
+  updateTracker(element, widget) {
+    console.log(element, widget)
+    this.props.tracker(element, widget)
+  }
 
 
 
@@ -201,7 +213,7 @@ class RatingReview extends React.Component {
   render() {
     return (
       <div className="container ratingReview">
-        <h6>RATINGS & REVIEWS</h6>
+        <h5 >RATINGS & REVIEWS</h5>
         <div className="row">
           <div className="col-4">
             <Breakdown metadata={this.state.metadata} hanleFilterClicked={this.hanleFilterClicked.bind(this)} filterClicked={this.state.filterClicked} resetAllFilter={this.resetAllFilter.bind(this)} />

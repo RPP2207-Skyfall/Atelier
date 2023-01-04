@@ -47,6 +47,7 @@ const overallStar = (props) => {
             <button
               type="button"
               key={idx}
+              data-testid={`overallStar-btn${idx}`}
               className={idx <= starSelected ? "star-on" : "star-off"}
               onClick={(e) => {
                 handleStarClick(e, idx)

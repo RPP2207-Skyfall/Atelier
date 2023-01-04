@@ -28,7 +28,7 @@ const RelatedItem = (props) => {
   const [OutfitLeftArr, setOutfitLeftArr] = useState(false);
   const [OutfitRightArr, setOutfitRightArr] = useState(false);
 
-  useEffect (()=> {
+  useEffect(() => {
     // console.log('rerender secection')
     getRelatedID(mainItemId)
     if (props.outfitList.length > 4) {
@@ -37,13 +37,13 @@ const RelatedItem = (props) => {
     //use .length directly avoid state.
   }, [])
 
-// update ID render
-  useEffect (()=> {
+  // update ID render
+  useEffect(() => {
     if (mainItemId !== oldID) {
       console.log('update ID useEffect')
       getRelatedID(mainItemId)
       setOldID(mainItemId)
-      while(pickIndex >= -1) {
+      while (pickIndex >= -1) {
         prevSlide()
         pickIndex -= 1
       }
@@ -60,18 +60,18 @@ const RelatedItem = (props) => {
   }, [mainItemId])
 
   const getRelatedID = async (mainID) => {
-    const promise = await Axios.get('http://localhost:3000/relateItemsID', { params: { id: mainID } })
+    const promise = await Axios.get('/relateItemsID', { params: { id: mainID } })
     Promise.resolve(promise)
-    .then((response => {
-      // console.log(response.data)
-      if (response.data.length > 4) {
-        setRightArr(true)
-      }
-      updateRelatedList(response.data)
-    }))
-    .catch ((err) => {
-    console.log(err.message)
-    })
+      .then((response => {
+        // console.log(response.data)
+        if (response.data.length > 4) {
+          setRightArr(true)
+        }
+        updateRelatedList(response.data)
+      }))
+      .catch((err) => {
+        console.log(err.message)
+      })
   };
 
   //related arrow func
@@ -121,13 +121,13 @@ const RelatedItem = (props) => {
 
   const outfitPrevSlide = () => {
     // console.log(pickIndex);
-    if(OutfitPickIndex > 1) {
+    if (OutfitPickIndex > 1) {
       OutfitPickIndex = OutfitPickIndex - 1;
       OutfitOffsetCarousel = OutfitOffsetCarousel - OutfitChildWidth;
-      outfitCarousel.current.style = 'transform: translateX(' + ( 0 - OutfitOffsetCarousel ) + 'px' + ')';
+      outfitCarousel.current.style = 'transform: translateX(' + (0 - OutfitOffsetCarousel) + 'px' + ')';
       setOutfitRightArr(true)
 
-      if(OutfitPickIndex > 1) {
+      if (OutfitPickIndex > 1) {
         setOutfitLeftArr(true)
       } else {
         setOutfitLeftArr(false)
@@ -141,12 +141,12 @@ const RelatedItem = (props) => {
     console.log('childLength', childLength)
     console.log('childWidth', childWidth)
     // （選取的的Card Index + 預設顯示數) 小於 Carousel 終點
-    if((OutfitPickIndex + cardToShow) < (OutfitChildLength + 1)) { // 正式的時候把 +1 拿掉
+    if ((OutfitPickIndex + cardToShow) < (OutfitChildLength + 1)) { // 正式的時候把 +1 拿掉
       OutfitPickIndex = OutfitPickIndex + 1;
       OutfitOffsetCarousel = OutfitOffsetCarousel + OutfitChildWidth;
-      outfitCarousel.current.style = 'transform: translateX(' + ( 0 - OutfitOffsetCarousel ) + 'px' + ')';
+      outfitCarousel.current.style = 'transform: translateX(' + (0 - OutfitOffsetCarousel) + 'px' + ')';
       setOutfitLeftArr(true);
-      if((OutfitPickIndex + cardToShow) === (OutfitChildLength + 1)) {
+      if ((OutfitPickIndex + cardToShow) === (OutfitChildLength + 1)) {
         setOutfitRightArr(false)
       } else {
         setOutfitRightArr(true)
@@ -170,10 +170,10 @@ const RelatedItem = (props) => {
       <h5>YOUR OUTFIT</h5>
       {/* <p>{JSON.stringify(props.outfitList)}</p> */}
       <section className="carousel-upper">
-      { OutfitLeftArr ? <span className="left-arrow" onClick={() => outfitPrevSlide()}></span> : <></> }
-      { OutfitRightArr ? <span className="right-arrow" onClick={() => outfitNextSlide()}></span> : <></> }
-        <div className="carousel" ref = { outfitCarouselOutbox }>
-        <OutfitList ref = { outfitCarousel } outfitList = {props.outfitList} toggleStar = {props.toggleStar} mainItemId = {mainItemId} outfit = {true} updateCurrentItem = {props.updateCurrentItem}/>
+        {OutfitLeftArr ? <span className="left-arrow" onClick={() => outfitPrevSlide()}></span> : <></>}
+        {OutfitRightArr ? <span className="right-arrow" onClick={() => outfitNextSlide()}></span> : <></>}
+        <div className="carousel" ref={outfitCarouselOutbox}>
+          <OutfitList ref={outfitCarousel} outfitList={props.outfitList} toggleStar={props.toggleStar} mainItemId={mainItemId} outfit={true} updateCurrentItem={props.updateCurrentItem} />
         </div>
       </section>
     </div>

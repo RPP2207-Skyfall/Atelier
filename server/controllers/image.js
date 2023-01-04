@@ -2,14 +2,16 @@ const Axios = require('axios');
 require("dotenv").config();
 
 
-exports.getImageAndPrice = (req,res) => {
+exports.getImageAndPrice = (req, res) => {
   var ID = req.query.id;
   // console.log(ID)
   const url = process.env.REACT_APP_API_OVERVIEW_URL + `products/${ID}/styles`;
   var requestOption = {
     headers: {
       "Content-Type": "application/json",
-      "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
+      "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN,
+      "Accept-Encoding": 'gzip',
+      "Content-Encoding": 'gzip'
     }
   }
   Axios.get(url, requestOption)

@@ -19,4 +19,7 @@ router.put('/reportQuestion', controller.questionAnswer.reportQuestion)
 router.put('/helpfulAnswer', controller.questionAnswer.helpfulAnswer)
 router.put('/reportAnswer', controller.questionAnswer.reportAnswer)
 
+router.post('/interactions', controller.tracker.post_interactions)
+
+
 module.exports = router;
