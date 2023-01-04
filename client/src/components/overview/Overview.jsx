@@ -98,14 +98,24 @@ class Overview extends React.Component {
 
   // for Styles + thumbnail interaction:
 
-  updateStyle(style) {
-
-
-  zoom() {
+  updateStyle(style, clickData) {
+    // old
+    // let newThumbnails = this.makeThumbnailBoxes(style.photos);
+    this.clickTracker(clickData);
+    let newThumbnails = helpers.makeThumbnailBoxes(style.photos);
     this.setState({
-      zoomBox: !this.state.zoomBox
+      currentStyle: style,
+      mainIndex: 0,
+      currentThumbnails: newThumbnails
     })
   }
+
+
+  // zoom() {
+  //   this.setState({
+  //     zoomBox: !this.state.zoomBox
+  //   })
+  // }
 
   handleExpand(clickData) {
     this.clickTracker(clickData);
@@ -223,7 +233,7 @@ class Overview extends React.Component {
           return this.getStyles(data.SKU)
         })
         .then((state) => {
-          console.log('state', state)
+
           return this.getReviews(state.styles.product_id);
         })
         .then((reviews) => {
@@ -234,6 +244,7 @@ class Overview extends React.Component {
           return this.setAverageRating(averageReview);
         })
         .then((done) => {
+          console.log('state', this.state)
 
           this.setState({
             done: true
@@ -459,14 +470,15 @@ class Overview extends React.Component {
             handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
             checkThumbnailSection={this.checkThumbnailSection} clickTracker={this.clickTracker}
           />
-          <Details />
+          <Details desc={this.state.data[0]} />
 
         </div>
       )
     } else {
       return (
         <div>
-          something
+          having some issues...
+          please try again later
         </div>
       )
     }

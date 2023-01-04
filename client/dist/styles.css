@@ -564,9 +564,25 @@ main {
   margin: 5rem;
   /* padding: 10px; */
   top: -50vh;
-  height: 30rem;
+  height: 35rem;
   width: 50rem;
 
+}
+
+/* Product details */
+
+.main-product-details {
+  top: -72vh;
+  position: relative;
+}
+
+.product-details-desc {
+  text-align: center;
+}
+
+.product-details-slogan {
+  text-align: center;
+  font-weight: bold;
 }
 
 /* image gallery */
