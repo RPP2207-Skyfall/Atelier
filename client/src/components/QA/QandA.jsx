@@ -50,7 +50,7 @@ class QandA extends React.Component {
     };
     var sortedQA = [];
     try {
-      var productQA = await Axios.get('/getProductQA', {params: requestOption});
+      var productQA = await Axios.post('/getProductQA',requestOption);
       if (productQA.data.results.length === 0) {
         throw new Error('No data found');
         this.setState({
@@ -141,20 +141,20 @@ class QandA extends React.Component {
         {this.state.isQAEmpty ?
           <React.Fragment>
             <p>Seems like there is no question posted for this product...</p>
-            <Button variant='outlined' size='medium' onClick={this.handleQModalOpen} className='question-and-answer-add-question-btn'>ADD A QUESTION <AddIcon/></Button>
+            <Button variant='outlined' size='medium' onClick={this.handleQModalOpen} data-testid='question-and-answer-add-question-btn' className='question-and-answer-add-question-btn'>ADD A QUESTION <AddIcon/></Button>
           </React.Fragment> :
           <div className='question-and-answer-main-components'>
-            <Search handleSearch={this.handleSearch}/>
+            <Search className='question-and-answer-search-bar' data-testid='question-and-answer-search-bar' handleSearch={this.handleSearch}/>
             <div className='question-and-answer-main-components-scrollable'>
-            <QAList list={this.state.QA_shown} handleAModalOpen={this.handleAModalOpen} isAModalOpen={this.state.isAModalOpen} handleAModalClose={this.handleAModalClose} product_name={this.state.product_name}/>
+            <QAList list={this.state.QA_shown} data-testid='question-and-answer-qalist' handleAModalOpen={this.handleAModalOpen} isAModalOpen={this.state.isAModalOpen} handleAModalClose={this.handleAModalClose} product_name={this.state.product_name}/>
             </div>
             <Stack spacing={1} direction={{ xs: 'column', xs: 'row' }}>
-              {this.state.isLastQuestion ? null: <Button variant='outlined' size='medium' className='question-and-answer-more-question-btn' onClick={this.loadMoreAnsweredQs}>MORE ANSWERED QUESTIONS</Button>}
-              <Button variant='outlined' size='medium' onClick={this.handleQModalOpen} className='question-and-answer-add-question-btn'>ADD A QUESTION <AddIcon/></Button>
+              {this.state.isLastQuestion ? null: <Button variant='outlined' size='medium' className='question-and-answer-more-question-btn' data-testid='question-and-answer-more-question-btn' onClick={this.loadMoreAnsweredQs}>MORE ANSWERED QUESTIONS</Button>}
+              <Button variant='outlined' size='medium' onClick={this.handleQModalOpen} className='question-and-answer-add-question-btn' data-testid='question-and-answer-add-question-btn'>ADD A QUESTION <AddIcon/></Button>
             </Stack>
           </div>
         }
-        <QuestionModal isQModalOpen={this.state.isQModalOpen} handleQModalClose={this.handleQModalClose} product_name={this.state.product_name}/>
+        <QuestionModal isQModalOpen={this.state.isQModalOpen} handleQModalClose={this.handleQModalClose} product_name={this.state.product_name} product_id={this.state.product_id}/>
       </div>
     )
   }

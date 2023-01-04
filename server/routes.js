@@ -11,6 +11,12 @@ router.get('/relateItemsID', controller.relatedID.getRelatedItemsID)
 router.get('/getRating', controller.rating.getRating)
 router.get('/getImageAndPrice', controller.image.getImageAndPrice)
 router.get('/getItemDetails', controller.itemDetails.getItemDetails)
-router.get('/getProductQA', controller.questionAnswer.getProductQA)
+router.post('/getProductQA', controller.questionAnswer.getProductQA)
+router.post('/addNewAnswer', controller.questionAnswer.addNewAnswer)
+router.post('/addNewQuestion', controller.questionAnswer.addNewQuestion)
+router.put('/helpfulQuestion', controller.questionAnswer.helpfulQuestion)
+router.put('/reportQuestion', controller.questionAnswer.reportQuestion)
+router.put('/helpfulAnswer', controller.questionAnswer.helpfulAnswer)
+router.put('/reportAnswer', controller.questionAnswer.reportAnswer)
 
 module.exports = router;

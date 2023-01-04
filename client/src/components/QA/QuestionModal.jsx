@@ -1,4 +1,5 @@
 import React from 'react';
+import Axios from 'axios';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -87,6 +88,21 @@ class QuestionModal extends React.Component {
     e.preventDefault();
     if (this.state.emailPass && this.state.nicknamePass && this.state.questionPass) {
       //do a post request
+      var newQuestion = {
+        body: this.state.question,
+        name: this.state.nickname,
+        email: this.state.email,
+        product_id: this.props.product_id
+      };
+      console.log(newQuestion);
+
+      Axios.post('/addNewQuestion', newQuestion)
+        .then(() => {
+          console.log('new question added');
+        })
+        .catch((err) => {
+          console.log('Error posting new question', err);
+        });
 
       //return to default
       this.setState({

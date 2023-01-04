@@ -1294,6 +1294,8 @@ td {
 .qaitem-question-helpful-count,
 .qaitem-add-answer,
 .answeritem-helpful-count,
+.questionitem-report,
+.questionitem-reported,
 .answeritem-reported,
 .answeritem-report {
   text-decoration: underline;
@@ -1319,7 +1321,7 @@ td {
 .question-and-answer-qaitem {
   width: 100%;
   max-height: 40vh;
-  overflow-y: auto;
+  overflow-y: hidden;
   overflow-x: hidden;
 }
 
