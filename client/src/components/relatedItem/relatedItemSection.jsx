@@ -49,9 +49,7 @@ const RelatedItem = (props) => {
 
   // update outfit list render
   useEffect (()=> {
-    console.log('outfitlist change')
     if (passDownOutfitList !== oldOutfitList) {
-      console.log('outfitlist update')
       getOutfitMetaData(passDownOutfitList)
       setOldOutfitList(passDownOutfitList)
     }
@@ -90,7 +88,6 @@ const RelatedItem = (props) => {
   };
 
   const getOutfitMetaData = async (outfitList) => {
-    console.log("call getOutfitMetaData")
     if (outfitList.length === 0) {
       setOutfitMetaData([])
     } else {
@@ -211,12 +208,10 @@ const RelatedItem = (props) => {
         </div>
       </section>
       <h5>YOUR OUTFIT</h5>
-      {/* <p>{JSON.stringify(props.outfitList)}</p> */}
       <section className="carousel-upper">
       { OutfitLeftArr ? <span className="left-arrow" onClick={() => outfitPrevSlide()}></span> : <></> }
       { OutfitRightArr ? <span className="right-arrow" onClick={() => outfitNextSlide()}></span> : <></> }
         <div className="carousel" ref = { outfitCarouselOutbox }>
-          {JSON.stringify(passDownOutfitList)}
         <OutfitList ref = { outfitCarousel } metaData = {outfitMetaData} toggleStar = {props.toggleStar} mainItemDetail = {mainItemDetail} outfit = {true} updateCurrentItem = {props.updateCurrentItem}/>
         </div>
       </section>

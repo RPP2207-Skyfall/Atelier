@@ -41,6 +41,7 @@ exports.getRelatedMetaData = async (req,res) => {
       const response = await Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}`, requestOption)
       return response.data
     })
+    
     return itemPromise
     })
     .then(async (itemPromise) => {
