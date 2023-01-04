@@ -217,7 +217,7 @@ const helpers = {
             {definitionObj[key].map((definition, idx) => {
 
               return (
-                <input key={'inputBtn' + key + idx} className="inputBtn" type="radio" name={`characteristic-select-${key}`} value={[characteristicsObj[key].id, idx + 1, definition]} />
+                <input key={'inputBtn' + key + idx} data-testid={'inputBtn' + key + idx} className="inputBtn" type="radio" name={`characteristic-select-${key}`} value={[characteristicsObj[key].id, idx + 1, definition]} />
               )
             })}
           </div>
@@ -237,8 +237,7 @@ const helpers = {
       } else {
         return [false, lengthRemaining]
       }
-    }
-    else if (fromComponent === 'overallStar') {
+    } else if (fromComponent === 'overallStar') {
       if (checkValue < 0) {
         return true
       } else {

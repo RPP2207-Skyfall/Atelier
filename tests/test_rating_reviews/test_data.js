@@ -144,7 +144,8 @@ const testData = {
         "value": "3.9500000000000000"
       }
     }
-  }
+  },
+  fiftyOneCharBody: 'can this test pass please? can this test pass please? can this test pass please?'
 }
 
 

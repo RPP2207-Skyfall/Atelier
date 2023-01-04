@@ -13,7 +13,14 @@ import PhotoItem from '../../client/src/components/rating_review/reviewPhoto/pho
 import RatingBreakdown from '../../client/src/components/rating_review/breakdown/ratingBreakdown.jsx'
 import Recommendation from '../../client/src/components/rating_review/breakdown/recommendation.jsx'
 import Breakdown from '../../client/src/components/rating_review/breakdown/breakdown.jsx'
+import NewBody from '../../client/src/components/rating_review/newReview/newBody.jsx'
+import NewReviewModal from '../../client/src/components/rating_review/newReview/newReviewModal.jsx'
+import NewSummary from '../../client/src/components/rating_review/newReview/newSummary.jsx'
+import OverallStar from '../../client/src/components/rating_review/newReview/overallStar.jsx'
+import UploadPhoto from '../../client/src/components/rating_review/newReview/uploadPhoto.jsx'
+import UserInfo from '../../client/src/components/rating_review/newReview/userInfo.jsx'
 import { render, screen, waitFor, fireEvent, cleanup } from "@testing-library/react"
+import ShallowRenderer from 'react-test-renderer/shallow';
 import { act } from 'react-dom/test-utils'
 import testData from './test_data.js'
 import '@testing-library/jest-dom';
@@ -482,11 +489,264 @@ describe("Breakdown Component", () => {
   })
 })
 
+describe("NewBody Component", () => {
+  test("Should execute bodyInput function when body textarea has any changes", () => {
+    const bodyInput = jest.fn()
+    act(() => {
+      render(<NewBody bodyInput={bodyInput} />)
+    })
+    const bodyTextarea = screen.getByTestId("body-textarea")
+    act(() => {
+      fireEvent.change(bodyTextarea, { target: { value: "test" } })
+    })
+    expect(bodyInput).toHaveBeenCalled()
+  })
+
+  test("Should show asteris if asteris is true", () => {
+    // const bodyInput = jest.fn()
+    const asteris = true
+    render(<NewBody asteris={asteris} />)
+    const asterisSpan = screen.getByTestId("asteris")
+    expect(asterisSpan).toBeInTheDocument()
+  })
+  test("Should render an asteris if there is no text in the textarea", () => {
+    const bodyInput = jest.fn()
+    render(<NewBody bodyInput={bodyInput} />)
+    const bodyTextarea = screen.getByTestId("body-textarea")
+    fireEvent.change(bodyTextarea, { target: { value: "" } })
+    const asterisSpan = screen.getByTestId("asteris")
+    expect(asterisSpan).toBeInTheDocument()
+  })
+  test("Should not render asteris if there is text in the textarea", async () => {
+    const bodyInput = jest.fn()
+    render(<NewBody bodyInput={bodyInput} />)
+    const bodyTextarea = screen.getByTestId("body-textarea")
+    fireEvent.change(bodyTextarea, { target: { value: "test" } })
+    //const asterisSpan = screen.getByTestId("asteris")
+    const asterisSpan = await screen.queryByText('*');
+    expect(asterisSpan).not.toBeInTheDocument
+  })
+
+  test("Should render how many required characters left message if lengthRemaining is greater than zero", async () => {
+    const bodyInput = jest.fn()
+    render(<NewBody bodyInput={bodyInput} />)
+    const bodyTextarea = screen.getByTestId("body-textarea")
+    fireEvent.change(bodyTextarea, { target: { value: "test" } })
+    const message = await screen.findByText('Minimum required characters left: 46');
+    //console.log(message)
+    expect(message).toBeVisible()
+
+  })
+
+  test("Should render minimum characters reached message if lengthRemaining is equal to zero ", async () => {
+    const bodyInput = jest.fn()
+    render(<NewBody bodyInput={bodyInput} />)
+    const bodyTextarea = screen.getByTestId("body-textarea")
+    fireEvent.change(bodyTextarea, { target: { value: testData.fiftyOneCharBody } })
+    const reachedMessage = await screen.findByText('Minimum reached');
+    expect(reachedMessage).toBeVisible()
+
+  })
+  test("Should render error message if it is not empty string", async () => {
+    const bodyInput = jest.fn()
+    const bodyErrorMsg = "test error message"
+    render(<NewBody bodyInput={bodyInput} bodyErrorMsg={bodyErrorMsg} />)
+    // const bodyTextarea = screen.getByTestId("body-textarea")
+    // fireEvent.change(bodyTextarea, { target: { value: testData.fiftyOneCharBody } })
+    const errorMessage = await screen.findByText('test error message');
+    expect(errorMessage).toBeVisible()
+
+  })
+  test("Should ot render error message if it is an empty string", async () => {
+    const bodyInput = jest.fn()
+    const bodyErrorMsg = ""
+    render(<NewBody bodyInput={bodyInput} bodyErrorMsg={bodyErrorMsg} />)
+    // const bodyTextarea = screen.getByTestId("body-textarea")
+    // fireEvent.change(bodyTextarea, { target: { value: testData.fiftyOneCharBody } })
+    const errorMessage = await screen.getByTestId('errMsg');
+    expect(errorMessage.textContent).toEqual('')
+
+  })
+
+})
+
+
+describe("UserInfo Component", () => {
+  const handleNicknameChange = jest.fn()
+  const handleEmailChange = jest.fn()
+  const useInfo = jest.fn()
+  test("userInfo function should be triggered when user is typing on the nickname field", () => {
+
+    act(() => {
+      render(<UserInfo useInfo={useInfo} handleEmailChange={handleEmailChange} handleNicknameChange={handleNicknameChange} />)
+    })
+    const nicknameArea = screen.getByTestId("nickname-area")
+    act(() => {
+      fireEvent.change(nicknameArea, { target: { value: "test" } })
+    })
+    expect(useInfo).toHaveBeenCalled()
+  })
+  test("userInfo function should be triggered when user is typing on the email field", () => {
+
+    act(() => {
+      render(<UserInfo useInfo={useInfo} handleEmailChange={handleEmailChange} handleNicknameChange={handleNicknameChange} />)
+    })
+    const emailArea = screen.getByTestId("email-area")
+    act(() => {
+      fireEvent.change(emailArea, { target: { value: "test" } })
+    })
+    expect(useInfo).toHaveBeenCalled()
+  })
+  test("should not render asteris if user typed in the nickname field", async () => {
+
+    act(() => {
+      render(<UserInfo useInfo={useInfo} handleEmailChange={handleEmailChange} handleNicknameChange={handleNicknameChange} />)
+    })
+    const nicknameArea = screen.getByTestId("nickname-area")
+    act(() => {
+      fireEvent.change(nicknameArea, { target: { value: "test" } })
+    })
+    const nicknameDiv = await screen.getByTestId('nickname-div');
+    expect(nicknameDiv.textContent).toEqual('What is your nickname? For privacy reasons, do not use your full name or email address')
+
+  })
+  test("should render asteris if user did not type in the nickname field", async () => {
+
+    act(() => {
+      render(<UserInfo useInfo={useInfo} handleEmailChange={handleEmailChange} handleNicknameChange={handleNicknameChange} />)
+    })
+    const nicknameArea = screen.getByTestId("nickname-area")
+    act(() => {
+      fireEvent.change(nicknameArea, { target: { value: "" } })
+    })
+    const nicknameDiv = await screen.getByTestId('nickname-div');
+    expect(nicknameDiv.textContent).toEqual('What is your nickname? *For privacy reasons, do not use your full name or email address')
+
+  })
+
+  test("should not render asteris if user typed in the email field", async () => {
+
+    act(() => {
+      render(<UserInfo useInfo={useInfo} handleEmailChange={handleEmailChange} handleNicknameChange={handleNicknameChange} />)
+    })
+    const emailArea = screen.getByTestId("email-area")
+    act(() => {
+      fireEvent.change(emailArea, { target: { value: "test" } })
+    })
+    const nicknameDiv = await screen.getByTestId('email-div');
+    expect(nicknameDiv.textContent).toEqual('Your Email? For authentication reasons, you will not be emailed')
+
+  })
+  test("should render asteris if user did not type in the email field", async () => {
+
+    act(() => {
+      render(<UserInfo useInfo={useInfo} handleEmailChange={handleEmailChange} handleNicknameChange={handleNicknameChange} />)
+    })
+    const emailArea = screen.getByTestId("email-area")
+    act(() => {
+      fireEvent.change(emailArea, { target: { value: "" } })
+    })
+    const nicknameDiv = await screen.getByTestId('email-div');
+    expect(nicknameDiv.textContent).toEqual('Your Email? *For authentication reasons, you will not be emailed')
+
+  })
+
+})
+
+
+
+describe("overallStar Component", () => {
+  const starSelection = jest.fn()
+  const handleStarClick = jest.fn()
+  test('starSelection functio should be triggered if any star is clicked', async () => {
+    act(() => {
+      render(<OverallStar starSelection={starSelection} handleStarClick={handleStarClick} />)
+    })
+
+    const overallStarBtn = await screen.getByTestId("overallStar-btn1")
+    fireEvent.click(overallStarBtn)
+    expect(starSelection).toHaveBeenCalled()
+  })
+})
+
+describe("newSummary Component", () => {
+  const summaryInput = jest.fn()
+  test('summaryInput function should be triggered if user typed on summary textarea', async () => {
+    act(() => {
+      render(<NewSummary summaryInput={summaryInput} />)
+    })
+
+    const summaryArea = screen.getByTestId("summary-area")
+    act(() => {
+      fireEvent.change(summaryArea, { target: { value: "test" } })
+    })
+    expect(summaryInput).toHaveBeenCalled()
+  })
+})
+
+describe("newReviewModal Component", () => {
+  const handleCloseReviewModal = jest.fn()
+  const productName = 'Blues Suede Shoes'
+  const addNewReview = jest.fn()
+  const characteristics = testData.metadata2.characteristics
+  test('handleCloseReviewModal function should be triggered if user clicked the close button on the add new review form', async () => {
+    act(() => {
+      render(<NewReviewModal handleCloseReviewModal={handleCloseReviewModal} />)
+    })
+    const closeClick = await screen.getByTestId("close-click")
+    act(() => {
+      fireEvent.click(closeClick)
+    })
+    expect(handleCloseReviewModal).toHaveBeenCalled()
+  })
+
+  test('Add new review form should display the product name', async () => {
+    act(() => {
+      render(<NewReviewModal productName={productName} />)
+    })
+    const productTitle = await screen.queryByText(`About the ${productName}`)
+    expect(productTitle).toBeInTheDocument()
+  })
+
+  // test.only('', async () => {
+  //   console.log(characteristics)
+  //   act(async () => {
+  //     await render(<NewReviewModal addNewReview={addNewReview} characteristics={characteristics} />)
+  //   })
+  //   const overallStarBtn = await screen.getByTestId("overallStar-btn1")
+  //   fireEvent.click(overallStarBtn)
+  //   const inputBtnFit0 = await screen.getByTestId("inputBtnFit0")
+  //   fireEvent.click(inputBtnFit0)
+  //   const inputBtnLength0 = await screen.getByTestId("inputBtnLength0")
+  //   fireEvent.click(inputBtnLength0)
+  //   const inputBtnComfort0 = await screen.getByTestId("inputBtnComfort0")
+  //   fireEvent.click(inputBtnComfort0)
+  //   const inputBtnQuality0 = await screen.getByTestId("inputBtnQuality0")
+  //   fireEvent.click(inputBtnQuality0)
+
+  //   const bodyTextarea = screen.getByTestId("body-textarea")
+  //   fireEvent.change(bodyTextarea, { target: { value: testData.fiftyOneCharBody } })
+
+  //   const emailArea = screen.getByTestId("email-area")
+  //   fireEvent.change(emailArea, { target: { value: "test" } })
+  //   const nicknameArea = screen.getByTestId("nickname-area")
+  //   fireEvent.change(nicknameArea, { target: { value: "test" } })
+
+  //   const submitBtn = screen.getByTestId("submit-click")
+
+  //   expect(addNewReview).toHaveBeenCalled()
 
 
 
 
 
+
+
+})
+})
+
+
+//data-testid
 
 describe("Helper functions", () => {
   //generateStars
@@ -706,11 +966,6 @@ describe("Helper functions", () => {
     const expected = photoArr
     expect(result).toEqual(expected)
   })
-  // test("", async () => {
 
-  //   const result = await helperFn.()
-  //   const expected =
-  //   expect(result).toEqual(expected)
-  // })
 })
 

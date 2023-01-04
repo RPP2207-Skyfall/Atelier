@@ -25,7 +25,7 @@ const newReviewModal = (props) => {
   // error
   const [errorStarMsg, setStarErrorMsg] = useState("")
   const [charErrorMsg, setCharErrorMsg] = useState("")
-  const [summaryErrorMsg, setSummaryErrorMsg] = useState("")
+  // const [summaryErrorMsg, setSummaryErrorMsg] = useState("")
   const [bodyErrorMsg, setBodyErrorMsg] = useState("")
   const [nicknameErrorMsg, setNicknameErrorMsg] = useState("")
   const [emailErrorMsg, setEmailErrorMsg] = useState("")
@@ -49,9 +49,9 @@ const newReviewModal = (props) => {
     setStarErrorMsg("")
   }, [star])
 
-  useEffect(() => {
-    setSummaryErrorMsg("")
-  }, [summary])
+  // useEffect(() => {
+  //   setSummaryErrorMsg("")
+  // }, [summary])
   useEffect(() => {
     setBodyErrorMsg("")
   }, [body])
@@ -130,10 +130,10 @@ const newReviewModal = (props) => {
       setCharErrorMsg("You must enter the following:")
       setSubmitReady(false)
     }
-    if (summary.length === 0) {
-      setSummaryErrorMsg("You must enter the following:")
-      setSubmitReady(false)
-    }
+    // if (summary.length === 0) {
+    //   setSummaryErrorMsg("You must enter the following:")
+    //   setSubmitReady(false)
+    // }
     if (body.length === 0) {
       setBodyErrorMsg("You must enter the following:")
       setSubmitReady(false)
@@ -157,7 +157,7 @@ const newReviewModal = (props) => {
       setSubmitReady(false)
     }
 
-    if (errorStarMsg.length === 0 && charErrorMsg.length === 0 && summaryErrorMsg.length === 0 && bodyErrorMsg.length === 0 && nicknameErrorMsg.length === 0 && emailErrorMsg.length === 0) {
+    if (errorStarMsg.length === 0 && charErrorMsg.length === 0 && bodyErrorMsg.length === 0 && nicknameErrorMsg.length === 0 && emailErrorMsg.length === 0) {
       setSubmitReady(true)
     }
     var newReviewData = {
@@ -171,7 +171,7 @@ const newReviewModal = (props) => {
       "characteristics": characteristicSelection
     }
 
-    if (errorStarMsg.length === 0 && charErrorMsg.length === 0 && summaryErrorMsg.length === 0 && bodyErrorMsg.length === 0 && nicknameErrorMsg.length === 0 && emailErrorMsg.length === 0 && submitReady === true) {
+    if (errorStarMsg.length === 0 && charErrorMsg.length === 0 && bodyErrorMsg.length === 0 && nicknameErrorMsg.length === 0 && emailErrorMsg.length === 0 && submitReady === true) {
       props.addNewReview(newReviewData)
     }
 
@@ -222,7 +222,7 @@ const newReviewModal = (props) => {
               </div>
 
               <div className="review-summary-section">
-                <NewSummary summaryInput={summaryInput} summaryErrorMsg={summaryErrorMsg} />
+                <NewSummary summaryInput={summaryInput} />
               </div>
 
               <div className="review-body-section">
@@ -238,8 +238,8 @@ const newReviewModal = (props) => {
               </div>
 
               <div className="button-section">
-                <button className="review-modal-closeBtn" data-testid={`close-`} onClick={() => { handleCloseClick() }} >Close</button>
-                <button className="review-modal-submitBtn" data-testid={`submit-`} onClick={handleSubmit}>Submit</button>
+                <button className="review-modal-closeBtn" data-testid={`close-click`} onClick={() => { handleCloseClick() }} >Close</button>
+                <button className="review-modal-submitBtn" data-testid={`submit-click`} onClick={handleSubmit}>Submit</button>
               </div>
             </div>
           </div>
