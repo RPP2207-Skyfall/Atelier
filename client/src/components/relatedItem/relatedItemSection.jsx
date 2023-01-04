@@ -154,7 +154,10 @@ const RelatedItem = (props) => {
     }
   }
 
-
+  //Error Boundary --- Customize it as you go
+  if (props.CurrentItemID === undefined) {
+    throw new Error ('no CurrentItemID detected');
+  }
 
   return (
     <div className="main-container carousel-style">
