@@ -1,5 +1,7 @@
 # update/refresh the list of available packages
 sudo apt update
+sudo apt-get upgrade -y
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 
 # install git to pull repo from github
 sudo apt install git
@@ -23,3 +25,10 @@ service nginx status
 sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 3000
 
 https://towardsdev.com/deploying-a-react-node-mysql-app-to-aws-ec2-2022-1dfc98496acf
+
+
+
+lsof -i tcp:3000
+sudo kill -9 PID
+
+chmod 777 rooot

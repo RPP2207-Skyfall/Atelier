@@ -1309,6 +1309,7 @@ main {
   z-index: 999;
   padding: 20px;
 }
+
 .modal-name {
   display: flex;
   justify-content: space-between;
@@ -1331,7 +1332,7 @@ td {
 
 /*hover photo library*/
 
-.sensor-box{
+.sensor-box {
   position: absolute;
   /* display: inline-flex; */
   /* flex-direction: row; */

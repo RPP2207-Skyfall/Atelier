@@ -201,7 +201,7 @@ class RatingReview extends React.Component {
   render() {
     return (
       <div className="container ratingReview">
-        <h6>RATINGS & REVIEWS</h6>
+        <h5>RATINGS & REVIEWS</h5>
         <div className="row">
           <div className="col-4">
             <Breakdown metadata={this.state.metadata} hanleFilterClicked={this.hanleFilterClicked.bind(this)} filterClicked={this.state.filterClicked} resetAllFilter={this.resetAllFilter.bind(this)} />

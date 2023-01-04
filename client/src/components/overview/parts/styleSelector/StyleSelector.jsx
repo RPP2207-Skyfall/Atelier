@@ -15,6 +15,7 @@ function StyleSelector(props) {
 
         <div className="styles-holder">
           {
+
                 props.styles.results.map((style, i) => {
 
                   // console.log('style in selector: ', style)
