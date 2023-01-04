@@ -27,6 +27,7 @@ exports.getRelatedMetaData = async (req,res) => {
       "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
     }
   }
+
   await Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${ID}/related`, requestOption)
   .then((result) => {
     var idArr = result.data;
@@ -36,39 +37,34 @@ exports.getRelatedMetaData = async (req,res) => {
   })
   .then(async (idArr) => {
     //get details
-    var itemDetails = [];
-    for (var x = 0; x < idArr.length; x ++) {
-      await Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${idArr[x]}`, requestOption)
-      .then(result => {
-        var detail = result.data;
-        itemDetails.push(detail)
+    var itemPromise = idArr.map(async (id) => {
+      const response = await Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}`, requestOption)
+      return response.data
+    })
+    return itemPromise
+    })
+    .then(async (itemPromise) => {
+      //get image and price
+      var itemDetails = await Promise.all(itemPromise)
+      var itemPromise = itemDetails.map(async (obj) => {
+        var id = obj.id
+        const photoAndPrice = await Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}/styles`, requestOption)
+        var thumbnails = photoAndPrice.data.results[0].photos
+        var originalPrice = photoAndPrice.data.results[0].original_price
+        var salePrice = photoAndPrice.data.results[0].sale_price
+        obj.thumbnails = thumbnails
+        obj.originalPrice = originalPrice
+        obj.salePrice = salePrice
+        return obj
       })
-    }
-    return itemDetails
-  })
-  .then(async (itemDetails) => {
-    //get images and price
-    for (var x = 0; x < itemDetails.length; x ++) {
-      var id = itemDetails[x].id
-      await Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}/styles`, requestOption)
-      .then(response => {
-        var thumbnails = response.data.results[0].photos
-        var originalPrice = response.data.results[0].original_price
-        var salePrice = response.data.results[0].sale_price
-        itemDetails[x].thumbnails = thumbnails
-        itemDetails[x].originalPrice = originalPrice
-        itemDetails[x].salePrice = salePrice
-      })
-    }
-    return itemDetails
-  })
-  .then(async (itemDetails) =>{
-    //get rating
-    for (var x = 0; x < itemDetails.length; x ++) {
-      var id = itemDetails[x].id
-      await Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${id}`, requestOption)
-      .then(rating => {
-        const rateObj = rating.data.ratings;
+      return itemPromise
+    })
+    .then(async(itemPromise) => {
+      var itemDetails = await Promise.all(itemPromise)
+      var itemPromise = itemDetails.map(async (obj) => {
+        var id = obj.id
+        const rating = await Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${id}`, requestOption)
+        var rateObj = rating.data.ratings;
         var numOfRate = 0;
         var points = 0;
         for (var key in rateObj) {
@@ -76,11 +72,15 @@ exports.getRelatedMetaData = async (req,res) => {
           numOfRate += Number(rateObj[key]);
         }
         var averageRate = Math.round(points / numOfRate * 10) / 10;
-        itemDetails[x].rating = averageRate
+        obj.rating = averageRate
+        return obj
       })
-    }
-    res.status(200).send(itemDetails)
-  })
+      return itemPromise
+    })
+    .then(async(itemPromise) => {
+      var itemDetails = await Promise.all(itemPromise)
+      res.status(200).send(itemDetails)
+    })
   .catch(err => {
     console.log("Err: ", err)
   })
@@ -95,32 +95,36 @@ exports.getOutfitMetaData = async (req, res) => {
       "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
     }
   }
-  var itemDetails = [];
-  for (var x = 0; x < idArr.length; x ++) {
-    var id = idArr[x]
-    await Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}`, requestOption)
-    .then(result => {
-      var detail = result.data;
-      return detail
+
+    //get details
+    var itemPromise = idArr.map(async (id) => {
+      const response = await Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}`, requestOption)
+      return response.data
     })
-    .then(async (detail) => {
-      var id = detail.id
-      await Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}/styles`, requestOption)
-      .then(response => {
-        var thumbnails = response.data.results[0].photos
-        var originalPrice = response.data.results[0].original_price
-        var salePrice = response.data.results[0].sale_price
-        detail.thumbnails = thumbnails
-        detail.originalPrice = originalPrice
-        detail.salePrice = salePrice
+
+    Promise.all(itemPromise)
+    .then(async (itemPromiseSolve) => {
+      //get image and price
+      var itemDetails = itemPromiseSolve
+      var itemPromise = itemDetails.map(async (obj) => {
+        var id = obj.id
+        const photoAndPrice = await Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}/styles`, requestOption)
+        var thumbnails = photoAndPrice.data.results[0].photos
+        var originalPrice = photoAndPrice.data.results[0].original_price
+        var salePrice = photoAndPrice.data.results[0].sale_price
+        obj.thumbnails = thumbnails
+        obj.originalPrice = originalPrice
+        obj.salePrice = salePrice
+        return obj
       })
-      return detail
+      return itemPromise
     })
-    .then(async(detail) => {
-      var id = detail.id
-      await Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${id}`, requestOption)
-      .then(rating => {
-        const rateObj = rating.data.ratings;
+    .then(async(itemPromise) => {
+      var itemDetails = await Promise.all(itemPromise)
+      var itemPromise = itemDetails.map(async (obj) => {
+        var id = obj.id
+        const rating = await Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${id}`, requestOption)
+        var rateObj = rating.data.ratings;
         var numOfRate = 0;
         var points = 0;
         for (var key in rateObj) {
@@ -128,14 +132,17 @@ exports.getOutfitMetaData = async (req, res) => {
           numOfRate += Number(rateObj[key]);
         }
         var averageRate = Math.round(points / numOfRate * 10) / 10;
-        detail.rating = averageRate
+        obj.rating = averageRate
+        return obj
       })
-      itemDetails.push(detail)
+      return itemPromise
     })
-    .catch(err => {
-      console.log("Err: ", err)
+    .then(async(itemPromise) => {
+      var itemDetails = await Promise.all(itemPromise)
+      res.status(200).send(itemDetails)
     })
-  }
-  res.send(itemDetails)
+  .catch(err => {
+    console.log("Err: ", err)
+  })
 }
 

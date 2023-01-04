@@ -8,8 +8,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      OutfitList: [71698, 71699, 71700, 71701],
-      CurrentItemID: 71698,
+      OutfitList: [],
+      CurrentItemID: 71702,
       CurrentItemName: "Blues Suede Shoes"
     }
     this.toggleStar = this.toggleStar.bind(this);
@@ -29,10 +29,12 @@ class App extends React.Component {
     var newList = this.state.OutfitList
     if (index === -1) {
       newList.push(currentID)
-      this.setState({ OutfitList: newList })
+      console.log(newList)
+      this.setState({OutfitList: newList})
     } else {
       newList.splice(index, 1)
-      this.setState({ OutfitList: newList })
+      console.log(newList)
+      this.setState({OutfitList: newList})
     }
     // console.log(newList, this.state.OutfitList)
   }
@@ -42,6 +44,7 @@ class App extends React.Component {
       <>
         <h3>Ateiler</h3>
         {/* <Overview /> */}
+        {this.state.OutfitList}
         <RelatedItem outfitList={this.state.OutfitList} toggleStar={this.toggleStar} CurrentItemID={this.state.CurrentItemID} updateCurrentItem={this.updateCurrentItem} />
         {/* <QandA product_name={this.state.CurrentItemName} product_id = {this.state.CurrentItemID}/> */}
         {/* <RatingReview product_id={this.state.CurrentItemID} product_name={this.state.CurrentItemName} /> */}

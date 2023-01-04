@@ -51,11 +51,9 @@ const RelatedItem = (props) => {
   // update outfit list render
   useEffect (()=> {
     console.log('outfitlist change')
-    if (outfitList !== oldOutfitList) {
       console.log('outfitlist update')
       getOutfitMetaData(outfitList)
       setOldOutfitList(outfitList)
-    }
   }, [outfitList])
 
   const getRelatedMetaData = async (mainID) => {
