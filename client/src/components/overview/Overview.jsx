@@ -16,7 +16,7 @@ class Overview extends React.Component {
 
     this.state = {
       data: [],
-      SKU: 71700,
+      SKU: null,
       expanded: false,
       styles: [],
       current: [],
@@ -33,7 +33,9 @@ class Overview extends React.Component {
       rating: null,
       done: false,
       skuToBuy: null,
-      shouldOptimize: false
+      shouldOptimize: false,
+      currentPID: 71700,
+      description: []
     }
 
     this.mainSlide = this.mainSlide.bind(this);
@@ -115,16 +117,8 @@ class Overview extends React.Component {
   componentDidUpdate(prevProps, prevState) {
 
     if (prevProps !== this.props) {
-      // console.log('prevProps', prevProps)
-      // console.log('props', this.props)
-      // this.setState({
-      //   SKU: prevProps.CurrentItemID
-      // }), () => {
-      //   // this.getData(this.state.SKU)
-      //   console.log('this check', this)
-      //   // this.getSt(this.state.SKU)
-      // }
 
+      console.log('this.props.currentItemID 119', this.props.CurrentItemID)
       this.getData(this.props.CurrentItemID)
     }
 
@@ -280,9 +274,9 @@ class Overview extends React.Component {
 
     console.log('id in get data', id)
 
-    this.getGeneralProducts()
+    this.getGeneralProducts(id)
         .then((data) => {
-          console.log('data after first call', data);
+          // console.log('data after first call', data);
 
           return this.getStyles(id)
           // this.setState({
@@ -304,12 +298,12 @@ class Overview extends React.Component {
           return this.setAverageRating(averageReview);
         })
         .then((done) => {
-          console.log('state', this.state)
+
 
           this.setState({
             done: true
           })
-          // console.log('done', done)
+          console.log('state afeter done', this.state);
 
 
           // make a state with done where it is verified that all api calls are done
@@ -356,12 +350,7 @@ class Overview extends React.Component {
           .then(res => res.json())
           .then((data) => {
 
-            // console.log('data in styles', data)
 
-            //old
-            //  let holder = this.makeThumbnailBoxes(data.results[0].photos)
-
-            // new
              let holder = helpers.makeThumbnailBoxes(data.results[0].photos)
 
             this.setState({
@@ -417,7 +406,7 @@ class Overview extends React.Component {
 
   }
 
-  getGeneralProducts() {
+  getGeneralProducts(id) {
     console.log('something in general product')
     const generalUrl = process.env.REACT_APP_API_OVERVIEW_URL + `products`;
 
@@ -438,10 +427,21 @@ class Overview extends React.Component {
         .then(res => res.json())
         .then((data) => {
 
-          // console.log('data after first call', data[1].id)
+          console.log('data after first call', )
+
+
+          let desc = null;
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].id === id) {
+              desc = data[i];
+            }
+          }
+
+
           this.setState({
             data: data,
-            // SKU: data[0].id
+            currentPID: id,
+            description: desc
           }, () => {
 
 
@@ -539,7 +539,7 @@ class Overview extends React.Component {
       return (
         <div className="overview-container" data-testid="overview-test">
 
-          <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} clickTracker={this.clickTracker}/>
+          <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} clickTracker={this.clickTracker} desc={this.state.description}/>
           <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle} />
           <AddToCart
           currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
@@ -552,7 +552,7 @@ class Overview extends React.Component {
             handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
             checkThumbnailSection={this.checkThumbnailSection} clickTracker={this.clickTracker}
           />
-          <Details desc={this.state.data[0]} />
+          <Details desc={this.state.description} />
 
         </div>
       )

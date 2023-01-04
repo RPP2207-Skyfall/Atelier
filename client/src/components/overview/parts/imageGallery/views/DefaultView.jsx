@@ -7,7 +7,7 @@ function DefaultView(props) {
   // if the main image thumbnail is currently in the second box of thumbnails,
   // then update the section to the next section
 
-  console.log('props in default view', props)
+  // console.log('props in default view', props)
 
   if (!props.mainPic) {
     console.log('no main pic, just loading thing')
