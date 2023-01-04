@@ -3,8 +3,10 @@ import ProductInfo from './parts/productInfo/ProductInfo.jsx';
 import StyleSelector from './parts/styleSelector/StyleSelector.jsx';
 import AddToCart from './parts/addToCart/AddToCart.jsx';
 import ImageGallery from './parts/imageGallery/ImageGallery.jsx';
+import Details from './parts/productInfo/Details.jsx'
 import Axios from 'axios';
 import helpers from './overviewHelpers.js';
+
 
 class Overview extends React.Component {
   constructor(props) {
@@ -473,6 +475,8 @@ class Overview extends React.Component {
             handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
             checkThumbnailSection={this.checkThumbnailSection} clickTracker={this.clickTracker}
           />
+          <Details />
+
         </div>
       )
     } else {

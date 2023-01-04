@@ -63,13 +63,19 @@ class Thumbnail extends React.Component {
               if (image.index === this.props.index) {
                 return (
                   <div className="selected-icon" onClick={() => this.props.updateMainPic(image.index)} key={i}>
-                    <img className="icon-image" src={image.thumbnail_url} alt="icon-image"></img>
+                    <img className="icon-image" src={image.thumbnail_url} alt="icon-image"
+                    width="50"
+                    height="50"
+                     ></img>
                   </div>
                 )
               }
               return (
                 <div className="icon" onClick={() => this.props.updateMainPic(image.index)} key={i}>
-                  <img className="icon-image" src={image.thumbnail_url} alt="icon-image"></img>
+                  <img className="icon-image" src={image.thumbnail_url} alt="icon-image"
+                  width="50"
+                  height="50"
+                   ></img>
                 </div>
               )
 
@@ -96,13 +102,19 @@ class Thumbnail extends React.Component {
             if (image.index === this.props.index) {
               return (
                 <div className="selected-thumbnail" onClick={() => this.props.updateMainPic(image.index)} key={i}>
-                  <img className="thumbnail-image" src={image.thumbnail_url} alt="thumbnail-image"></img>
+                  <img className="thumbnail-image" src={image.thumbnail_url} alt="thumbnail-image"
+                    width="50"
+                    height="50"
+                  ></img>
                 </div>
               )
             }
             return (
               <div className="thumbnail" onClick={() => this.props.updateMainPic(image.index)} key={i}>
-                <img className="thumbnail-image" src={image.thumbnail_url} alt="thumbnail-image"></img>
+                <img className="thumbnail-image" src={image.thumbnail_url} alt="thumbnail-image"
+                  width="50"
+                  height="50"
+                ></img>
               </div>
             )
 
