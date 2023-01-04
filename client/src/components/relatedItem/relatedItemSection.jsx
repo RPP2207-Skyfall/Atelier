@@ -20,7 +20,7 @@ const RelatedItem = (props) => {
   const mainItemId = props.CurrentItemID
   const [oldID, setOldID] = useState(props.CurrentItemID)
   const outfitList = props.outfitList;
-  const [oldOutfitList, setOldOutfitList] = useState([])
+  const [oldOutfitList, setOldOutfitList] = useState(props.outfitList)
   const [relatedMetaData, setRelatedMetaData] = useState([])
   const [mainItemDetail, setMainIdtemDetail] = useState({})
   const [outfitMetaData, setOutfitMetaData] = useState([])
@@ -93,11 +93,10 @@ const RelatedItem = (props) => {
   const getOutfitMetaData = async (outfitList) => {
     if (outfitList.length === 0) {
       setOutfitMetaData([])
-      console.log('0 outfit')
     } else {
       await Axios.get('/outfitMetaData', { params: { idArr: outfitList } })
       .then((response => {
-        if (response.data.length > 4) {
+        if (response.data.length >3) {
           setOutfitRightArr(true)
           setOutfitLeftArr(false)
         } else {
@@ -182,8 +181,8 @@ const RelatedItem = (props) => {
   const outfitNextSlide = () => {
     OutfitChildLength = outfitCarousel.current.childNodes.length; // 用來計算終點
     OutfitChildWidth = outfitCarouselOutbox.current.offsetWidth / cardToShow;
-    console.log('childLength', childLength)
-    console.log('childWidth', childWidth)
+    // console.log('childLength', childLength)
+    // console.log('childWidth', childWidth)
     // （選取的的Card Index + 預設顯示數) 小於 Carousel 終點
     if((OutfitPickIndex + cardToShow) < (OutfitChildLength + 1)) { // 正式的時候把 +1 拿掉
       OutfitPickIndex = OutfitPickIndex + 1;
@@ -217,7 +216,6 @@ const RelatedItem = (props) => {
       { OutfitLeftArr ? <span className="left-arrow" onClick={() => outfitPrevSlide()}></span> : <></> }
       { OutfitRightArr ? <span className="right-arrow" onClick={() => outfitNextSlide()}></span> : <></> }
         <div className="carousel" ref = { outfitCarouselOutbox }>
-          {outfitList, oldOutfitList}
         <OutfitList ref = { outfitCarousel } metaData = {outfitMetaData} toggleStar = {props.toggleStar} mainItemDetail = {mainItemDetail} outfit = {true} updateCurrentItem = {props.updateCurrentItem}/>
         </div>
       </section>

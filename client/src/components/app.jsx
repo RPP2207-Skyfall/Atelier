@@ -8,7 +8,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      OutfitList: [71698],
+      OutfitList: [71698, 71699, 71700, 71701],
       CurrentItemID: 71698,
       CurrentItemName: "Blues Suede Shoes"
     }
@@ -25,23 +25,16 @@ class App extends React.Component {
   }
 
   toggleStar(currentID) {
-    console.log('hit', currentID)
     var index = this.state.OutfitList.indexOf(currentID)
     var newList = this.state.OutfitList
-    console.log(newList, 'List')
     if (index === -1) {
       newList.push(currentID)
-      console.log("new list add", newList)
       this.setState({ OutfitList: newList })
     } else {
       newList.splice(index, 1)
-      console.log("new list remove", newList)
-      if (newList.length === 0) {
-        this.setState({ OutfitList: [] })
-      } else {
-        this.setState({ OutfitList: newList })
-      }
+      this.setState({ OutfitList: newList })
     }
+    // console.log(newList, this.state.OutfitList)
   }
 
   render() {
@@ -49,7 +42,6 @@ class App extends React.Component {
       <>
         <h3>Ateiler</h3>
         {/* <Overview /> */}
-        {this.state.OutfitList}
         <RelatedItem outfitList={this.state.OutfitList} toggleStar={this.toggleStar} CurrentItemID={this.state.CurrentItemID} updateCurrentItem={this.updateCurrentItem} />
         {/* <QandA product_name={this.state.CurrentItemName} product_id = {this.state.CurrentItemID}/> */}
         {/* <RatingReview product_id={this.state.CurrentItemID} product_name={this.state.CurrentItemName} /> */}
