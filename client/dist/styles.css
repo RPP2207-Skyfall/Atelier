@@ -553,11 +553,19 @@ main {
 /****** Style for Overview widget****/
 
 .overview-container {
-  margin: 100px;
+
+  /* old----  */
+  /* margin: 100px;
   padding: 10px;
   top: -50vh;
   height: 50vh;
-  width: 75vw;
+  width: 75vw; */
+
+  margin: 5rem;
+  /* padding: 10px; */
+  top: -50vh;
+  height: 30rem;
+  width: 50rem;
 
 }
 
@@ -566,12 +574,22 @@ main {
 /* default view */
 
 .default-image-gallery {
-  position: relative;
+  /* old ----- */
+  /* position: relative;
   padding-bottom: 100px;
   margin-bottom: 100px;
   height: 50vh;
   width: 50vw;
   top: -70vh;
+  left: -10vw; */
+
+
+  position: relative;
+  padding-bottom: 100px;
+  margin-bottom: 100px;
+  height: 50vh;
+  width: 50vw;
+  top: -78vh;
   left: -10vw;
 }
 
@@ -582,8 +600,17 @@ main {
 }
 
 .default-image {
-  height: 50vh;
+
+  /* old ------ */
+  /* height: 50vh;
   width: 50vw;
+  position: absolute;
+  cursor: zoom-in; */
+
+
+  height: 65vh;
+  max-width: 65vh;
+  width: 65vh;
   position: absolute;
   cursor: zoom-in;
 }
@@ -592,8 +619,8 @@ main {
 .thumbnail {
   display: flex;
   /* flex: 1 1 0; */
-  height: 50px;
-  width: 50px;
+  height: 3rem;
+  width: 3rem;
   border: 1px solid black;
   box-sizing: border-box;
 
@@ -602,19 +629,34 @@ main {
 .selected-thumbnail {
   display: flex;
   /* flex: 1 1 0; */
-  height: 50px;
-  width: 50px;
+
+  height: 3rem;
+  width: 3rem;
+
   border: 2px solid rgb(125, 125, 188);
   box-sizing: border-box;
 
 }
 
 .thumbnail-container {
-  position: relative;
+  /* OLD --------- */
+
+
+  /* position: relative;
   display: flex;
   gap: 10px;
   left: 2%;
   top: 4vh;
+  display: flex;
+  flex-direction: column;
+  width: 10%;
+  z-index: 1; */
+
+  position: relative;
+  display: flex;
+  gap: 10px;
+  left: 2%;
+  top: 11vh;
   display: flex;
   flex-direction: column;
   width: 10%;
@@ -634,26 +676,58 @@ main {
   display: flex;
   flex-direction: column;
   position: relative;
-  top: -24em;
+  top: -24.5em;
+
+  /* new */
+
+  padding: 0;
+  border: none;
+  background: none;
 }
 
 .thumbnail-forwards {
   display: flex;
   flex-direction: column;
   position: relative;
-  top: -3em;
+  top: -2em;
+
+  /* new */
+
+  padding: 0;
+  border: none;
+  background: none;
 }
 
 .main-slider {
+  /* old ----- */
   position: relative;
   z-index: 1;
   left: 24%;
+  top: -70%;
+
+  /* new ----- */
+  position: relative;
+  z-index: 1;
+  left: 9%;
   top: -70%;
 }
 
 .main-slider .main-forward {
   position: relative;
   left: 42%;
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 40px;
+}
+
+.main-slider .main-backward {
+  position: relative;
+  left: 10%;
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 40px;
 }
 
 /* expanded-view */
@@ -675,7 +749,7 @@ main {
 }
 
 .expanded-image {
-  height: 50vh;
+  height: 57vh;
   width: 100vw;
   position: absolute;
   cursor: zoom-in;
@@ -765,9 +839,17 @@ main {
 }
 
 .styles-holder {
-  display: flex;
+  /* display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: wrap; */
+
+/* new */
+  display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* margin: 10px; */
+    position: relative;
+    z-index: 1;
 
 }
 
@@ -777,8 +859,17 @@ main {
 }
 
 .style-image {
+  /* new ----- */
+
+  /* height: 75rem;
+  width: 75rem; */
+
+
+  /* old ---- */
+
   height: 75px;
   width: 75px;
+
   border-radius: 50%;
 }
 
@@ -841,6 +932,9 @@ main {
   position: relative;
   left: 56%;
   top: -17%;
+
+
+  margin-top: 2rem;
 }
 
 .add-to-cart-dropdown-closed {
@@ -853,7 +947,7 @@ main {
 }
 
 .add-to-cart-dropdown-open {
-  border: 1px solid black;
+  /* border: 1px solid black;
   position: relative;
   left: 60%;
   top: -25%;
@@ -862,7 +956,22 @@ main {
   text-align: center;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow-y: auto; */
+
+  /* new ----- */
+
+  border: 1px solid black;
+    position: relative;
+    left: 60%;
+    top: -25%;
+    width: 25vw;
+    height: 20%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    margin-top: 2rem;
+
 }
 
 .add-to-cart-dropdown-selected {
@@ -1200,6 +1309,7 @@ main {
   z-index: 999;
   padding: 20px;
 }
+
 .modal-name {
   display: flex;
   justify-content: space-between;
@@ -1222,7 +1332,7 @@ td {
 
 /*hover photo library*/
 
-.sensor-box{
+.sensor-box {
   position: absolute;
   /* display: inline-flex; */
   /* flex-direction: row; */

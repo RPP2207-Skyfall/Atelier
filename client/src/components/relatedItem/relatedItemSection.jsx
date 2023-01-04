@@ -161,13 +161,13 @@ const RelatedItem = (props) => {
 
   const outfitPrevSlide = () => {
     // console.log(pickIndex);
-    if(OutfitPickIndex > 1) {
+    if (OutfitPickIndex > 1) {
       OutfitPickIndex = OutfitPickIndex - 1;
       OutfitOffsetCarousel = OutfitOffsetCarousel - OutfitChildWidth;
-      outfitCarousel.current.style = 'transform: translateX(' + ( 0 - OutfitOffsetCarousel ) + 'px' + ')';
+      outfitCarousel.current.style = 'transform: translateX(' + (0 - OutfitOffsetCarousel) + 'px' + ')';
       setOutfitRightArr(true)
 
-      if(OutfitPickIndex > 1) {
+      if (OutfitPickIndex > 1) {
         setOutfitLeftArr(true)
       } else {
         setOutfitLeftArr(false)
@@ -181,12 +181,12 @@ const RelatedItem = (props) => {
     // console.log('childLength', childLength)
     // console.log('childWidth', childWidth)
     // （選取的的Card Index + 預設顯示數) 小於 Carousel 終點
-    if((OutfitPickIndex + cardToShow) < (OutfitChildLength + 1)) { // 正式的時候把 +1 拿掉
+    if ((OutfitPickIndex + cardToShow) < (OutfitChildLength + 1)) { // 正式的時候把 +1 拿掉
       OutfitPickIndex = OutfitPickIndex + 1;
       OutfitOffsetCarousel = OutfitOffsetCarousel + OutfitChildWidth;
-      outfitCarousel.current.style = 'transform: translateX(' + ( 0 - OutfitOffsetCarousel ) + 'px' + ')';
+      outfitCarousel.current.style = 'transform: translateX(' + (0 - OutfitOffsetCarousel) + 'px' + ')';
       setOutfitLeftArr(true);
-      if((OutfitPickIndex + cardToShow) === (OutfitChildLength + 1)) {
+      if ((OutfitPickIndex + cardToShow) === (OutfitChildLength + 1)) {
         setOutfitRightArr(false)
       } else {
         setOutfitRightArr(true)

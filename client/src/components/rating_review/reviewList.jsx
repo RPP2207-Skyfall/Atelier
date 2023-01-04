@@ -19,10 +19,18 @@ class reviewList extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.reviewDataCopy.length !== this.props.reviewData.length) {
-      this.setState({
-        reviewDataCopy: this.props.reviewData,
-        displayReview: [this.props.reviewData[0], this.props.reviewData[1]]
-      })
+      if (this.props.reviewData.length === 1) {
+        this.setState({
+          reviewDataCopy: this.props.reviewData,
+          displayReview: [this.props.reviewData[0]]
+        })
+
+      } else if (this.props.reviewData.length >= 2) {
+        this.setState({
+          reviewDataCopy: this.props.reviewData,
+          displayReview: [this.props.reviewData[0], this.props.reviewData[1]]
+        })
+      }
       if (this.props.reviewData.length > 2) {
         // console.log('length:', this.props.reviewData.length)
         this.setState({
@@ -31,13 +39,24 @@ class reviewList extends React.Component {
       }
     }
 
+
     if (prevProps.reviewData !== this.props.reviewData) {
-      this.setState({ reviewDataCopy: this.props.reviewData }, () => {
-        this.setState({
-          reviewDataCopy: this.props.reviewData,
-          displayReview: [this.props.reviewData[0], this.props.reviewData[1]]
+      if (this.props.reviewData.length === 1) {
+        this.setState({ reviewDataCopy: this.props.reviewData }, () => {
+          this.setState({
+            reviewDataCopy: this.props.reviewData,
+            displayReview: [this.props.reviewData[0]]
+          })
         })
-      })
+      }
+      else if (this.props.reviewData.length >= 2) {
+        this.setState({ reviewDataCopy: this.props.reviewData }, () => {
+          this.setState({
+            reviewDataCopy: this.props.reviewData,
+            displayReview: [this.props.reviewData[0], this.props.reviewData[1]]
+          })
+        })
+      }
     }
 
     if (prevProps.newReviewModalOpen !== this.props.newReviewModalOpen) {
@@ -103,15 +122,16 @@ class reviewList extends React.Component {
 
 
   render() {
-    //console.log('reviewlist received: ', this.props.reviewData)
+    //console.log('reviewlist received: ', this.props.reviewData, this.state.displayReview)
     const datalength = this.props.reviewData.length
     return (
       <div className="reviewBreakdown">
-        <div className="review-sort-bar" data-testid='review-amount'>{`${datalength} reviews`}{datalength > 0 ? <> sorted by <SortMenu currentSortValue={this.props.currentSortValue} updateSortMethod={this.updateSortMethod.bind(this)} /></> : null}</div>
+        <div className="review-sort-bar" data-testid='review-amount'>{`${datalength} reviews,`}{datalength > 0 ? <> sorted by <SortMenu currentSortValue={this.props.currentSortValue} updateSortMethod={this.updateSortMethod.bind(this)} /></> : null}</div>
         <div className="reviewItemContaier">
           <div className="container-Content">
             {Array.isArray(this.state.displayReview) && datalength > 0 ? this.state.displayReview.map((item) =>
-              <ReviewItem reviewData={item} key={item.review_id} reportReview={this.props.reportReview} updateIsHelpful={this.props.updateIsHelpful} />
+              < ReviewItem reviewData={item} key={item.review_id} reportReview={this.props.reportReview} updateIsHelpful={this.props.updateIsHelpful} />
+
             ) : null}
           </div>
         </div>

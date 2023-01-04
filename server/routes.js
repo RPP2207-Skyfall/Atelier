@@ -16,6 +16,7 @@ router.get('/getItemDetails', controller.itemDetails.getItemDetails)
 router.get('/relatedMetaData', controller.itemDetails.getRelatedMetaData)
 router.get('/outfitMetaData', controller.itemDetails.getOutfitMetaData)
 
+router.post('/interactions', controller.tracker.post_interactions)
 
 
 module.exports = router;

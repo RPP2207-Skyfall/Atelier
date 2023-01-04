@@ -34,7 +34,7 @@ const breakdown = (props) => {
 
   return (
     <>
-      <div className="breakdown-container">
+      <div className="breakdown-container" data-testid="breakdown-container">
         <div className="row average-row">
           <div className="col-4 average-number-col">
             <div className="averageNumber" data-testid="averageRating">{averageRating}</div>
@@ -46,7 +46,7 @@ const breakdown = (props) => {
 
         <div className="row recommend-row"><Recommendation percentage={props.metadata.recommended} /></div>
         <div className="row starchart-row"><RatingBreakdown totalAmount={totalRatingAmount} ratingObj={ratingObj} hanleFilterClicked={props.hanleFilterClicked} filterClicked={props.filterClicked} resetHighlighted={resetHighlighted} /></div>
-        {props.filterClicked ? <div className="remove-all-filter-btn"><button onClick={() => resetAllFilter()}>Remove all filters</button></div> : null}
+        {props.filterClicked ? <div className="remove-all-filter-btn" ><button data-testid="remove-filter-btn" onClick={() => resetAllFilter()}>Remove all filters</button></div> : null}
         <div className="row product-breakdown-row"><ProductBreakdown characteristicsObj={characteristicsObj} /></div>
 
 

@@ -115,30 +115,32 @@ const helpers = {
   },
   addToFilterArr: (filterValue, filterMap) => {
     // toggle
-    //console.log(filterValue, 'before ', filterMap)
+    // console.log(filterValue, 'before ', filterMap)
     filterMap[filterValue] = !filterMap[filterValue]
-    //console.log(filterValue, 'now: ', filterMap)
+    // console.log(filterValue, 'now: ', filterMap)
     return filterMap
 
   },
   filtering: (filterMap, originalReviewData, reviewData) => {
-    //console.log('filterMap', filterMap)
+    // console.log('filterMap', filterMap)
 
     // if all filter are off
     if (Object.values(filterMap).every((value) => value === false)) {
+      //console.log('all filter off', originalReviewData)
       return originalReviewData
     }
     var filteredReviewArr = []
 
     for (let i = 0; i < originalReviewData.length; i++) {
       var currentData = originalReviewData[i].rating.toString()
-
+      //console.log(currentData)
       if (filterMap[currentData]) {
+        // console.log(currentData, filterMap[currentData])
         //console.log('pushing', originalReviewData[i])
         filteredReviewArr.push(originalReviewData[i])
       }
     }
-
+    //console.log(filteredReviewArr)
 
     return filteredReviewArr
 
@@ -182,7 +184,16 @@ const helpers = {
     return characteristicsArr
 
   },
-  generateCharacteristicTable: (characteristicsObj, definitionObj) => {
+  generateCharacteristicTable: (characteristicsObj) => {
+
+    const definitionObj = {
+      Size: ['A size too small', '½ a size too small', 'Perfect', '½ a size too big', 'A size too wide'],
+      Width: ['Too narrow', 'Slightly narrow', 'Perfect', 'Slightly wide', 'Too wide'],
+      Comfort: ['Uncomfortable', 'Slightly uncomfortable', 'Ok', 'Comfortable', 'Perfect'],
+      Quality: ['Poor', 'Below average', 'What I expected', 'Pretty great', 'Perfect'],
+      Length: ['Runs short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'],
+      Fit: ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs loose']
+    }
 
     var characteristicTable = []
 
@@ -206,7 +217,7 @@ const helpers = {
             {definitionObj[key].map((definition, idx) => {
 
               return (
-                <input key={'inputBtn' + key + idx} className="inputBtn" type="radio" name={`characteristic-select-${key}`} value={[characteristicsObj[key].id, idx + 1, definition]} />
+                <input key={'inputBtn' + key + idx} data-testid={'inputBtn' + key + idx} className="inputBtn" type="radio" name={`characteristic-select-${key}`} value={[characteristicsObj[key].id, idx + 1, definition]} />
               )
             })}
           </div>
@@ -226,8 +237,7 @@ const helpers = {
       } else {
         return [false, lengthRemaining]
       }
-    }
-    else if (fromComponent === 'overallStar') {
+    } else if (fromComponent === 'overallStar') {
       if (checkValue < 0) {
         return true
       } else {
@@ -257,6 +267,8 @@ const helpers = {
       } else {
         return false
       }
+    } else {
+      return false
     }
   },
   cleanImageForUpload: (photoObjArr) => {

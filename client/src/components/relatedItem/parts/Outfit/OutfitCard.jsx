@@ -30,7 +30,7 @@ const OutfitCard = (props) => {
   }
 
   const setCurPhoto = (url) => {
-    updateCurPic({thumbnail_url: url})
+    updateCurPic({ thumbnail_url: url })
   }
 
   const checkPicURL = (itemURL) => {
@@ -55,10 +55,10 @@ const OutfitCard = (props) => {
         {props.outfit && <button className="star-btn" onClick= {()=>{props.toggleStar(itemDetail.id)}}>X</button>}
         {!props.outfit && <button className="star-btn" onClick= {() => {featureCompare()}}><img src="FillStar.png"></img></button>}
         <div className="sensor-box">
-          <div  className="hidden-box">
-          {picLibrary.map((item, index) =>
-            <SmallPicBox item= {item} key= {index} setCurPhoto = {setCurPhoto}/>
-          )}
+          <div className="hidden-box">
+            {picLibrary.map((item, index) =>
+              <SmallPicBox item={item} key={index} setCurPhoto={setCurPhoto} />
+            )}
           </div>
         </div>
         <div className="category-box">

@@ -103,7 +103,7 @@ class OverviewStars extends React.Component {
             return (
               <div className="overview-star-container" key={idx}>
                 <div className="overview-star-fill" style={{ "width": `${(width * 21)}px` }}>
-                  <img className="overview-star-outline" src="star.png"></img>
+                  <img className="overview-star-outline" src="star.png" alt="star-image"></img>
                 </div>
               </div>
             );
