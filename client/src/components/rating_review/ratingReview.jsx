@@ -5,6 +5,7 @@ import Breakdown from './breakdown/breakdown.jsx'
 import helpers from './helperFunctions/helper.js'
 
 
+
 class RatingReview extends React.Component {
   constructor(props) {
     super(props)
@@ -201,6 +202,10 @@ class RatingReview extends React.Component {
     })
   }
 
+  updateTracker(element, widget) {
+    console.log(element, widget)
+    this.props.tracker(element, widget)
+  }
 
 
 
@@ -208,7 +213,7 @@ class RatingReview extends React.Component {
   render() {
     return (
       <div className="container ratingReview">
-        <h5>RATINGS & REVIEWS</h5>
+        <h5 >RATINGS & REVIEWS</h5>
         <div className="row">
           <div className="col-4">
             <Breakdown metadata={this.state.metadata} hanleFilterClicked={this.hanleFilterClicked.bind(this)} filterClicked={this.state.filterClicked} resetAllFilter={this.resetAllFilter.bind(this)} />

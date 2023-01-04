@@ -14,6 +14,7 @@ router.get('/getRating', controller.rating.getRating)
 router.get('/getImageAndPrice', controller.image.getImageAndPrice)
 router.get('/getItemDetails', controller.itemDetails.getItemDetails)
 
+router.post('/interactions', controller.tracker.post_interactions)
 
 
 module.exports = router;

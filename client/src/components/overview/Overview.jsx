@@ -96,7 +96,17 @@ class Overview extends React.Component {
 
   // for Styles + thumbnail interaction:
 
-  updateStyle(style) {
+  updateStyle(style, clickData) {
+    // old
+    // let newThumbnails = this.makeThumbnailBoxes(style.photos);
+    this.clickTracker(clickData);
+    let newThumbnails = helpers.makeThumbnailBoxes(style.photos);
+    this.setState({
+      currentStyle: style,
+      mainIndex: 0,
+      currentThumbnails: newThumbnails
+    })
+  }
 
 
   zoom() {
@@ -216,33 +226,33 @@ class Overview extends React.Component {
 
   getData() {
     this.getGeneralProducts()
-        .then((data) => {
-          // console.log('data after first call', data);
-          return this.getStyles(data.SKU)
-        })
-        .then((state) => {
-          console.log('state', state)
-          return this.getReviews(state.styles.product_id);
-        })
-        .then((reviews) => {
-          // console.log('reviews', reviews);
-          return helpers.getAverageRating(reviews.reviewData)
-        })
-        .then((averageReview) => {
-          return this.setAverageRating(averageReview);
-        })
-        .then((done) => {
+      .then((data) => {
+        // console.log('data after first call', data);
+        return this.getStyles(data.SKU)
+      })
+      .then((state) => {
+        console.log('state', state)
+        return this.getReviews(state.styles.product_id);
+      })
+      .then((reviews) => {
+        // console.log('reviews', reviews);
+        return helpers.getAverageRating(reviews.reviewData)
+      })
+      .then((averageReview) => {
+        return this.setAverageRating(averageReview);
+      })
+      .then((done) => {
 
-          this.setState({
-            done: true
-          })
-          // console.log('done', done)
+        this.setState({
+          done: true
+        })
+        // console.log('done', done)
 
-          // make a state with done where it is verified that all api calls are done
-        })
-        .catch((err) => {
-          console.log('ERR', err)
-        })
+        // make a state with done where it is verified that all api calls are done
+      })
+      .catch((err) => {
+        console.log('ERR', err)
+      })
 
   }
 
@@ -277,30 +287,30 @@ class Overview extends React.Component {
           }
         }
       )
-          .then(res => res.json())
-          .then((data) => {
+        .then(res => res.json())
+        .then((data) => {
 
-            // console.log('data in styles', data)
+          // console.log('data in styles', data)
 
-            //old
-            //  let holder = this.makeThumbnailBoxes(data.results[0].photos)
+          //old
+          //  let holder = this.makeThumbnailBoxes(data.results[0].photos)
 
-            // new
-             let holder = helpers.makeThumbnailBoxes(data.results[0].photos)
+          // new
+          let holder = helpers.makeThumbnailBoxes(data.results[0].photos)
 
-            this.setState({
-              styles: data,
-              current: data.results[0].photos[this.state.mainIndex],
-              amount: data.results[0].photos.length,
-              currentThumbnails: holder,
-              currentStyle: data.results[0]
-            }, () => {
-              resolve(this.state)
-            })
+          this.setState({
+            styles: data,
+            current: data.results[0].photos[this.state.mainIndex],
+            amount: data.results[0].photos.length,
+            currentThumbnails: holder,
+            currentStyle: data.results[0]
+          }, () => {
+            resolve(this.state)
           })
-          .catch((err) => {
-            reject(err)
-          })
+        })
+        .catch((err) => {
+          reject(err)
+        })
     })
   }
 
@@ -444,12 +454,12 @@ class Overview extends React.Component {
       return (
         <div className="overview-container" data-testid="overview-test">
 
-          <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} clickTracker={this.clickTracker}/>
+          <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} clickTracker={this.clickTracker} />
           <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle} />
           <AddToCart
-          currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
-          sizeQuantity={this.state.sizeQuant} selectedQuant={this.state.selectedQuant} selectQuant={this.selectQuant} skuToBuy={this.state.skuToBuy}
-          likeOutfit={this.likeOutfit}/>
+            currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
+            sizeQuantity={this.state.sizeQuant} selectedQuant={this.state.selectedQuant} selectQuant={this.selectQuant} skuToBuy={this.state.skuToBuy}
+            likeOutfit={this.likeOutfit} />
 
 
           <ImageGallery
