@@ -26,16 +26,20 @@ class App extends React.Component {
   }
 
   toggleStar(currentID) {
-    var index = this.state.OutfitList.indexOf(currentID)
-    var newList = this.state.OutfitList.slice()
-    if (index === -1) {
-      newList.push(currentID)
-      console.log(newList)
-      this.setState({OutfitList: newList})
+    if (isNaN(currentID) === false) {
+      var index = this.state.OutfitList.indexOf(currentID)
+      var newList = this.state.OutfitList.slice()
+      if (index === -1) {
+        newList.push(currentID)
+        console.log(newList)
+        this.setState({OutfitList: newList})
+      } else {
+        newList.splice(index, 1)
+        console.log(newList)
+        this.setState({OutfitList: newList})
+      }
     } else {
-      newList.splice(index, 1)
-      console.log(newList)
-      this.setState({OutfitList: newList})
+      console.log('not valid id pass')
     }
     // console.log(newList, this.state.OutfitList)
   }
