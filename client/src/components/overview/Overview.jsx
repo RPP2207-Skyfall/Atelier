@@ -6,6 +6,8 @@ import ImageGallery from './parts/imageGallery/ImageGallery.jsx';
 import Details from './parts/productInfo/Details.jsx'
 import Axios from 'axios';
 import helpers from './overviewHelpers.js';
+import api from './overviewApi.js';
+// import image from '../../../server/index.js';
 
 
 class Overview extends React.Component {
@@ -14,7 +16,7 @@ class Overview extends React.Component {
 
     this.state = {
       data: [],
-      SKU: null,
+      SKU: 71700,
       expanded: false,
       styles: [],
       current: [],
@@ -30,7 +32,8 @@ class Overview extends React.Component {
       reviewData: [],
       rating: null,
       done: false,
-      skuToBuy: null
+      skuToBuy: null,
+      shouldOptimize: false
     }
 
     this.mainSlide = this.mainSlide.bind(this);
@@ -60,6 +63,9 @@ class Overview extends React.Component {
     // tracking clicks
 
     this.clickTracker = this.clickTracker.bind(this)
+
+
+    // this.changeOutfit = this.changeOutfit.bind(this);
   }
 
 
@@ -74,10 +80,54 @@ class Overview extends React.Component {
   likeOutfit(outfit) {
 
     let likedOutfit = outfit.style;
-    this.props.updateCurrentItem(likedOutfit.style_id, likedOutfit.name)
+    this.props.toggleStar(likedOutfit.style_id)
 
     // newID, newName
     console.log('liked outfit', likedOutfit);
+  }
+
+  // change outfit based on related
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (this.state.newReviewPosted !== prevState.newReviewPosted) {
+  //     this.getProductReviews(this.state.product_id)
+  //     this.getReviewMetadata(this.state.product_id)
+  //     this.setState({
+  //       newReviewPosted: false
+  //     })
+  //   }
+  //   if (prevProps.product_id !== this.props.product_id) {
+  //     //console.log('there is a new product_id', prevProps.product_id, 'vs', this.props.product_id)
+  //     this.setState({
+  //       product_id: this.props.product_id
+  //     })
+  //     this.getProductReviews(this.props.product_id)
+  //     this.getReviewMetadata(this.props.product_id)
+  //   }
+  //   if (prevState.filteredReviewData !== this.state.filteredReviewData) {
+  //     this.setState({
+  //       reviewData: this.state.filteredReviewData
+  //     })
+  //   }
+
+  // }
+
+  componentDidUpdate(prevProps, prevState) {
+
+    if (prevProps !== this.props) {
+      // console.log('prevProps', prevProps)
+      // console.log('props', this.props)
+      // this.setState({
+      //   SKU: prevProps.CurrentItemID
+      // }), () => {
+      //   // this.getData(this.state.SKU)
+      //   console.log('this check', this)
+      //   // this.getSt(this.state.SKU)
+      // }
+
+      this.getData(this.props.CurrentItemID)
+    }
+
   }
 
 
@@ -226,15 +276,25 @@ class Overview extends React.Component {
 
   // controller
 
-  getData() {
+  getData(id = id || 71700) {
+
+    console.log('id in get data', id)
+
     this.getGeneralProducts()
         .then((data) => {
-          // console.log('data after first call', data);
-          return this.getStyles(data.SKU)
+          console.log('data after first call', data);
+
+          return this.getStyles(id)
+          // this.setState({
+          //   shouldOptimize: true
+          // })
         })
         .then((state) => {
+          // this.setState({
+          //   done: true
+          // })
 
-          return this.getReviews(state.styles.product_id);
+          return this.getReviews(this.state.styles.product_id);
         })
         .then((reviews) => {
           // console.log('reviews', reviews);
@@ -250,6 +310,7 @@ class Overview extends React.Component {
             done: true
           })
           // console.log('done', done)
+
 
           // make a state with done where it is verified that all api calls are done
         })
@@ -286,7 +347,9 @@ class Overview extends React.Component {
           headers:
           {
             "Content-Type": "application/json",
-            "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
+            "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN,
+            "Accept-Encoding": 'gzip',
+            "Content-Encoding": 'gzip'
           }
         }
       )
@@ -327,7 +390,9 @@ class Overview extends React.Component {
       var requestOption = {
         headers: {
           "Content-Type": "application/json",
-          "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY
+          "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY,
+          "Accept-Encoding": 'gzip',
+          "Content-Encoding": 'gzip'
         },
         params: {
           product_id: product_id,
@@ -353,7 +418,7 @@ class Overview extends React.Component {
   }
 
   getGeneralProducts() {
-    // console.log('something in general product')
+    console.log('something in general product')
     const generalUrl = process.env.REACT_APP_API_OVERVIEW_URL + `products`;
 
 
@@ -364,7 +429,9 @@ class Overview extends React.Component {
           headers:
           {
             "Content-Type": "application/json",
-            "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
+            "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN,
+            "Accept-Encoding": 'gzip',
+            "Content-Encoding": 'gzip'
           }
         }
       )
@@ -374,9 +441,10 @@ class Overview extends React.Component {
           // console.log('data after first call', data[1].id)
           this.setState({
             data: data,
-            SKU: data[0].id
+            // SKU: data[0].id
           }, () => {
-            // console.log(this.state)
+
+
             resolve(this.state)
           });
         })
@@ -435,11 +503,25 @@ class Overview extends React.Component {
 
 
   componentDidMount() {
-    console.log('props in component did moutn Onvervieww', this.props)
+    // console.log('props in component did moutn Onvervieww', this.props)
     this.getData()
   }
 
   render() {
+
+    // if (this.state.shouldOptimize) {
+    //   return (
+    //     <div className="overview-container" data-testid="overview-test">
+    //     <ImageGallery
+    //       info={this.state} currentThumbnails={this.state.currentThumbnails} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
+    //       handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
+    //       checkThumbnailSection={this.checkThumbnailSection} clickTracker={this.clickTracker}
+    //     />
+    //     <Details desc={this.state.data[0]} />
+    //   </div>
+    //   )
+
+    // }
 
     if (this.state.done) {
       // console.log('overview state', this.state)
