@@ -25,32 +25,19 @@ const newReviewModal = (props) => {
   // error
   const [errorStarMsg, setStarErrorMsg] = useState("")
   const [charErrorMsg, setCharErrorMsg] = useState("")
-  const [summaryErrorMsg, setSummaryErrorMsg] = useState("")
+  // const [summaryErrorMsg, setSummaryErrorMsg] = useState("")
   const [bodyErrorMsg, setBodyErrorMsg] = useState("")
   const [nicknameErrorMsg, setNicknameErrorMsg] = useState("")
   const [emailErrorMsg, setEmailErrorMsg] = useState("")
   const [UploadErrorMsg, setUploadErrorMsg] = useState("")
 
-
-
-
   const characteristicsObj = props.characteristics
   let characterTableLength = 0
 
 
-  const definitionObj = {
-    Size: ['A size too small', '½ a size too small', 'Perfect', '½ a size too big', 'A size too wide'],
-    Width: ['Too narrow', 'Slightly narrow', 'Perfect', 'Slightly wide', 'Too wide'],
-    Comfort: ['Uncomfortable', 'Slightly uncomfortable', 'Ok', 'Comfortable', 'Perfect'],
-    Quality: ['Poor', 'Below average', 'What I expected', 'Pretty great', 'Perfect'],
-    Length: ['Runs short', 'Runs slightly short', 'Perfect', 'Runs slightly long', 'Runs long'],
-    Fit: ['Runs tight', 'Runs slightly tight', 'Perfect', 'Runs slightly long', 'Runs loose']
-  }
-
-
   useEffect(() => {
     (async () => {
-      let characterTable = await helpers.generateCharacteristicTable(characteristicsObj, definitionObj)
+      let characterTable = await helpers.generateCharacteristicTable(characteristicsObj)
       //console.log(characterTable)
       setCharacterTable(characterTable)
       characterTableLength = characterTable.length
@@ -62,9 +49,9 @@ const newReviewModal = (props) => {
     setStarErrorMsg("")
   }, [star])
 
-  useEffect(() => {
-    setSummaryErrorMsg("")
-  }, [summary])
+  // useEffect(() => {
+  //   setSummaryErrorMsg("")
+  // }, [summary])
   useEffect(() => {
     setBodyErrorMsg("")
   }, [body])
@@ -127,7 +114,7 @@ const newReviewModal = (props) => {
   }
 
   const addToPhotoArr = async (photoObjArr) => {
-    // console.log('hi', photoObjArr)
+    console.log('hi', photoObjArr)
     let photoArr = await helpers.cleanImageForUpload(photoObjArr)
     // console.log('bye', photoArr)
     setUploadReady(true)
@@ -143,10 +130,10 @@ const newReviewModal = (props) => {
       setCharErrorMsg("You must enter the following:")
       setSubmitReady(false)
     }
-    if (summary.length === 0) {
-      setSummaryErrorMsg("You must enter the following:")
-      setSubmitReady(false)
-    }
+    // if (summary.length === 0) {
+    //   setSummaryErrorMsg("You must enter the following:")
+    //   setSubmitReady(false)
+    // }
     if (body.length === 0) {
       setBodyErrorMsg("You must enter the following:")
       setSubmitReady(false)
@@ -170,7 +157,7 @@ const newReviewModal = (props) => {
       setSubmitReady(false)
     }
 
-    if (errorStarMsg.length === 0 && charErrorMsg.length === 0 && summaryErrorMsg.length === 0 && bodyErrorMsg.length === 0 && nicknameErrorMsg.length === 0 && emailErrorMsg.length === 0) {
+    if (errorStarMsg.length === 0 && charErrorMsg.length === 0 && bodyErrorMsg.length === 0 && nicknameErrorMsg.length === 0 && emailErrorMsg.length === 0) {
       setSubmitReady(true)
     }
     var newReviewData = {
@@ -184,7 +171,7 @@ const newReviewModal = (props) => {
       "characteristics": characteristicSelection
     }
 
-    if (errorStarMsg.length === 0 && charErrorMsg.length === 0 && summaryErrorMsg.length === 0 && bodyErrorMsg.length === 0 && nicknameErrorMsg.length === 0 && emailErrorMsg.length === 0 && submitReady === true) {
+    if (errorStarMsg.length === 0 && charErrorMsg.length === 0 && bodyErrorMsg.length === 0 && nicknameErrorMsg.length === 0 && emailErrorMsg.length === 0 && submitReady === true) {
       props.addNewReview(newReviewData)
     }
 
@@ -235,7 +222,7 @@ const newReviewModal = (props) => {
               </div>
 
               <div className="review-summary-section">
-                <NewSummary summaryInput={summaryInput} summaryErrorMsg={summaryErrorMsg} />
+                <NewSummary summaryInput={summaryInput} />
               </div>
 
               <div className="review-body-section">
@@ -251,8 +238,8 @@ const newReviewModal = (props) => {
               </div>
 
               <div className="button-section">
-                <button className="review-modal-closeBtn" data-testid={`close-`} onClick={() => { handleCloseClick() }} >Close</button>
-                <button className="review-modal-submitBtn" data-testid={`submit-`} onClick={handleSubmit}>Submit</button>
+                <button className="review-modal-closeBtn" data-testid={`close-click`} onClick={() => { handleCloseClick() }} >Close</button>
+                <button className="review-modal-submitBtn" data-testid={`submit-click`} onClick={handleSubmit}>Submit</button>
               </div>
             </div>
           </div>

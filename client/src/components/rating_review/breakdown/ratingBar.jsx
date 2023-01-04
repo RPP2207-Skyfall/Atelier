@@ -37,7 +37,7 @@ const bar = (props) => {
 
     <div className="row bar-chart" data-testid={`bar-chart-${props.idx}`}>
       <span className="col-2 starname-bar">
-        <span className={highlighted ? 'star-name-selected' : 'star-name'} onClick={() => { hanleFilterClicked(star, !clicked) }}>{`${star} Star`}</span>
+        <span className={highlighted ? 'star-name-selected' : 'star-name'} data-testid={`star-btn-${props.idx}`} onClick={() => { hanleFilterClicked(star, !clicked) }}>{`${star} Star`}</span>
       </span>
       <div className="col-8 bar-section">
         <div className="bar-container" style={{ "backgroundColor": "grey", "width": "150px" }}>

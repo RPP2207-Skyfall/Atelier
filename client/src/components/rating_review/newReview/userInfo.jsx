@@ -28,17 +28,17 @@ const userInfo = (props) => {
 
   return (
     <>
-      <div className="nickname">
+      <div className="nickname" data-testid="nickname-div">
         What is your nickname? {nameAsteris ? <span className="asteris">*</span> : null}<span className="errMsg">{props.nicknameErrorMsg}</span>
         <div>
-          <textarea className="nickname-textarea" maxLength="60" type="text" placeholder={nicknamePlaceholderText} onChange={handleNicknameChange} ></textarea>
+          <textarea className="nickname-textarea" data-testid="nickname-area" maxLength="60" type="text" placeholder={nicknamePlaceholderText} onChange={handleNicknameChange} ></textarea>
           <div className="disclaimer">For privacy reasons, do not use your full name or email address</div>
         </div>
       </div>
-      <div className="email">
+      <div className="email" data-testid="email-div">
         Your Email? {nameAsteris ? <span className="asteris">*</span> : null}<span className="errMsg">{props.emailErrorMsg}</span>
         <div>
-          <textarea className="email-textarea" maxLength="60" type="text" placeholder={emailPlaceholderText} onChange={handleEmailChange} ></textarea>
+          <textarea className="email-textarea" data-testid="email-area" maxLength="60" type="text" placeholder={emailPlaceholderText} onChange={handleEmailChange} ></textarea>
           <div className="disclaimer">For authentication reasons, you will not be emailed</div>
         </div>
       </div>
