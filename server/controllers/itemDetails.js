@@ -89,7 +89,7 @@ exports.getRelatedMetaData = async (req,res) => {
 
 exports.getOutfitMetaData = async (req, res) => {
   var idArr = req.query["idArr"]
-  console.log(req.query);
+  // console.log(req.query);
   var requestOption = {
     headers: {
       "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN

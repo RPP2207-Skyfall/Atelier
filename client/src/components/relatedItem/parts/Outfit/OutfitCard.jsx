@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios'
 import Star from './../Star/relateStarRating.jsx';
+// const ComparingChart = React.lazy(() => import('./../PopUp/ComparingChart.jsx'));
 import ComparingChart from './../PopUp/ComparingChart.jsx';
-import SmallPicBox from './../PopUp/HoverPhoto.jsx';
+const SmallPicBox = React.lazy(()=> import('./../PopUp/HoverPhoto.jsx'))
 
 const OutfitCard = (props) => {
   const itemDetail = props.item
@@ -15,12 +16,10 @@ const OutfitCard = (props) => {
 
   useEffect(()=> {
     checkPicURL(props.item.thumbnails[0].thumbnail_url)
-    updatePicLibrary(props.item.thumbnails)
   }, [])
 
   useEffect(()=> {
     checkPicURL(props.item.thumbnails[0].thumbnail_url)
-    updatePicLibrary(props.item.thumbnails)
 
   }, [itemDetail])
 
@@ -37,9 +36,10 @@ const OutfitCard = (props) => {
   const checkPicURL = (itemURL) => {
     if (itemURL === null) {
       updateCurPic({thumbnail_url: "https://lyrictheatreokc.com/wp-content/uploads/2021/11/Ciao-Ciao-Image-Coming-Soon-500px.jpg"})
-      updatePicLibrary([])
+      updatePicLibrary([{thumbnail_url: "https://lyrictheatreokc.com/wp-content/uploads/2021/11/Ciao-Ciao-Image-Coming-Soon-500px.jpg"}])
     } else {
       updateCurPic({thumbnail_url: props.item.thumbnails[0].thumbnail_url})
+      updatePicLibrary(props.item.thumbnails)
     }
   }
 
@@ -51,7 +51,7 @@ const OutfitCard = (props) => {
     // console.log(id, imageList[0].thumbnail_url)
     return (
       <div className="carousel-box">
-        <div className="carousel-bg-img" style={{ backgroundImage: "url('" + currentPic.thumbnail_url + "')" }} ></div>
+        <div className="carousel-bg-img" aria-label = {`photo of ${itemDetail.name}`} style={{ backgroundImage: "url('" + currentPic.thumbnail_url + "')" }} ></div>
         {props.outfit && <button className="star-btn" onClick= {()=>{props.toggleStar(itemDetail.id)}}>X</button>}
         {!props.outfit && <button className="star-btn" onClick= {() => {featureCompare()}}><img src="FillStar.png"></img></button>}
         <div className="sensor-box">

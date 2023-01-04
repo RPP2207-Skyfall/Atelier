@@ -8,7 +8,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      OutfitList: [],
+      OutfitList: [71702],
       CurrentItemID: 71702,
       CurrentItemName: "Blues Suede Shoes"
     }
@@ -44,7 +44,7 @@ class App extends React.Component {
       <>
         <h3>Ateiler</h3>
         {/* <Overview /> */}
-        {this.state.OutfitList}
+        {JSON.stringify(this.state.OutfitList)}
         <RelatedItem outfitList={this.state.OutfitList} toggleStar={this.toggleStar} CurrentItemID={this.state.CurrentItemID} updateCurrentItem={this.updateCurrentItem} />
         {/* <QandA product_name={this.state.CurrentItemName} product_id = {this.state.CurrentItemID}/> */}
         {/* <RatingReview product_id={this.state.CurrentItemID} product_name={this.state.CurrentItemName} /> */}
