@@ -23,14 +23,14 @@ function StyleSelector(props) {
                 return (
                   <div key={i} className="current-style-selected" onClick={() => props.updateStyle(style, { elem: "current-style-selected", time: Date.now() })}>
 
-                    <img className="selected-style-icon" src="checkmark.png"></img>
-                    <img className="style-image-selected" src={style.photos[0].thumbnail_url} key={i} />
+                    <img className="selected-style-icon" loading="lazy" src="checkmark.png"></img>
+                    <img className="style-image-selected" loading="lazy" src={style.photos[0].thumbnail_url} key={i} />
                   </div>
                 )
               } else {
                 return (
                   <div key={i} className="current-style" onClick={() => props.updateStyle(style, { elem: "current-style", time: Date.now() })}>
-                    <img className="style-image" src={style.photos[0].thumbnail_url} key={i} />
+                    <img className="style-image" loading="lazy" src={style.photos[0].thumbnail_url} key={i} />
                   </div>
                 )
               }

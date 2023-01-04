@@ -55,7 +55,7 @@ const uploadPhoto = (props) => {
         {imageStorage.length > 0 ?
           imageStorage.map((item, idx) =>
             <div className="preview-thumbnail-box" key={idx}>
-              <img className="thumbnail-photo" src={item.preview} alt={`upload-image-${idx}`} />
+              <img className="thumbnail-photo" loading="lazy" src={item.preview} alt={`upload-image-${idx}`} />
             </div>
           ) : null
         }

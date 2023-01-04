@@ -21,17 +21,17 @@ const customStyle = {
 class AnswerModal extends React.Component {
   constructor(props) {
     super(props);
-    this.state={
-      answer:'',
-      nickname:'',
-      email:'',
+    this.state = {
+      answer: '',
+      nickname: '',
+      email: '',
       answerError: '',
       nicknameError: '',
       emailError: '',
       answerPass: false,
       nicknamePass: false,
       emailPass: false,
-      images:[],
+      images: [],
       uploadImgBtn: true
     };
     this.handleSubmitError = this.handleSubmitError.bind(this);
@@ -109,16 +109,16 @@ class AnswerModal extends React.Component {
 
       //wipe out the field - returning to default state
       this.setState({
-        answer:'',
-        nickname:'',
-        email:'',
+        answer: '',
+        nickname: '',
+        email: '',
         answerError: '',
         nicknameError: '',
         emailError: '',
         answerPass: false,
         nicknamePass: false,
         emailPass: false,
-        images:[],
+        images: [],
         uploadImgBtn: true
       });
       this.props.handleAModalClose();
@@ -174,11 +174,11 @@ class AnswerModal extends React.Component {
   };
 
   render() {
-    return(
+    return (
       <div className='answer-modal' data-testid='answer-modal'>
         <Modal
           isOpen={this.props.isAModalOpen}
-          onRequestClose={() => {this.props.handleAModalClose()}}
+          onRequestClose={() => { this.props.handleAModalClose() }}
           contentLabel='answer-modal-contents'
           style={customStyle}
           ariaHideApp={false}
@@ -194,7 +194,7 @@ class AnswerModal extends React.Component {
                 multiline
                 rows={4}
                 fullWidth
-                inputProps={{maxLength: 1000}}
+                inputProps={{ maxLength: 1000 }}
                 value={this.state.answer}
                 error={!!this.state.answerError}
                 helperText={this.state.answerError}
@@ -210,7 +210,7 @@ class AnswerModal extends React.Component {
                 data-testid='AModal-Email'
                 placeholder="example@atelier.com"
                 fullWidth
-                inputProps={{maxLength: 60}}
+                inputProps={{ maxLength: 60 }}
                 value={this.state.email}
                 error={!!this.state.emailError}
                 helperText={this.state.emailError}
@@ -226,7 +226,7 @@ class AnswerModal extends React.Component {
                 label='Nickname'
                 data-testid='AModal-Nickname'
                 placeholder="Howard878"
-                inputProps={{maxLength: 60}}
+                inputProps={{ maxLength: 60 }}
                 value={this.state.nickname}
                 error={!!this.state.nicknameError}
                 helperText={this.state.nicknameError}
@@ -237,13 +237,13 @@ class AnswerModal extends React.Component {
             </Stack>
             <br></br>
             <Stack direction='row' spacing={1}>
-              {this.state.images.map((image, index) => <img className='thumbnail-photo' key = {index} src={image}></img>)}
+              {this.state.images.map((image, index) => <img className='thumbnail-photo' loading="lazy" key={index} src={image}></img>)}
             </Stack>
             <br></br>
             <Stack spacing={1}>
-              {this.state.uploadImgBtn ? <Button className='AModal-Upload-Btn' data-testid='AModal-Upload-Btn' variant='contained' size='large' component="label" endIcon={<PhotoCamera/>}>
+              {this.state.uploadImgBtn ? <Button className='AModal-Upload-Btn' data-testid='AModal-Upload-Btn' variant='contained' size='large' component="label" endIcon={<PhotoCamera />}>
                 UPLOAD IMAGE
-                <input accept="image/*" multiple type="file" hidden onChange={this.handleImageUpload}/>
+                <input accept="image/*" multiple type="file" hidden onChange={this.handleImageUpload} />
               </Button> : null}
             </Stack>
             <br></br>

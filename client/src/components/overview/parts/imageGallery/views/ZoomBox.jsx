@@ -90,8 +90,8 @@ function ZoomBox(props) {
 
   return (
     <div className="zoom-box-container" data-testid='zoom-box-test'
-    ref={containerRef}
-    onMouseDown={onMouseDown}
+      ref={containerRef}
+      onMouseDown={onMouseDown}
     // onWheel={onWheel}
     >
       <div
@@ -100,9 +100,9 @@ function ZoomBox(props) {
         }}
       >
 
-        <img  className='zoom-box-img' id="myimage" src={props.mainPic}
-        onLoad={onLoad}
-        alt="style"/>
+        <img className='zoom-box-img' loading="lazy" id="myimage" src={props.mainPic}
+          onLoad={onLoad}
+          alt="style" />
       </div>
 
     </div>

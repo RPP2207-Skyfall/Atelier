@@ -11,12 +11,12 @@ function DefaultView(props) {
 
   if (!props.mainPic) {
 
-      return (
-        <div className="default-view">
-          {/* <h1>Default View</h1> */}
-          <img className="default-image" src={props.mainPic} alt="style" onClick={() => props.expand({elem: 'default-image', time: Date.now()})}/>
-        </div>
-      )
+    return (
+      <div className="default-view">
+        {/* <h1>Default View</h1> */}
+        <img className="default-image" src={props.mainPic} alt="style" loading="lazy" onClick={() => props.expand({ elem: 'default-image', time: Date.now() })} />
+      </div>
+    )
 
   }
 
@@ -32,7 +32,7 @@ function DefaultView(props) {
       <div className="default-view" data-testid="default-view-test">
         {/* <h1>Default View</h1> */}
 
-        <img className="default-image" src={props.mainPic} alt="style" onClick={() => props.expand({elem: 'default-image', time: Date.now()})}/>
+        <img className="default-image" src={props.mainPic} alt="style" loading="lazy" onClick={() => props.expand({ elem: 'default-image', time: Date.now() })} />
 
       </div>
     )

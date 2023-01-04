@@ -64,13 +64,13 @@ class Thumbnail extends React.Component {
               if (image.index === this.props.index) {
                 return (
                   <div className="selected-icon" onClick={() => this.props.updateMainPic(image.index)} key={i}>
-                      <img className="icon-image" src={image.thumbnail_url} ></img>
+                    <img className="icon-image" loading="lazy" src={image.thumbnail_url} ></img>
                   </div>
                 )
               }
               return (
                 <div className="icon" onClick={() => this.props.updateMainPic(image.index)} key={i}>
-                    <img className="icon-image" src={image.thumbnail_url} ></img>
+                  <img className="icon-image" loading="lazy" src={image.thumbnail_url} ></img>
                 </div>
               )
 
@@ -78,10 +78,10 @@ class Thumbnail extends React.Component {
             })
 
           }
-            <div className="thumbnail-buttons">
-              <button className="thumbnail-backwards" onClick={() => this.props.updateThumbnailSection(-1)}>↑</button>
-              <button className="thumbnail-forwards" onClick={() => this.props.updateThumbnailSection(1)}>↓</button>
-            </div>
+          <div className="thumbnail-buttons">
+            <button className="thumbnail-backwards" loading="lazy" onClick={() => this.props.updateThumbnailSection(-1)}>↑</button>
+            <button className="thumbnail-forwards" loading="lazy" onClick={() => this.props.updateThumbnailSection(1)}>↓</button>
+          </div>
 
 
         </div>
@@ -99,13 +99,13 @@ class Thumbnail extends React.Component {
               if (image.index === this.props.index) {
                 return (
                   <div className="selected-icon" onClick={() => this.props.updateMainPic(image.index)} key={i}>
-                    <img className="icon-image" src={image.thumbnail_url} alt="icon-image"></img>
+                    <img className="icon-image" loading="lazy" src={image.thumbnail_url} alt="icon-image"></img>
                   </div>
                 )
               }
               return (
                 <div className="icon" onClick={() => this.props.updateMainPic(image.index)} key={i}>
-                  <img className="icon-image" src={image.thumbnail_url} alt="icon-image"></img>
+                  <img className="icon-image" loading="lazy" src={image.thumbnail_url} alt="icon-image"></img>
                 </div>
               )
 
@@ -132,13 +132,13 @@ class Thumbnail extends React.Component {
             if (image.index === this.props.index) {
               return (
                 <div className="selected-thumbnail" onClick={() => this.props.updateMainPic(image.index)} key={i}>
-                  <img className="thumbnail-image" src={image.thumbnail_url} alt="thumbnail-image"></img>
+                  <img className="thumbnail-image" loading="lazy" src={image.thumbnail_url} alt="thumbnail-image"></img>
                 </div>
               )
             }
             return (
               <div className="thumbnail" onClick={() => this.props.updateMainPic(image.index)} key={i}>
-                <img className="thumbnail-image" src={image.thumbnail_url} alt="thumbnail-image"></img>
+                <img className="thumbnail-image" loading="lazy" src={image.thumbnail_url} alt="thumbnail-image"></img>
               </div>
             )
 

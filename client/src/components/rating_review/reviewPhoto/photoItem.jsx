@@ -17,7 +17,7 @@ const photoItem = (props) => {
         <div className="modal" >
           <div className="overlay" data-testid={`overlay-${props.photo.id}`} onClick={() => { enableModal() }}>
             <div className="modal-content">
-              <img className="modal-photo" data-testid={`full-photo-${props.photo.id}`} src={`${props.photo.url}`} alt="enlarged-photo" />
+              <img className="modal-photo" loading="lazy" data-testid={`full-photo-${props.photo.id}`} src={`${props.photo.url}`} alt="enlarged-photo" />
               <button className="modal-closeBtn" data-testid={`close-${props.photo.id}`} onClick={() => { enableModal() }} >Close</button>
             </div>
           </div>
