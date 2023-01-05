@@ -1,8 +1,10 @@
 const Axios = require('axios');
 require("dotenv").config();
 
-exports.getItemDetails = (req, res) => {
+
+exports.getRelatedMetaData = async (req,res) => {
   var ID = req.query.id;
+  // console.log('ID', ID)
   var requestOption = {
     headers: {
       "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN,
@@ -10,14 +12,121 @@ exports.getItemDetails = (req, res) => {
       "Content-Encoding": 'gzip'
     }
   }
-  Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${ID}`, requestOption)
-    .then(response => {
-      // console.log(response.data)
-      return res.status(200).send(response.data)
+
+  await Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${ID}/related`, requestOption)
+  .then((result) => {
+    var idArr = result.data;
+    idArr.unshift(Number(ID))
+    // console.log('idArr', idArr)
+    return idArr
+  })
+  .then((idArr) => {
+    //get details
+    var promiseArr = [];
+    for (var x = 0; x < idArr.length; x ++) {
+      id = idArr[x]
+      promiseArr.push(Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}`, requestOption)
+      .then((response) => {
+        return response.data
+      })
+      .catch(err => {
+        console.log("Err: ", err)
+      }))
+      promiseArr.push(Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}/styles`, requestOption)
+      .then((response) => {
+        return response.data
+      })
+      .catch(err => {
+        console.log("Err: ", err)
+      }))
+      promiseArr.push(Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${id}`, requestOption)
+      .then((response) => {
+        var rateObj = response.data.ratings;
+        return rateObj
+      })
+      .catch(err => {
+        console.log("Err: ", err)
+      }))
+    }
+    return promiseArr
+  })
+  .then(async (promiseArr) => {
+    var metaData = await Promise.all(promiseArr)
+    var returnData = [];
+    for (var x = 0; x < metaData.length; x += 3) {
+      var obj = metaData[x];
+      obj.thumbnails = metaData[x + 1].results[0].photos || null
+      obj.originalPrice = metaData[x + 1].results[0].original_price || null
+      obj.salePrice  = metaData[x + 1].results[0].sale_price || null
+      var rateObj = metaData[x + 2];
+        var numOfRate = 0;
+        var points = 0;
+        for (var key in rateObj) {
+          points += (key * rateObj[key]);
+          numOfRate += Number(rateObj[key]);
+        }
+        var averageRate = Math.round(points / numOfRate * 10) / 10;
+      obj.rating = averageRate
+      returnData.push(obj)
+    }
+    res.status(200).send(returnData)
+  })
+}
+
+exports.getOutfitMetaData = async (req, res) => {
+  var idArr = req.query["idArr"]
+  // console.log(req.query);
+  var requestOption = {
+    headers: {
+      "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN,
+      "Accept-Encoding": 'gzip',
+      "Content-Encoding": 'gzip'
+    }
+  }
+  var promiseArr = [];
+  for (var x = 0; x < idArr.length; x ++) {
+    id = idArr[x]
+    promiseArr.push(Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}`, requestOption)
+    .then((response) => {
+      return response.data
     })
     .catch(err => {
       console.log("Err: ", err)
+    }))
+    promiseArr.push(Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}/styles`, requestOption)
+    .then((response) => {
+      return response.data
     })
+    .catch(err => {
+      console.log("Err: ", err)
+    }))
+    promiseArr.push(Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${id}`, requestOption)
+    .then((response) => {
+      var rateObj = response.data.ratings;
+      return rateObj
+    })
+    .catch(err => {
+      console.log("Err: ", err)
+    }))
+  }
+  var metaData = await Promise.all(promiseArr)
+  var returnData = [];
+  for (var x = 0; x < metaData.length; x += 3) {
+    var obj = metaData[x];
+    obj.thumbnails = metaData[x + 1].results[0].photos || null
+    obj.originalPrice = metaData[x + 1].results[0].original_price || null
+    obj.salePrice  = metaData[x + 1].results[0].sale_price || null
+    var rateObj = metaData[x + 2];
+      var numOfRate = 0;
+      var points = 0;
+      for (var key in rateObj) {
+        points += (key * rateObj[key]);
+        numOfRate += Number(rateObj[key]);
+      }
+      var averageRate = Math.round(points / numOfRate * 10) / 10;
+    obj.rating = averageRate
+    returnData.push(obj)
+  }
+  res.status(200).send(returnData)
 }
-
 
