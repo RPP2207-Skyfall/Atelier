@@ -7,6 +7,7 @@ import Details from './parts/productInfo/Details.jsx'
 import Axios from 'axios';
 import helpers from './overviewHelpers.js';
 import api from './overviewApi.js';
+import Tracker from '../tracker.js'
 // import image from '../../../server/index.js';
 
 
@@ -62,9 +63,6 @@ class Overview extends React.Component {
     // this.getAverageRating = this.getAverageRating.bind(this);
     this.setAverageRating = this.setAverageRating.bind(this);
 
-    // tracking clicks
-
-    this.clickTracker = this.clickTracker.bind(this)
 
 
     // this.changeOutfit = this.changeOutfit.bind(this);
@@ -73,9 +71,9 @@ class Overview extends React.Component {
 
   // tracking clicks
 
-  clickTracker(clickData) {
-    console.log('click tracker', clickData);
-  }
+  // clickTracker(clickData) {
+  //   console.log('click tracker', clickData);
+  // }
 
   // Add outfit to carousel
 
@@ -139,19 +137,14 @@ class Overview extends React.Component {
     })
   }
 
-  handleExpand() {
-    this.setState({
-      expanded: !this.state.expanded
-    })
-  }
 
 
   // for Styles + thumbnail interaction:
 
-  updateStyle(style, clickData) {
+  updateStyle(style, elem, widget) {
     // old
     // let newThumbnails = this.makeThumbnailBoxes(style.photos);
-    this.clickTracker(clickData);
+    Tracker.userInteraction(elem, widget);
     let newThumbnails = helpers.makeThumbnailBoxes(style.photos);
     this.setState({
       currentStyle: style,
@@ -161,39 +154,17 @@ class Overview extends React.Component {
   }
 
 
-  // zoom() {
-  //   this.setState({
-  //     zoomBox: !this.state.zoomBox
-  //   })
-  // }
-
-  handleExpand(clickData) {
-    this.clickTracker(clickData);
+  handleExpand(elem, widget) {
+    Tracker.userInteraction(elem, widget);
     this.setState({
       expanded: !this.state.expanded
     })
   }
 
 
-  // for Styles + thumbnail interaction:
+  updateThumbnailSection(dir, elem, widget) {
 
-  updateStyle(style, clickData) {
-    // old
-    // let newThumbnails = this.makeThumbnailBoxes(style.photos);
-
-    this.clickTracker(clickData);
-
-    let newThumbnails = helpers.makeThumbnailBoxes(style.photos);
-
-    this.setState({
-      currentStyle: style,
-      mainIndex: 0,
-      currentThumbnails: newThumbnails
-    })
-
-  }
-
-  updateThumbnailSection(dir) {
+    Tracker.userInteraction(elem, widget);
 
     if (this.state.thumbnailSection === 0 && dir === -1) {
       return;
@@ -240,7 +211,9 @@ class Overview extends React.Component {
 
 
   // handles left or right main button click for image gallery (main image)
-  mainSlide(dir) {
+  mainSlide(dir, elem, widget) {
+
+    Tracker.userInteraction(elem, widget);
 
     if (this.state.mainIndex === 0 && dir === -1) {
       return
@@ -266,7 +239,9 @@ class Overview extends React.Component {
   }
 
   // handles thumbnail click: updates the main picture when a thumbnail is clicked
-  updateMainPic(index) {
+  updateMainPic(index, elem, widget) {
+    Tracker.userInteraction(elem, widget);
+
     this.setState({
       mainIndex: index
     })
@@ -310,7 +285,7 @@ class Overview extends React.Component {
           done: true
 
         }, () => {
-          console.log('STATE AFTER EVERYTHING', this.state);
+          // console.log('STATE AFTER EVERYTHING', this.state);
         })
 
         // return this.state;
@@ -583,7 +558,8 @@ class Overview extends React.Component {
             <ImageGallery
               info={this.state} currentThumbnails={this.state.currentThumbnails} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
               handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
-              checkThumbnailSection={this.checkThumbnailSection} zoomBox={this.state.zoomBox} zoom={this.zoom} clickTracker={this.clickTracker}
+              checkThumbnailSection={this.checkThumbnailSection} zoomBox={this.state.zoomBox} zoom={this.zoom}
+
             />
           </div>
         )
@@ -596,7 +572,7 @@ class Overview extends React.Component {
            <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} clickTracker={this.clickTracker} desc={this.state.description}/>
            : null } */}
 
-          <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} clickTracker={this.clickTracker} desc={this.state.description}/>
+          <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating}  desc={this.state.description}/>
           <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle} />
           <AddToCart
             currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
@@ -607,7 +583,7 @@ class Overview extends React.Component {
           <ImageGallery
             info={this.state} currentThumbnails={this.state.currentThumbnails} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
             handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
-            checkThumbnailSection={this.checkThumbnailSection} clickTracker={this.clickTracker}
+            checkThumbnailSection={this.checkThumbnailSection}
           />
 
           {this.state.description ? <Details desc={this.state.description} /> : null }
