@@ -388,8 +388,8 @@ class Overview extends React.Component {
           }
         }
       )
-          .then(res => res.json())
-          .then((data) => {
+        .then(res => res.json())
+        .then((data) => {
 
 
              let holder = helpers.makeThumbnailBoxes(data.results[0].photos);
@@ -599,9 +599,9 @@ class Overview extends React.Component {
           <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} clickTracker={this.clickTracker} desc={this.state.description}/>
           <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle} />
           <AddToCart
-          currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
-          sizeQuantity={this.state.sizeQuant} selectedQuant={this.state.selectedQuant} selectQuant={this.selectQuant} skuToBuy={this.state.skuToBuy}
-          likeOutfit={this.likeOutfit}/>
+            currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
+            sizeQuantity={this.state.sizeQuant} selectedQuant={this.state.selectedQuant} selectQuant={this.selectQuant} skuToBuy={this.state.skuToBuy}
+            likeOutfit={this.likeOutfit} />
 
 
           <ImageGallery

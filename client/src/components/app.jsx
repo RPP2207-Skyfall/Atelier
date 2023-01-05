@@ -3,6 +3,8 @@ import RatingReview from './rating_review/ratingReview.jsx'
 import Overview from './overview/Overview.jsx';
 import RelatedItem from './relatedItem/relatedItemSection.jsx';
 import QandA from './QA/QandA.jsx';
+import Tracker from './tracker.js'
+import ErrorBoundary from './ErrorBoundary.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -25,27 +27,35 @@ class App extends React.Component {
   }
 
   toggleStar(currentID) {
-    var index = this.state.OutfitList.indexOf(currentID)
-    var newList = this.state.OutfitList
-    if (index === -1) {
-      newList.push(currentID)
-      this.setState({ OutfitList: newList })
+    if (isNaN(currentID) === false) {
+      var index = this.state.OutfitList.indexOf(currentID)
+      var newList = this.state.OutfitList.slice()
+      if (index === -1) {
+        newList.push(currentID)
+        console.log(newList)
+        this.setState({OutfitList: newList})
+      } else {
+        newList.splice(index, 1)
+        console.log(newList)
+        this.setState({OutfitList: newList})
+      }
     } else {
-      newList.splice(index, 1)
-      this.setState({ OutfitList: newList })
+      console.log('not valid id pass')
     }
+    // console.log(newList, this.state.OutfitList)
   }
 
   render() {
     return (
       <>
-        <h3>Ateiler</h3>
-
-        <Overview outfitList={this.state.OutfitList} toggleStar={this.toggleStar} CurrentItemID={this.state.CurrentItemID} updateCurrentItem={this.updateCurrentItem}/>
-
-        <RelatedItem outfitList={this.state.OutfitList} toggleStar={this.toggleStar} CurrentItemID={this.state.CurrentItemID} updateCurrentItem={this.updateCurrentItem} />
-        {/* <QandA product_name={this.state.CurrentItemName} product_id={this.state.CurrentItemID} />
-        <RatingReview product_id={this.state.CurrentItemID} product_name={this.state.CurrentItemName} /> */}
+        <ErrorBoundary>
+          <h3>Ateiler</h3>
+          <button onClick={() => Tracker.userInteraction("button", "app")} >test</button>
+          <Overview outfitList={this.state.OutfitList} toggleStar={this.toggleStar} CurrentItemID={this.state.CurrentItemID} updateCurrentItem={this.updateCurrentItem} />
+          <RelatedItem outfitList={this.state.OutfitList} toggleStar={this.toggleStar} CurrentItemID={this.state.CurrentItemID} updateCurrentItem={this.updateCurrentItem} />
+          <QandA product_name={this.state.CurrentItemName} product_id={this.state.CurrentItemID} testy={''}/>
+          <RatingReview tracker={Tracker.userInteraction} product_id={this.state.CurrentItemID} product_name={this.state.CurrentItemName} />
+        </ErrorBoundary>
       </>
     )
   }
