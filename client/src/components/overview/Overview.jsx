@@ -116,11 +116,15 @@ class Overview extends React.Component {
 
   componentDidUpdate(prevProps) {
     // this.setState({
-    //   done: !done
-
+    //   done: !this.state.done
     // })
 
     // , prevState
+
+    // console.log('PREV PROPS HOPING FOR 1 OF THESE', prevProps)
+
+    // console.log('prev props', prevProps)
+    // console.log(' props', this.props)
 
     if (prevProps !== this.props) {
 
@@ -283,7 +287,7 @@ class Overview extends React.Component {
     Promise.all([this.getGeneralProducts(id), this.getStyles(id), this.getReviews(id)])
       .then((results) => {
 
-        // console.log('from promise.all', results);
+        console.log('from promise.all', results);
         // console.log('test', results[1])
 
 
@@ -475,8 +479,6 @@ class Overview extends React.Component {
         .then(res => res.json())
         .then((data) => {
 
-          console.log('data after first call', )
-
 
           let desc = null;
           for (let i = 0; i < data.length; i++) {
@@ -594,7 +596,11 @@ class Overview extends React.Component {
       return (
         <div className="overview-container" data-testid="overview-test">
 
-          <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} clickTracker={this.clickTracker} desc={this.state.description}/>
+          {this.state.description ?
+           <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} clickTracker={this.clickTracker} desc={this.state.description}/>
+           : null }
+
+          {/* <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} clickTracker={this.clickTracker} desc={this.state.description}/> */}
           <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle} />
           <AddToCart
           currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}

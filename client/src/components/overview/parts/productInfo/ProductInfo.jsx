@@ -41,7 +41,7 @@ function ProductInfo(props) {
         {
           props.desc.category
           ? <div className="product-info-category">{props.desc.category}</div>
-          : <div className="product-info-category"></div>
+          : null
         }
         {/* <div className="product-info-category">{props.desc.category}</div> */}
         <h2 className="product-info-title">{props.desc.name}</h2>
