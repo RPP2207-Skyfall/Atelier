@@ -114,11 +114,17 @@ class Overview extends React.Component {
 
   // }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
+    // this.setState({
+    //   done: !done
+
+    // })
+
+    // , prevState
 
     if (prevProps !== this.props) {
 
-      console.log('this.props.currentItemID 119', this.props.CurrentItemID)
+      // console.log('this.props.currentItemID 119', this.props.CurrentItemID)
       this.getData(this.props.CurrentItemID)
     }
 
@@ -272,45 +278,80 @@ class Overview extends React.Component {
 
   getData(id = id || 71700) {
 
-    console.log('id in get data', id)
+    // console.log('id in get data', id)
 
-    this.getGeneralProducts(id)
-        .then((data) => {
-          // console.log('data after first call', data);
+    Promise.all([this.getGeneralProducts(id), this.getStyles(id), this.getReviews(id)])
+      .then((results) => {
 
-          return this.getStyles(id)
-          // this.setState({
-          //   shouldOptimize: true
-          // })
+        // console.log('from promise.all', results);
+        // console.log('test', results[1])
+
+
+        this.setState({
+          // ----- general info ------- //
+
+
+          data: results[0].data,
+          currentPID: results[0].id,
+          description: results[0].desc,
+
+          // ------ styles ------ //
+
+          styles: results[1][0],
+          current: results[1][0].results[0].photos[0],
+          amount: results[1][0].results[0].photos.length,
+          currentThumbnails: results[1][1],
+          currentStyle: results[1][0].results[0],
+
+          // ---- get reviews & set reviews -------- ///
+
+          reviewData: results[2][0],
+          rating: results[2][1],
+          done: true
+
+        }, () => {
+          console.log('STATE AFTER EVERYTHING', this.state);
         })
-        .then((state) => {
-          // this.setState({
-          //   done: true
-          // })
 
-          return this.getReviews(this.state.styles.product_id);
-        })
-        .then((reviews) => {
-          // console.log('reviews', reviews);
-          return helpers.getAverageRating(reviews.reviewData)
-        })
-        .then((averageReview) => {
-          return this.setAverageRating(averageReview);
-        })
-        .then((done) => {
+        // return this.state;
+      })
+      .catch((err) => {
+        console.log('there is an error with teh promis.all')
+      })
+
+    // this.getGeneralProducts(id)
+    //     .then((generalInfo) => {
+    //       // console.log('data after first call', generalInfo);
+
+    //       return this.getStyles(id)
+
+    //     })
+    //     .then((styleInfo) => {
+    //       // console.log('styleInfo', styleInfo)
+    //       // console.log('generalInfo', generalInfo)
+    //       return this.getReviews(this.state.styles.product_id);
+    //     })
+    //     .then((reviews) => {
+    //       // console.log('reviews', reviews);
+    //       return helpers.getAverageRating(reviews.reviewData)
+    //     })
+    //     .then((averageReview) => {
+    //       return this.setAverageRating(averageReview);
+    //     })
+    //     .then((done) => {
 
 
-          this.setState({
-            done: true
-          })
-          console.log('state afeter done', this.state);
+    //       this.setState({
+    //         done: true
+    //       })
+    //       // console.log('state afeter done', this.state);
 
 
-          // make a state with done where it is verified that all api calls are done
-        })
-        .catch((err) => {
-          console.log('ERR', err)
-        })
+    //       // make a state with done where it is verified that all api calls are done
+    //     })
+    //     .catch((err) => {
+    //       console.log('ERR', err)
+    //     })
 
   }
 
@@ -351,17 +392,20 @@ class Overview extends React.Component {
           .then((data) => {
 
 
-             let holder = helpers.makeThumbnailBoxes(data.results[0].photos)
+             let holder = helpers.makeThumbnailBoxes(data.results[0].photos);
 
-            this.setState({
-              styles: data,
-              current: data.results[0].photos[this.state.mainIndex],
-              amount: data.results[0].photos.length,
-              currentThumbnails: holder,
-              currentStyle: data.results[0]
-            }, () => {
-              resolve(this.state)
-            })
+            // this.setState({
+            //   styles: data,
+            //   current: data.results[0].photos[this.state.mainIndex],
+            //   amount: data.results[0].photos.length,
+            //   currentThumbnails: holder,
+            //   currentStyle: data.results[0]
+            // }, () => {
+            //   resolve(this.state)
+            // })
+
+            resolve([data, holder])
+
           })
           .catch((err) => {
             reject(err)
@@ -390,12 +434,16 @@ class Overview extends React.Component {
       }
       Axios.get(url, requestOption)
         .then(res => {
-          ///console.log(res.data)
-          this.setState({
-            reviewData: res.data.results
-          }, () => {
-            resolve(this.state)
-          })
+
+          // this.setState({
+          //   reviewData: res.data.results
+          // }, () => {
+          //   resolve(this.state)
+          // })
+
+          let avgReview = helpers.getAverageRating(res.data.results)
+
+          resolve([res.data.results, avgReview]);
         })
         .catch(err => {
           reject(err)
@@ -438,15 +486,21 @@ class Overview extends React.Component {
           }
 
 
-          this.setState({
-            data: data,
-            currentPID: id,
-            description: desc
-          }, () => {
+          // old stuff -------------
+
+          // this.setState({
+          //   data: data,
+          //   currentPID: id,
+          //   description: desc
+          // }, () => {
 
 
-            resolve(this.state)
-          });
+          //   resolve(this.state)
+          // });
+
+          // new stuff ------------
+
+          resolve({data, id, desc})
         })
         .catch((err) => {
           reject(err)
@@ -536,6 +590,7 @@ class Overview extends React.Component {
           </div>
         )
       }
+      // console.log('DESCRIPTIONS', this.state.description)
       return (
         <div className="overview-container" data-testid="overview-test">
 
@@ -552,11 +607,15 @@ class Overview extends React.Component {
             handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
             checkThumbnailSection={this.checkThumbnailSection} clickTracker={this.clickTracker}
           />
-          <Details desc={this.state.description} />
+
+          {this.state.description ? <Details desc={this.state.description} /> : null }
+          {/* <Details desc={this.state.description} /> */}
 
         </div>
       )
-    } else {
+    }
+
+    else {
       return (
         <div>
           having some issues...

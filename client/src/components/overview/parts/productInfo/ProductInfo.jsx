@@ -33,7 +33,6 @@ function ProductInfo(props) {
 
     return (
       <div className="product-info" data-testid="product-info-loaded-test">
-        <h3>Product Info</h3>
 
         {/* <div className="product-info-stars">Stars</div> */}
         <OverviewStars rating={props.rating}/>
@@ -55,7 +54,6 @@ function ProductInfo(props) {
     let reviewNum = props.info.reviewData.length;
     return (
       <div className="product-info" data-testid="product-info-loaded">
-        <h3>Product Info</h3>
 
         {/* <div className="product-info-stars">Stars</div> */}
         <OverviewStars rating={props.rating}/>
