@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 
 const ComparingChart = (props) => {
-  const MainItemName = props.mainFeature.name;
-  const MainFeature = props.mainFeature.features;
+  const MainItemName = props.mainItemDetail.name;
+  const MainFeature = props.mainItemDetail.features;
   const CompareItemName = props.compareFeatureDetail.name;
   const CompareFeature = props.compareFeatureDetail.features;
   var featureObj = {};

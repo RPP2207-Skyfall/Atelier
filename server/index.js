@@ -1,5 +1,4 @@
 require('dotenv').config();
-const compression = require('compression')
 const express = require('express');
 const path = require('path');
 const app = express();
@@ -9,7 +8,7 @@ const routes = require('./routes');
 const controller = require('./controllers/');
 
 app.use(express.json());
-app.use(compression())
+
 app.use(express.static(path.join(__dirname, '/../client/dist')));
 // Routes
 app.use(routes);
