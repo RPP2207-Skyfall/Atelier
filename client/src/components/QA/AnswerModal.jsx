@@ -1,4 +1,5 @@
 import React from 'react';
+import Axios from 'axios';
 import Modal from 'react-modal';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -90,6 +91,21 @@ class AnswerModal extends React.Component {
     e.preventDefault();
     if (this.state.emailPass && this.state.nicknamePass && this.state.answerPass) {
       //do post request
+      var newAnswer = {
+        body: this.state.answer,
+        name: this.state.nickname,
+        email: this.state.email,
+        photos: this.state.image,
+        question_id: this.props.question_id
+      };
+      console.log(newAnswer);
+      Axios.post('/addNewAnswer', newAnswer)
+        .then(() => {
+          console.log('new answer added');
+        })
+        .catch((err) => {
+          console.log('Error posting new answer', err);
+        });
 
       //wipe out the field - returning to default state
       this.setState({
@@ -169,7 +185,7 @@ class AnswerModal extends React.Component {
         >
           <Box>
             <h2 id='answer-modal-title' data-testid='answer-modal-title'>SUBMIT YOUR ANSWER</h2>
-            <h3 id='answer-modal-subtitle'>{this.props.product_name}:{this.props.question}</h3>
+            <h3 id='answer-modal-subtitle' data-testid='answer-modal-subtitle'>{this.props.product_name}:{this.props.question}</h3>
             <Stack spacing={1}>
               <TextField
                 id='Answer'
@@ -225,7 +241,7 @@ class AnswerModal extends React.Component {
             </Stack>
             <br></br>
             <Stack spacing={1}>
-              {this.state.uploadImgBtn ? <Button className='AModal-Upload-Btn' data-testid='AModal-Uploda-Btn' variant='contained' size='large' component="label" endIcon={<PhotoCamera/>}>
+              {this.state.uploadImgBtn ? <Button className='AModal-Upload-Btn' data-testid='AModal-Upload-Btn' variant='contained' size='large' component="label" endIcon={<PhotoCamera/>}>
                 UPLOAD IMAGE
                 <input accept="image/*" multiple type="file" hidden onChange={this.handleImageUpload}/>
               </Button> : null}
