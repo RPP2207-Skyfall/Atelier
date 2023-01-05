@@ -26,9 +26,31 @@ function ProductInfo(props) {
         <div id="product-info-price">price</div>
       </div>
     )
+  } else if (!props.desc) {
+    let reviewNum = props.info.reviewData.length;
+
+    return (
+      <div className="product-info" data-testid="product-info-loaded-test">
+
+        {/* <div className="product-info-stars">Stars</div> */}
+        <OverviewStars rating={props.rating}/>
+
+        <div className="product-info-reviews" onClick={() => handleScroll()}>read all {reviewNum} reviews</div>
+        {/* {
+          props.desc.category
+          ? <div className="product-info-category">{props.desc.category}</div>
+          : null
+        } */}
+        <div className="product-info-category">no categoru</div>
+        <h2 className="product-info-title">no name</h2>
+        <h2 className="product-info-title">no name</h2>
+        <div id="product-info-price">no price</div>
+
+      </div>
+    )
   } else if (props.info.data.length !== 0 && props.style && props.rating && !props.style.sale_price) {
 
-    console.log('product infor porps', props.desc)
+    // console.log('product infor porps', props.desc)
     let reviewNum = props.info.reviewData.length;
 
     return (

@@ -115,11 +115,7 @@ class Overview extends React.Component {
   // }
 
   componentDidUpdate(prevProps) {
-    // this.setState({
-    //   done: !this.state.done
-    // })
 
-    // , prevState
 
     // console.log('PREV PROPS HOPING FOR 1 OF THESE', prevProps)
 
@@ -596,11 +592,11 @@ class Overview extends React.Component {
       return (
         <div className="overview-container" data-testid="overview-test">
 
-          {this.state.description ?
+          {/* {this.state.description ?
            <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} clickTracker={this.clickTracker} desc={this.state.description}/>
-           : null }
+           : null } */}
 
-          {/* <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} clickTracker={this.clickTracker} desc={this.state.description}/> */}
+          <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} clickTracker={this.clickTracker} desc={this.state.description}/>
           <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle} />
           <AddToCart
           currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
