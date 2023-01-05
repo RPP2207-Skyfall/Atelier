@@ -133,7 +133,7 @@ class Overview extends React.Component {
 
   zoom() {
     this.setState({
-      zoomBox: !this.state.zoomBox
+      zoomBox: !this.state.zoomBox,
     })
   }
 
@@ -146,6 +146,7 @@ class Overview extends React.Component {
     // let newThumbnails = this.makeThumbnailBoxes(style.photos);
     Tracker.userInteraction(elem, widget);
     let newThumbnails = helpers.makeThumbnailBoxes(style.photos);
+    console.log('new thumbnails', newThumbnails)
     this.setState({
       currentStyle: style,
       mainIndex: 0,
@@ -156,9 +157,17 @@ class Overview extends React.Component {
 
   handleExpand(elem, widget) {
     Tracker.userInteraction(elem, widget);
-    this.setState({
-      expanded: !this.state.expanded
-    })
+    if (elem === 'zoom-box-img') {
+      this.setState({
+        expanded: !this.state.expanded,
+        zoomBox: false
+      })
+    } else {
+      this.setState({
+        expanded: !this.state.expanded
+      })
+    }
+
   }
 
 

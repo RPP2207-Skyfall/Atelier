@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Tracker from '../../../tracker.js'
 
 function QuantitySelector(props) {
 
@@ -51,6 +52,13 @@ function QuantitySelector(props) {
 
   } else if (!open && props.selected && props.selectedQuant > 0) {
     // console.log('this is where I want to be');
+    return (
+      <div className="quantity-selector-selected" onClick={() => handleOpen("quantity-selector-selected", 'overview')}>
+        <p className="quantity-number">{props.selectedQuant}</p>
+        <div className="quantity-dropdown-arrow">↓</div>
+      </div>
+    )
+  } else if (props.open) {
     return (
       <div className="quantity-selector-selected" onClick={() => handleOpen("quantity-selector-selected", 'overview')}>
         <p className="quantity-number">{props.selectedQuant}</p>

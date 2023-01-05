@@ -35,7 +35,7 @@ class ImageGallery extends React.Component {
       let index = this.props.info.mainIndex;
       return (
         <div className="expanded-again-image-gallery">
-          <ZoomBox mainPic={this.props.currentStyle.photos[index].url}/>
+          <ZoomBox mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand}/>
         </div>
       )
 
