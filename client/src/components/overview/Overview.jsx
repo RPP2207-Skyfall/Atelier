@@ -58,72 +58,25 @@ class Overview extends React.Component {
 
     this.getGeneralProducts = this.getGeneralProducts.bind(this);
     this.getStyles = this.getStyles.bind(this);
-    // this.makeThumbnailBoxes = this.makeThumbnailBoxes.bind(this);
     this.getReviews = this.getReviews.bind(this);
-    // this.getAverageRating = this.getAverageRating.bind(this);
     this.setAverageRating = this.setAverageRating.bind(this);
 
-
-
-    // this.changeOutfit = this.changeOutfit.bind(this);
   }
 
-
-  // tracking clicks
-
-  // clickTracker(clickData) {
-  //   console.log('click tracker', clickData);
-  // }
 
   // Add outfit to carousel
 
   likeOutfit(outfit) {
 
-    // let likedOutfit = outfit.style;
-    // console.log('STATE', this.state);
     this.props.toggleStar(this.state.currentPID)
 
-    // newID, newName
-    console.log('liked outfit', this.state.currentPID);
   }
 
-  // change outfit based on related
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (this.state.newReviewPosted !== prevState.newReviewPosted) {
-  //     this.getProductReviews(this.state.product_id)
-  //     this.getReviewMetadata(this.state.product_id)
-  //     this.setState({
-  //       newReviewPosted: false
-  //     })
-  //   }
-  //   if (prevProps.product_id !== this.props.product_id) {
-  //     //console.log('there is a new product_id', prevProps.product_id, 'vs', this.props.product_id)
-  //     this.setState({
-  //       product_id: this.props.product_id
-  //     })
-  //     this.getProductReviews(this.props.product_id)
-  //     this.getReviewMetadata(this.props.product_id)
-  //   }
-  //   if (prevState.filteredReviewData !== this.state.filteredReviewData) {
-  //     this.setState({
-  //       reviewData: this.state.filteredReviewData
-  //     })
-  //   }
-
-  // }
 
   componentDidUpdate(prevProps) {
 
-
-    // console.log('PREV PROPS HOPING FOR 1 OF THESE', prevProps)
-
-    // console.log('prev props', prevProps)
-    // console.log(' props', this.props)
-
     if (prevProps !== this.props) {
 
-      // console.log('this.props.currentItemID 119', this.props.CurrentItemID)
       this.getData(this.props.CurrentItemID)
     }
 
@@ -139,12 +92,10 @@ class Overview extends React.Component {
   }
 
 
-
   // for Styles + thumbnail interaction:
 
   updateStyle(style, elem, widget) {
-    // old
-    // let newThumbnails = this.makeThumbnailBoxes(style.photos);
+
     Tracker.userInteraction(elem, widget);
     let newThumbnails = helpers.makeThumbnailBoxes(style.photos);
     console.log('new thumbnails', newThumbnails)
@@ -268,9 +219,7 @@ class Overview extends React.Component {
     Promise.all([this.getGeneralProducts(id), this.getStyles(id), this.getReviews(id)])
       .then((results) => {
 
-        console.log('from promise.all', results);
-        // console.log('test', results[1])
-
+        // console.log('from promise.all', results);
 
         this.setState({
           // ----- general info ------- //
@@ -294,49 +243,12 @@ class Overview extends React.Component {
           rating: results[2][1],
           done: true
 
-        }, () => {
-          // console.log('STATE AFTER EVERYTHING', this.state);
-        })
-
-        // return this.state;
+        }
       })
       .catch((err) => {
         console.log('there is an error with teh promis.all')
       })
 
-    // this.getGeneralProducts(id)
-    //     .then((generalInfo) => {
-    //       // console.log('data after first call', generalInfo);
-
-    //       return this.getStyles(id)
-
-    //     })
-    //     .then((styleInfo) => {
-    //       // console.log('styleInfo', styleInfo)
-    //       // console.log('generalInfo', generalInfo)
-    //       return this.getReviews(this.state.styles.product_id);
-    //     })
-    //     .then((reviews) => {
-    //       // console.log('reviews', reviews);
-    //       return helpers.getAverageRating(reviews.reviewData)
-    //     })
-    //     .then((averageReview) => {
-    //       return this.setAverageRating(averageReview);
-    //     })
-    //     .then((done) => {
-
-
-    //       this.setState({
-    //         done: true
-    //       })
-    //       // console.log('state afeter done', this.state);
-
-
-    //       // make a state with done where it is verified that all api calls are done
-    //     })
-    //     .catch((err) => {
-    //       console.log('ERR', err)
-    //     })
 
   }
 
@@ -495,8 +407,6 @@ class Overview extends React.Component {
   // for size selector and sku seletion when adding to bag
 
   selectSize(size, quant, skuToBuy) {
-    // console.log('size attempted', size);
-    // console.log('sku to byt', skuToBuy)
     this.setState({
       selectedSize: size,
       sizeQuant: quant,
@@ -505,9 +415,6 @@ class Overview extends React.Component {
   }
 
   selectQuant(quant) {
-
-    // console.log('quant', quant);
-
     this.setState({
       selectedQuant: quant
     })
@@ -540,28 +447,12 @@ class Overview extends React.Component {
 
 
   componentDidMount() {
-    // console.log('props in component did moutn Onvervieww', this.props)
     this.getData()
   }
 
   render() {
 
-    // if (this.state.shouldOptimize) {
-    //   return (
-    //     <div className="overview-container" data-testid="overview-test">
-    //     <ImageGallery
-    //       info={this.state} currentThumbnails={this.state.currentThumbnails} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
-    //       handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
-    //       checkThumbnailSection={this.checkThumbnailSection} clickTracker={this.clickTracker}
-    //     />
-    //     <Details desc={this.state.data[0]} />
-    //   </div>
-    //   )
-
-    // }
-
     if (this.state.done) {
-      // console.log('overview state', this.state)
       if (this.state.expanded) {
         return (
           <div className="overview-container-expanded">
@@ -574,13 +465,8 @@ class Overview extends React.Component {
           </div>
         )
       }
-      // console.log('DESCRIPTIONS', this.state.description)
       return (
         <div className="overview-container" data-testid="overview-test">
-
-          {/* {this.state.description ?
-           <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} clickTracker={this.clickTracker} desc={this.state.description}/>
-           : null } */}
 
           <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating}  desc={this.state.description}/>
           <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle} />
@@ -597,7 +483,6 @@ class Overview extends React.Component {
           />
 
           {this.state.description ? <Details desc={this.state.description} /> : null }
-          {/* <Details desc={this.state.description} /> */}
 
         </div>
       )
