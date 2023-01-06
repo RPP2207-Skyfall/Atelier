@@ -79,11 +79,12 @@ class Overview extends React.Component {
 
   likeOutfit(outfit) {
 
-    let likedOutfit = outfit.style;
-    this.props.toggleStar(likedOutfit.style_id)
+    // let likedOutfit = outfit.style;
+    // console.log('STATE', this.state);
+    this.props.toggleStar(this.state.currentPID)
 
     // newID, newName
-    console.log('liked outfit', likedOutfit);
+    console.log('liked outfit', this.state.currentPID);
   }
 
   // change outfit based on related
