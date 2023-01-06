@@ -474,8 +474,6 @@ class Overview extends React.Component {
             currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
             sizeQuantity={this.state.sizeQuant} selectedQuant={this.state.selectedQuant} selectQuant={this.selectQuant} skuToBuy={this.state.skuToBuy}
             likeOutfit={this.likeOutfit} />
-
-
           <ImageGallery
             info={this.state} currentThumbnails={this.state.currentThumbnails} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
             handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
