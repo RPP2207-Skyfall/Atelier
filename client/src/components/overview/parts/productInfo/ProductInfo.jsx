@@ -26,20 +26,47 @@ function ProductInfo(props) {
         <div id="product-info-price">price</div>
       </div>
     )
-  } else if (props.info.data.length !== 0 && props.style && props.rating && !props.style.sale_price) {
-
-    // console.log('product infor porps', props)
+  } else if (!props.desc) {
     let reviewNum = props.info.reviewData.length;
 
     return (
       <div className="product-info" data-testid="product-info-loaded-test">
-        <h3>Product Info</h3>
 
         {/* <div className="product-info-stars">Stars</div> */}
         <OverviewStars rating={props.rating}/>
 
         <div className="product-info-reviews" onClick={() => handleScroll()}>read all {reviewNum} reviews</div>
-        <div className="product-info-category">{props.info.data[0].category}</div>
+        {/* {
+          props.desc.category
+          ? <div className="product-info-category">{props.desc.category}</div>
+          : null
+        } */}
+        <div className="product-info-category">no categoru</div>
+        <h2 className="product-info-title">no name</h2>
+        <h2 className="product-info-title">no name</h2>
+        <div id="product-info-price">no price</div>
+
+      </div>
+    )
+  } else if (props.info.data.length !== 0 && props.style && props.rating && !props.style.sale_price) {
+
+    // console.log('product infor porps', props.desc)
+    let reviewNum = props.info.reviewData.length;
+
+    return (
+      <div className="product-info" data-testid="product-info-loaded-test">
+
+        {/* <div className="product-info-stars">Stars</div> */}
+        <OverviewStars rating={props.rating}/>
+
+        <div className="product-info-reviews" onClick={() => handleScroll()}>read all {reviewNum} reviews</div>
+        {
+          props.desc.category
+          ? <div className="product-info-category">{props.desc.category}</div>
+          : null
+        }
+        {/* <div className="product-info-category">{props.desc.category}</div> */}
+        <h2 className="product-info-title">{props.desc.name}</h2>
         <h2 className="product-info-title">{props.style.name}</h2>
         <div id="product-info-price">{props.style.original_price}</div>
 
@@ -49,13 +76,19 @@ function ProductInfo(props) {
     let reviewNum = props.info.reviewData.length;
     return (
       <div className="product-info" data-testid="product-info-loaded">
-        <h3>Product Info</h3>
 
         {/* <div className="product-info-stars">Stars</div> */}
         <OverviewStars rating={props.rating}/>
 
         <div className="product-info-reviews">read all {reviewNum} reviews</div>
-        <div className="product-info-category">{props.info.data[0].category}</div>
+        {/* <div className="product-info-category">{props.desc.category}</div> */}
+
+        {
+          props.desc.category
+          ? <div className="product-info-category">{props.desc.category}</div>
+          : <div className="product-info-category"></div>
+        }
+        <h2 className="product-info-title">{props.desc.name}</h2>
         <h2 className="product-info-title">{props.style.name}</h2>
         <s id="product-info-price" style={{color: 'red' }}>{props.style.original_price} </s>
         <div id="product-info-price-sale" >{props.style.sale_price} </div>

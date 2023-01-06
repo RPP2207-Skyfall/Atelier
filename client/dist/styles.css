@@ -555,18 +555,36 @@ main {
 .overview-container {
 
   /* old----  */
-  /* margin: 100px;
-  padding: 10px;
-  top: -50vh;
-  height: 50vh;
-  width: 75vw; */
+
+
+  /* margin: 5rem;
+  /* padding: 10px; */
+  /* top: -50vh;
+  height: 35rem;
+  width: 50rem; */
 
   margin: 5rem;
-  /* padding: 10px; */
-  top: -50vh;
-  height: 30rem;
-  width: 50rem;
+    /* padding: 10px; */
+    top: -50vh;
+    height: 40rem;
+    width: 50rem;
 
+}
+
+/* Product details */
+
+.main-product-details {
+  top: -72vh;
+  position: relative;
+}
+
+.product-details-desc {
+  text-align: center;
+}
+
+.product-details-slogan {
+  text-align: center;
+  font-weight: bold;
 }
 
 /* image gallery */
@@ -589,8 +607,8 @@ main {
   margin-bottom: 100px;
   height: 50vh;
   width: 50vw;
-  top: -78vh;
-  left: -10vw;
+  top: -95vh;
+  left: -15vw;
 }
 
 .default-view {
@@ -602,15 +620,17 @@ main {
 .default-image {
 
   /* old ------ */
-  /* height: 50vh;
-  width: 50vw;
+
+
+  /* height: 65vh;
+  max-width: 65vh;
+  width: 65vh;
   position: absolute;
   cursor: zoom-in; */
 
-
-  height: 65vh;
-  max-width: 65vh;
-  width: 65vh;
+  height: 80vh;
+  max-width: 80vh;
+  width: 80vh;
   position: absolute;
   cursor: zoom-in;
 }
@@ -800,25 +820,40 @@ main {
 
 .zoom-btn {
   position: relative;
-
+  top: 10rem;
+  left: 2rem;
 }
 
 .zoom-box-container {
-  position: relative;
+  /* position: relative;
   top: -100px;
   left: 100px;
   height: 100%;
   width: 100%;
   margin: 105px;
-  color: blue;
+  color: blue; */
 
+  overflow: auto;
+
+  /* ---- new  */
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  /* margin: 105px; */
+  color: blue;
   overflow: auto;
 }
 
 .zoom-box-img {
   height: 75vh;
   width: 75vw;
-  transform: scale(1.5);
+  transform: scale(2.5);
+  cursor: zoom-out;
+
 }
 
 .img-magnifier-glass {
@@ -928,13 +963,21 @@ main {
 /* Add to cart */
 
 .add-to-cart-container {
-  width: 40px;
+
+  /* old ------ */
+  /* width: 40px;
   position: relative;
   left: 56%;
   top: -17%;
 
 
-  margin-top: 2rem;
+  margin-top: 2rem; */
+
+  width: 40px;
+  position: relative;
+  left: 56%;
+  top: -17%;
+  margin-top: 8rem;
 }
 
 .add-to-cart-dropdown-closed {
@@ -961,16 +1004,15 @@ main {
   /* new ----- */
 
   border: 1px solid black;
-    position: relative;
-    left: 60%;
-    top: -25%;
-    width: 25vw;
-    height: 20%;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    margin-top: 2rem;
+  position: relative;
+  left: 60%;
+  top: -25%;
+  width: 40vw;
+  height: 7vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 
 }
 

@@ -63,14 +63,24 @@ class Thumbnail extends React.Component {
 
               if (image.index === this.props.index) {
                 return (
+<<<<<<< HEAD
                   <div className="selected-icon" onClick={() => this.props.updateMainPic(image.index)} key={i}>
                     <img className="icon-image" loading="lazy" src={image.thumbnail_url} ></img>
+=======
+                  <div className="selected-icon" onClick={() => this.props.updateMainPic(image.index, 'selected-icon', 'overview')} key={i}>
+                      <img className="icon-image" src={image.thumbnail_url} ></img>
+>>>>>>> master
                   </div>
                 )
               }
               return (
+<<<<<<< HEAD
                 <div className="icon" onClick={() => this.props.updateMainPic(image.index)} key={i}>
                   <img className="icon-image" loading="lazy" src={image.thumbnail_url} ></img>
+=======
+                <div className="icon" onClick={() => this.props.updateMainPic(image.index, 'icon', 'overview')} key={i}>
+                    <img className="icon-image" src={image.thumbnail_url} ></img>
+>>>>>>> master
                 </div>
               )
 
@@ -78,10 +88,17 @@ class Thumbnail extends React.Component {
             })
 
           }
+<<<<<<< HEAD
           <div className="thumbnail-buttons">
             <button className="thumbnail-backwards" loading="lazy" onClick={() => this.props.updateThumbnailSection(-1)}>↑</button>
             <button className="thumbnail-forwards" loading="lazy" onClick={() => this.props.updateThumbnailSection(1)}>↓</button>
           </div>
+=======
+            <div className="thumbnail-buttons">
+              <button className="thumbnail-backwards" onClick={() => this.props.updateThumbnailSection(-1, "thumbnail-backwards", 'overview')}>↑</button>
+              <button className="thumbnail-forwards" onClick={() => this.props.updateThumbnailSection(1, "thumbnail-forwards", 'overview')}>↓</button>
+            </div>
+>>>>>>> master
 
 
         </div>
@@ -98,14 +115,27 @@ class Thumbnail extends React.Component {
 
               if (image.index === this.props.index) {
                 return (
+<<<<<<< HEAD
                   <div className="selected-icon" onClick={() => this.props.updateMainPic(image.index)} key={i}>
                     <img className="icon-image" loading="lazy" src={image.thumbnail_url} alt="icon-image"></img>
+=======
+                  <div className="selected-icon" onClick={() => this.props.updateMainPic(image.index, 'selected-icon', 'overview')} key={i}>
+                    <img className="icon-image" src={image.thumbnail_url} alt="icon-image"></img>
+>>>>>>> master
                   </div>
                 )
               }
               return (
+<<<<<<< HEAD
                 <div className="icon" onClick={() => this.props.updateMainPic(image.index)} key={i}>
                   <img className="icon-image" loading="lazy" src={image.thumbnail_url} alt="icon-image"></img>
+=======
+                <div className="icon" onClick={() => this.props.updateMainPic(image.index, 'icon', 'overview')} key={i}>
+                  <img className="icon-image" src={image.thumbnail_url} alt="icon-image"
+                  width="50"
+                  height="50"
+                   ></img>
+>>>>>>> master
                 </div>
               )
 
@@ -114,8 +144,8 @@ class Thumbnail extends React.Component {
 
           }
           <div className="thumbnail-buttons">
-            <button className="thumbnail-backwards" onClick={() => this.props.updateThumbnailSection(-1)}>↑</button>
-            <button className="thumbnail-forwards" onClick={() => this.props.updateThumbnailSection(1)}>↓</button>
+            <button className="thumbnail-backwards" onClick={() => this.props.updateThumbnailSection(-1, "thumbnail-backwards", 'overview')}>↑</button>
+            <button className="thumbnail-forwards" onClick={() => this.props.updateThumbnailSection(1, "thumbnail-forwards", 'overview')}>↓</button>
           </div>
 
 
@@ -131,14 +161,30 @@ class Thumbnail extends React.Component {
 
             if (image.index === this.props.index) {
               return (
+<<<<<<< HEAD
                 <div className="selected-thumbnail" onClick={() => this.props.updateMainPic(image.index)} key={i}>
                   <img className="thumbnail-image" loading="lazy" src={image.thumbnail_url} alt="thumbnail-image"></img>
+=======
+                <div className="selected-thumbnail" onClick={() => this.props.updateMainPic(image.index, 'selected-thumbnail', 'overview')} key={i}>
+                  <img className="thumbnail-image" src={image.thumbnail_url} alt="thumbnail-image"
+                    width="50"
+                    height="50"
+                  ></img>
+>>>>>>> master
                 </div>
               )
             }
             return (
+<<<<<<< HEAD
               <div className="thumbnail" onClick={() => this.props.updateMainPic(image.index)} key={i}>
                 <img className="thumbnail-image" loading="lazy" src={image.thumbnail_url} alt="thumbnail-image"></img>
+=======
+              <div className="thumbnail" onClick={() => this.props.updateMainPic(image.index, 'thumbnail', 'overview')} key={i}>
+                <img className="thumbnail-image" src={image.thumbnail_url} alt="thumbnail-image"
+                  width="50"
+                  height="50"
+                ></img>
+>>>>>>> master
               </div>
             )
 
@@ -147,8 +193,8 @@ class Thumbnail extends React.Component {
 
         }
         <div className="thumbnail-buttons">
-          <button className="thumbnail-backwards" onClick={() => this.props.updateThumbnailSection(-1)}>↑</button>
-          <button className="thumbnail-forwards" onClick={() => this.props.updateThumbnailSection(1)}>↓</button>
+          <button className="thumbnail-backwards" onClick={() => this.props.updateThumbnailSection(-1, "thumbnail-backwards", 'overview')}>↑</button>
+          <button className="thumbnail-forwards" onClick={() => this.props.updateThumbnailSection(1, "thumbnail-forwards", 'overview')}>↓</button>
         </div>
 
 

@@ -6,6 +6,7 @@ const helpers = {
 
     // let thumbnails = data.results[0].photos;
 
+
     let holder = [];
     let box = [];
 
