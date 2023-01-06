@@ -18,9 +18,8 @@ class QandA extends React.Component {
       product_name: props.product_name || 'default',
       isQAEmpty: true,
       isQModalOpen: false,
-      isAModalOpen: false,
-      isLastQuestion: false,
-      testy: props.testy
+      isAModalOpen: {},
+      isLastQuestion: false
     };
     this.handleQModalOpen = this.handleQModalOpen.bind(this);
     this.handleQModalClose = this.handleQModalClose.bind(this);
@@ -43,7 +42,20 @@ class QandA extends React.Component {
       }, () => {
         this.getProductQA(this.state.product_id);
       });
-    }
+    };
+
+    if (this.state.QA_shown !== prevState.QA_shown) {
+      var temp = this.state.QA_shown;
+      var storage = {};
+      for (var i = 0; i < temp.length; i++) {
+        storage[temp[i]['question_id']] = false;
+      }
+      console.log(storage);
+      this.setState({
+        isAModalOpen: storage
+      })
+    };
+
   }
 
   getProductQA = async (product_id) => {
@@ -65,10 +77,16 @@ class QandA extends React.Component {
           })
         };
         sortedQA = await sortingQA(productQA);
+        // var id1 = sortedQA[0]['question_id'];
+        // var id2 = sortedQA[1]['question_id'];
         this.setState({
           QA: sortedQA,
           QA_shown: [sortedQA[0], sortedQA[1]],
           isQAEmpty: false
+          // isAModalOpen: {
+          //   [id1]: false,
+          //   [id2]: false
+          // }
         })
       }
     }
@@ -83,9 +101,11 @@ class QandA extends React.Component {
     })
   };
 
-  handleAModalOpen() {
+  handleAModalOpen(id) {
     this.setState({
-      isAModalOpen: true
+      isAModalOpen: {
+        [id]: true
+      }
     })
   };
 
@@ -95,9 +115,11 @@ class QandA extends React.Component {
     })
   };
 
-  handleAModalClose() {
+  handleAModalClose(id) {
     this.setState({
-      isAModalOpen: false
+      isAModalOpen: {
+        [id]: false
+      }
     })
   };
 
