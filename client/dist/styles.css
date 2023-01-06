@@ -556,25 +556,22 @@ main {
 
   /* old----  */
 
-
-  /* margin: 5rem;
-  /* padding: 10px; */
-  /* top: -50vh;
-  height: 35rem;
-  width: 50rem; */
-
-  margin: 5rem;
-    /* padding: 10px; */
+    margin: 5rem;
+    padding: 10px;
     top: -50vh;
     height: 40rem;
     width: 50rem;
+
+    /*  NEW */
+    /* display: flex; */
+
 
 }
 
 /* Product details */
 
 .main-product-details {
-  top: -72vh;
+  top: -76vh;
   position: relative;
 }
 
@@ -965,19 +962,17 @@ main {
 .add-to-cart-container {
 
   /* old ------ */
-  /* width: 40px;
-  position: relative;
-  left: 56%;
-  top: -17%;
-
-
-  margin-top: 2rem; */
 
   width: 40px;
   position: relative;
   left: 56%;
   top: -17%;
   margin-top: 8rem;
+
+  /*  */
+
+  /* width: 100%;
+  position: relative; */
 }
 
 .add-to-cart-dropdown-closed {
