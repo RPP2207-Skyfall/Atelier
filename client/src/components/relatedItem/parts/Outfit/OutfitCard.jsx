@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios'
 import Star from './../Star/relateStarRating.jsx';
-// const ComparingChart = React.lazy(() => import('./../PopUp/ComparingChart.jsx'));
 import ComparingChart from './../PopUp/ComparingChart.jsx';
 const SmallPicBox = React.lazy(()=> import('./../PopUp/HoverPhoto.jsx'))
 
@@ -10,6 +9,7 @@ const OutfitCard = (props) => {
   const [picLibrary, updatePicLibrary] = useState ([])
   const [currentPic, updateCurPic] = useState ({thumbnail_url: "https://lyrictheatreokc.com/wp-content/uploads/2021/11/Ciao-Ciao-Image-Coming-Soon-500px.jpg"})
   const [fearetureShow, toggleFeature] = useState (false)
+  const [libraryLoad, setLibraryload] = useState (false)
   const originalPrice = props.item.originalPrice
   const salePrice = props.item.salePrice
   const sale = salePrice !== null
@@ -20,9 +20,13 @@ const OutfitCard = (props) => {
 
   useEffect(()=> {
     checkPicURL(props.item.thumbnails[0].thumbnail_url)
-
+    setLibraryload(false)
   }, [itemDetail])
 
+  const startLoad = () => {
+    // console.log('trigger')
+    setLibraryload(true)
+  }
 
   const featureCompare = () => {
     var show = fearetureShow
@@ -54,10 +58,10 @@ const OutfitCard = (props) => {
         <div className="carousel-bg-img" aria-label = {`photo of ${itemDetail.name}`} style={{ backgroundImage: "url('" + currentPic.thumbnail_url + "')" }} ></div>
         {props.outfit && <button className="star-btn" onClick= {()=>{props.toggleStar(itemDetail.id)}}>X</button>}
         {!props.outfit && <button className="star-btn" onClick= {() => {featureCompare()}}><img src="FillStar.png"></img></button>}
-        <div className="sensor-box">
+        <div className="sensor-box" onMouseEnter = {() => {startLoad()}}>
           <div className="hidden-box">
             {picLibrary.map((item, index) =>
-              <SmallPicBox item={item} key={index} setCurPhoto={setCurPhoto} />
+              <SmallPicBox item={item} key={index} setCurPhoto={setCurPhoto} libraryLoad = {libraryLoad}/>
             )}
           </div>
         </div>
