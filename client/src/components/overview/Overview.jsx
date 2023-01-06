@@ -452,6 +452,10 @@ class Overview extends React.Component {
 
   render() {
 
+    if (this.state.data === undefined) {
+      throw new Error ('no data detected');
+    }
+
     if (this.state.done) {
       if (this.state.expanded) {
         return (
