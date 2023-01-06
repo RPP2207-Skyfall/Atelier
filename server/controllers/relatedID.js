@@ -17,7 +17,7 @@ exports.getRelatedItemsID = (req, res) => {
       return res.status(200).send(result.data)
     })
     .catch(err => {
-      console.log("Err: ", err)
+      console.log("Err7: ", err)
     })
 }
 

@@ -20,7 +20,7 @@ module.exports = {
       },
       params: {
         product_id: req.body.product_id,
-        count: 30,
+        count: 20,
         sort: req.body.sort
       }
     }
