@@ -5,8 +5,11 @@ function ZoomBox(props) {
   const [isPanning, setPanning] = useState(false);
   const [image, setImage] = useState();
   const [position, setPosition] = useState({
-    oldX: 700,
+    oldX: 500,
     oldY: 500,
+    // oldX: 0,
+    // oldY: 0,
+
     x: 0,
     y: 0,
     z: 1,
@@ -102,7 +105,7 @@ function ZoomBox(props) {
 
         <img  className='zoom-box-img' id="myimage" src={props.mainPic}
         onLoad={onLoad}
-        alt="style"/>
+        alt="style" onClick={() => props.expand('zoom-box-img', 'overview')}/>
       </div>
 
     </div>

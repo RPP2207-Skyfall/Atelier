@@ -27,6 +27,7 @@ class App extends React.Component {
   }
 
   toggleStar(currentID) {
+    console.log('CURRENT ID', currentID)
     if (isNaN(currentID) === false) {
       var index = this.state.OutfitList.indexOf(currentID)
       var newList = this.state.OutfitList.slice()

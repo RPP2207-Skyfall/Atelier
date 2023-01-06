@@ -22,6 +22,8 @@ class AnswerModal extends React.Component {
   constructor(props) {
     super(props);
     this.state={
+      question_id: props.question_id,
+      question_body: props.question,
       answer:'',
       nickname:'',
       email:'',
@@ -36,25 +38,14 @@ class AnswerModal extends React.Component {
     };
     this.handleSubmitError = this.handleSubmitError.bind(this);
     this.handleImageUpload = this.handleImageUpload.bind(this);
-    this.handleInput = this.handleInput.bind(this);
+    this.validateInput = this.validateInput.bind(this);
   };
 
-  handleInput(e) {
-    var type = e.target.id;
-    var value = e.target.value;
-    if (type === 'Email') {
-      this.setState({
-        email: value
-      })
-    } else if (type === 'Answer') {
-      this.setState({
-        answer: value
-      })
-    } else if (type === 'Nickname') {
-      this.setState({
-        nickname: value
-      })
-    }
+  validateInput(e) {
+    var inputType = e.target.id;
+    var inputValue = e.target.value;
+    var validTypes = ['email', 'answer', ' nickname'];
+    validTypes.includes(inputType) ? this.setState({[inputType] : inputValue}) : null;
 
     if (this.state.email !== '' && this.state.email.includes('@') === true) {
       this.setState({
@@ -121,7 +112,7 @@ class AnswerModal extends React.Component {
         images:[],
         uploadImgBtn: true
       });
-      this.props.handleAModalClose();
+      this.props.handleAModalClose(this.state.question_id);
     }
 
     if (this.state.email === '') {
@@ -177,19 +168,19 @@ class AnswerModal extends React.Component {
     return(
       <div className='answer-modal' data-testid='answer-modal'>
         <Modal
-          isOpen={this.props.isAModalOpen}
-          onRequestClose={() => {this.props.handleAModalClose()}}
+          isOpen={this.props.isAModalOpen[this.state.question_id]}
+          onRequestClose={() => {this.props.handleAModalClose(this.state.question_id)}}
           contentLabel='answer-modal-contents'
           style={customStyle}
           ariaHideApp={false}
         >
           <Box>
             <h2 id='answer-modal-title' data-testid='answer-modal-title'>SUBMIT YOUR ANSWER</h2>
-            <h3 id='answer-modal-subtitle' data-testid='answer-modal-subtitle'>{this.props.product_name}:{this.props.question}</h3>
+            <h3 id='answer-modal-subtitle' data-testid='answer-modal-subtitle'>{this.props.product_name}:{this.state.question_body}</h3>
             <Stack spacing={1}>
               <TextField
-                id='Answer'
-                label='Answer'
+                id='answer'
+                label='answer'
                 data-testid='AModal-Answer'
                 multiline
                 rows={4}
@@ -198,15 +189,15 @@ class AnswerModal extends React.Component {
                 value={this.state.answer}
                 error={!!this.state.answerError}
                 helperText={this.state.answerError}
-                onChange={this.handleInput}
+                onChange={this.validateInput}
                 required>
               </TextField>
             </Stack>
             <br></br>
             <Stack spacing={1}>
               <TextField
-                id='Email'
-                label='Email'
+                id='email'
+                label='email'
                 data-testid='AModal-Email'
                 placeholder="example@atelier.com"
                 fullWidth
@@ -214,7 +205,7 @@ class AnswerModal extends React.Component {
                 value={this.state.email}
                 error={!!this.state.emailError}
                 helperText={this.state.emailError}
-                onChange={this.handleInput}
+                onChange={this.validateInput}
                 required>
               </TextField>
               <p className='AModal-Email-Disclaimer'>For authentication reasons, you will not be emailed</p>
@@ -222,15 +213,15 @@ class AnswerModal extends React.Component {
             <br></br>
             <Stack spacing={1}>
               <TextField
-                id='Nickname'
-                label='Nickname'
+                id='nickname'
+                label='nickname'
                 data-testid='AModal-Nickname'
                 placeholder="Howard878"
                 inputProps={{maxLength: 60}}
                 value={this.state.nickname}
                 error={!!this.state.nicknameError}
                 helperText={this.state.nicknameError}
-                onChange={this.handleInput}
+                onChange={this.validateInput}
                 required>
               </TextField>
               <p className='AModal-Nickname-Disclaimer'>For privacy reasons, do not use your full name or email address</p>

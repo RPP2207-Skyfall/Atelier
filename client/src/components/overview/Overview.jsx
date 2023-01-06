@@ -3,8 +3,13 @@ import ProductInfo from './parts/productInfo/ProductInfo.jsx';
 import StyleSelector from './parts/styleSelector/StyleSelector.jsx';
 import AddToCart from './parts/addToCart/AddToCart.jsx';
 import ImageGallery from './parts/imageGallery/ImageGallery.jsx';
+import Details from './parts/productInfo/Details.jsx'
 import Axios from 'axios';
 import helpers from './overviewHelpers.js';
+import api from './overviewApi.js';
+import Tracker from '../tracker.js'
+// import image from '../../../server/index.js';
+
 
 class Overview extends React.Component {
   constructor(props) {
@@ -28,7 +33,10 @@ class Overview extends React.Component {
       reviewData: [],
       rating: null,
       done: false,
-      skuToBuy: null
+      skuToBuy: null,
+      shouldOptimize: false,
+      currentPID: 71700,
+      description: []
     }
 
     this.mainSlide = this.mainSlide.bind(this);
@@ -50,32 +58,28 @@ class Overview extends React.Component {
 
     this.getGeneralProducts = this.getGeneralProducts.bind(this);
     this.getStyles = this.getStyles.bind(this);
-    // this.makeThumbnailBoxes = this.makeThumbnailBoxes.bind(this);
     this.getReviews = this.getReviews.bind(this);
-    // this.getAverageRating = this.getAverageRating.bind(this);
     this.setAverageRating = this.setAverageRating.bind(this);
 
-    // tracking clicks
-
-    this.clickTracker = this.clickTracker.bind(this)
   }
 
-
-  // tracking clicks
-
-  clickTracker(clickData) {
-    console.log('click tracker', clickData);
-  }
 
   // Add outfit to carousel
 
   likeOutfit(outfit) {
 
-    let likedOutfit = outfit.style;
-    this.props.updateCurrentItem(likedOutfit.style_id, likedOutfit.name)
+    this.props.toggleStar(this.state.currentPID)
 
-    // newID, newName
-    console.log('liked outfit', likedOutfit);
+  }
+
+
+  componentDidUpdate(prevProps) {
+
+    if (prevProps !== this.props) {
+
+      this.getData(this.props.CurrentItemID)
+    }
+
   }
 
 
@@ -83,24 +87,18 @@ class Overview extends React.Component {
 
   zoom() {
     this.setState({
-      zoomBox: !this.state.zoomBox
-    })
-  }
-
-  handleExpand() {
-    this.setState({
-      expanded: !this.state.expanded
+      zoomBox: !this.state.zoomBox,
     })
   }
 
 
   // for Styles + thumbnail interaction:
 
-  updateStyle(style, clickData) {
-    // old
-    // let newThumbnails = this.makeThumbnailBoxes(style.photos);
-    this.clickTracker(clickData);
+  updateStyle(style, elem, widget) {
+
+    Tracker.userInteraction(elem, widget);
     let newThumbnails = helpers.makeThumbnailBoxes(style.photos);
+    console.log('new thumbnails', newThumbnails)
     this.setState({
       currentStyle: style,
       mainIndex: 0,
@@ -109,39 +107,25 @@ class Overview extends React.Component {
   }
 
 
-  zoom() {
-    this.setState({
-      zoomBox: !this.state.zoomBox
-    })
-  }
-
-  handleExpand(clickData) {
-    this.clickTracker(clickData);
-    this.setState({
-      expanded: !this.state.expanded
-    })
-  }
-
-
-  // for Styles + thumbnail interaction:
-
-  updateStyle(style, clickData) {
-    // old
-    // let newThumbnails = this.makeThumbnailBoxes(style.photos);
-
-    this.clickTracker(clickData);
-
-    let newThumbnails = helpers.makeThumbnailBoxes(style.photos);
-
-    this.setState({
-      currentStyle: style,
-      mainIndex: 0,
-      currentThumbnails: newThumbnails
-    })
+  handleExpand(elem, widget) {
+    Tracker.userInteraction(elem, widget);
+    if (elem === 'zoom-box-img') {
+      this.setState({
+        expanded: !this.state.expanded,
+        zoomBox: false
+      })
+    } else {
+      this.setState({
+        expanded: !this.state.expanded
+      })
+    }
 
   }
 
-  updateThumbnailSection(dir) {
+
+  updateThumbnailSection(dir, elem, widget) {
+
+    Tracker.userInteraction(elem, widget);
 
     if (this.state.thumbnailSection === 0 && dir === -1) {
       return;
@@ -188,7 +172,9 @@ class Overview extends React.Component {
 
 
   // handles left or right main button click for image gallery (main image)
-  mainSlide(dir) {
+  mainSlide(dir, elem, widget) {
+
+    Tracker.userInteraction(elem, widget);
 
     if (this.state.mainIndex === 0 && dir === -1) {
       return
@@ -214,7 +200,9 @@ class Overview extends React.Component {
   }
 
   // handles thumbnail click: updates the main picture when a thumbnail is clicked
-  updateMainPic(index) {
+  updateMainPic(index, elem, widget) {
+    Tracker.userInteraction(elem, widget);
+
     this.setState({
       mainIndex: index
     })
@@ -224,35 +212,43 @@ class Overview extends React.Component {
 
   // controller
 
-  getData() {
-    this.getGeneralProducts()
-      .then((data) => {
-        // console.log('data after first call', data);
-        return this.getStyles(data.SKU)
-      })
-      .then((state) => {
-        console.log('state', state)
-        return this.getReviews(state.styles.product_id);
-      })
-      .then((reviews) => {
-        // console.log('reviews', reviews);
-        return helpers.getAverageRating(reviews.reviewData)
-      })
-      .then((averageReview) => {
-        return this.setAverageRating(averageReview);
-      })
-      .then((done) => {
+  getData(id = id || 71700) {
+
+    // console.log('id in get data', id)
+
+    Promise.all([this.getGeneralProducts(id), this.getStyles(id), this.getReviews(id)])
+      .then((results) => {
+
+        // console.log('from promise.all', results);
 
         this.setState({
-          done: true
-        })
-        // console.log('done', done)
+          // ----- general info ------- //
 
-        // make a state with done where it is verified that all api calls are done
+
+          data: results[0].data,
+          currentPID: results[0].id,
+          description: results[0].desc,
+
+          // ------ styles ------ //
+
+          styles: results[1][0],
+          current: results[1][0].results[0].photos[0],
+          amount: results[1][0].results[0].photos.length,
+          currentThumbnails: results[1][1],
+          currentStyle: results[1][0].results[0],
+
+          // ---- get reviews & set reviews -------- ///
+
+          reviewData: results[2][0],
+          rating: results[2][1],
+          done: true
+
+        })
       })
       .catch((err) => {
-        console.log('ERR', err)
+        console.log('there is an error with teh promis.all')
       })
+
 
   }
 
@@ -283,34 +279,34 @@ class Overview extends React.Component {
           headers:
           {
             "Content-Type": "application/json",
-            "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
+            "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN,
+            "Accept-Encoding": 'gzip',
+            "Content-Encoding": 'gzip'
           }
         }
       )
         .then(res => res.json())
         .then((data) => {
 
-          // console.log('data in styles', data)
 
-          //old
-          //  let holder = this.makeThumbnailBoxes(data.results[0].photos)
+             let holder = helpers.makeThumbnailBoxes(data.results[0].photos);
 
-          // new
-          let holder = helpers.makeThumbnailBoxes(data.results[0].photos)
+            // this.setState({
+            //   styles: data,
+            //   current: data.results[0].photos[this.state.mainIndex],
+            //   amount: data.results[0].photos.length,
+            //   currentThumbnails: holder,
+            //   currentStyle: data.results[0]
+            // }, () => {
+            //   resolve(this.state)
+            // })
 
-          this.setState({
-            styles: data,
-            current: data.results[0].photos[this.state.mainIndex],
-            amount: data.results[0].photos.length,
-            currentThumbnails: holder,
-            currentStyle: data.results[0]
-          }, () => {
-            resolve(this.state)
+            resolve([data, holder])
+
           })
-        })
-        .catch((err) => {
-          reject(err)
-        })
+          .catch((err) => {
+            reject(err)
+          })
     })
   }
 
@@ -324,7 +320,9 @@ class Overview extends React.Component {
       var requestOption = {
         headers: {
           "Content-Type": "application/json",
-          "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY
+          "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY,
+          "Accept-Encoding": 'gzip',
+          "Content-Encoding": 'gzip'
         },
         params: {
           product_id: product_id,
@@ -333,12 +331,16 @@ class Overview extends React.Component {
       }
       Axios.get(url, requestOption)
         .then(res => {
-          ///console.log(res.data)
-          this.setState({
-            reviewData: res.data.results
-          }, () => {
-            resolve(this.state)
-          })
+
+          // this.setState({
+          //   reviewData: res.data.results
+          // }, () => {
+          //   resolve(this.state)
+          // })
+
+          let avgReview = helpers.getAverageRating(res.data.results)
+
+          resolve([res.data.results, avgReview]);
         })
         .catch(err => {
           reject(err)
@@ -349,8 +351,8 @@ class Overview extends React.Component {
 
   }
 
-  getGeneralProducts() {
-    // console.log('something in general product')
+  getGeneralProducts(id) {
+    console.log('something in general product')
     const generalUrl = process.env.REACT_APP_API_OVERVIEW_URL + `products`;
 
 
@@ -361,21 +363,39 @@ class Overview extends React.Component {
           headers:
           {
             "Content-Type": "application/json",
-            "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
+            "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN,
+            "Accept-Encoding": 'gzip',
+            "Content-Encoding": 'gzip'
           }
         }
       )
         .then(res => res.json())
         .then((data) => {
 
-          // console.log('data after first call', data[1].id)
-          this.setState({
-            data: data,
-            SKU: data[0].id
-          }, () => {
-            // console.log(this.state)
-            resolve(this.state)
-          });
+
+          let desc = null;
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].id === id) {
+              desc = data[i];
+            }
+          }
+
+
+          // old stuff -------------
+
+          // this.setState({
+          //   data: data,
+          //   currentPID: id,
+          //   description: desc
+          // }, () => {
+
+
+          //   resolve(this.state)
+          // });
+
+          // new stuff ------------
+
+          resolve({data, id, desc})
         })
         .catch((err) => {
           reject(err)
@@ -387,8 +407,6 @@ class Overview extends React.Component {
   // for size selector and sku seletion when adding to bag
 
   selectSize(size, quant, skuToBuy) {
-    // console.log('size attempted', size);
-    // console.log('sku to byt', skuToBuy)
     this.setState({
       selectedSize: size,
       sizeQuant: quant,
@@ -397,9 +415,6 @@ class Overview extends React.Component {
   }
 
   selectQuant(quant) {
-
-    // console.log('quant', quant);
-
     this.setState({
       selectedQuant: quant
     })
@@ -432,7 +447,6 @@ class Overview extends React.Component {
 
 
   componentDidMount() {
-    console.log('props in component did moutn Onvervieww', this.props)
     this.getData()
   }
 
@@ -443,14 +457,14 @@ class Overview extends React.Component {
     }
 
     if (this.state.done) {
-      // console.log('overview state', this.state)
       if (this.state.expanded) {
         return (
           <div className="overview-container-expanded">
             <ImageGallery
               info={this.state} currentThumbnails={this.state.currentThumbnails} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
               handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
-              checkThumbnailSection={this.checkThumbnailSection} zoomBox={this.state.zoomBox} zoom={this.zoom} clickTracker={this.clickTracker}
+              checkThumbnailSection={this.checkThumbnailSection} zoomBox={this.state.zoomBox} zoom={this.zoom}
+
             />
           </div>
         )
@@ -458,25 +472,29 @@ class Overview extends React.Component {
       return (
         <div className="overview-container" data-testid="overview-test">
 
-          <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} clickTracker={this.clickTracker} />
+          <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating}  desc={this.state.description}/>
           <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle} />
           <AddToCart
             currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
             sizeQuantity={this.state.sizeQuant} selectedQuant={this.state.selectedQuant} selectQuant={this.selectQuant} skuToBuy={this.state.skuToBuy}
             likeOutfit={this.likeOutfit} />
-
-
           <ImageGallery
             info={this.state} currentThumbnails={this.state.currentThumbnails} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
             handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
-            checkThumbnailSection={this.checkThumbnailSection} clickTracker={this.clickTracker}
+            checkThumbnailSection={this.checkThumbnailSection}
           />
+
+          {this.state.description ? <Details desc={this.state.description} /> : null }
+
         </div>
       )
-    } else {
+    }
+
+    else {
       return (
         <div>
-          something
+          having some issues...
+          please try again later
         </div>
       )
     }

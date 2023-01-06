@@ -33,25 +33,14 @@ class QuestionModal extends React.Component {
       emailPass: false
     };
     this.handleSubmitError = this.handleSubmitError.bind(this);
-    this.handleInput = this.handleInput.bind(this);
+    this.validateInput = this.validateInput.bind(this);
   };
 
-  handleInput(e) {
-    var type = e.target.id;
-    var value = e.target.value;
-    if (type === 'Email') {
-      this.setState({
-        email: value
-      })
-    } else if (type === 'Question') {
-      this.setState({
-        question: value
-      })
-    } else if (type === 'Nickname') {
-      this.setState({
-        nickname: value
-      })
-    }
+  validateInput(e) {
+    var inputType = e.target.id;
+    var inputValue = e.target.value;
+    var validTypes = ['email', 'question', 'nickname'];
+    validTypes.includes(inputType) ? this.setState({[inputType] : inputValue}) : null;
 
     if (this.state.email !== '' && this.state.email.includes('@') === true) {
       this.setState({
@@ -170,8 +159,8 @@ class QuestionModal extends React.Component {
             <h3 id='question-modal-subtitle'>About {this.props.product_name}</h3>
             <Stack direction='row' spacing={2}>
               <TextField
-                id='Question'
-                label='Question'
+                id='question'
+                label='question'
                 data-testid='QModal-Question'
                 multiline
                 placeholder="What do you like to know...?"
@@ -188,8 +177,8 @@ class QuestionModal extends React.Component {
             <br></br>
             <Stack spacing={1}>
               <TextField
-                id='Email'
-                label='Email'
+                id='email'
+                label='email'
                 data-testid='QModal-Email'
                 placeholder="example@atelier.com"
                 fullWidth
@@ -205,8 +194,8 @@ class QuestionModal extends React.Component {
             <br></br>
             <Stack spacing={1}>
               <TextField
-                id='Nickname'
-                label='Nickname'
+                id='nickname'
+                label='nickname'
                 data-testid='QModal-Nickname'
                 placeholder="Howard878"
                 inputProps={{maxLength: 60}}

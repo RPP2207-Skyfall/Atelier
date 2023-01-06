@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Tracker from '../../../tracker.js'
 
 function QuantitySelector(props) {
 
@@ -6,11 +7,13 @@ function QuantitySelector(props) {
   const [open, setOpen] = useState(false);
 
 
-  const handleOpen = () => {
+  const handleOpen = (elem, widget) => {
+    Tracker.userInteraction(elem, widget);
     setOpen(!open);
   };
 
-  const handleQuantSelect = (quant) => {
+  const handleQuantSelect = (quant, elem, widget) => {
+    Tracker.userInteraction(elem, widget);
     setOpen(!open);
     props.selectQuant(quant)
   }
@@ -26,7 +29,7 @@ function QuantitySelector(props) {
 
     // console.log('This is where I am')
     return (
-      <div className="quantity-selector-start-size" onClick={handleOpen}>
+      <div className="quantity-selector-start-size" onClick={() => handleOpen("quantity-selector-start-size", 'overview')}>
         <p className="quantity-number">1</p>
         <div className="quantity-dropdown-arrow">↓</div>
       </div>
@@ -38,7 +41,7 @@ function QuantitySelector(props) {
           {
             Array.from({length: props.quant}, (item, i) => {
               return (
-                <div key={i} className="quantity-option" onClick={() => handleQuantSelect(i)}>
+                <div key={i} className="quantity-option" onClick={() => handleQuantSelect(i, "quantity-option", 'overview')}>
                   <p>{i}</p>
                 </div>
               )
@@ -50,7 +53,14 @@ function QuantitySelector(props) {
   } else if (!open && props.selected && props.selectedQuant > 0) {
     // console.log('this is where I want to be');
     return (
-      <div className="quantity-selector-selected" onClick={handleOpen}>
+      <div className="quantity-selector-selected" onClick={() => handleOpen("quantity-selector-selected", 'overview')}>
+        <p className="quantity-number">{props.selectedQuant}</p>
+        <div className="quantity-dropdown-arrow">↓</div>
+      </div>
+    )
+  } else if (props.open) {
+    return (
+      <div className="quantity-selector-selected" onClick={() => handleOpen("quantity-selector-selected", 'overview')}>
         <p className="quantity-number">{props.selectedQuant}</p>
         <div className="quantity-dropdown-arrow">↓</div>
       </div>
@@ -59,7 +69,7 @@ function QuantitySelector(props) {
 
   else {
     return (
-      <div className="quantity-selector-start" onClick={handleOpen}>
+      <div className="quantity-selector-start" onClick={() => handleOpen("quantity-selector-start", 'overview')}>
         <p className="quantity-number">-</p>
         <div className="quantity-dropdown-arrow">↓</div>
       </div>
