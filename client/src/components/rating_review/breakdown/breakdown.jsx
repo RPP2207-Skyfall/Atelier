@@ -29,6 +29,10 @@ const breakdown = (props) => {
   }
 
 
+  const tracker = (element, widget) => {
+    props.tracker(element, widget)
+  }
+
 
 
 
@@ -45,8 +49,8 @@ const breakdown = (props) => {
         </div>
 
         <div className="row recommend-row"><Recommendation percentage={props.metadata.recommended} /></div>
-        <div className="row starchart-row"><RatingBreakdown totalAmount={totalRatingAmount} ratingObj={ratingObj} hanleFilterClicked={props.hanleFilterClicked} filterClicked={props.filterClicked} resetHighlighted={resetHighlighted} /></div>
-        {props.filterClicked ? <div className="remove-all-filter-btn" ><button data-testid="remove-filter-btn" onClick={() => resetAllFilter()}>Remove all filters</button></div> : null}
+        <div className="row starchart-row"><RatingBreakdown tracker={props.tracker} totalAmount={totalRatingAmount} ratingObj={ratingObj} hanleFilterClicked={props.hanleFilterClicked} filterClicked={props.filterClicked} resetHighlighted={resetHighlighted} /></div>
+        {props.filterClicked ? <div className="remove-all-filter-btn" ><button data-testid="remove-filter-btn" onClick={() => { resetAllFilter(); tracker('remove-all-filter-btn', 'Breakdown') }}>Remove all filters</button></div> : null}
         <div className="row product-breakdown-row"><ProductBreakdown characteristicsObj={characteristicsObj} /></div>
 
 
