@@ -33,8 +33,8 @@ const RelatedItem = (props) => {
   const [OutfitLeftArr, setOutfitLeftArr] = useState(false);
   const [OutfitRightArr, setOutfitRightArr] = useState(false);
 
-  // useEffect(() => {
-  //   //first render
+  // useEffect (()=> {
+  //       //first render
   //   getRelatedMetaData(mainItemId)
   //   getOutfitMetaData(passDownOutfitList)
   // }, [])

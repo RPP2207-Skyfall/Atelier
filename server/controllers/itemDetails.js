@@ -24,7 +24,6 @@ exports.getRelatedMetaData = async (req, res) => {
       "Content-Encoding": 'gzip'
     }
   }
-
   var requestOptionFour = {
     headers: {
       "Authorization": process.env.REACT_APP_API_RELATED_TOKEN,
@@ -95,7 +94,21 @@ exports.getRelatedMetaData = async (req, res) => {
 exports.getOutfitMetaData = async (req, res) => {
   var idArr = req.query["idArr"]
   // console.log(req.query);
-  var requestOption = {
+  var requestOptionOne = {
+    headers: {
+      "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY,
+      "Accept-Encoding": 'gzip',
+      "Content-Encoding": 'gzip'
+    }
+  }
+  var requestOptionTwo = {
+    headers: {
+      "Authorization": process.env.REACT_APP_API_QA_KEY,
+      "Accept-Encoding": 'gzip',
+      "Content-Encoding": 'gzip'
+    }
+  }
+  var requestOptionThree = {
     headers: {
       "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN,
       "Content-Encoding": 'gzip'

@@ -12,7 +12,7 @@ const SmallPicBox = (props) => {
   // const loading = "Loading_icon.gif"
   // const url =  props.item.thumbnail_url
   return (
-     <div className="small-box" role="img" aria-label = {`other item photos`} style={{ backgroundImage: `url(${url})` }} onClick= {()=>{props.setCurPhoto(props.item.thumbnail_url)}}></div>
+     <div className="small-box" style={{ backgroundImage: `url(${url})` }} onClick= {()=>{props.setCurPhoto(props.item.thumbnail_url)}}></div>
   )
 }
 

@@ -55,9 +55,9 @@ const OutfitCard = (props) => {
     // console.log(id, imageList[0].thumbnail_url)
     return (
       <div className="carousel-box">
-        <div className="carousel-bg-img" aria-label = {`photo of ${itemDetail.name}`} style={{ backgroundImage: "url('" + currentPic.thumbnail_url + "')" }} ></div>
+        <div className="carousel-bg-img" style={{ backgroundImage: "url('" + currentPic.thumbnail_url + "')" }} ></div>
         {props.outfit && <button className="star-btn" onClick= {()=>{props.toggleStar(itemDetail.id)}}>X</button>}
-        {!props.outfit && <button className="star-btn" onClick= {() => {featureCompare()}}><img src="FillStar.png"></img></button>}
+        {!props.outfit && <button className="star-btn" onClick= {() => {featureCompare()}}><img src="FillStar.png" alt="star button"></img></button>}
         <div className="sensor-box" onMouseEnter = {() => {startLoad()}}>
           <div className="hidden-box">
             {picLibrary.map((item, index) =>
