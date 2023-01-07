@@ -31,7 +31,8 @@ module.exports = {
       headers: {
         "Content-Type": "application/json",
         "Authorization": process.env.REACT_APP_API_QA_KEY,
-        "Content-Encoding": 'gzip'
+        // "Content-Encoding": 'gzip',
+        "x-no-compression": true
       }
     };
     Axios.post(url, req.body, requestOption)
@@ -59,7 +60,8 @@ module.exports = {
       headers: {
         "Content-Type": "application/json",
         "Authorization": process.env.REACT_APP_API_QA_KEY,
-        "Content-Encoding": 'gzip'
+        // "Content-Encoding": 'gzip',
+        "x-no-compression": true
       }
     };
     Axios.post(url, incomingAnswer, requestOption)
