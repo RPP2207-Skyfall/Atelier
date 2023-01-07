@@ -10,7 +10,6 @@ exports.getImageAndPrice = (req, res) => {
     headers: {
       "Content-Type": "application/json",
       "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN,
-      "Accept-Encoding": 'gzip',
       "Content-Encoding": 'gzip'
     }
   }

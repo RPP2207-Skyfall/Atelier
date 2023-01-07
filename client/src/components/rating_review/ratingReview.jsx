@@ -213,15 +213,20 @@ class RatingReview extends React.Component {
   render() {
     //Error Boundary --- Customize it as you go
     if (this.state.product_id === undefined) {
-      throw new Error ('no product_id detected');
+      throw new Error('no product_id detected');
     }
 
     return (
       <div className="container ratingReview">
-        <h5 >RATINGS & REVIEWS</h5>
+        <div className="review-title" >RATINGS & REVIEWS</div>
         <div className="row">
           <div className="col-4">
-            <Breakdown metadata={this.state.metadata} hanleFilterClicked={this.hanleFilterClicked.bind(this)} filterClicked={this.state.filterClicked} resetAllFilter={this.resetAllFilter.bind(this)} />
+            <Breakdown
+              metadata={this.state.metadata}
+              hanleFilterClicked={this.hanleFilterClicked.bind(this)}
+              filterClicked={this.state.filterClicked}
+              resetAllFilter={this.resetAllFilter.bind(this)}
+              tracker={this.updateTracker.bind(this)} />
           </div>
           <div className="col-8">
             <ReviewList
@@ -235,6 +240,7 @@ class RatingReview extends React.Component {
               reportReview={this.reportReview.bind(this)}
               updateIsHelpful={this.updateIsHelpful.bind(this)}
               updateNewReviewModal={this.updateNewReviewModal.bind(this)}
+              tracker={this.updateTracker.bind(this)}
             />
 
           </div>

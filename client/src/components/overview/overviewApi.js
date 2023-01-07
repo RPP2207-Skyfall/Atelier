@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = {
 
-  getGeneralProducts: function(ID) {
+  getGeneralProducts: function (ID) {
 
     // console.log('something in general product')
     const generalUrl = process.env.REACT_APP_API_OVERVIEW_URL + `products/${ID}/styles`;
@@ -15,7 +15,6 @@ const api = {
           headers: {
             "Content-Type": "application/json",
             "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN,
-            "Accept-Encoding": 'gzip',
             "Content-Encoding": 'gzip'
           }
         }

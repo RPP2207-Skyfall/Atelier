@@ -106,19 +106,16 @@ class reviewList extends React.Component {
   }
 
   handleAddReviewClick() {
-    // this.setState({
-    //   newReviewModal: true
-    // })
     this.props.updateNewReviewModal()
   }
 
   handleCloseReviewModal() {
-    // this.setState({
-    //   newReviewModal: !this.state.newReviewModal
-    // })
     this.props.updateNewReviewModal()
   }
 
+  tracker(element, widget) {
+    this.props.tracker(element, widget)
+  }
 
 
   render() {
@@ -126,22 +123,24 @@ class reviewList extends React.Component {
     const datalength = this.props.reviewData.length
     return (
       <div className="reviewBreakdown">
-        <div className="review-sort-bar" data-testid='review-amount'>{`${datalength} reviews,`}{datalength > 0 ? <> sorted by <SortMenu currentSortValue={this.props.currentSortValue} updateSortMethod={this.updateSortMethod.bind(this)} /></> : null}</div>
+        <div className="review-sort-bar" data-testid='review-amount'>{`${datalength} reviews,`}{datalength > 0 ? <> sorted by <SortMenu currentSortValue={this.props.currentSortValue} tracker={this.tracker.bind(this)} updateSortMethod={this.updateSortMethod.bind(this)} /></> : null}</div>
         <div className="reviewItemContaier">
           <div className="container-Content">
             {Array.isArray(this.state.displayReview) && datalength > 0 ? this.state.displayReview.map((item) =>
-              < ReviewItem reviewData={item} key={item.review_id} reportReview={this.props.reportReview} updateIsHelpful={this.props.updateIsHelpful} />
+              < ReviewItem reviewData={item} key={item.review_id} reportReview={this.props.reportReview} updateIsHelpful={this.props.updateIsHelpful} tracker={this.tracker.bind(this)} />
 
             ) : null}
           </div>
         </div>
         {this.state.loadBtn ?
-          <button className="loadReviewBtn" data-testid="moreReviewBtn-testId" onClick={() => { this.handleMoreReviewClick() }}>MORE REVIEWS</button> : null}
-        <button className="addReviewBtn" data-testid="addReviewBtn-testId" onClick={() => this.handleAddReviewClick()}>ADD A REVIEW +</button>
-        {this.state.newReviewModalOpen ?
-          <NewReviewModal addNewReview={this.props.addNewReview} handleCloseReviewModal={this.handleCloseReviewModal.bind(this)} productName={this.props.productName} characteristics={this.props.characteristics} /> :
-          null}
-      </div>
+          <button className="loadReviewBtn" data-testid="moreReviewBtn-testId" onClick={() => { this.handleMoreReviewClick(); this.tracker('load more review button', 'reviewlist') }} >MORE REVIEWS</button> : null}
+        <button className="addReviewBtn" data-testid="addReviewBtn-testId" onClick={() => { this.handleAddReviewClick(); this.tracker('write new review button', 'reviewlist') }} >ADD A REVIEW +</button>
+        {
+          this.state.newReviewModalOpen ?
+            <NewReviewModal tracker={this.tracker.bind(this)} addNewReview={this.props.addNewReview} handleCloseReviewModal={this.handleCloseReviewModal.bind(this)} productName={this.props.productName} characteristics={this.props.characteristics} /> :
+            null
+        }
+      </div >
 
 
 
