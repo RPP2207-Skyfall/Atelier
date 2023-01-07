@@ -48,6 +48,10 @@ const uploadPhoto = (props) => {
 
   }
 
+  const tracker = (element, widget) => {
+    props.tracker(element, widget)
+  }
+
   return (
     <>
 
@@ -55,7 +59,7 @@ const uploadPhoto = (props) => {
         {imageStorage.length > 0 ?
           imageStorage.map((item, idx) =>
             <div className="preview-thumbnail-box" key={idx}>
-              <img className="thumbnail-photo" src={item.preview} alt={`upload-image-${idx}`} />
+              <img className="thumbnail-photo" loading="lazy" src={item.preview} alt={`upload-image-${idx}`} />
             </div>
           ) : null
         }
@@ -70,7 +74,7 @@ const uploadPhoto = (props) => {
                 </label>
               </button>
               <input type="file" accept="image/*" id="upload-btn" name="review-image" multiple hidden
-                onChange={handleUploadClick} /> <span>{`(${currentAmount}/${maximum})`}</span>
+                onChange={handleUploadClick} onClick={() => { tracker('uploadImage-btn', 'new-review-modal') }} /> <span>{`(${currentAmount}/${maximum})`}</span>
             </div>
             {showLimit ? <span>{msg}</span> : null}
           </> : null

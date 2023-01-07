@@ -23,7 +23,7 @@ class ImageGallery extends React.Component {
     // track the clicks
     Tracker.userInteraction(elem, widget);
 
-    this.props.clickTracker(clickData)
+    //this.props.clickTracker(clickData)
   }
 
 
@@ -35,13 +35,13 @@ class ImageGallery extends React.Component {
       let index = this.props.info.mainIndex;
       return (
         <div className="expanded-again-image-gallery">
-          <ZoomBox mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand}/>
+          <ZoomBox mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand} />
         </div>
       )
 
     }
 
-    if (this.props.info.styles.length !== 0 && !this.props.info.expanded ) {
+    if (this.props.info.styles.length !== 0 && !this.props.info.expanded) {
 
       let index = this.props.info.mainIndex;
 
@@ -51,7 +51,7 @@ class ImageGallery extends React.Component {
         return (
           <div className="default-image-gallery" data-testid="image-gallery-test">
 
-            <DefaultView  mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand}  />
+            <DefaultView mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand} />
             <Thumbnail
               info={this.props.info} currentThumbnails={this.props.currentThumbnails} index={index} updateMainPic={this.props.updateMainPic}
               images={this.props.currentStyle.photos} section={this.props.thumbnailSection} updateThumbnailSection={this.props.updateThumbnailSection}
@@ -70,7 +70,7 @@ class ImageGallery extends React.Component {
         return (
           <div className="default-image-gallery" data-testid="image-gallery-end-index">
 
-            <DefaultView  mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand} />
+            <DefaultView mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand} />
             <Thumbnail
               info={this.props.info} index={index} currentThumbnails={this.props.currentThumbnails} updateMainPic={this.props.updateMainPic}
               images={this.props.currentStyle.photos} section={this.props.thumbnailSection} updateThumbnailSection={this.props.updateThumbnailSection}
@@ -89,9 +89,9 @@ class ImageGallery extends React.Component {
         return (
           <div className="default-image-gallery" data-testid="image-gallery-between-index">
 
-            <DefaultView  mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand} />
+            <DefaultView mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand} />
             <Thumbnail
-              info={this.props.info} index={index}  currentThumbnails={this.props.currentThumbnails} updateMainPic={this.props.updateMainPic}
+              info={this.props.info} index={index} currentThumbnails={this.props.currentThumbnails} updateMainPic={this.props.updateMainPic}
               images={this.props.currentStyle.photos} section={this.props.thumbnailSection} updateThumbnailSection={this.props.updateThumbnailSection}
               checkThumb={this.props.checkThumb}
               thumbnailSection={this.props.thumbnailSection}
@@ -113,7 +113,7 @@ class ImageGallery extends React.Component {
       if (index === 0) {
         return (
           <div className="expanded-image-gallery" data-testid='image-gallery-expanded-test'>
-            <ExpandedView mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand}/>
+            <ExpandedView mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand} />
             <Thumbnail
               info={this.props.info} index={index} updateMainPic={this.props.updateMainPic}
               images={this.props.currentStyle.photos} section={this.props.thumbnailSection} updateThumbnailSection={this.props.updateThumbnailSection}
@@ -137,7 +137,7 @@ class ImageGallery extends React.Component {
       } else if (index === this.props.info.amount - 1) {
         return (
           <div className="expanded-image-gallery" data-testid='image-gallery-expanded-test'>
-            <ExpandedView mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand}/>
+            <ExpandedView mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand} />
             <Thumbnail
               info={this.props.info} index={index} updateMainPic={this.props.updateMainPic}
               images={this.props.currentStyle.photos} section={this.props.thumbnailSection} updateThumbnailSection={this.props.updateThumbnailSection}
@@ -161,7 +161,7 @@ class ImageGallery extends React.Component {
       } else {
         return (
           <div className="expanded-image-gallery" data-testid='image-gallery-expanded-test'>
-            <ExpandedView mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand}/>
+            <ExpandedView mainPic={this.props.currentStyle.photos[index].url} expand={this.props.handleExpand} />
             <Thumbnail
               info={this.props.info} index={index} updateMainPic={this.props.updateMainPic}
               images={this.props.currentStyle.photos} section={this.props.thumbnailSection} updateThumbnailSection={this.props.updateThumbnailSection}

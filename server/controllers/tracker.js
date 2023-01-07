@@ -3,13 +3,13 @@ require("dotenv").config();
 
 module.exports = {
   post_interactions: (req, res) => {
-    console.log('postInteractions req', req.body)
+    //console.log('postInteractions req', req.body)
 
     // create current time
     if (req.body !== undefined) {
       var interactionData = req.body
       interactionData['time'] = new Date
-      console.log(interactionData)
+      console.log('postInteractions: ', interactionData)
 
 
       Axios.defaults.headers.common['Authorization'] = process.env.REACT_APP_API_INTERACTION_KEY

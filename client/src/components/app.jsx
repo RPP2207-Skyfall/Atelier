@@ -34,11 +34,11 @@ class App extends React.Component {
       if (index === -1) {
         newList.push(currentID)
         console.log(newList)
-        this.setState({OutfitList: newList})
+        this.setState({ OutfitList: newList })
       } else {
         newList.splice(index, 1)
         console.log(newList)
-        this.setState({OutfitList: newList})
+        this.setState({ OutfitList: newList })
       }
     } else {
       console.log('not valid id pass')
@@ -50,8 +50,8 @@ class App extends React.Component {
     return (
       <>
         <ErrorBoundary>
-          <h3>Ateiler</h3>
-          <button onClick={() => Tracker.userInteraction("button", "app")} >test</button>
+          <div className="project-title">Ateiler</div>
+          {/* <button onClick={() => Tracker.userInteraction("button", "app")} >test</button> */}
           <Overview outfitList={this.state.OutfitList} toggleStar={this.toggleStar} CurrentItemID={this.state.CurrentItemID} updateCurrentItem={this.updateCurrentItem} />
           <RelatedItem outfitList={this.state.OutfitList} toggleStar={this.toggleStar} CurrentItemID={this.state.CurrentItemID} updateCurrentItem={this.updateCurrentItem} />
           <QandA product_name={this.state.CurrentItemName} product_id={this.state.CurrentItemID}/>

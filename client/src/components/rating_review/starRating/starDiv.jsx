@@ -9,7 +9,7 @@ const starDiv = (props) => {
 
           <div className="star-container" key={idx}>
             <div className="star-fill" style={{ "width": `${width}%` }}>
-              <img className="star-outline" alt="star-image" src="star.png"></img>
+              <img className="star-outline" loading="lazy" alt="star-image" src="star.png"></img>
             </div>
           </div>
 

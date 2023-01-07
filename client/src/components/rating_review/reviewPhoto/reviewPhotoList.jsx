@@ -10,7 +10,7 @@ const reviewPhotoList = (props) => {
   return (
     <div className="photoContainer">
       {props.photoList.map((photo) =>
-        <PhotoItem photo={photo} key={photo.id} />
+        <PhotoItem photo={photo} key={photo.id} tracker={props.tracker} />
       )}
     </div>
 

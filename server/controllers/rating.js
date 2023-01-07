@@ -6,7 +6,6 @@ exports.getRating = (req, res) => {
   var requestOption = {
     headers: {
       "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN,
-      "Accept-Encoding": 'gzip',
       "Content-Encoding": 'gzip'
     }
   }
@@ -23,7 +22,7 @@ exports.getRating = (req, res) => {
       var averageRate = Math.round(points / numOfRate * 10) / 10;
       // console.log('aveRating', averageRate)
       //notice the returning data is String
-      return res.status(200).send({averageRate: String(averageRate), reviewWidget: rateObj})
+      return res.status(200).send({ averageRate: String(averageRate), reviewWidget: rateObj })
     })
     .catch(err => {
       console.log("Err: ", err)

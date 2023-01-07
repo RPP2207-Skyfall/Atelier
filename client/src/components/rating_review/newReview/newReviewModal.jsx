@@ -39,7 +39,7 @@ const newReviewModal = (props) => {
 
     (async () => {
 
-      let characterTable = await helpers.generateCharacteristicTable(characteristicsObj)
+      let characterTable = await helpers.generateCharacteristicTable(characteristicsObj, props.tracker)
       //console.log(characterTable)
       setCharacterTable(characterTable)
       characterTableLength = characterTable.length
@@ -64,12 +64,6 @@ const newReviewModal = (props) => {
     setEmailErrorMsg("")
   }, [email])
 
-  // useEffect(() => {
-  //   if (errorStarMsg.length === 0 && charErrorMsg.length === 0 && summaryErrorMsg.length === 0 && bodyErrorMsg.length === 0 && nicknameErrorMsg.length === 0 && emailErrorMsg.length === 0) {
-  //     setSubmitReady(true)
-  //   }
-
-  // }, [errorStarMsg, charErrorMsg, summaryErrorMsg, bodyErrorMsg, nicknameErrorMsg, emailErrorMsg])
 
   const handleCloseClick = () => {
     props.handleCloseReviewModal()
@@ -194,6 +188,10 @@ const newReviewModal = (props) => {
 
   }
 
+  const tracker = (element, widget) => {
+    props.tracker(element, widget)
+  }
+
 
   return (
     <>
@@ -206,15 +204,15 @@ const newReviewModal = (props) => {
               <div className="new-review-subtitle">{`About the ${props.productName}`}</div>
 
               <div className="overall-rating-section">
-                <OverallStar starSelection={starSelection} errorStarMsg={errorStarMsg} />
+                <OverallStar starSelection={starSelection} errorStarMsg={errorStarMsg} tracker={tracker} />
               </div>
               <div className="new-recommend-section" onChange={recommendSelect}>
                 <div>Do you recommend this product? </div>
                 <div className="input-radio">
-                  <input type="radio" name="recommend-select" value="true" defaultChecked />  Yes
+                  <input type="radio" name="recommend-select" value="true" defaultChecked onClick={() => { tracker('recommend-yes-btn', 'new-review-modal') }} />  Yes
                 </div>
                 <div className="input-radio">
-                  <input type="radio" name="recommend-select" value="false" />  No
+                  <input type="radio" name="recommend-select" value="false" onClick={() => { tracker('recommend-yes-btn', 'new-review-modal') }} />  No
                 </div>
               </div>
 
@@ -224,24 +222,24 @@ const newReviewModal = (props) => {
               </div>
 
               <div className="review-summary-section">
-                <NewSummary summaryInput={summaryInput} />
+                <NewSummary summaryInput={summaryInput} tracker={tracker} />
               </div>
 
               <div className="review-body-section">
-                <NewBody bodyInput={bodyInput} bodyErrorMsg={bodyErrorMsg} />
+                <NewBody bodyInput={bodyInput} bodyErrorMsg={bodyErrorMsg} tracker={tracker} />
               </div>
 
               <div className="photo-upload-section">
-                <UploadPhoto UploadErrorMsg={UploadErrorMsg} addToPhotoArr={addToPhotoArr} />
+                <UploadPhoto UploadErrorMsg={UploadErrorMsg} addToPhotoArr={addToPhotoArr} tracker={tracker} />
               </div>
 
               <div className="user-info-section">
-                <UserInfo useInfo={useInfo} nicknameErrorMsg={nicknameErrorMsg} emailErrorMsg={emailErrorMsg} />
+                <UserInfo useInfo={useInfo} nicknameErrorMsg={nicknameErrorMsg} emailErrorMsg={emailErrorMsg} tracker={tracker} />
               </div>
 
               <div className="button-section">
-                <button className="review-modal-closeBtn" data-testid={`close-click`} onClick={() => { handleCloseClick() }} >Close</button>
-                <button className="review-modal-submitBtn" data-testid={`submit-click`} onClick={handleSubmit}>Submit</button>
+                <button className="review-modal-closeBtn" data-testid={`close-click`} onClick={() => { handleCloseClick(); tracker('close-btn', 'new-review-modal') }}  >Close</button>
+                <button className="review-modal-submitBtn" data-testid={`submit-click`} onClick={() => { handleSubmit; tracker('close-btn', 'new-review-modal') }}>Submit</button>
               </div>
             </div>
           </div>

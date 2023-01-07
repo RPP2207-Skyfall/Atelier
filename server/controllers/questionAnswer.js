@@ -3,27 +3,26 @@ require("dotenv").config();
 
 module.exports = {
   getProductQA: (req, res) => {
-  var url = process.env.REACT_APP_API_QA_URL;
-  var requestOption = {
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": process.env.REACT_APP_API_QA_KEY,
-      "Accept-Encoding": 'gzip',
-      "Content-Encoding": 'gzip'
-    },
-    params: {
-      product_id: req.body.product_id,
-      count: 15
-    }
-  };
-  Axios.get(url, requestOption)
-    .then(result => {
-      res.send(result.data);
-    })
-    .catch(err => {
-      console.log("Err: ", err);
-      res.send(err);
-    })
+    var url = process.env.REACT_APP_API_QA_URL;
+    var requestOption = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": process.env.REACT_APP_API_QA_KEY,
+        "Content-Encoding": 'gzip'
+      },
+      params: {
+        product_id: req.body.product_id,
+        count: 15
+      }
+    };
+    Axios.get(url, requestOption)
+      .then(result => {
+        res.send(result.data);
+      })
+      .catch(err => {
+        console.log("Err: ", err);
+        res.send(err);
+      })
   },
 
   addNewQuestion: (req, res) => {
@@ -32,7 +31,6 @@ module.exports = {
       headers: {
         "Content-Type": "application/json",
         "Authorization": process.env.REACT_APP_API_QA_KEY,
-        "Accept-Encoding": 'gzip',
         "Content-Encoding": 'gzip'
       }
     };
@@ -61,7 +59,6 @@ module.exports = {
       headers: {
         "Content-Type": "application/json",
         "Authorization": process.env.REACT_APP_API_QA_KEY,
-        "Accept-Encoding": 'gzip',
         "Content-Encoding": 'gzip'
       }
     };
