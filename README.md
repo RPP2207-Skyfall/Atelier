@@ -32,3 +32,14 @@ type
 To start the client, inside the console/terminal:
 type 
   `npm run client-dev`
+
+## Packages/Technologies Used
+1. Babel
+2. Jest (Test)
+3. Webpack
+4. Material UI
+5. Axios
+6. Bluebird
+7. ExpressJS
+8. NodeJS
+9. React
