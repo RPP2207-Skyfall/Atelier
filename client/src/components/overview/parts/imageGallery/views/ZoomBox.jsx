@@ -103,15 +103,9 @@ function ZoomBox(props) {
         }}
       >
 
-<<<<<<< HEAD
-        <img className='zoom-box-img' loading="lazy" id="myimage" src={props.mainPic}
+        <img className='zoom-box-img' id="myimage" src={props.mainPic}
           onLoad={onLoad}
-          alt="style" />
-=======
-        <img  className='zoom-box-img' id="myimage" src={props.mainPic}
-        onLoad={onLoad}
-        alt="style" onClick={() => props.expand('zoom-box-img', 'overview')}/>
->>>>>>> master
+          alt="style" onClick={() => props.expand('zoom-box-img', 'overview')} />
       </div>
 
     </div>

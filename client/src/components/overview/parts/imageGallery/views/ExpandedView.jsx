@@ -29,11 +29,7 @@ function ExpandedView(props) {
     return (
       <div className="expanded-view">
         {/* <h1>Default View</h1> */}
-<<<<<<< HEAD
-        <img className="expanded-image" id="exp-img" loading="lazy" src={props.mainPic} alt="style" onClick={() => props.expand({ elem: 'expanded-image', time: Date.now() })} />
-=======
-        <img className="expanded-image" id="exp-img" src={props.mainPic} alt="style" onClick={() => props.expand('expanded-image', 'overview')}/>
->>>>>>> master
+        <img className="expanded-image" id="exp-img" src={props.mainPic} alt="style" onClick={() => props.expand('expanded-image', 'overview')} />
       </div>
     )
 

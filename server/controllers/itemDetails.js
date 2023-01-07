@@ -31,7 +31,7 @@ exports.getRelatedMetaData = async (req, res) => {
           })
           .catch(err => {
             console.log("Err1: ", err)
-            res.sendStatus(429)
+            //res.sendStatus(429)
 
           }))
         promiseArr.push(Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}/styles`, requestOption)
@@ -40,7 +40,7 @@ exports.getRelatedMetaData = async (req, res) => {
           })
           .catch(err => {
             console.log("Err2: ", err)
-            res.send(429)
+            //res.sendStatus(429)
           }))
         promiseArr.push(Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${id}`, requestOption)
           .then((response) => {
@@ -49,7 +49,7 @@ exports.getRelatedMetaData = async (req, res) => {
           })
           .catch(err => {
             console.log("Err3: ", err)
-            res.send(429)
+            //res.sendStatus(429)
           }))
       }
       return promiseArr

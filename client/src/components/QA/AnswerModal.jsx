@@ -1,4 +1,4 @@
-and thisimport React from 'react';
+import React from 'react';
 import Axios from 'axios';
 import Modal from 'react-modal';
 import Box from '@mui/material/Box';

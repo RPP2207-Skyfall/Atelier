@@ -48,6 +48,10 @@ const uploadPhoto = (props) => {
 
   }
 
+  const tracker = (element, widget) => {
+    props.tracker(element, widget)
+  }
+
   return (
     <>
 
@@ -70,7 +74,7 @@ const uploadPhoto = (props) => {
                 </label>
               </button>
               <input type="file" accept="image/*" id="upload-btn" name="review-image" multiple hidden
-                onChange={handleUploadClick} /> <span>{`(${currentAmount}/${maximum})`}</span>
+                onChange={handleUploadClick} onClick={() => { tracker('uploadImage-btn', 'new-review-modal') }} /> <span>{`(${currentAmount}/${maximum})`}</span>
             </div>
             {showLimit ? <span>{msg}</span> : null}
           </> : null

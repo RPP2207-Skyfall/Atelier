@@ -184,7 +184,7 @@ const helpers = {
     return characteristicsArr
 
   },
-  generateCharacteristicTable: (characteristicsObj) => {
+  generateCharacteristicTable: (characteristicsObj, tracker) => {
 
     const definitionObj = {
       Size: ['A size too small', '½ a size too small', 'Perfect', '½ a size too big', 'A size too wide'],
@@ -217,7 +217,14 @@ const helpers = {
             {definitionObj[key].map((definition, idx) => {
 
               return (
-                <input key={'inputBtn' + key + idx} data-testid={'inputBtn' + key + idx} className="inputBtn" type="radio" name={`characteristic-select-${key}`} value={[characteristicsObj[key].id, idx + 1, definition]} />
+                <input
+                  key={'inputBtn' + key + idx}
+                  data-testid={'inputBtn' + key + idx}
+                  className="inputBtn"
+                  type="radio"
+                  name={`characteristic-select-${key}`}
+                  value={[characteristicsObj[key].id, idx + 1, definition]}
+                  onClick={() => { tracker(`${definition}-btn`, 'new-review-modal') }} />
               )
             })}
           </div>
