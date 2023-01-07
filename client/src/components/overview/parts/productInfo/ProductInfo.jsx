@@ -15,6 +15,8 @@ function ProductInfo(props) {
   }
 
 
+  console.log('props in PI', props)
+
 
   if (props.info.data === undefined) {
     return (
