@@ -5,15 +5,37 @@ require("dotenv").config();
 exports.getRelatedMetaData = async (req, res) => {
   var ID = req.query.id;
   // console.log('ID', ID)
-  var requestOption = {
+  var requestOptionOne = {
+    headers: {
+      "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY,
+      "Accept-Encoding": 'gzip',
+      "Content-Encoding": 'gzip'
+    }
+  }
+  var requestOptionTwo = {
     headers: {
       "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN,
       "Accept-Encoding": 'gzip',
       "Content-Encoding": 'gzip'
     }
   }
+  var requestOptionThree = {
+    headers: {
+      "Authorization": process.env.REACT_APP_API_QA_KEY,
+      "Accept-Encoding": 'gzip',
+      "Content-Encoding": 'gzip'
+    }
+  }
 
-  await Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${ID}/related`, requestOption)
+  var requestOptionFour = {
+    headers: {
+      "Authorization": process.env.REACT_APP_API_RELATED_TOKEN,
+      "Accept-Encoding": 'gzip',
+      "Content-Encoding": 'gzip'
+    }
+  }
+
+  await Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${ID}/related`, requestOptionOne)
     .then((result) => {
       var idArr = result.data;
       idArr.unshift(Number(ID))
@@ -25,31 +47,27 @@ exports.getRelatedMetaData = async (req, res) => {
       var promiseArr = [];
       for (var x = 0; x < idArr.length; x++) {
         id = idArr[x]
-        promiseArr.push(Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}`, requestOption)
+        promiseArr.push(Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}`, requestOptionTwo)
           .then((response) => {
             return response.data
           })
           .catch(err => {
-            console.log("Err1: ", err)
-            //res.sendStatus(429)
-
+            console.log("Err: ", err)
           }))
-        promiseArr.push(Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}/styles`, requestOption)
+        promiseArr.push(Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}/styles`, requestOptionThree)
           .then((response) => {
             return response.data
           })
           .catch(err => {
-            console.log("Err2: ", err)
-            //res.sendStatus(429)
+            console.log("Err: ", err)
           }))
-        promiseArr.push(Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${id}`, requestOption)
+        promiseArr.push(Axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${id}`, requestOptionFour)
           .then((response) => {
             var rateObj = response.data.ratings;
             return rateObj
           })
           .catch(err => {
-            console.log("Err3: ", err)
-            //res.sendStatus(429)
+            console.log("Err: ", err)
           }))
       }
       return promiseArr
