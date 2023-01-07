@@ -801,6 +801,8 @@ main {
   flex-direction: row;
   flex-wrap: wrap;
 
+  /* new */
+  gap: 5px;
 }
 
 .pick-product-image {
@@ -831,6 +833,8 @@ main {
 
 .style-image-selected {
   border-radius: 50%;
+  height: 55px;
+  width: 55px;
   border: 1px solid blue;
 }
 
