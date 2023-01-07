@@ -28,6 +28,7 @@ class QandA extends React.Component {
     this.getProductQA = this.getProductQA.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.loadMoreAnsweredQs = this.loadMoreAnsweredQs.bind(this);
+    this.updateTracker = this.updateTracker.bind(this);
   };
 
   componentDidMount() {
@@ -50,7 +51,6 @@ class QandA extends React.Component {
       for (var i = 0; i < temp.length; i++) {
         storage[temp[i]['question_id']] = false;
       }
-      console.log(storage);
       this.setState({
         isAModalOpen: storage
       })
@@ -77,16 +77,10 @@ class QandA extends React.Component {
           })
         };
         sortedQA = await sortingQA(productQA);
-        // var id1 = sortedQA[0]['question_id'];
-        // var id2 = sortedQA[1]['question_id'];
         this.setState({
           QA: sortedQA,
           QA_shown: [sortedQA[0], sortedQA[1]],
           isQAEmpty: false
-          // isAModalOpen: {
-          //   [id1]: false,
-          //   [id2]: false
-          // }
         })
       }
     }
@@ -139,8 +133,7 @@ class QandA extends React.Component {
     }
   };
 
-  loadMoreAnsweredQs(e) {
-    e.preventDefault();
+  loadMoreAnsweredQs() {
     var newQA_shown = this.state.QA_shown;
     var currentShownIdx = this.state.QA_shown.length;
     for (var i = 0; i < 2; i++) {
@@ -160,6 +153,10 @@ class QandA extends React.Component {
     }
   };
 
+  updateTracker(element, widget) {
+    this.props.tracker(element, widget)
+  }
+
   render() {
     if (this.state.product_id === undefined) {
       throw new Error('no product_id detected');
@@ -171,16 +168,16 @@ class QandA extends React.Component {
         {this.state.isQAEmpty ?
           <React.Fragment>
             <p>Seems like there is no question posted for this product...</p>
-            <Button variant='outlined' size='medium' onClick={this.handleQModalOpen} data-testid='question-and-answer-add-question-btn' className='question-and-answer-add-question-btn'>ADD A QUESTION <AddIcon /></Button>
+            <Button variant='outlined' size='medium' onClick={() => {this.handleQModalOpen(); this.updateTracker('ADD A QUESTION BUTTON', 'QandA')}} data-testid='question-and-answer-add-question-btn' className='question-and-answer-add-question-btn'>ADD A QUESTION <AddIcon /></Button>
           </React.Fragment> :
           <div className='question-and-answer-main-components'>
-            <Search className='question-and-answer-search-bar' data-testid='question-and-answer-search-bar' handleSearch={this.handleSearch} />
+            <Search className='question-and-answer-search-bar' data-testid='question-and-answer-search-bar' handleSearch={this.handleSearch} updateTracker={this.updateTracker}/>
             <div className='question-and-answer-main-components-scrollable'>
-              <QAList list={this.state.QA_shown} data-testid='question-and-answer-qalist' handleAModalOpen={this.handleAModalOpen} isAModalOpen={this.state.isAModalOpen} handleAModalClose={this.handleAModalClose} product_name={this.state.product_name} />
+              <QAList list={this.state.QA_shown} data-testid='question-and-answer-qalist' handleAModalOpen={this.handleAModalOpen} isAModalOpen={this.state.isAModalOpen} handleAModalClose={this.handleAModalClose} product_name={this.state.product_name} updateTracker={this.updateTracker}/>
             </div>
             <Stack spacing={1} direction={{ xs: 'column', xs: 'row' }}>
-              {this.state.isLastQuestion ? null : <Button variant='outlined' size='medium' className='question-and-answer-more-question-btn' data-testid='question-and-answer-more-question-btn' onClick={this.loadMoreAnsweredQs}>MORE ANSWERED QUESTIONS</Button>}
-              <Button variant='outlined' size='medium' onClick={this.handleQModalOpen} className='question-and-answer-add-question-btn' data-testid='question-and-answer-add-question-btn'>ADD A QUESTION <AddIcon /></Button>
+              {this.state.isLastQuestion ? null : <Button variant='outlined' size='medium' className='question-and-answer-more-question-btn' data-testid='question-and-answer-more-question-btn' onClick={() => {this.loadMoreAnsweredQs(); this.updateTracker('MORE ANSWERED QUESTIONS BUTTON', 'QandA')}}>MORE ANSWERED QUESTIONS</Button>}
+              <Button variant='outlined' size='medium' onClick={() => {this.handleQModalOpen(); this.updateTracker('ADD A QUESTION BUTTON', 'QandA');}} className='question-and-answer-add-question-btn' data-testid='question-and-answer-add-question-btn'>ADD A QUESTION <AddIcon /></Button>
             </Stack>
           </div>
         }

@@ -32,6 +32,7 @@ class QAItem extends React.Component {
     this.handleMoreAnswer = this.handleMoreAnswer.bind(this);
     this.handleCollapseExpand = this.handleCollapseExpand.bind(this);
     this.handleReport = this.handleReport.bind(this);
+    this.updateTracker = this.updateTracker.bind(this);
   };
 
   componentDidMount() {
@@ -128,6 +129,10 @@ class QAItem extends React.Component {
     }
   };
 
+  updateTracker(element, widget) {
+    this.props.updateTracker(element, widget)
+  }
+
   render() {
 
     return (
@@ -139,18 +144,18 @@ class QAItem extends React.Component {
           <Grid xs={5}>
             <Stack spacing={1} direction='row'>
               <p>Helpful?</p>
-              <p className='qaitem-question-helpful-count' onClick={() => { this.isQHelpful() }}>Yes</p><p data-testid='qaitem-question-helpful-count'>({this.state.QhelpfulCount})</p>
+              <p className='qaitem-question-helpful-count' onClick={() => { this.isQHelpful(); this.updateTracker('Helpful? Q','QAItem') }}>Yes</p><p data-testid='qaitem-question-helpful-count'>({this.state.QhelpfulCount})</p>
               <p>|</p>
-              <p className='qaitem-add-answer' data-testid='qaitem-add-answer' onClick={this.handleAModalOpen}>Add Answer</p>
+              <p className='qaitem-add-answer' data-testid='qaitem-add-answer' onClick={() => {this.handleAModalOpen(); this.updateTracker('ADD ANSWER', 'QAItem');}}>Add Answer</p>
               <p> | </p>
-              {this.state.isReported ? <p className='questionitem-reported' data-testid='questionitem-reported' onClick={this.handleReport}>Reported</p> : <p className='questionitem-report' data-testid='questionitem-report' onClick={this.handleReport}>Report</p>}
+              {this.state.isReported ? <p className='questionitem-reported' data-testid='questionitem-reported' onClick={() => {this.handleReport(); this.updateTracker('Reported', 'QAItem');}}>Reported</p> : <p className='questionitem-report' data-testid='questionitem-report' onClick={() => {this.handleReport(); this.updateTracker('Report', 'QAItem');}}>Report</p>}
             </Stack>
           </Grid>
           <div className='qaitem-alist-scrollable'>
-            <AnswerList list={this.state.A_List_Shown} />
+            <AnswerList list={this.state.A_List_Shown} updateTracker={this.updateTracker}/>
           </div>
         </Grid>
-        {this.state.moreAnswerBtn ? <Button className='qaitem-more-answers-btn' data-testid='qaitem-more-answers-btn' onClick={this.handleMoreAnswer}>See more answers</Button> : <>{this.state.isLastAnswer ? null : <Button className='qaitem-collapse-answers-btn' onClick={this.handleCollapseExpand}>Collapse answers</Button>}</>}
+        {this.state.moreAnswerBtn ? <Button className='qaitem-more-answers-btn' data-testid='qaitem-more-answers-btn' onClick={() => {this.handleMoreAnswer(); this.updateTracker('See more answers', 'QAItem');}}>See more answers</Button> : <>{this.state.isLastAnswer ? null : <Button className='qaitem-collapse-answers-btn' onClick={() => {this.handleCollapseExpand(); this.updateTracker('Collpase answers', 'QAItem');}}>Collapse answers</Button>}</>}
         <AnswerModal isAModalOpen={this.props.isAModalOpen} handleAModalClose={this.props.handleAModalClose} question={this.state.Q} product_name={this.props.product_name} question_id={this.props.question_id} />
       </div>
     )
