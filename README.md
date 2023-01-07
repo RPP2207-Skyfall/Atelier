@@ -4,6 +4,7 @@
 - Team Skyfall
 - Deployed @ http://44.206.247.108:3000/
 
+
 ## Widge Leaders:
 - Overview - Josh Krebs
 - Questions and Answers - Howard Yoon
@@ -43,3 +44,9 @@ type
 7. ExpressJS
 8. NodeJS
 9. React
+
+## Screenshots
+![Screenshot 2023-01-07 at 1 33 08 PM](https://user-images.githubusercontent.com/34286313/211171133-0b2f7317-3cd2-4908-81eb-885e83adff65.png)
+![Screenshot 2023-01-07 at 1 33 21 PM](https://user-images.githubusercontent.com/34286313/211171134-890dd04c-89d6-4ca3-9053-92c8ef544bc7.png)
+![Screenshot 2023-01-07 at 1 33 32 PM](https://user-images.githubusercontent.com/34286313/211171135-3d6c3dd8-24b7-4985-9ec7-9725450908c5.png)
+![Screenshot 2023-01-07 at 1 33 43 PM](https://user-images.githubusercontent.com/34286313/211171136-d332ad32-7c84-495e-ab4a-8327df7e6c81.png)
