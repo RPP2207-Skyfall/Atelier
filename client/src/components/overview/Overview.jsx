@@ -243,7 +243,7 @@ class Overview extends React.Component {
           rating: results[2][1],
           done: true
 
-        })
+        }
       })
       .catch((err) => {
         console.log('there is an error with teh promis.all')
@@ -466,6 +466,7 @@ class Overview extends React.Component {
           </div>
         )
       }
+
       return (
 
         <>
@@ -478,7 +479,7 @@ class Overview extends React.Component {
               />
             </div>
             <div className="product-info-container">
-              <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} />
+              <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} desc={this.state.description} />
               <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle} />
               <AddToCart
                 currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
