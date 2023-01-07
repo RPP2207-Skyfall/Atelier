@@ -33,11 +33,11 @@ const RelatedItem = (props) => {
   const [OutfitLeftArr, setOutfitLeftArr] = useState(false);
   const [OutfitRightArr, setOutfitRightArr] = useState(false);
 
-  useEffect (()=> {
-        //first render
-    getRelatedMetaData(mainItemId)
-    getOutfitMetaData(passDownOutfitList)
-  }, [])
+  // useEffect (()=> {
+  //       //first render
+  //   getRelatedMetaData(mainItemId)
+  //   getOutfitMetaData(passDownOutfitList)
+  // }, [])
 
 // When main ID update triger state change
   useEffect (()=> {
