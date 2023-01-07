@@ -170,7 +170,7 @@ class QuestionModal extends React.Component {
                 value={this.state.question}
                 error={!!this.state.questionError}
                 helperText={this.state.questionError}
-                onChange={this.handleInput}
+                onChange={this.validateInput}
                 required>
               </TextField>
             </Stack>
@@ -186,7 +186,7 @@ class QuestionModal extends React.Component {
                 value={this.state.email}
                 error={!!this.state.emailError}
                 helperText={this.state.emailError}
-                onChange={this.handleInput}
+                onChange={this.validateInput}
                 required>
               </TextField>
               <p className='QModal-Email-Disclaimer'>For authentication reasons, you will not be emailed</p>
@@ -198,11 +198,12 @@ class QuestionModal extends React.Component {
                 label='nickname'
                 data-testid='QModal-Nickname'
                 placeholder="Howard878"
+                fullWidth
                 inputProps={{maxLength: 60}}
                 value={this.state.nickname}
                 error={!!this.state.nicknameError}
                 helperText={this.state.nicknameError}
-                onChange={this.handleInput}
+                onChange={this.validateInput}
                 required>
               </TextField>
               <p className='QModal-Nickname-Disclaimer'>For privacy reasons, do not use your full name or email address</p>
