@@ -552,30 +552,30 @@ main {
 /**********************************************/
 /****** Style for Overview widget****/
 
+
+
 .overview-container {
-
-  /* old----  */
-
-
-  /* margin: 5rem;
-  /* padding: 10px; */
-  /* top: -50vh;
-  height: 35rem;
-  width: 50rem; */
-
-  margin: 5rem;
-    /* padding: 10px; */
-    top: -50vh;
-    height: 40rem;
-    width: 50rem;
-
+  margin-top: 5%;
+  display: flex;
 }
 
-/* Product details */
+/* image gallery */
+/* default view */
 
-.main-product-details {
-  top: -72vh;
-  position: relative;
+.image-gallery-container {
+  width: 60%;
+}
+
+.product-info-container {
+  width: 40%;
+  padding-left: 15px;
+}
+
+.details-container {
+  margin-top: 25px;
+  margin-bottom: 50px;
+  width: 100%;
+  padding: 2% 10% 2% 10%;
 }
 
 .product-details-desc {
@@ -587,100 +587,53 @@ main {
   font-weight: bold;
 }
 
-/* image gallery */
-
-/* default view */
-
 .default-image-gallery {
-  /* old ----- */
-  /* position: relative;
-  padding-bottom: 100px;
-  margin-bottom: 100px;
-  height: 50vh;
-  width: 50vw;
-  top: -70vh;
-  left: -10vw; */
-
-
   position: relative;
-  padding-bottom: 100px;
-  margin-bottom: 100px;
-  height: 50vh;
-  width: 50vw;
-  top: -95vh;
-  left: -15vw;
 }
 
 .default-view {
-  position: relative;
-  top: 0;
-  left: 0;
+  padding-top: 100%;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
 }
 
 .default-image {
-
-  /* old ------ */
-
-
-  /* height: 65vh;
-  max-width: 65vh;
-  width: 65vh;
-  position: absolute;
-  cursor: zoom-in; */
-
-  height: 80vh;
-  max-width: 80vh;
-  width: 80vh;
-  position: absolute;
   cursor: zoom-in;
 }
-
 
 .thumbnail {
   display: flex;
   /* flex: 1 1 0; */
-  height: 3rem;
-  width: 3rem;
+  height: 50px;
+  width: 50px;
   border: 1px solid black;
   box-sizing: border-box;
+  margin-bottom: 10px;
 
 }
 
 .selected-thumbnail {
   display: flex;
   /* flex: 1 1 0; */
-
-  height: 3rem;
-  width: 3rem;
-
+  height: 50px;
+  width: 50px;
   border: 2px solid rgb(125, 125, 188);
   box-sizing: border-box;
 
 }
 
 .thumbnail-container {
-  /* OLD --------- */
-
-
-  /* position: relative;
-  display: flex;
-  gap: 10px;
-  left: 2%;
-  top: 4vh;
+  position: absolute;
+  left: 2.5%;
+  top: 2.5%;
+  margin: 10px 10px;
+  height: 80%;
   display: flex;
   flex-direction: column;
-  width: 10%;
-  z-index: 1; */
-
-  position: relative;
-  display: flex;
-  gap: 10px;
-  left: 2%;
-  top: 11vh;
-  display: flex;
-  flex-direction: column;
-  width: 10%;
   z-index: 1;
+  transform: translate(0, 0%);
+  width: 50px;
 }
 
 .thumbnail-buttons {
@@ -695,59 +648,34 @@ main {
 .thumbnail-backwards {
   display: flex;
   flex-direction: column;
-  position: relative;
-  top: -24.5em;
-
-  /* new */
-
-  padding: 0;
-  border: none;
-  background: none;
+  /* position: relative; */
+  top: -24em;
 }
 
 .thumbnail-forwards {
   display: flex;
   flex-direction: column;
-  position: relative;
-  top: -2em;
-
-  /* new */
-
-  padding: 0;
-  border: none;
-  background: none;
+  /* position: relative; */
+  top: -3em;
 }
 
 .main-slider {
-  /* old ----- */
-  position: relative;
   z-index: 1;
-  left: 24%;
-  top: -70%;
-
-  /* new ----- */
-  position: relative;
-  z-index: 1;
-  left: 9%;
-  top: -70%;
-}
-
-.main-slider .main-forward {
-  position: relative;
-  left: 42%;
-  padding: 0;
-  border: none;
-  background: none;
-  font-size: 40px;
+  position: absolute;
+  width: 75%;
+  right: 5%;
+  top: 50%;
+  transform: translate(0%, -50%);
 }
 
 .main-slider .main-backward {
-  position: relative;
-  left: 10%;
-  padding: 0;
-  border: none;
-  background: none;
-  font-size: 40px;
+  position: absolute;
+  left: 0%;
+}
+
+.main-slider .main-forward {
+  position: absolute;
+  right: 0%;
 }
 
 /* expanded-view */
@@ -769,7 +697,7 @@ main {
 }
 
 .expanded-image {
-  height: 57vh;
+  height: 50vh;
   width: 100vw;
   position: absolute;
   cursor: zoom-in;
@@ -820,40 +748,25 @@ main {
 
 .zoom-btn {
   position: relative;
-  top: 10rem;
-  left: 2rem;
+
 }
 
 .zoom-box-container {
-  /* position: relative;
+  position: relative;
   top: -100px;
   left: 100px;
   height: 100%;
   width: 100%;
   margin: 105px;
-  color: blue; */
-
-  overflow: auto;
-
-  /* ---- new  */
-
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-  /* margin: 105px; */
   color: blue;
+
   overflow: auto;
 }
 
 .zoom-box-img {
   height: 75vh;
   width: 75vw;
-  transform: scale(2.5);
-  cursor: zoom-out;
-
+  transform: scale(1.5);
 }
 
 .img-magnifier-glass {
@@ -867,61 +780,44 @@ main {
 /* Style Selector */
 
 .style-container {
-  height: 300px;
-  width: 400px;
+  width: 100%;
   position: relative;
-  left: 60%;
 }
 
 .styles-holder {
-  /* display: flex;
-  flex-direction: row;
-  flex-wrap: wrap; */
-
-/* new */
   display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    /* margin: 10px; */
-    position: relative;
-    z-index: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
 
 }
 
-.current-style {
+.pick-product-image {
+  position: relative;
+  margin: 10px;
+}
+
+/* .current-style {
   flex: 1 0 21%;
   margin: 3px;
-}
+} */
 
 .style-image {
-  /* new ----- */
-
-  /* height: 75rem;
-  width: 75rem; */
-
-
-  /* old ---- */
-
-  height: 75px;
-  width: 75px;
-
+  height: 55px;
+  width: 55px;
   border-radius: 50%;
 }
 
-.current-style-selected {
-  flex: 1 0 21%;
-  margin: 3px;
-}
+.current-style-selected {}
 
 .selected-style-icon {
   height: 10px;
   width: 10px;
-
+  position: absolute;
+  right: 5%;
+  top: 5%;
 }
 
 .style-image-selected {
-  height: 75px;
-  width: 75px;
   border-radius: 50%;
   border: 1px solid blue;
 }
@@ -930,7 +826,6 @@ main {
 
 .product-info {
   position: relative;
-  left: 60%;
   margin: 10px;
 }
 
@@ -963,63 +858,41 @@ main {
 /* Add to cart */
 
 .add-to-cart-container {
-
-  /* old ------ */
-  /* width: 40px;
+  margin-top: 20px;
+  width: 100%;
   position: relative;
-  left: 56%;
-  top: -17%;
+}
 
-
-  margin-top: 2rem; */
-
-  width: 40px;
-  position: relative;
-  left: 56%;
-  top: -17%;
-  margin-top: 8rem;
+.rotate-v {
+  transform: rotate(180deg);
 }
 
 .add-to-cart-dropdown-closed {
   border: 1px solid black;
   position: relative;
-  left: 5%;
-  top: -55%;
-  width: 40vw;
   text-align: center;
+  width: 55%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  align-items: center;
 }
 
 .add-to-cart-dropdown-open {
-  /* border: 1px solid black;
-  position: relative;
-  left: 60%;
+  border: 1px solid black;
+  /* position: relative; */
   top: -25%;
   width: 40vw;
   height: 20%;
   text-align: center;
   display: flex;
   flex-direction: column;
-  overflow-y: auto; */
-
-  /* new ----- */
-
-  border: 1px solid black;
-  position: relative;
-  left: 60%;
-  top: -25%;
-  width: 40vw;
-  height: 7vh;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
   overflow-y: auto;
-
 }
 
 .add-to-cart-dropdown-selected {
   border: 1px solid black;
   position: relative;
-  left: 60%;
   top: -25%;
   width: 40vw;
   text-align: center;
@@ -1031,16 +904,17 @@ main {
 
 .quantity-selector-start {
   position: relative;
-  top: 0px;
-  left: 9%;
   border: 1px solid black;
-  width: 50px;
-  height: 50px;
   text-align: center;
+  width: 35%;
+  margin-left: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .quantity-selector-start-size {
-  position: relative;
+  /* position: relative; */
   top: 0px;
   left: 63%;
   border: 1px solid black;
@@ -1079,56 +953,45 @@ main {
 .add-to-bag-container {
   position: relative;
   display: flex;
-  top: -46px;
-  width: 445px;
   flex-direction: row;
+  margin-top: 10px;
 }
 
 .add-to-bag-button {
   position: relative;
-  border: 1 px solid;
   border: 1px solid black;
-  width: 40vw;
-  left: 23px;
-  top: 15px;
-  height: 50px;
   text-align: center;
+  width: 70%;
+  display: flex;
+  height: 40px;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .add-to-bag-plus {
   position: relative;
-  /* border: 1px solid; */
-  /* border: 1px solid black; */
-  width: 50px;
-  left: 85%;
-  height: 60px;
-  top: -59%;
 }
 
 .add-to-bag-star {
   position: relative;
   border: 1px solid black;
-  height: 50px;
-  width: 50px;
-  left: 40px;
-  top: 15px;
   text-align: center;
+  width: 20%;
+  margin-left: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .upper-section-add-to-cart {
   position: relative;
   display: flex;
-  top: -40px;
-  width: 445px;
   flex-direction: row;
 }
 
 .upper-section-add-to-cart-selected {
   position: relative;
   display: flex;
-  top: -40px;
-  left: -606%;
-  width: 445px;
   flex-direction: row;
 }
 

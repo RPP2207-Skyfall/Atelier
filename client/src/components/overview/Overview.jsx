@@ -467,23 +467,29 @@ class Overview extends React.Component {
         )
       }
       return (
-        <div className="overview-container" data-testid="overview-test">
 
-          <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} desc={this.state.description} />
-          <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle} />
-          <AddToCart
-            currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
-            sizeQuantity={this.state.sizeQuant} selectedQuant={this.state.selectedQuant} selectQuant={this.selectQuant} skuToBuy={this.state.skuToBuy}
-            likeOutfit={this.likeOutfit} />
-          <ImageGallery
-            info={this.state} currentThumbnails={this.state.currentThumbnails} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
-            handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
-            checkThumbnailSection={this.checkThumbnailSection}
-          />
-
-          {this.state.description ? <Details desc={this.state.description} /> : null}
-
-        </div>
+        <>
+          <div className="overview-container" data-testid="overview-test">
+            <div className="image-gallery-container">
+              <ImageGallery
+                info={this.state} currentThumbnails={this.state.currentThumbnails} currentStyle={this.state.currentStyle} mainSlide={this.mainSlide} updateMainPic={this.updateMainPic}
+                handleExpand={this.handleExpand} thumbnailSection={this.state.thumbnailSection} updateThumbnailSection={this.updateThumbnailSection}
+                checkThumbnailSection={this.checkThumbnailSection}
+              />
+            </div>
+            <div className="product-info-container">
+              <ProductInfo info={this.state} style={this.state.currentStyle} rating={this.state.rating} />
+              <StyleSelector styles={this.state.styles} currentStyle={this.state.currentStyle} updateStyle={this.updateStyle} />
+              <AddToCart
+                currentStyle={this.state.currentStyle} selectSize={this.selectSize} selected={this.state.selectedSize}
+                sizeQuantity={this.state.sizeQuant} selectedQuant={this.state.selectedQuant} selectQuant={this.selectQuant} skuToBuy={this.state.skuToBuy}
+                likeOutfit={this.likeOutfit} />
+            </div>
+          </div>
+          <div className="details-container">
+            {this.state.description ? <Details desc={this.state.description} /> : null}
+          </div>
+        </>
       )
     }
 

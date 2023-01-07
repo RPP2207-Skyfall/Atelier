@@ -33,7 +33,7 @@ function ProductInfo(props) {
       <div className="product-info" data-testid="product-info-loaded-test">
 
         {/* <div className="product-info-stars">Stars</div> */}
-        <OverviewStars rating={props.rating}/>
+        <OverviewStars rating={props.rating} />
 
         <div className="product-info-reviews" onClick={() => handleScroll()}>read all {reviewNum} reviews</div>
         {/* {
@@ -41,7 +41,7 @@ function ProductInfo(props) {
           ? <div className="product-info-category">{props.desc.category}</div>
           : null
         } */}
-        <div className="product-info-category">no categoru</div>
+        <div className="product-info-category">no category</div>
         <h2 className="product-info-title">no name</h2>
         <h2 className="product-info-title">no name</h2>
         <div id="product-info-price">no price</div>
@@ -57,13 +57,13 @@ function ProductInfo(props) {
       <div className="product-info" data-testid="product-info-loaded-test">
 
         {/* <div className="product-info-stars">Stars</div> */}
-        <OverviewStars rating={props.rating}/>
+        <OverviewStars rating={props.rating} />
 
         <div className="product-info-reviews" onClick={() => handleScroll()}>read all {reviewNum} reviews</div>
         {
           props.desc.category
-          ? <div className="product-info-category">{props.desc.category}</div>
-          : null
+            ? <div className="product-info-category">{props.desc.category}</div>
+            : null
         }
         {/* <div className="product-info-category">{props.desc.category}</div> */}
         <h2 className="product-info-title">{props.desc.name}</h2>
@@ -78,19 +78,17 @@ function ProductInfo(props) {
       <div className="product-info" data-testid="product-info-loaded">
 
         {/* <div className="product-info-stars">Stars</div> */}
-        <OverviewStars rating={props.rating}/>
+        <OverviewStars rating={props.rating} />
 
         <div className="product-info-reviews">read all {reviewNum} reviews</div>
-        {/* <div className="product-info-category">{props.desc.category}</div> */}
-
         {
           props.desc.category
-          ? <div className="product-info-category">{props.desc.category}</div>
-          : <div className="product-info-category"></div>
+            ? <div className="product-info-category">{props.desc.category}</div>
+            : <div className="product-info-category"></div>
         }
         <h2 className="product-info-title">{props.desc.name}</h2>
         <h2 className="product-info-title">{props.style.name}</h2>
-        <s id="product-info-price" style={{color: 'red' }}>{props.style.original_price} </s>
+        <s id="product-info-price" style={{ color: 'red' }}>{props.style.original_price} </s>
         <div id="product-info-price-sale" >{props.style.sale_price} </div>
 
       </div>
