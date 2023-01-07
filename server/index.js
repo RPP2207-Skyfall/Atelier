@@ -7,7 +7,19 @@ const routes = require('./routes');
 const controller = require('./controllers/');
 const compression = require('compression');
 
-app.use(compression());
+const shouldCompress = (req, res) => {
+  if (req.headers["x-no-compression"]) {
+    // don't compress responses with this request header
+    return false;
+  }
+
+  // fallback to standard filter function
+  return compression.filter(req, res);
+};
+
+// Usage:
+app.use(compression({ filter: shouldCompress }));
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '/../client/dist')));
 // Routes
