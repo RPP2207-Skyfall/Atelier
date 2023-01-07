@@ -34,6 +34,7 @@ class QuestionModal extends React.Component {
     };
     this.handleSubmitError = this.handleSubmitError.bind(this);
     this.validateInput = this.validateInput.bind(this);
+    this.updateTracker = this.updateTracker.bind(this);
   };
 
   validateInput(e) {
@@ -142,8 +143,11 @@ class QuestionModal extends React.Component {
         questionError: ''
       })
     }
+  };
 
-  }
+  updateTracker(element, widget) {
+    this.props.updateTracker(element, widget)
+  };
 
   render() {
     return(
@@ -171,6 +175,7 @@ class QuestionModal extends React.Component {
                 error={!!this.state.questionError}
                 helperText={this.state.questionError}
                 onChange={this.validateInput}
+                onClick={() => {this.updateTracker('Question Textfield', 'QuestionModal')}}
                 required>
               </TextField>
             </Stack>
@@ -187,6 +192,7 @@ class QuestionModal extends React.Component {
                 error={!!this.state.emailError}
                 helperText={this.state.emailError}
                 onChange={this.validateInput}
+                onClick={() => {this.updateTracker('Email Textfield', 'QuestionModal')}}
                 required>
               </TextField>
               <p className='QModal-Email-Disclaimer'>For authentication reasons, you will not be emailed</p>
@@ -204,12 +210,13 @@ class QuestionModal extends React.Component {
                 error={!!this.state.nicknameError}
                 helperText={this.state.nicknameError}
                 onChange={this.validateInput}
+                onClick={() => {this.updateTracker('Nickname Textfield', 'QuestionModal')}}
                 required>
               </TextField>
               <p className='QModal-Nickname-Disclaimer'>For privacy reasons, do not use your full name or email address</p>
             </Stack>
             <br></br>
-            <Button className='QModal-Submit-Btn' data-testid='QModal-Submit-Btn' variant='outlined' size='medium' onClick={this.handleSubmitError} type='submit'>SUBMIT</Button>
+            <Button className='QModal-Submit-Btn' data-testid='QModal-Submit-Btn' variant='outlined' size='medium' onClick={(e) => {this.handleSubmitError(e); this.updateTracker('SUBMIT', 'QuestionModal');}} type='submit'>SUBMIT</Button>
           </Box>
         </Modal>
       </div>

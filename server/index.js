@@ -9,7 +9,6 @@ const compression = require('compression');
 
 app.use(compression());
 app.use(express.json());
-app.use(compression())
 app.use(express.static(path.join(__dirname, '/../client/dist')));
 // Routes
 app.use(routes);
