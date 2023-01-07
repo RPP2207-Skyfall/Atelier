@@ -44,8 +44,8 @@ class AnswerModal extends React.Component {
   validateInput(e) {
     var inputType = e.target.id;
     var inputValue = e.target.value;
-    var validTypes = ['email', 'answer', ' nickname'];
-    validTypes.includes(inputType) ? this.setState({ [inputType]: inputValue }) : null;
+    var validTypes = ['email', 'answer', 'nickname'];
+    validTypes.includes(inputType) ? this.setState({[inputType] : inputValue}) : null;
 
     if (this.state.email !== '' && this.state.email.includes('@') === true) {
       this.setState({
@@ -217,7 +217,8 @@ class AnswerModal extends React.Component {
                 label='nickname'
                 data-testid='AModal-Nickname'
                 placeholder="Howard878"
-                inputProps={{ maxLength: 60 }}
+                fullWidth
+                inputProps={{maxLength: 60}}
                 value={this.state.nickname}
                 error={!!this.state.nicknameError}
                 helperText={this.state.nicknameError}

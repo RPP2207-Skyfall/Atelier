@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 const Search = (props) => (
       <div className='question-and-answer-search-bar' data-testid='question-and-answer-search-bar'>
         <Stack direction='row' spacing={1}>
-          <TextField fullWidth id='search-bar' placeholder='HAVE A QUESTION? SEARCH FOR ANSWERS...' onChange={(e) => {props.handleSearch(e.target.value)}}></TextField>
+          <TextField fullWidth id='search-bar' placeholder='HAVE A QUESTION? SEARCH FOR ANSWERS...' onChange={(e) => {props.handleSearch(e.target.value)}} onClick={() => {props.updateTracker('Search Bar', 'QandA')}}></TextField>
             <IconButton color='primary' aria-label='search QA'>
               <SearchIcon id='search-icon'/>
             </IconButton>

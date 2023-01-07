@@ -1340,28 +1340,15 @@ td {
 }
 
 
-.qaitem-question-helpful-count:hover {
-  cursor: pointer;
-}
-
-.qaitem-answer-helpful-count:hover {
-  cursor: pointer;
-}
-
-.qaitem-add-answer:hover {
-  cursor: pointer;
-}
-
-.qaitem-report:hover {
-  cursor: pointer;
-}
-
-.answeritem-helpful-count:hover {
-  cursor: pointer;
-}
-
+.qaitem-question-helpful-count:hover,
+.qaitem-answer-helpful-count:hover,
+.qaitem-add-answer:hover,
+.qaitem-report:hover,
+.answeritem-helpful-count:hover,
 .answeritem-reported:hover,
-.answeritem-report:hover {
+.answeritem-report:hover,
+.questionitem-report:hover,
+.questionitem-reported:hover {
   cursor: pointer;
 }
 

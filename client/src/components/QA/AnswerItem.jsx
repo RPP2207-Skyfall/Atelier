@@ -19,6 +19,7 @@ class AnswerItem extends React.Component {
     };
     this.isAHelpful = this.isAHelpful.bind(this);
     this.handleReport = this.handleReport.bind(this);
+    this.updateTracker = this.updateTracker.bind(this);
   };
 
   isAHelpful() {
@@ -61,6 +62,10 @@ class AnswerItem extends React.Component {
     }
   };
 
+  updateTracker(element, widget) {
+    this.props.updateTracker(element, widget)
+  };
+
   render() {
     return (
       <div className='question-and-answer-answeritem' data-testid='question-and-answer-answeritem'>
@@ -76,9 +81,9 @@ class AnswerItem extends React.Component {
                 <p>{new Date(this.state.date).toLocaleDateString({}, { month: 'long', day: '2-digit', year: 'numeric' })}</p>
                 <p> | </p>
                 <p>Helpful?</p>
-                <p className='answeritem-helpful-count' onClick={this.isAHelpful}>Yes</p><p data-testid='answeritem-helpful-count'>({this.state.helpfulness})</p>
+                <p className='answeritem-helpful-count' onClick={() => {this.isAHelpful(); this.updateTracker('Helpful? A', 'AnswerItem');}}>Yes</p><p data-testid='answeritem-helpful-count'>({this.state.helpfulness})</p>
                 <p> | </p>
-                {this.state.isReported ? <p className='answeritem-reported' data-testid='answeritem-reported' onClick={this.handleReport}>Reported</p> : <p className='answeritem-report' data-testid='answeritem-reported' onClick={this.handleReport}>Report</p>}
+                {this.state.isReported ? <p className='answeritem-reported' data-testid='answeritem-reported' onClick={() => {this.handleReport(); this.updateTracker('Reported A', 'AnswerItem');}}>Reported</p> : <p className='answeritem-report' data-testid='answeritem-reported' onClick={() => {this.handleReport(); this.updateTracker('Report A', 'AnswerItem');}}>Report</p>}
               </Stack>
             </Grid>
           </Stack>
