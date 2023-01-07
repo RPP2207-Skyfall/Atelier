@@ -8,21 +8,19 @@ exports.getRelatedMetaData = async (req, res) => {
   var requestOptionOne = {
     headers: {
       "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY,
-      "Accept-Encoding": 'gzip',
       "Content-Encoding": 'gzip'
     }
   }
   var requestOptionTwo = {
     headers: {
       "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN,
-      "Accept-Encoding": 'gzip',
+
       "Content-Encoding": 'gzip'
     }
   }
   var requestOptionThree = {
     headers: {
       "Authorization": process.env.REACT_APP_API_QA_KEY,
-      "Accept-Encoding": 'gzip',
       "Content-Encoding": 'gzip'
     }
   }
@@ -30,7 +28,6 @@ exports.getRelatedMetaData = async (req, res) => {
   var requestOptionFour = {
     headers: {
       "Authorization": process.env.REACT_APP_API_RELATED_TOKEN,
-      "Accept-Encoding": 'gzip',
       "Content-Encoding": 'gzip'
     }
   }
@@ -101,7 +98,6 @@ exports.getOutfitMetaData = async (req, res) => {
   var requestOption = {
     headers: {
       "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN,
-      "Accept-Encoding": 'gzip',
       "Content-Encoding": 'gzip'
     }
   }

@@ -6,7 +6,6 @@ exports.getRelatedItemsID = (req, res) => {
   var requestOption = {
     headers: {
       "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN,
-      "Accept-Encoding": 'gzip',
       "Content-Encoding": 'gzip'
     }
   }
