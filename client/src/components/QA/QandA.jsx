@@ -181,7 +181,7 @@ class QandA extends React.Component {
             </Stack>
           </div>
         }
-        <QuestionModal isQModalOpen={this.state.isQModalOpen} handleQModalClose={this.handleQModalClose} product_name={this.state.product_name} product_id={this.state.product_id} />
+        <QuestionModal isQModalOpen={this.state.isQModalOpen} handleQModalClose={this.handleQModalClose} product_name={this.state.product_name} product_id={this.state.product_id} updateTracker={this.updateTracker}/>
       </div>
     )
   }

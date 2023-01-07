@@ -39,6 +39,7 @@ class AnswerModal extends React.Component {
     this.handleSubmitError = this.handleSubmitError.bind(this);
     this.handleImageUpload = this.handleImageUpload.bind(this);
     this.validateInput = this.validateInput.bind(this);
+    this.updateTracker = this.updateTracker.bind(this);
   };
 
   validateInput(e) {
@@ -89,7 +90,6 @@ class AnswerModal extends React.Component {
         photos: this.state.image,
         question_id: this.props.question_id
       };
-      console.log(newAnswer);
       Axios.post('/addNewAnswer', newAnswer)
         .then(() => {
           console.log('new answer added');
@@ -164,6 +164,10 @@ class AnswerModal extends React.Component {
     }
   };
 
+  updateTracker(element, widget) {
+    this.props.updateTracker(element, widget)
+  };
+
   render() {
     return (
       <div className='answer-modal' data-testid='answer-modal'>
@@ -190,6 +194,7 @@ class AnswerModal extends React.Component {
                 error={!!this.state.answerError}
                 helperText={this.state.answerError}
                 onChange={this.validateInput}
+                onClick={() => {this.updateTracker('Answer Textfield', 'AnswerModal')}}
                 required>
               </TextField>
             </Stack>
@@ -206,6 +211,7 @@ class AnswerModal extends React.Component {
                 error={!!this.state.emailError}
                 helperText={this.state.emailError}
                 onChange={this.validateInput}
+                onClick={() => {this.updateTracker('Email Textfield', 'AnswerModal')}}
                 required>
               </TextField>
               <p className='AModal-Email-Disclaimer'>For authentication reasons, you will not be emailed</p>
@@ -223,6 +229,7 @@ class AnswerModal extends React.Component {
                 error={!!this.state.nicknameError}
                 helperText={this.state.nicknameError}
                 onChange={this.validateInput}
+                onClick={() => {this.updateTracker('Nickname Textfield', 'AnswerModal')}}
                 required>
               </TextField>
               <p className='AModal-Nickname-Disclaimer'>For privacy reasons, do not use your full name or email address</p>
@@ -233,14 +240,14 @@ class AnswerModal extends React.Component {
             </Stack>
             <br></br>
             <Stack spacing={1}>
-              {this.state.uploadImgBtn ? <Button className='AModal-Upload-Btn' data-testid='AModal-Upload-Btn' variant='contained' size='large' component="label" endIcon={<PhotoCamera />}>
+              {this.state.uploadImgBtn ? <Button className='AModal-Upload-Btn' data-testid='AModal-Upload-Btn' variant='contained' size='large' component="label" onClick={() => {this.updateTracker('UPLOAD IMAGE', 'AnswerModal');}} endIcon={<PhotoCamera />}>
                 UPLOAD IMAGE
                 <input accept="image/*" multiple type="file" hidden onChange={this.handleImageUpload} />
               </Button> : null}
             </Stack>
             <br></br>
             <Stack spacing={1}>
-              <Button className='AModal-Submit-Btn' data-testid='AModal-Submit-Btn' variant='outlined' size='medium' onClick={this.handleSubmitError}>SUBMIT</Button>
+              <Button className='AModal-Submit-Btn' data-testid='AModal-Submit-Btn' variant='outlined' size='medium' onClick={(e) => {this.handleSubmitError(e); this.updateTracker('SUBMIT', 'AnswerModal');}}>SUBMIT</Button>
             </Stack>
           </Box>
         </Modal>

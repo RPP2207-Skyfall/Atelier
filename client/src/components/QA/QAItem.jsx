@@ -156,7 +156,7 @@ class QAItem extends React.Component {
           </div>
         </Grid>
         {this.state.moreAnswerBtn ? <Button className='qaitem-more-answers-btn' data-testid='qaitem-more-answers-btn' onClick={() => {this.handleMoreAnswer(); this.updateTracker('See more answers', 'QAItem');}}>See more answers</Button> : <>{this.state.isLastAnswer ? null : <Button className='qaitem-collapse-answers-btn' onClick={() => {this.handleCollapseExpand(); this.updateTracker('Collpase answers', 'QAItem');}}>Collapse answers</Button>}</>}
-        <AnswerModal isAModalOpen={this.props.isAModalOpen} handleAModalClose={this.props.handleAModalClose} question={this.state.Q} product_name={this.props.product_name} question_id={this.props.question_id} />
+        <AnswerModal isAModalOpen={this.props.isAModalOpen} handleAModalClose={this.props.handleAModalClose} question={this.state.Q} product_name={this.props.product_name} question_id={this.props.question_id} updateTracker={this.updateTracker}/>
       </div>
     )
   }
