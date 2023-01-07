@@ -24,14 +24,14 @@ function StyleSelector(props) {
                 return (
                   <div key={i} className="current-style-selected" onClick={() => props.updateStyle(style, "current-style-selected", 'overview')}>
                     {/* <FontAwesomeIcon icon="fa-thin fa-circle-check" /> */}
-                    <img className="selected-style-icon" src="checkmark.png"></img>
-                    <img className="style-image-selected" src={style.photos[0].thumbnail_url} key={i} />
+                    <img className="selected-style-icon" src="checkmark.png" alt="checkmark-image"></img>
+                    <img className="style-image-selected" alt="style-image-selector-image" src={style.photos[0].thumbnail_url} key={i} />
                   </div>
                 )
               } else {
                 return (
                   <div key={i} className="current-style" onClick={() => props.updateStyle(style, "current-style-selected", 'overview')}>
-                    <img className="style-image" src={style.photos[0].thumbnail_url} key={i} />
+                    <img className="style-image" alt="style-image" src={style.photos[0].thumbnail_url} key={i} />
                   </div>
                 )
               }

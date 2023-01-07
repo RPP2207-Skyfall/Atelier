@@ -127,7 +127,7 @@ function AddToCart(props) {
       <div className="add-to-cart-container" data-testid="add-to-cart-selectSize-test">
         <div className="upper-section-add-to-cart">
           <div className="add-to-cart-dropdown-closed" onClick={() => handleOpen('add-to-cart-dropdown-closed', 'overview')}>
-            <h5>SELECT SIZE</h5>
+            <div className="select-size-btn-text">SELECT SIZE</div>
           </div>
           <QuantitySelector selectedQuant={props.selectedQuant} selectQuant={props.selectQuant}
             selected={props.selected} quant={props.sizeQuantity} />

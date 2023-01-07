@@ -56,6 +56,18 @@ main {
   padding: 20px 0 20px 0;
 }
 
+.project-title {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.review-title,
+.qanda-title,
+.related-product-title,
+.your-outfit-title {
+  font-size: 26px;
+  font-weight: bold;
+}
 
 
 /****** Style for Ratings and review widget ****/
@@ -890,6 +902,13 @@ main {
   overflow-y: auto;
 }
 
+.select-size-btn-text {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  margin: 1% 15% 1% 15%
+}
+
 .add-to-cart-dropdown-selected {
   border: 1px solid black;
   position: relative;
@@ -1000,6 +1019,7 @@ main {
 
 /**********************************************/
 /****** Style for Ratings and related item widget ****/
+
 
 .main-container {
   display: block;
@@ -1309,6 +1329,12 @@ td {
 
 
 /*****************Style for Q&A widget*****************************/
+
+.qaitem-question-body,
+.A-header {
+  font-size: 24px;
+}
+
 
 .qaitem-question-helpful-count:hover {
   cursor: pointer;

@@ -161,12 +161,12 @@ class QandA extends React.Component {
 
   render() {
     if (this.state.product_id === undefined) {
-      throw new Error ('no product_id detected');
+      throw new Error('no product_id detected');
     }
 
     return (
       <div className='question-and-answer-main' data-testid='question-and-answer-main'>
-        <h5>QUESTIONS & ANSWERS</h5>
+        <div className="qanda-title">QUESTIONS & ANSWERS</div>
         {this.state.isQAEmpty ?
           <React.Fragment>
             <p>Seems like there is no question posted for this product...</p>

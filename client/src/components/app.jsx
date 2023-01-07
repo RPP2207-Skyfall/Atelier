@@ -50,7 +50,7 @@ class App extends React.Component {
     return (
       <>
         <ErrorBoundary>
-          <h3>Ateiler</h3>
+          <div className="project-title">Ateiler</div>
           {/* <button onClick={() => Tracker.userInteraction("button", "app")} >test</button> */}
           <Overview outfitList={this.state.OutfitList} toggleStar={this.toggleStar} CurrentItemID={this.state.CurrentItemID} updateCurrentItem={this.updateCurrentItem} />
           <RelatedItem outfitList={this.state.OutfitList} toggleStar={this.toggleStar} CurrentItemID={this.state.CurrentItemID} updateCurrentItem={this.updateCurrentItem} />

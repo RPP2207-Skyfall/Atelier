@@ -201,7 +201,7 @@ const RelatedItem = (props) => {
 
   return (
     <div className="main-container carousel-style">
-      <h5>RELATED PRODUCTS</h5>
+      <div className="related-product-title">RELATED PRODUCTS</div>
       <section className="carousel-upper">
         {/* arrw */}
         {leftArr ? <span className="left-arrow" onClick={() => prevSlide()}></span> : <></>}
@@ -210,7 +210,7 @@ const RelatedItem = (props) => {
           <OutfitList ref={myCarousel} metaData={relatedMetaData} toggleStar={props.toggleStar} mainItemDetail={mainItemDetail} outfit={false} updateCurrentItem={props.updateCurrentItem} />
         </div>
       </section>
-      <h5>YOUR OUTFIT</h5>
+      <div className="your-outfit-title">YOUR OUTFIT</div>
       <section className="carousel-upper">
         {OutfitLeftArr ? <span className="left-arrow" onClick={() => outfitPrevSlide()}></span> : <></>}
         {OutfitRightArr ? <span className="right-arrow" onClick={() => outfitNextSlide()}></span> : <></>}

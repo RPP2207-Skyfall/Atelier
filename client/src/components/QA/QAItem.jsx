@@ -17,7 +17,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 class QAItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state={
+    this.state = {
       Q: this.props.item.question_body || '',
       A_List: Object.values(this.props.item.answers) || [],
       A_List_Shown: [],
@@ -35,7 +35,7 @@ class QAItem extends React.Component {
   };
 
   componentDidMount() {
-    var sortedAList = this.state.A_List.sort(function(a,b) {
+    var sortedAList = this.state.A_List.sort(function (a, b) {
       return b['helpfulness'] - a['helpfulness'];
     });
     this.setState({
@@ -68,13 +68,13 @@ class QAItem extends React.Component {
 
   isQHelpful() {
     if (this.state.QhelpfulClicked === false) {
-      Axios.put('/helpfulQuestion', {question_id: this.props.question_id})
-      .then(() => {
-        console.log('Question Helpful!');
-      })
-      .catch((err) => {
-        console.log('Question Helpful Err', err);
-      });
+      Axios.put('/helpfulQuestion', { question_id: this.props.question_id })
+        .then(() => {
+          console.log('Question Helpful!');
+        })
+        .catch((err) => {
+          console.log('Question Helpful Err', err);
+        });
       this.setState({
         QhelpfulCount: this.state.QhelpfulCount + 1,
         QhelpfulClicked: true
@@ -111,13 +111,13 @@ class QAItem extends React.Component {
 
   handleReport() {
     if (this.state.isReported === false) {
-      Axios.put('/reportQuestion', {question_id: this.props.question_id})
-      .then(() => {
-        console.log('Question Reported');
-      })
-      .catch((err) => {
-        console.log('Question Report Err', err);
-      });
+      Axios.put('/reportQuestion', { question_id: this.props.question_id })
+        .then(() => {
+          console.log('Question Reported');
+        })
+        .catch((err) => {
+          console.log('Question Report Err', err);
+        });
       this.setState({
         isReported: true
       })
@@ -132,26 +132,26 @@ class QAItem extends React.Component {
 
     return (
       <div className='question-and-answer-qaitem' data-testid='question-and-answer-qaitem'>
-          <Grid container spacing={2}>
-            <Grid xs={7}>
-              <h5 className='qaitem-question-body' data-testid='qaitem-question-body'>Q: {this.state.Q}</h5>
-            </Grid>
-            <Grid xs={5}>
-              <Stack spacing={1} direction='row'>
-                <p>Helpful?</p>
-                <p className='qaitem-question-helpful-count' onClick={() => {this.isQHelpful()}}>Yes</p><p data-testid='qaitem-question-helpful-count'>({this.state.QhelpfulCount})</p>
-                <p>|</p>
-                <p className='qaitem-add-answer' data-testid='qaitem-add-answer' onClick={this.handleAModalOpen}>Add Answer</p>
-                <p> | </p>
-                {this.state.isReported ? <p className='questionitem-reported' data-testid='questionitem-reported' onClick={this.handleReport}>Reported</p> : <p className='questionitem-report' data-testid='questionitem-report' onClick={this.handleReport}>Report</p>}
-              </Stack>
-            </Grid>
-              <div className='qaitem-alist-scrollable'>
-                <AnswerList list={this.state.A_List_Shown} />
-              </div>
+        <Grid container spacing={2}>
+          <Grid xs={7}>
+            <div className='qaitem-question-body' data-testid='qaitem-question-body'>Q: {this.state.Q}</div>
           </Grid>
-          {this.state.moreAnswerBtn ? <Button className='qaitem-more-answers-btn' data-testid='qaitem-more-answers-btn' onClick={this.handleMoreAnswer}>See more answers</Button> : <>{this.state.isLastAnswer ? null : <Button className='qaitem-collapse-answers-btn' onClick={this.handleCollapseExpand}>Collapse answers</Button>}</>}
-        <AnswerModal isAModalOpen={this.props.isAModalOpen} handleAModalClose={this.props.handleAModalClose} question={this.state.Q} product_name={this.props.product_name} question_id={this.props.question_id}/>
+          <Grid xs={5}>
+            <Stack spacing={1} direction='row'>
+              <p>Helpful?</p>
+              <p className='qaitem-question-helpful-count' onClick={() => { this.isQHelpful() }}>Yes</p><p data-testid='qaitem-question-helpful-count'>({this.state.QhelpfulCount})</p>
+              <p>|</p>
+              <p className='qaitem-add-answer' data-testid='qaitem-add-answer' onClick={this.handleAModalOpen}>Add Answer</p>
+              <p> | </p>
+              {this.state.isReported ? <p className='questionitem-reported' data-testid='questionitem-reported' onClick={this.handleReport}>Reported</p> : <p className='questionitem-report' data-testid='questionitem-report' onClick={this.handleReport}>Report</p>}
+            </Stack>
+          </Grid>
+          <div className='qaitem-alist-scrollable'>
+            <AnswerList list={this.state.A_List_Shown} />
+          </div>
+        </Grid>
+        {this.state.moreAnswerBtn ? <Button className='qaitem-more-answers-btn' data-testid='qaitem-more-answers-btn' onClick={this.handleMoreAnswer}>See more answers</Button> : <>{this.state.isLastAnswer ? null : <Button className='qaitem-collapse-answers-btn' onClick={this.handleCollapseExpand}>Collapse answers</Button>}</>}
+        <AnswerModal isAModalOpen={this.props.isAModalOpen} handleAModalClose={this.props.handleAModalClose} question={this.state.Q} product_name={this.props.product_name} question_id={this.props.question_id} />
       </div>
     )
   }

@@ -218,7 +218,7 @@ class RatingReview extends React.Component {
 
     return (
       <div className="container ratingReview">
-        <h5 >RATINGS & REVIEWS</h5>
+        <div className="review-title" >RATINGS & REVIEWS</div>
         <div className="row">
           <div className="col-4">
             <Breakdown
