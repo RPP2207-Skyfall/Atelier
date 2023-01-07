@@ -26,19 +26,24 @@ const userInfo = (props) => {
 
   }
 
+  const tracker = (element, widget) => {
+    props.tracker(element, widget)
+  }
+
+
   return (
     <>
       <div className="nickname" data-testid="nickname-div">
         What is your nickname? {nameAsteris ? <span className="asteris">*</span> : null}<span className="errMsg">{props.nicknameErrorMsg}</span>
         <div>
-          <textarea className="nickname-textarea" data-testid="nickname-area" maxLength="60" type="text" placeholder={nicknamePlaceholderText} onChange={handleNicknameChange} ></textarea>
+          <textarea className="nickname-textarea" data-testid="nickname-area" maxLength="60" type="text" placeholder={nicknamePlaceholderText} onChange={handleNicknameChange} onClick={() => { tracker('nickname-textarea', 'new-review-modal') }}></textarea>
           <div className="disclaimer">For privacy reasons, do not use your full name or email address</div>
         </div>
       </div>
       <div className="email" data-testid="email-div">
         Your Email? {nameAsteris ? <span className="asteris">*</span> : null}<span className="errMsg">{props.emailErrorMsg}</span>
         <div>
-          <textarea className="email-textarea" data-testid="email-area" maxLength="60" type="text" placeholder={emailPlaceholderText} onChange={handleEmailChange} ></textarea>
+          <textarea className="email-textarea" data-testid="email-area" maxLength="60" type="text" placeholder={emailPlaceholderText} onChange={handleEmailChange} onClick={() => { tracker('email-textarea', 'new-review-modal') }}></textarea>
           <div className="disclaimer">For authentication reasons, you will not be emailed</div>
         </div>
       </div>

@@ -39,8 +39,8 @@ const RelatedItem = (props) => {
   //   getOutfitMetaData(passDownOutfitList)
   // }, [])
 
-// When main ID update triger state change
-  useEffect (()=> {
+  // When main ID update triger state change
+  useEffect(() => {
     if (mainItemId !== oldID) {
       getRelatedMetaData(mainItemId)
       setOldID(mainItemId)
@@ -48,7 +48,7 @@ const RelatedItem = (props) => {
   }, [mainItemId])
 
   // update outfit list render
-  useEffect (()=> {
+  useEffect(() => {
     if (passDownOutfitList !== oldOutfitList) {
       getOutfitMetaData(passDownOutfitList)
       setOldOutfitList(passDownOutfitList)
@@ -57,34 +57,34 @@ const RelatedItem = (props) => {
 
   const getRelatedMetaData = async (mainID) => {
     await Axios.get('/relatedMetaData', { params: { id: mainID } })
-    .then((response => {
-      // console.log(response.data)
-      var data = response.data
-      if (data.length > 5) {
-        setRightArr(true)
-        setLeftArr(false)
-      } else {
-        setRightArr(false)
-        setLeftArr(false)
-      }
-      //seperate the main item detail
-      for (var x = 0; x < data.length; x ++) {
-        if (data[x].id == mainItemId) {
-          setMainIdtemDetail(data[x])
-          data.splice(x, 1)
-          break
+      .then((response => {
+        // console.log(response.data)
+        var data = response.data
+        if (data.length > 5) {
+          setRightArr(true)
+          setLeftArr(false)
+        } else {
+          setRightArr(false)
+          setLeftArr(false)
         }
-      }
-      setRelatedMetaData(data)
-      pickIndex = 0;
-      offsetCarousel = 0;
-      childWidth = 0;
-      childLength = 0;
-      cardToShow = 4;
-    }))
-    .catch ((err) => {
-    console.log(err.message)
-    })
+        //seperate the main item detail
+        for (var x = 0; x < data.length; x++) {
+          if (data[x].id == mainItemId) {
+            setMainIdtemDetail(data[x])
+            data.splice(x, 1)
+            break
+          }
+        }
+        setRelatedMetaData(data)
+        pickIndex = 0;
+        offsetCarousel = 0;
+        childWidth = 0;
+        childLength = 0;
+        cardToShow = 4;
+      }))
+      .catch((err) => {
+        console.log(err.message)
+      })
   };
 
   const getOutfitMetaData = async (outfitList) => {
@@ -92,26 +92,26 @@ const RelatedItem = (props) => {
       setOutfitMetaData([])
     } else {
       await Axios.get('/outfitMetaData', { params: { idArr: outfitList } })
-      .then((response => {
-        if (response.data.length >3) {
-          setOutfitRightArr(true)
-          setOutfitLeftArr(false)
-        } else {
-          setOutfitRightArr(false)
-          setOutfitLeftArr(false)
-        }
-        setOutfitMetaData(response.data)
-        OutfitPickIndex = 1;
-        OutfitOffsetCarousel = 0;
-        OutfitChildWidth = 0;
-        OutfitChildLength = 0;
-      }))
-      .catch ((err) => {
-      console.log(err.message)
-      })
+        .then((response => {
+          if (response.data.length > 3) {
+            setOutfitRightArr(true)
+            setOutfitLeftArr(false)
+          } else {
+            setOutfitRightArr(false)
+            setOutfitLeftArr(false)
+          }
+          setOutfitMetaData(response.data)
+          OutfitPickIndex = 1;
+          OutfitOffsetCarousel = 0;
+          OutfitChildWidth = 0;
+          OutfitChildLength = 0;
+        }))
+        .catch((err) => {
+          console.log(err.message)
+        })
     };
   }
-    // const prams = JSON.stringify({idArr: outfitList})
+  // const prams = JSON.stringify({idArr: outfitList})
 
 
   //related arrow func
@@ -196,26 +196,26 @@ const RelatedItem = (props) => {
 
   //Error Boundary --- Customize it as you go
   if (props.CurrentItemID === undefined) {
-    throw new Error ('no CurrentItemID detected');
+    throw new Error('no CurrentItemID detected');
   }
 
   return (
     <div className="main-container carousel-style">
-      <h5>RELATED PRODUCTS</h5>
+      <div className="related-product-title">RELATED PRODUCTS</div>
       <section className="carousel-upper">
         {/* arrw */}
         {leftArr ? <span className="left-arrow" onClick={() => prevSlide()}></span> : <></>}
         {rightArr ? <span className="right-arrow" onClick={() => nextSlide()}></span> : <></>}
         <div className="carousel" ref={carouselOutbox}>
-          <OutfitList ref={myCarousel} metaData= {relatedMetaData} toggleStar={props.toggleStar} mainItemDetail={mainItemDetail} outfit={false} updateCurrentItem={props.updateCurrentItem} />
+          <OutfitList ref={myCarousel} metaData={relatedMetaData} toggleStar={props.toggleStar} mainItemDetail={mainItemDetail} outfit={false} updateCurrentItem={props.updateCurrentItem} />
         </div>
       </section>
-      <h5>YOUR OUTFIT</h5>
+      <div className="your-outfit-title">YOUR OUTFIT</div>
       <section className="carousel-upper">
-      { OutfitLeftArr ? <span className="left-arrow" onClick={() => outfitPrevSlide()}></span> : <></> }
-      { OutfitRightArr ? <span className="right-arrow" onClick={() => outfitNextSlide()}></span> : <></> }
-        <div className="carousel" ref = { outfitCarouselOutbox }>
-        <OutfitList ref = { outfitCarousel } metaData = {outfitMetaData} toggleStar = {props.toggleStar} mainItemDetail = {mainItemDetail} outfit = {true} updateCurrentItem = {props.updateCurrentItem}/>
+        {OutfitLeftArr ? <span className="left-arrow" onClick={() => outfitPrevSlide()}></span> : <></>}
+        {OutfitRightArr ? <span className="right-arrow" onClick={() => outfitNextSlide()}></span> : <></>}
+        <div className="carousel" ref={outfitCarouselOutbox}>
+          <OutfitList ref={outfitCarousel} metaData={outfitMetaData} toggleStar={props.toggleStar} mainItemDetail={mainItemDetail} outfit={true} updateCurrentItem={props.updateCurrentItem} />
         </div>
       </section>
     </div>

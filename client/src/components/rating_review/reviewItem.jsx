@@ -60,6 +60,11 @@ const reviewItem = (props) => {
     props.reportReview(review_id)
   }
 
+  const tracker = (element, widget) => {
+    props.tracker(element, widget)
+  }
+
+
 
   return (
     <div className="reviewBlock">
@@ -80,9 +85,9 @@ const reviewItem = (props) => {
         {showAll ?
           <div className="reviewBody">
             <div className="reviewText" data-testid='reviewText'>{`${props.reviewData.body}`}</div>
-            {props.reviewData.photos.length !== 0 ? <ReviewPhotoList photoList={props.reviewData.photos} /> : null}
-            {<div className="showLessSpan"><span data-testid="show-less-span" onClick={() => { showMoreOrLess() }}>Show less</span></div>}
-          </div> : <div className="partial-ReviewText" data-testid='partial-ReviewText'>{partBody} <div className="showMoreSpan">{<span data-testid="show-more-span" onClick={() => { showMoreOrLess() }}>Show more</span>}</div></div>
+            {props.reviewData.photos.length !== 0 ? <ReviewPhotoList photoList={props.reviewData.photos} tracker={tracker} /> : null}
+            {<div className="showLessSpan"><span data-testid="show-less-span" onClick={() => { showMoreOrLess(); tracker('show-more-reviews-btn', 'review-item') }}>Show less</span></div>}
+          </div> : <div className="partial-ReviewText" data-testid='partial-ReviewText'>{partBody} <div className="showMoreSpan">{<span data-testid="show-more-span" onClick={() => { showMoreOrLess(); tracker('load-more-review-btn', 'review-item') }}>Show more</span>}</div></div>
         }
 
 
@@ -92,9 +97,9 @@ const reviewItem = (props) => {
 
       <div className="row flex-column">
         <div className="helpfulCount" >Helpful?
-          {<span className="helpful-click" data-testid="helpful-span" onClick={() => { helpfulVote() }}>Yes</span>}
+          {<span className="helpful-click" data-testid="helpful-span" onClick={() => { helpfulVote(); tracker('helpful-btn', 'review-item') }}>Yes</span>}
           <span data-testid="helpful-count-span">{` (${helpfulCount})`} </span>  |
-          {<span className="report-click" data-testid='report-text' onClick={() => { reportReview() }}>{report}</span>}
+          {<span className="report-click" data-testid='report-text' onClick={() => { reportReview(); tracker('report-btn', 'review-item') }}>{report}</span>}
         </div>
         <hr />
       </div>

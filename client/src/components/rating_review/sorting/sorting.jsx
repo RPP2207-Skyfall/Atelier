@@ -27,12 +27,17 @@ const SortMenu = (props) => {
     display: displaySortOption
   }
 
+  const tracker = (element, widget) => {
+    props.tracker(element, widget)
+  }
+
   return (
 
-    <><span className="sort-dropdown" data-testid='sort-dropdown' onClick={() => { handleClick() }}>{`${sortOptionOnDisplay}`}</span>
+    <>
+      <span className="sort-dropdown" data-testid='sort-dropdown' onClick={() => { handleClick() }} onClick={() => { tracker('sorting dropdown', 'sorting') }}>{`${sortOptionOnDisplay}`}</span>
       <div className="sort-col col">
         {sortOptionsArr.map((sortMethod, idx) =>
-          <div className={`row option-${sortMethod}`} data-testid={`sort-options-${idx}`} key={idx} onClick={() => { handleSortingClick(sortMethod) }} style={style}>{sortMethod}</div>
+          <div className={`row option-${sortMethod}`} data-testid={`sort-options-${idx}`} key={idx} onClick={() => { handleSortingClick(sortMethod) }} onClick={() => { tracker(sortMethod, 'sorting') }} style={style}>{sortMethod}</div>
         )}
       </div>
     </>

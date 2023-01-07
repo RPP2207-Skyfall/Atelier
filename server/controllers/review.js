@@ -11,7 +11,6 @@ module.exports = {
       headers: {
         "Content-Type": "application/json",
         "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY,
-        "Accept-Encoding": 'gzip',
         "Content-Encoding": 'gzip',
         'access-control-allow-origin': '*',
         'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -20,7 +19,7 @@ module.exports = {
       },
       params: {
         product_id: req.body.product_id,
-        count: 30,
+        count: 20,
         sort: req.body.sort
       }
     }
@@ -43,7 +42,6 @@ module.exports = {
       headers: {
         "Content-Type": "application/json",
         "Authorization": process.env.REACT_APP_API_REVIEW_RATING_KEY,
-        "Accept-Encoding": 'gzip',
         "Content-Encoding": 'gzip',
         'access-control-allow-origin': '*',
         'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',

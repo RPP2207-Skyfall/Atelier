@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function ExpandedView (props) {
+function ExpandedView(props) {
 
   // document.addEventListener('mousemove', (event) => {
   //   console.log(`Mouse X: ${event.clientX}, Mouse Y: ${event.clientY}`);
@@ -29,7 +29,7 @@ function ExpandedView (props) {
     return (
       <div className="expanded-view">
         {/* <h1>Default View</h1> */}
-        <img className="expanded-image" id="exp-img" src={props.mainPic} alt="style" onClick={() => props.expand('expanded-image', 'overview')}/>
+        <img className="expanded-image" id="exp-img" src={props.mainPic} alt="style" onClick={() => props.expand('expanded-image', 'overview')} />
       </div>
     )
 

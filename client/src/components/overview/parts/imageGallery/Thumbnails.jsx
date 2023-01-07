@@ -64,13 +64,13 @@ class Thumbnail extends React.Component {
               if (image.index === this.props.index) {
                 return (
                   <div className="selected-icon" onClick={() => this.props.updateMainPic(image.index, 'selected-icon', 'overview')} key={i}>
-                      <img className="icon-image" src={image.thumbnail_url} ></img>
+                    <img className="icon-image" src={image.thumbnail_url} ></img>
                   </div>
                 )
               }
               return (
                 <div className="icon" onClick={() => this.props.updateMainPic(image.index, 'icon', 'overview')} key={i}>
-                    <img className="icon-image" src={image.thumbnail_url} ></img>
+                  <img className="icon-image" src={image.thumbnail_url} ></img>
                 </div>
               )
 
@@ -78,10 +78,10 @@ class Thumbnail extends React.Component {
             })
 
           }
-            <div className="thumbnail-buttons">
-              <button className="thumbnail-backwards" onClick={() => this.props.updateThumbnailSection(-1, "thumbnail-backwards", 'overview')}>↑</button>
-              <button className="thumbnail-forwards" onClick={() => this.props.updateThumbnailSection(1, "thumbnail-forwards", 'overview')}>↓</button>
-            </div>
+          <div className="thumbnail-buttons">
+            <button className="thumbnail-backwards" onClick={() => this.props.updateThumbnailSection(-1, "thumbnail-backwards", 'overview')}>↑</button>
+            <button className="thumbnail-forwards" onClick={() => this.props.updateThumbnailSection(1, "thumbnail-forwards", 'overview')}>↓</button>
+          </div>
 
 
         </div>
@@ -106,9 +106,9 @@ class Thumbnail extends React.Component {
               return (
                 <div className="icon" onClick={() => this.props.updateMainPic(image.index, 'icon', 'overview')} key={i}>
                   <img className="icon-image" src={image.thumbnail_url} alt="icon-image"
-                  width="50"
-                  height="50"
-                   ></img>
+                    width="50"
+                    height="50"
+                  ></img>
                 </div>
               )
 

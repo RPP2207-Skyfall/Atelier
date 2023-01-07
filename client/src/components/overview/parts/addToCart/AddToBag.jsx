@@ -11,18 +11,18 @@ function AddToBag(props) {
 
     var url = process.env.REACT_APP_API_OVERVIEW_URL + `cart`
 
-      axios({
-        method: 'post',
-        url: url,
-        headers:
-          {
-            "Content-Type": "application/json",
-            "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
-          } ,
-        data: {
-          sku_id: bag.sku
-        }
-      })
+    axios({
+      method: 'post',
+      url: url,
+      headers:
+      {
+        "Content-Type": "application/json",
+        "Authorization": process.env.REACT_APP_API_OVERVIEW_TOKEN
+      },
+      data: {
+        sku_id: bag.sku
+      }
+    })
       .then((res) => {
         console.log(res);
       })
@@ -56,8 +56,8 @@ function AddToBag(props) {
     return (
       <div className="add-to-bag-container" data-testid="add-to-bag-unselected-test">
         <div className="add-to-bag-button" onClick={() => forceSelection('add-to-bag-button', 'overview')}>
-          <p>ADD TO BAG</p>
-          <div className="add-to-bag-plus">+</div>
+          <div>ADD TO BAG +</div>
+          {/* <span className="add-to-bag-plus">+</span> */}
         </div>
         <div className="add-to-bag-star" onClick={() => addToList('like-outfit-button', 'overview')}>☆</div>
       </div>
@@ -66,8 +66,8 @@ function AddToBag(props) {
     return (
       <div className="add-to-bag-container" data-testid="add-to-bag-selected-test">
         <div className="add-to-bag-button" onClick={() => updateCart(bag, 'add-to-bag-button', 'overview')}>
-          <p>ADD TO BAG</p>
-          <div className="add-to-bag-plus">+</div>
+          <div>ADD TO BAG +</div>
+          {/* <span className="add-to-bag-plus">+</span> */}
         </div>
         <div className="add-to-bag-star" onClick={() => addToList('like-outfit-button', 'overview')}>☆</div>
       </div>
