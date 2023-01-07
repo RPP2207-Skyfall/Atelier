@@ -126,6 +126,7 @@ class QandA extends React.Component {
   handleSearch(query) {
     var query = query.toLowerCase();
     var questionList = this.state.QA;
+    var fallBack = this.state.QA_shown;
     var result = questionList.filter(item => item.question_body.toLowerCase().includes(query));
     if (query.length >= 3) {
       this.setState({
