@@ -243,7 +243,7 @@ class Overview extends React.Component {
           rating: results[2][1],
           done: true
 
-        }
+        })
       })
       .catch((err) => {
         console.log('there is an error with teh promis.all')
